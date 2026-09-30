@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Naad">
+  <title>Naad</title>
+  <!--
+    THE MARK IS बिन्दु → नाद : a point, and sound radiating from it.
+
+    This is not a sound-wave icon with an Indian gloss applied afterwards. In the
+    tradition the project takes its vocabulary from, नाद (nāda) is sound as
+    vibration, and it is described as arising from बिन्दु (bindu) — the
+    dimensionless point. So the oldest available diagram of what sound IS happens
+    to be identical to the most legible modern icon for it: a source, and arcs.
+
+    The bindu is RED MATT and flat — no gradient, ever. It is the still thing.
+    The arcs are BLUE GLOSS and lose weight as they travel, because energy does.
+  -->
+  <defs>
+    <linearGradient id="naad-gloss" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#2E7BFF"/>
+      <stop offset="55%"  stop-color="#1559C7"/>
+      <stop offset="100%" stop-color="#0B3D8F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- arcs: three wavefronts, thinning outward -->
+  <g fill="none" stroke="url(#naad-gloss)" stroke-linecap="round">
+    <path d="M 58 26 A 46 46 0 0 1 58 102" stroke-width="11"/>
+    <path d="M 76 16 A 64 64 0 0 1 76 112" stroke-width="8"  opacity="0.66"/>
+    <path d="M 94  8 A 82 82 0 0 1 94 120" stroke-width="5.5" opacity="0.36"/>
+  </g>
+
+  <!-- the bindu: flat, matt, the origin -->
+  <circle cx="34" cy="64" r="15" fill="#B8372B"/>
+</svg>
