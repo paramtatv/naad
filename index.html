@@ -9,239 +9,346 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+Devanagari:wght@400..700&display=swap">
 <style>
   :root{
-    /* BLUE GLOSS — lacquered, saturated, with depth */
-    --blue-abyss:#04101F; --blue-deep:#07203F; --blue:#0B3D8F;
-    --blue-lit:#1559C7; --blue-bright:#2E7BFF; --blue-pale:#8FBEFF;
+    /* LIGHT GROUND — the page is airy; the OBJECTS are the glossy things */
+    --bg:#EEF3FA; --bg-2:#FFFFFF; --wash:#DCE8F8;
+    --ink:#0C1526; --ink-2:#4A5A72; --ink-3:#7A8AA3; --line:#DCE4EF;
 
-    /* RED MATT — flat, dense, never gradiented */
-    --red:#B8372B; --red-deep:#8E2A20; --red-soft:#D4533F;
+    /* GLOSS BLUE — a lacquered material, lit from upper-left */
+    --b-hi:#5FA0FF; --b:#1E63DC; --b-mid:#124BB4; --b-lo:#0A2E73; --b-pale:#B8D4FF;
 
-    --paper:#F7F8FA; --paper-2:#EDF1F6; --ink:#0A1220; --ink-2:#3A4658; --line:#D7DEE8;
-    --on-blue:#F2F6FC; --on-blue-dim:#A9C2E4; --on-blue-line:rgba(150,190,245,.22);
+    /* POLISHED RED — gloss, never matt: it has a highlight and a terminator */
+    --r-hi:#FF8A74; --r:#DC4A33; --r-mid:#C0362A; --r-lo:#8E2118;
 
     --f-display:"Archivo",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
     --f-body:"Manrope",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
     --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
     --f-dev:"Noto Serif Devanagari",Georgia,serif;
+
+    /* one lamp, upper-left — every shadow on the page agrees with it */
+    --sh-sm:0 1px 2px rgba(12,21,38,.06), 0 3px 8px rgba(12,21,38,.06);
+    --sh-md:0 2px 6px rgba(12,21,38,.06), 0 14px 34px -10px rgba(12,21,38,.16);
+    --sh-lg:0 4px 12px rgba(12,21,38,.07), 0 34px 70px -22px rgba(16,40,92,.34);
+    --sh-blue:0 10px 24px -8px rgba(30,99,220,.42), 0 40px 80px -28px rgba(10,46,115,.48);
+    --sh-red:0 6px 16px -4px rgba(220,74,51,.44), 0 18px 36px -14px rgba(142,33,24,.40);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --paper:#0A1220; --paper-2:#0E1A2C; --ink:#EEF3FA; --ink-2:#9FB2CA; --line:#1E2E46;
+      --bg:#0B1220; --bg-2:#111C2E; --wash:#15243C;
+      --ink:#EDF3FB; --ink-2:#A8B9D0; --ink-3:#7A8AA3; --line:#22314A;
+      --sh-sm:0 1px 2px rgba(0,0,0,.4), 0 3px 8px rgba(0,0,0,.3);
+      --sh-md:0 2px 6px rgba(0,0,0,.4), 0 14px 34px -10px rgba(0,0,0,.55);
+      --sh-lg:0 4px 12px rgba(0,0,0,.45), 0 34px 70px -22px rgba(0,0,0,.7);
     }
   }
   :root[data-theme="dark"]{
-    --paper:#0A1220; --paper-2:#0E1A2C; --ink:#EEF3FA; --ink-2:#9FB2CA; --line:#1E2E46;
+    --bg:#0B1220; --bg-2:#111C2E; --wash:#15243C;
+    --ink:#EDF3FB; --ink-2:#A8B9D0; --ink-3:#7A8AA3; --line:#22314A;
   }
 
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
-  body{margin:0; background:var(--paper); color:var(--ink);
-    font-family:var(--f-body); font-size:18px; line-height:1.6; -webkit-font-smoothing:antialiased}
+  body{
+    margin:0; color:var(--ink); font-family:var(--f-body); font-size:18px;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(70% 48% at 12% 0%,  rgba(95,160,255,.20) 0%, rgba(95,160,255,0) 62%),
+      radial-gradient(56% 42% at 96% 14%, rgba(220,74,51,.10) 0%, rgba(220,74,51,0) 60%),
+      var(--bg);
+    background-attachment:fixed;
+  }
   .wrap{max-width:1240px; margin:0 auto; padding:0 20px}
   @media (min-width:900px){ .wrap{padding:0 48px} }
 
-  h1,h2,h3{font-family:var(--f-display); margin:0; text-wrap:balance; letter-spacing:-0.022em; font-weight:700}
-  h1{font-size:clamp(38px,6.2vw,80px); line-height:1.03}
-  h2{font-size:clamp(29px,4.2vw,54px); line-height:1.07}
-  h3{font-size:21px; line-height:1.25; letter-spacing:-0.01em; font-weight:600}
+  h1,h2,h3{font-family:var(--f-display); margin:0; text-wrap:balance; letter-spacing:-0.024em; font-weight:700}
+  h1{font-size:clamp(38px,6vw,78px); line-height:1.04}
+  h2{font-size:clamp(29px,4.1vw,53px); line-height:1.08}
+  h3{font-size:21px; line-height:1.28; letter-spacing:-0.012em; font-weight:700}
   .num{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
-  .kicker{font-family:var(--f-mono); font-size:11.5px; font-weight:500; letter-spacing:.22em; text-transform:uppercase}
+  .kicker{font-family:var(--f-mono); font-size:11.5px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--r-mid)}
   a{color:inherit}
-  a:focus-visible,button:focus-visible{outline:3px solid var(--blue-bright); outline-offset:3px; border-radius:2px}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--b); outline-offset:3px; border-radius:4px}
 
-  /* ══ GLOSS BAND ══ */
-  .gloss{position:relative; color:var(--on-blue); overflow:hidden;
+  /* ══ THE MATERIAL SYSTEM ═══════════════════════════════════
+     Three surfaces, one lamp at upper-left. Every panel on this page is one
+     of these, so the whole layout reads as objects on a table rather than as
+     boxes on a background.                                                  */
+
+  /* 1. LACQUER — glossy blue, the hero material */
+  .lacquer{
+    position:relative; border-radius:26px; overflow:hidden; color:#fff;
     background:
-      radial-gradient(120% 90% at 18% -10%, rgba(46,123,255,.55) 0%, rgba(46,123,255,0) 58%),
-      radial-gradient(90% 70% at 90% 0%, rgba(120,180,255,.20) 0%, rgba(120,180,255,0) 55%),
-      linear-gradient(168deg, var(--blue) 0%, var(--blue-deep) 46%, var(--blue-abyss) 100%);}
-  .gloss::before{content:""; position:absolute; inset:0; pointer-events:none;
-    background:linear-gradient(104deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.075) 46%, rgba(255,255,255,0) 60%)}
-  .gloss > *{position:relative; z-index:1}
+      radial-gradient(90% 70% at 16% -6%, rgba(160,205,255,.55) 0%, rgba(160,205,255,0) 55%),
+      linear-gradient(158deg, var(--b-hi) 0%, var(--b) 26%, var(--b-mid) 58%, var(--b-lo) 100%);
+    box-shadow:var(--sh-blue);
+  }
+  /* the sweep that makes it a finished surface and not a gradient */
+  .lacquer::before{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(112deg, rgba(255,255,255,0) 26%, rgba(255,255,255,.16) 43%, rgba(255,255,255,.03) 52%, rgba(255,255,255,0) 66%);
+  }
+  /* the rim light along the top edge — one pixel, does most of the work */
+  .lacquer::after{
+    content:""; position:absolute; left:0; right:0; top:0; height:1px; pointer-events:none;
+    background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.75) 34%, rgba(255,255,255,.35) 70%, rgba(255,255,255,0));
+  }
+  .lacquer > *{position:relative; z-index:1}
 
-  /* ══ MASTHEAD ══ */
-  .mast{border-bottom:1px solid var(--on-blue-line)}
-  .mast-in{display:flex; align-items:center; gap:16px; padding:18px 0}
-  .logo{display:flex; align-items:center; gap:13px; text-decoration:none}
-  .logo svg{display:block; width:34px; height:34px; flex:0 0 auto}
-  .logo .wm{font-family:var(--f-display); font-weight:800; font-size:21px; letter-spacing:.15em; color:#fff}
-  .logo .dev{font-family:var(--f-dev); font-size:20px; color:var(--blue-pale); margin-left:2px}
-  .mast nav{margin-left:auto; display:flex; gap:30px; align-items:center}
-  .mast nav a{font-family:var(--f-mono); font-size:12px; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--on-blue-dim); text-decoration:none}
-  .mast nav a:hover{color:#fff}
-  @media (max-width:860px){ .mast nav a:not(.btn){display:none} }
+  /* 2. GLASS — white panels that catch the same light */
+  .glass{
+    background:linear-gradient(180deg, rgba(255,255,255,.98) 0%, rgba(255,255,255,.88) 100%);
+    border:1px solid rgba(255,255,255,.9); border-radius:18px;
+    box-shadow:var(--sh-md), inset 0 1px 0 rgba(255,255,255,1);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .glass{
+      background:linear-gradient(180deg, rgba(23,36,58,.96), rgba(17,28,46,.92));
+      border-color:rgba(120,160,220,.16); box-shadow:var(--sh-md), inset 0 1px 0 rgba(150,190,240,.10);
+    }
+  }
 
-  .btn{display:inline-block; background:var(--red); color:#fff !important;
-    font-family:var(--f-display); font-weight:600; font-size:16px; padding:15px 30px;
-    border-radius:2px; text-decoration:none; transition:background .18s ease}
-  .btn:hover{background:var(--red-deep)}
-  .btn.lg{font-size:18px; padding:19px 40px}
-  .mast .btn{font-family:var(--f-mono); font-size:12px; padding:11px 20px; letter-spacing:.1em; text-transform:uppercase}
+  /* 3. POLISHED RED — the accent is a lit object, not a flat fill */
+  .btn{
+    display:inline-block; border:0; border-radius:100px; cursor:pointer;
+    font-family:var(--f-display); font-weight:700; font-size:16px; letter-spacing:-0.005em;
+    color:#fff !important; text-decoration:none; padding:16px 34px; position:relative;
+    background:linear-gradient(176deg, var(--r-hi) 0%, var(--r) 34%, var(--r-mid) 78%, var(--r-lo) 100%);
+    box-shadow:var(--sh-red), inset 0 1px 0 rgba(255,255,255,.55), inset 0 -1px 0 rgba(0,0,0,.18);
+    transition:transform .16s ease, box-shadow .16s ease;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:0 10px 22px -5px rgba(220,74,51,.52), 0 26px 48px -18px rgba(142,33,24,.46), inset 0 1px 0 rgba(255,255,255,.6)}
+  .btn:active{transform:translateY(1px)}
+  .btn.lg{font-size:18px; padding:19px 42px}
+  .btn.ghost{
+    background:rgba(255,255,255,.14); box-shadow:inset 0 0 0 1px rgba(255,255,255,.4), inset 0 1px 0 rgba(255,255,255,.35);
+    backdrop-filter:blur(8px);
+  }
+  .btn.ghost:hover{background:rgba(255,255,255,.22)}
 
-  /* ══ HERO ══ */
-  .hero{padding:80px 0 0}
-  .hero .bigmark{display:flex; align-items:center; gap:26px; margin-bottom:26px}
-  .hero .bigmark svg{width:clamp(76px,11vw,124px); height:auto; flex:0 0 auto}
-  .hero .bigmark .dev{font-family:var(--f-dev); font-size:clamp(64px,11vw,124px); line-height:.86; color:#fff}
-  .hero .kicker{color:var(--blue-pale)}
-  .hero h1{margin:20px 0 0; max-width:19ch}
-  .hero h1 em{font-style:normal; color:var(--blue-pale)}
-  .hero .lede{font-size:clamp(18px,2vw,22px); color:var(--on-blue-dim); max-width:62ch; margin:26px 0 0; line-height:1.55}
-  .hero .lede b{color:#fff; font-weight:600}
-  .hero .cta{display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin:36px 0 0}
-  .hero .cta .sub{font-family:var(--f-mono); font-size:12.5px; color:var(--on-blue-dim); letter-spacing:.06em}
+  /* ══ MASTHEAD — floating glass bar ══ */
+  .mast{position:sticky; top:0; z-index:40; padding:14px 0 0}
+  .mast-in{
+    display:flex; align-items:center; gap:16px; padding:11px 14px 11px 18px;
+    border-radius:100px;
+    background:linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.76));
+    border:1px solid rgba(255,255,255,.9);
+    box-shadow:var(--sh-sm), inset 0 1px 0 #fff;
+    backdrop-filter:blur(14px) saturate(1.5);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .mast-in{
+      background:linear-gradient(180deg, rgba(23,36,58,.9), rgba(17,28,46,.78));
+      border-color:rgba(120,160,220,.2); box-shadow:var(--sh-sm), inset 0 1px 0 rgba(150,190,240,.12);
+    }
+  }
+  .logo{display:flex; align-items:center; gap:11px; text-decoration:none}
+  .logo svg{display:block; width:32px; height:32px; flex:0 0 auto;
+    filter:drop-shadow(0 2px 4px rgba(16,40,92,.28))}
+  .logo .wm{font-family:var(--f-display); font-weight:800; font-size:20px; letter-spacing:.14em; color:var(--ink)}
+  .logo .dev{font-family:var(--f-dev); font-size:19px; color:var(--b); margin-left:1px}
+  .mast nav{margin-left:auto; display:flex; gap:26px; align-items:center}
+  .mast nav a{font-family:var(--f-mono); font-size:11.5px; letter-spacing:.11em;
+    text-transform:uppercase; color:var(--ink-2); text-decoration:none}
+  .mast nav a:hover{color:var(--b)}
+  .mast .btn{font-size:12px; padding:11px 22px; font-family:var(--f-mono); letter-spacing:.09em; text-transform:uppercase}
+  @media (max-width:880px){ .mast nav a:not(.btn){display:none} }
 
-  .stats{display:grid; gap:1px; margin:72px 0 0; background:var(--on-blue-line); border-top:1px solid var(--on-blue-line)}
-  @media (min-width:760px){ .stats{grid-template-columns:repeat(4,1fr)} }
-  .stats > div{padding:28px 22px 32px}
+  /* ══ HERO — content on the light ground, the product is the lacquer slab ══ */
+  .hero{padding:66px 0 0; display:grid; gap:48px; align-items:center}
+  @media (min-width:1000px){ .hero{grid-template-columns:1.06fr .94fr; gap:60px; padding:78px 0 0} }
+  .hero .bigmark{display:flex; align-items:center; gap:22px; margin-bottom:22px}
+  .hero .bigmark svg{width:clamp(64px,8vw,92px); height:auto; flex:0 0 auto;
+    filter:drop-shadow(0 8px 18px rgba(16,40,92,.30))}
+  .hero .bigmark .dev{font-family:var(--f-dev); font-size:clamp(56px,8vw,92px); line-height:.86;
+    background:linear-gradient(168deg, var(--b-hi), var(--b) 40%, var(--b-lo));
+    -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero h1 em{font-style:normal;
+    background:linear-gradient(150deg, var(--b-hi) 0%, var(--b) 45%, var(--b-lo) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;}
+  .hero .lede{font-size:clamp(17.5px,1.8vw,20.5px); color:var(--ink-2); max-width:56ch; margin:24px 0 0; line-height:1.58}
+  .hero .lede b{color:var(--ink); font-weight:700}
+  .hero .cta{display:flex; gap:14px; flex-wrap:wrap; align-items:center; margin:34px 0 0}
+  .hero .cta .sub{font-family:var(--f-mono); font-size:12.5px; color:var(--ink-3); letter-spacing:.05em}
+
+  /* the scope lives inside a lacquer slab — this is the "product shot" */
+  .slab{padding:16px}
+  .slab .bezel{display:flex; gap:16px; flex-wrap:wrap; padding:6px 8px 14px;
+    font-family:var(--f-mono); font-size:10px; letter-spacing:.13em; text-transform:uppercase; color:rgba(220,236,255,.72)}
+  .slab .bezel b{color:#fff; font-weight:500}
+  .slab .screen{border-radius:14px; overflow:hidden; background:rgba(6,20,44,.52);
+    box-shadow:inset 0 2px 10px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.14)}
+  .slab canvas{display:block; width:100%; height:262px}
+  @media (max-width:680px){ .slab canvas{height:200px} }
+  .slab figcaption{padding:16px 8px 6px; font-size:14.5px; color:rgba(214,232,255,.82); line-height:1.5}
+  .slab figcaption b{color:#fff; font-weight:600}
+
+  /* ══ STAT PEBBLES — glossy objects, not table cells ══ */
+  .stats{display:grid; gap:16px; margin:58px 0 0}
+  @media (min-width:640px){ .stats{grid-template-columns:repeat(2,1fr)} }
+  @media (min-width:1000px){ .stats{grid-template-columns:repeat(4,1fr)} }
+  .stats > div{padding:26px 24px 28px; border-radius:18px}
   .stats .n{display:block; font-family:var(--f-display); font-weight:800;
-    font-size:clamp(40px,5.2vw,56px); line-height:1; color:#fff; letter-spacing:-0.03em}
-  .stats .n small{font-size:.40em; font-weight:600; margin-left:3px; color:var(--blue-pale)}
-  .stats .l{display:block; margin-top:14px; font-size:14.5px; line-height:1.45; color:var(--on-blue-dim)}
-
-  /* ══ SCOPE ══ */
-  .scope-band{padding:0 0 86px}
-  .scope{margin-top:64px; border-radius:4px; overflow:hidden; background:rgba(4,16,31,.55);
-    border:1px solid var(--on-blue-line); box-shadow:0 30px 80px -30px rgba(0,0,0,.7)}
-  .scope .bezel{display:flex; gap:20px; flex-wrap:wrap; padding:14px 20px; border-bottom:1px solid var(--on-blue-line);
-    font-family:var(--f-mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--on-blue-dim)}
-  .scope .bezel b{color:#fff; font-weight:500}
-  .scope canvas{display:block; width:100%; height:300px}
-  @media (max-width:680px){ .scope canvas{height:220px} }
-  .scope figcaption{padding:18px 20px 20px; border-top:1px solid var(--on-blue-line);
-    font-size:15.5px; color:var(--on-blue-dim); max-width:88ch}
-  .scope figcaption b{color:#fff; font-weight:600}
+    font-size:clamp(38px,4.4vw,48px); line-height:1; letter-spacing:-0.035em; color:var(--ink)}
+  .stats .n small{font-size:.42em; font-weight:700; margin-left:3px; color:var(--b)}
+  .stats .l{display:block; margin-top:12px; font-size:14.5px; line-height:1.45; color:var(--ink-2)}
 
   /* ══ SECTIONS ══ */
-  section{padding:96px 0}
-  .lead{max-width:60ch; font-size:19.5px; color:var(--ink-2); margin:22px 0 0}
-  .sec-head .kicker{color:var(--red); display:block; margin-bottom:16px}
-  .gloss .sec-head .kicker{color:var(--blue-pale)}
-  .gloss .lead{color:var(--on-blue-dim)}
-  .gloss h2{color:#fff}
+  section{padding:92px 0}
+  .lead{max-width:58ch; font-size:19px; color:var(--ink-2); margin:20px 0 0}
+  .sec-head .kicker{display:block; margin-bottom:14px}
 
-  .claims{display:grid; gap:28px; margin-top:56px}
-  @media (min-width:900px){ .claims{grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border-block:1px solid var(--line)} }
-  .claim{background:var(--paper); padding:34px 30px 38px}
-  .claim .idx{font-family:var(--f-mono); font-size:12px; color:var(--red); letter-spacing:.14em}
-  .claim h3{margin:14px 0 0}
-  .claim p{margin:14px 0 0; color:var(--ink-2); font-size:16.5px}
+  .claims{display:grid; gap:18px; margin-top:48px}
+  @media (min-width:900px){ .claims{grid-template-columns:repeat(3,1fr)} }
+  .claim{padding:32px 28px 34px}
+  .claim .idx{font-family:var(--f-mono); font-size:12px; color:var(--r); letter-spacing:.14em}
+  .claim h3{margin:12px 0 0}
+  .claim p{margin:13px 0 0; color:var(--ink-2); font-size:16.5px}
 
-  .sheet{margin-top:52px; border-top:2px solid var(--ink)}
-  .row{display:grid; gap:8px 32px; padding:26px 2px; border-bottom:1px solid var(--line); align-items:start}
-  @media (min-width:880px){ .row{grid-template-columns:19ch 1fr 16ch} }
-  .row .k{font-family:var(--f-mono); font-size:11.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--red); padding-top:6px}
+  /* spec sheet inside one glass panel */
+  .sheetwrap{margin-top:46px; padding:8px 30px 12px; border-radius:22px}
+  .row{display:grid; gap:8px 32px; padding:26px 0; border-bottom:1px solid var(--line); align-items:start}
+  .row:last-child{border-bottom:0}
+  @media (min-width:880px){ .row{grid-template-columns:18ch 1fr 15ch} }
+  .row .k{font-family:var(--f-mono); font-size:11px; letter-spacing:.13em; text-transform:uppercase; color:var(--r-mid); padding-top:7px}
   .row .d{color:var(--ink-2); font-size:16.5px}
-  .row .v{font-family:var(--f-display); font-weight:700; font-size:30px; letter-spacing:-0.02em; color:var(--ink); line-height:1}
+  .row .v{font-family:var(--f-display); font-weight:800; font-size:31px; letter-spacing:-0.03em; color:var(--ink); line-height:1}
   @media (min-width:880px){ .row .v{text-align:right} }
-  .row .v small{display:block; font-family:var(--f-mono); font-size:10.5px; font-weight:500; letter-spacing:.12em; color:var(--ink-2); margin-top:8px}
+  .row .v small{display:block; font-family:var(--f-mono); font-size:10px; font-weight:500; letter-spacing:.11em; color:var(--ink-3); margin-top:8px}
 
-  .checks{display:grid; gap:1px; margin-top:52px; background:var(--line); border:1px solid var(--line)}
+  .checks{display:grid; gap:16px; margin-top:44px}
   @media (min-width:820px){ .checks{grid-template-columns:1fr 1fr} }
-  .check{background:var(--paper); padding:28px 26px}
-  .check h3{font-size:18px}
-  .check h3::before{content:""; display:inline-block; width:9px; height:9px; background:var(--red); margin-right:11px; vertical-align:middle}
+  .check{padding:26px 26px 28px}
+  .check h3{font-size:18px; display:flex; align-items:center; gap:11px}
+  .check h3::before{content:""; width:11px; height:11px; border-radius:50%; flex:0 0 auto;
+    background:radial-gradient(circle at 34% 28%, var(--r-hi), var(--r) 45%, var(--r-lo));
+    box-shadow:0 1px 3px rgba(142,33,24,.5), inset 0 1px 0 rgba(255,255,255,.5)}
   .check p{margin:11px 0 0; color:var(--ink-2); font-size:16px}
 
-  .sassy{display:grid; gap:1px; margin-top:56px; background:var(--on-blue-line); border:1px solid var(--on-blue-line)}
+  /* ══ SASSEMBLY — the big lacquer block ══ */
+  .sassy{display:grid; gap:18px; margin-top:44px}
   @media (min-width:880px){ .sassy{grid-template-columns:repeat(3,1fr)} }
-  .sassy > div{background:rgba(4,16,31,.4); padding:34px 28px 38px}
-  .sassy .n{display:block; font-family:var(--f-display); font-weight:800; font-size:48px; line-height:1; color:#fff; letter-spacing:-0.03em}
-  .sassy .n small{font-size:.42em; margin-left:3px; color:var(--blue-pale)}
-  .sassy h3{margin:16px 0 0; color:#fff}
-  .sassy p{margin:11px 0 0; color:var(--on-blue-dim); font-size:16px}
+  .sassy > div{padding:30px 26px 32px; border-radius:18px;
+    background:linear-gradient(180deg, rgba(255,255,255,.17), rgba(255,255,255,.06));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 8px 20px -10px rgba(0,0,0,.45)}
+  .sassy .n{display:block; font-family:var(--f-display); font-weight:800; font-size:46px;
+    line-height:1; color:#fff; letter-spacing:-0.035em; text-shadow:0 2px 12px rgba(0,0,0,.28)}
+  .sassy .n small{font-size:.42em; margin-left:3px; color:var(--b-pale)}
+  .sassy h3{margin:15px 0 0; color:#fff}
+  .sassy p{margin:10px 0 0; color:rgba(214,232,255,.84); font-size:15.5px}
 
-  .fixpoint{margin-top:56px; padding:44px 36px; border-radius:3px; background:rgba(4,16,31,.5);
-    border:1px solid var(--on-blue-line); border-left:4px solid var(--red)}
-  .fixpoint h3{font-size:clamp(22px,3vw,30px); color:#fff; max-width:26ch}
-  .fixpoint p{margin:18px 0 0; color:var(--on-blue-dim); max-width:72ch; font-size:17.5px}
-  .fixpoint p b{color:#fff; font-weight:600}
+  .fixpoint{margin-top:22px; padding:38px 34px; border-radius:20px;
+    background:linear-gradient(180deg, rgba(8,26,60,.42), rgba(8,26,60,.22));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
+  .fixpoint h3{font-size:clamp(21px,2.7vw,29px); color:#fff; max-width:26ch}
+  .fixpoint p{margin:16px 0 0; color:rgba(214,232,255,.88); max-width:72ch; font-size:17px}
+  .fixpoint p b{color:#fff; font-weight:700}
 
-  .front{display:grid; gap:1px; margin-top:52px; background:var(--line); border:1px solid var(--line)}
-  @media (min-width:900px){ .front{grid-template-columns:1fr 1fr} }
-  .fitem{background:var(--paper); padding:32px 28px 34px; display:flex; flex-direction:column}
-  .fitem .tag{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase;
-    color:#fff; background:var(--red); display:inline-block; padding:5px 10px; align-self:flex-start}
-  .fitem .tag.build{background:var(--blue-lit)}
-  .fitem .tag.res{background:var(--ink); color:var(--paper)}
-  .fitem h3{margin:16px 0 0}
-  .fitem p{margin:12px 0 0; color:var(--ink-2); font-size:16px; flex:1}
-  .fitem .gap{display:block; margin-top:20px; padding-top:16px; border-top:1px solid var(--line);
-    font-family:var(--f-mono); font-size:13px; line-height:1.55; color:var(--ink-2)}
-  .fitem .gap b{color:var(--red); font-weight:700}
-
-  .ledger{margin-top:56px; border:1px solid var(--on-blue-line); border-radius:3px; overflow:hidden}
-  .ledger .hd{padding:16px 22px; background:rgba(4,16,31,.55); border-bottom:1px solid var(--on-blue-line)}
-  .ledger .hd span{font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--blue-pale)}
+  .ledger{margin-top:22px; border-radius:18px; overflow:hidden;
+    background:linear-gradient(180deg, rgba(8,26,60,.40), rgba(8,26,60,.20));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+  .ledger .hd{padding:15px 22px; border-bottom:1px solid rgba(255,255,255,.14)}
+  .ledger .hd span{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--b-pale)}
   .ledger ul{margin:0; padding:0; list-style:none}
-  .ledger li{display:grid; grid-template-columns:auto 1fr; gap:16px; padding:14px 22px; align-items:baseline; border-bottom:1px solid var(--on-blue-line)}
+  .ledger li{display:grid; grid-template-columns:auto 1fr; gap:14px; padding:13px 22px;
+    align-items:baseline; border-bottom:1px solid rgba(255,255,255,.08)}
   .ledger li:last-child{border-bottom:0}
-  .ledger li .st{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:#7FE3B0}
-  .ledger li span:last-child{font-size:16px; color:var(--on-blue-dim)}
+  .ledger li .st{font-family:var(--f-mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#6FE9B4}
+  .ledger li span:last-child{font-size:15.5px; color:rgba(214,232,255,.84)}
 
-  .buy{padding:104px 0}
-  .buy h2{max-width:18ch}
-  .addr{display:inline-block; margin-top:34px; font-family:var(--f-display); font-weight:700;
-    font-size:clamp(24px,4.4vw,44px); color:#fff; text-decoration:none;
-    border-bottom:3px solid var(--red); padding-bottom:6px; letter-spacing:-0.02em}
+  /* ══ FRONTIER ══ */
+  .front{display:grid; gap:18px; margin-top:44px}
+  @media (min-width:900px){ .front{grid-template-columns:1fr 1fr} }
+  .fitem{padding:30px 28px 32px; display:flex; flex-direction:column}
+  .fitem .tag{font-family:var(--f-mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+    color:#fff; display:inline-block; padding:6px 13px; border-radius:100px; align-self:flex-start;
+    background:linear-gradient(176deg, var(--r-hi), var(--r) 40%, var(--r-mid));
+    box-shadow:0 3px 8px -2px rgba(192,54,42,.5), inset 0 1px 0 rgba(255,255,255,.45)}
+  .fitem .tag.build{background:linear-gradient(176deg, var(--b-hi), var(--b) 40%, var(--b-mid));
+    box-shadow:0 3px 8px -2px rgba(18,75,180,.5), inset 0 1px 0 rgba(255,255,255,.45)}
+  .fitem .tag.res{background:linear-gradient(176deg,#8AA0BE,#54678A 40%,#33425E);
+    box-shadow:0 3px 8px -2px rgba(51,66,94,.45), inset 0 1px 0 rgba(255,255,255,.4)}
+  .fitem h3{margin:15px 0 0}
+  .fitem p{margin:11px 0 0; color:var(--ink-2); font-size:16px; flex:1}
+  .fitem .gap{display:block; margin-top:18px; padding-top:15px; border-top:1px solid var(--line);
+    font-family:var(--f-mono); font-size:12.5px; line-height:1.55; color:var(--ink-2)}
+  .fitem .gap b{color:var(--r-mid); font-weight:700}
+
+  /* ══ BUY ══ */
+  .buyslab{padding:64px 40px 56px; border-radius:30px; margin:0}
+  @media (max-width:700px){ .buyslab{padding:44px 24px 40px; border-radius:22px} }
+  .buyslab h2{color:#fff; max-width:18ch}
+  .buyslab .kicker{color:var(--b-pale)}
+  .buyslab .lead{color:rgba(214,232,255,.86)}
+  .addr{display:inline-block; margin-top:30px; font-family:var(--f-display); font-weight:800;
+    font-size:clamp(22px,4vw,40px); color:#fff; text-decoration:none; letter-spacing:-0.03em;
+    border-bottom:3px solid var(--r); padding-bottom:5px}
   .addr:hover{border-bottom-color:#fff}
-  .asks{display:grid; gap:1px; margin-top:64px; background:var(--on-blue-line); border:1px solid var(--on-blue-line)}
+  .asks{display:grid; gap:16px; margin-top:52px}
   @media (min-width:820px){ .asks{grid-template-columns:repeat(3,1fr)} }
-  .ask{background:rgba(4,16,31,.45); padding:30px 26px 32px; display:flex; flex-direction:column; gap:12px}
-  .ask .t{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--red-soft)}
-  .ask h3{color:#fff; font-size:19px}
-  .ask p{margin:0; color:var(--on-blue-dim); font-size:15.5px; flex:1}
-  .ask a{font-family:var(--f-mono); font-size:13px; color:var(--blue-pale); text-decoration:none;
-    border-bottom:1px solid rgba(143,190,255,.4); align-self:flex-start}
-  .ask a:hover{color:#fff; border-bottom-color:#fff}
+  .ask{padding:28px 24px 30px; display:flex; flex-direction:column; gap:11px; border-radius:18px;
+    background:linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.38)}
+  .ask .t{font-family:var(--f-mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:#FFB9A8}
+  .ask h3{color:#fff; font-size:18.5px}
+  .ask p{margin:0; color:rgba(214,232,255,.84); font-size:15px; flex:1}
+  .ask a{font-family:var(--f-mono); font-size:12.5px; color:#fff; text-decoration:none;
+    border-bottom:1px solid rgba(255,255,255,.45); align-self:flex-start}
+  .ask a:hover{border-bottom-color:#fff}
 
-  footer{padding:52px 0 72px; color:var(--on-blue-dim); font-size:15px; border-top:1px solid var(--on-blue-line)}
+  footer{padding:54px 0 76px; color:var(--ink-2); font-size:15px}
   footer .fmark{display:flex; align-items:center; gap:12px}
-  footer .fmark svg{width:28px; height:28px}
-  footer .fmark .dev{font-family:var(--f-dev); font-size:24px; color:#fff}
-  footer p{margin:16px 0 0; max-width:78ch}
-  footer a{color:var(--blue-pale)}
+  footer .fmark svg{width:30px; height:30px; filter:drop-shadow(0 2px 5px rgba(16,40,92,.25))}
+  footer .fmark .dev{font-family:var(--f-dev); font-size:23px; color:var(--b)}
+  footer p{margin:15px 0 0; max-width:78ch}
+  footer a{color:var(--b); font-weight:600}
 
   @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} html{scroll-behavior:auto} }
 </style>
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <linearGradient id="ng" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#2E7BFF"/><stop offset="55%" stop-color="#1559C7"/><stop offset="100%" stop-color="#0B3D8F"/>
-    </linearGradient>
-    <!-- बिन्दु → नाद : a point, and sound radiating from it. The oldest diagram
-         of what sound IS happens to be the most legible modern icon for it. -->
-    <g id="naadmark">
-      <g fill="none" stroke="url(#ng)" stroke-linecap="round">
-        <path d="M 58 26 A 46 46 0 0 1 58 102" stroke-width="11"/>
-        <path d="M 76 16 A 64 64 0 0 1 76 112" stroke-width="8" opacity=".66"/>
-        <path d="M 94 8 A 82 82 0 0 1 94 120" stroke-width="5.5" opacity=".36"/>
-      </g>
-      <circle cx="34" cy="64" r="15" fill="#B8372B"/>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <radialGradient id="bindu" cx="34%" cy="28%" r="78%">
+    <stop offset="0%" stop-color="#FF8A74"/><stop offset="32%" stop-color="#E2513A"/>
+    <stop offset="72%" stop-color="#C0362A"/><stop offset="100%" stop-color="#8E2118"/>
+  </radialGradient>
+  <linearGradient id="arc1" x1="0" y1="0" x2="0.4" y2="1">
+    <stop offset="0%" stop-color="#7FB8FF"/><stop offset="42%" stop-color="#2E7BFF"/>
+    <stop offset="100%" stop-color="#0B3D8F"/>
+  </linearGradient>
+  <linearGradient id="gleam" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity=".85"/><stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+  <!-- बिन्दु → नाद : a point, and sound radiating from it. Every surface is
+       gloss — the bindu is a lacquered sphere with its highlight up-left, and
+       the arcs carry the same light from the same lamp. -->
+  <g id="naadmark">
+    <g fill="none" stroke="url(#arc1)" stroke-linecap="round">
+      <path d="M 58 26 A 46 46 0 0 1 58 102" stroke-width="12"/>
+      <path d="M 77 15 A 65 65 0 0 1 77 113" stroke-width="8.5" opacity=".62"/>
+      <path d="M 96 6 A 84 84 0 0 1 96 122" stroke-width="5.5" opacity=".32"/>
     </g>
-  </defs>
-</svg>
+    <path d="M 58 26 A 46 46 0 0 1 92 46" fill="none" stroke="url(#gleam)" stroke-width="3.4" stroke-linecap="round" opacity=".9"/>
+    <circle cx="34" cy="64" r="16" fill="url(#bindu)"/>
+    <ellipse cx="29.5" cy="57.5" rx="6.4" ry="4.4" fill="#FFFFFF" opacity=".55" transform="rotate(-28 29.5 57.5)"/>
+  </g>
+</defs></svg>
 
-<div class="gloss">
-  <header class="mast"><div class="wrap"><div class="mast-in">
-    <a class="logo" href="#top">
-      <svg viewBox="0 0 128 128" aria-hidden="true"><use href="#naadmark"/></svg>
-      <span class="wm">NAAD</span><span class="dev">नाद</span>
-    </a>
-    <nav>
-      <a href="#proof">Proof</a>
-      <a href="#sassembly">Sassembly</a>
-      <a href="#frontier">Frontier</a>
-      <a class="btn" href="#buy">Enquire</a>
-    </nav>
-  </div></div></header>
+<header class="mast"><div class="wrap"><div class="mast-in">
+  <a class="logo" href="#top">
+    <svg viewBox="0 0 128 128" aria-hidden="true"><use href="#naadmark"/></svg>
+    <span class="wm">NAAD</span><span class="dev">नाद</span>
+  </a>
+  <nav>
+    <a href="#proof">Proof</a>
+    <a href="#sassembly">Sassembly</a>
+    <a href="#frontier">Frontier</a>
+    <a class="btn" href="#buy">Enquire</a>
+  </nav>
+</div></div></header>
 
-  <div class="wrap" id="top">
-    <div class="hero">
+<div class="wrap" id="top">
+  <div class="hero">
+    <div>
       <p class="kicker">Natural Acoustic Audio Dynamics</p>
       <div class="bigmark">
         <svg viewBox="0 0 128 128" aria-label="Naad"><use href="#naadmark"/></svg>
@@ -253,40 +360,36 @@
         vendor's binary, a dependency tree nobody has audited in a decade.
         <b>Naad rests on nothing.</b> Its decoder is 1,182 lines of Sanskrit, built by a
         toolchain that compiles <b>itself</b> to a byte-identical image, on a royalty-free
-        instruction set. Read the whole stack in an afternoon — then prove the binary matches
-        the source with your own hands.
+        instruction set.
       </p>
       <div class="cta">
         <a class="btn lg" href="#buy">Request an evaluation</a>
         <span class="sub">naad@paramtatv.org</span>
       </div>
-
-      <div class="stats">
-        <div><span class="n">1,182</span><span class="l">lines of Sanskrit in the entire decoder</span></div>
-        <div><span class="n">0</span><span class="l">lines of C, C++ or Rust beneath it</span></div>
-        <div><span class="n">12<small>MB</small></span><span class="l">the whole toolchain — compiler to linker</span></div>
-        <div><span class="n">64<small>/64</small></span><span class="l">files cleared on FLAC's adversarial corpus</span></div>
-      </div>
     </div>
-  </div>
 
-  <div class="wrap scope-band">
-    <figure class="scope">
+    <figure class="lacquer slab">
       <div class="bezel">
         <span>Signal <b>PCM 16-BIT</b></span>
         <span>Predictor <b>LPC ORDER 8</b></span>
-        <span>Residual <b>RICE, PARTITIONED</b></span>
-        <span style="margin-left:auto">Reconstruction <b>BIT-EXACT</b></span>
+        <span style="margin-left:auto">Recon <b>BIT-EXACT</b></span>
       </div>
-      <canvas id="scope" aria-label="A waveform above, and beneath it the far smaller residual that remains after prediction — the quantity a lossless codec actually stores."></canvas>
+      <div class="screen">
+        <canvas id="scope" aria-label="A waveform above, and beneath it the far smaller residual that remains after prediction — the quantity a lossless codec actually stores."></canvas>
+      </div>
       <figcaption>
-        <b>Why lossless compression works at all.</b> The upper trace is the music. The lower
-        trace, at the same scale, is what remains after the predictor guesses each sample from
-        the eight before it — the <b>residual</b>. That small, dense signal is the only thing
-        stored. The decoder adds the prediction back and the original returns exactly, sample
-        for sample, with nothing approximated.
+        <b>Why lossless compression works.</b> The upper trace is the music. The lower trace,
+        at the same scale, is what remains after the predictor guesses each sample from the
+        eight before it — the <b>residual</b>. That is the only thing stored.
       </figcaption>
     </figure>
+  </div>
+
+  <div class="stats">
+    <div class="glass"><span class="n">1,182</span><span class="l">lines of Sanskrit in the entire decoder</span></div>
+    <div class="glass"><span class="n">0</span><span class="l">lines of C, C++ or Rust beneath it</span></div>
+    <div class="glass"><span class="n">12<small>MB</small></span><span class="l">the whole toolchain — compiler to linker</span></div>
+    <div class="glass"><span class="n">64<small>/64</small></span><span class="l">files cleared on FLAC's adversarial corpus</span></div>
   </div>
 </div>
 
@@ -296,18 +399,18 @@
     <h2>Three sentences. Each one a number you can check.</h2>
   </div>
   <div class="wrap"><div class="claims">
-    <div class="claim"><span class="idx">01</span>
+    <div class="claim glass"><span class="idx">01</span>
       <h3>Identical. Not &ldquo;transparent&rdquo;.</h3>
       <p>The samples you encoded are the samples you get back — the same integers, every one.
       We will never tell you a lossless format sounds <em>warmer</em>; that claim is how you
       spot someone who has not done the arithmetic. We hand you the conformance suite
       instead.</p></div>
-    <div class="claim"><span class="idx">02</span>
+    <div class="claim glass"><span class="idx">02</span>
       <h3>Six times real time, with no C.</h3>
       <p>1,814 instructions per channel-sample on a 1&nbsp;GHz core, through a decoder with
       <em>zero</em> lines of compiled-language code beneath it. Most codecs buy their speed
       with a C runtime and a dependency tree. Naad has neither.</p></div>
-    <div class="claim"><span class="idx">03</span>
+    <div class="claim glass"><span class="idx">03</span>
       <h3>Level with FLAC, on FLAC's ground.</h3>
       <p>All 64 files of the IETF test corpus — a set built to break decoders — cleared, at
       the same size <span class="num">flac -8</span> produces. Twenty years of tuning, met by
@@ -315,7 +418,7 @@
   </div></div>
 </section>
 
-<section id="proof" style="background:var(--paper-2)">
+<section id="proof">
   <div class="wrap sec-head">
     <span class="kicker">Proof, not adjectives</span>
     <h2>Numbers you can reproduce before lunch.</h2>
@@ -323,7 +426,7 @@
       at a stated setting — reproducible by you, on your own material, today.</p>
   </div>
   <div class="wrap">
-    <div class="sheet">
+    <div class="sheetwrap glass">
       <div class="row"><span class="k">Foreign code</span>
         <span class="d">Lines of C, C++, Rust or assembly anywhere in the shipping decode path. No runtime, no dependency tree, no vendor binary. Nothing to take on trust.</span>
         <span class="v">0</span></div>
@@ -345,28 +448,28 @@
     </div>
 
     <div class="checks">
-      <div class="check"><h3>All 64 subframe type codes</h3>
+      <div class="check glass"><h3>All 64 subframe type codes</h3>
         <p>Not a selection — 39 legal codes and 25 reserved ones, each classified or refused.
-        Reserved codes are <em>refused</em> rather than masked: a decoder that masks three
-        bits and trusts them accepts a predictor order that was never written.</p></div>
-      <div class="check"><h3>All four frame-header code spaces</h3>
-        <p>16 blocksize codes, 16 sample-rate codes, 16 channel assignments, 8 bit depths —
-        and both escape forms displaced by a seven-octet frame number, because the escaped
-        field sits after the number, not beside the code that triggers it.</p></div>
-      <div class="check"><h3>Both CRCs anchored externally</h3>
+        Reserved codes are <em>refused</em> rather than masked: a decoder that masks three bits
+        and trusts them accepts a predictor order that was never written.</p></div>
+      <div class="check glass"><h3>All four frame-header code spaces</h3>
+        <p>16 blocksize codes, 16 sample-rate codes, 16 channel assignments, 8 bit depths — and
+        both escape forms displaced by a seven-octet frame number, because the escaped field
+        sits after the number, not beside the code that triggers it.</p></div>
+      <div class="check glass"><h3>Both CRCs anchored externally</h3>
         <p>CRC-8 gives <span class="num">0xF4</span> and CRC-16/UMTS gives
         <span class="num">0xFEE8</span> over <span class="num">"123456789"</span> — published
         catalogue values. A CRC checked only against another implementation of the same
         polynomial agrees on every <em>wrong</em> polynomial too.</p></div>
-      <div class="check"><h3>Fourteen deliberate defects, each caught</h3>
+      <div class="check glass"><h3>Fourteen deliberate defects, each caught</h3>
         <p>The suite runs against a sabotaged decoder — wasted bits ignored, Rice parameter
         width hardcoded, the side channel not widened — and every mutation is caught at the
         exact case built to catch it.</p></div>
-      <div class="check"><h3>Two independent engines must agree</h3>
+      <div class="check glass"><h3>Two independent engines must agree</h3>
         <p>Every result is produced twice: once by an interpreter executing the Sanskrit
         source, once by the compiled RISC-V image. A green requires both. One engine agreeing
         with itself is not evidence.</p></div>
-      <div class="check"><h3>A foreign reference, on purpose</h3>
+      <div class="check glass"><h3>A foreign reference, on purpose</h3>
         <p>The oracle every result is checked against is written in another language entirely.
         A reference written in Sanskrit and built by the same compiler would be a twin — and a
         twin cannot be a witness.</p></div>
@@ -374,16 +477,16 @@
   </div>
 </section>
 
-<div class="gloss">
-  <section id="sassembly">
-    <div class="wrap sec-head">
-      <span class="kicker">The technology</span>
-      <h2>Sassembly — a systems language whose every keyword is Sanskrit.</h2>
-      <p class="lead">Not a transliteration layer. Not a DSL over C. A complete instruction set
-        architecture and language, royalty-free, compiling to 64-bit RISC-V — and written in
-        itself.</p>
-    </div>
-    <div class="wrap">
+<section id="sassembly">
+  <div class="wrap">
+    <div class="lacquer buyslab">
+      <div class="sec-head">
+        <span class="kicker">The technology</span>
+        <h2>Sassembly — a systems language whose every keyword is Sanskrit.</h2>
+        <p class="lead">Not a transliteration layer. Not a DSL over C. A complete instruction
+          set architecture and language, royalty-free, compiling to 64-bit RISC-V — and
+          written in itself.</p>
+      </div>
       <div class="sassy">
         <div><span class="n">12<small>MB</small></span><h3>The entire toolchain</h3>
           <p>Compiler, assembler, linker, interpreter. No LLVM, no GCC, no package manager,
@@ -403,16 +506,15 @@
         <h3>The compiler compiles itself — byte for byte.</h3>
         <p>Feed Sassembly's source to Sassembly and it produces a compiler image. Feed the
         source to <b>that</b> image and it produces another — <b>byte for byte identical.</b>
-        That is a reached fixpoint, and very few toolchains on Earth can demonstrate one. It
-        means there is no privileged binary anywhere in the chain, nothing to take on faith,
-        no step where you trust a vendor instead of reading source. The stack is not merely
-        open. It is <b>auditable to the bottom</b> — and Naad sits on top of it.</p>
+        That is a reached fixpoint, and very few toolchains on Earth can demonstrate one. There
+        is no privileged binary anywhere in the chain, nothing to take on faith, no step where
+        you trust a vendor instead of reading source. The stack is not merely open. It is
+        <b>auditable to the bottom</b> — and Naad sits on top of it.</p>
         <p>The vocabulary turns out to be load-bearing. The decoder is called
         <span class="num">निःशेषम्</span> — <em>niḥśeṣam</em>, &ldquo;with no remainder&rdquo;
-        — which is not a poetic name for lossless decoding but a precise definition of it.
+        — not a poetic name for lossless decoding but a precise definition of it.
         <span class="num">नाद</span> — <em>nāda</em> — is sound considered as vibration rather
-        than as signal. A civilisation that spent centuries building the most rigorous grammar
-        ever written left behind a vocabulary that fits computing uncomfortably well.</p>
+        than as signal.</p>
       </div>
 
       <div class="ledger">
@@ -427,8 +529,8 @@
         </ul>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</section>
 
 <section id="frontier">
   <div class="wrap sec-head">
@@ -439,39 +541,38 @@
       and what we already know about closing it.</p>
   </div>
   <div class="wrap"><div class="front">
-    <div class="fitem"><span class="tag">Active · throughput</span>
+    <div class="fitem glass"><span class="tag">Active · throughput</span>
       <h3>Raw decode speed</h3>
       <p>Mature C decoders run well ahead of six times real time. Naad is fast enough to play
       anything on anything — not yet fast enough to be the obvious choice for a
       battery-powered device decoding for ten hours.</p>
       <span class="gap">Profiled to the instruction. <b>CRC-16 alone is 37% of decode time</b>
-      — it re-traverses every bit of the frame to gather octets. An octet-wise path measures
-      at <b>1.60×</b> on the whole decoder before any other work.</span></div>
+      — it re-traverses every bit of the frame to gather octets. An octet-wise path measures at
+      <b>1.60×</b> on the whole decoder before any other work.</span></div>
 
-    <div class="fitem"><span class="tag">Active · compression</span>
+    <div class="fitem glass"><span class="tag">Active · compression</span>
       <h3>Beating FLAC, not matching it</h3>
       <p>Level is the entry ticket, not the destination. Real gains now lie in longer-context
       prediction and adaptive block switching — neither of which the FLAC bitstream format was
       designed to carry.</p>
       <span class="gap">The encoder's size figure is an exact bit count of the coded stream.
-      <b>The join — that a stream of exactly that size decodes back — is not yet
-      closed.</b></span></div>
+      <b>The join — that a stream of exactly that size decodes back — is not yet closed.</b></span></div>
 
-    <div class="fitem"><span class="tag build">In build · format</span>
+    <div class="fitem glass"><span class="tag build">In build · format</span>
       <h3>Container, seeking, metadata</h3>
       <p>The frame decoder is complete and verified on two engines. Walking a file of frames,
       seeking to a timestamp, reading tags and cover art, and recovering from a damaged frame
       are the layer above it.</p>
       <span class="gap">Frame layer <b>complete</b>. Stream layer <b>in build</b>.</span></div>
 
-    <div class="fitem"><span class="tag build">In build · channels</span>
+    <div class="fitem glass"><span class="tag build">In build · channels</span>
       <h3>Beyond two channels</h3>
       <p>Mono and every stereo pairing are done and verified. Surround and ambisonic material
       parses its header today and is then <em>refused</em> rather than guessed at.</p>
       <span class="gap">An unimplemented path that <b>answers</b> is not the same as one that
       quietly returns something plausible.</span></div>
 
-    <div class="fitem"><span class="tag res">Research · perceptual</span>
+    <div class="fitem glass"><span class="tag res">Research · perceptual</span>
       <h3>Lossy, without the usual bargain</h3>
       <p>Every lossy codec in wide use discards what a psychoacoustic model from the 1990s
       decided you could not hear. There is a great deal of published work since, and almost
@@ -479,57 +580,59 @@
       <span class="gap">Nothing here ships yet. <b>We will not describe it as available until
       it is measured.</b></span></div>
 
-    <div class="fitem"><span class="tag res">Research · the long horizon</span>
+    <div class="fitem glass"><span class="tag res">Research · the long horizon</span>
       <h3>Sound as structure, not as samples</h3>
-      <p>A recording is a list of amplitudes. Music is not. The Indian tradition spent
-      centuries building a vocabulary for pitch, interval and ornament that is structural
-      rather than statistical — and a codec that understood structure would not be competing
-      on the same axis at all.</p>
+      <p>A recording is a list of amplitudes. Music is not. The Indian tradition spent centuries
+      building a vocabulary for pitch, interval and ornament that is structural rather than
+      statistical — and a codec that understood structure would not be competing on the same
+      axis at all.</p>
       <span class="gap">This is the thesis the project is actually chasing. <b>It is research,
       and this page marks it as research.</b></span></div>
   </div></div>
 </section>
 
-<div class="gloss">
-  <section class="buy" id="buy">
-    <div class="wrap sec-head">
-      <span class="kicker">Licensing &amp; evaluation</span>
-      <h2>Talk to the people who wrote the decoder.</h2>
-      <p class="lead">No forms. No sales funnel. No newsletter. Tell us what you are building
-        and we will tell you honestly whether Naad is ready for it.</p>
-      <a class="addr" href="mailto:naad@paramtatv.org">naad@paramtatv.org</a>
+<section id="buy" style="padding-top:0">
+  <div class="wrap">
+    <div class="lacquer buyslab">
+      <div class="sec-head">
+        <span class="kicker">Licensing &amp; evaluation</span>
+        <h2>Talk to the people who wrote the decoder.</h2>
+        <p class="lead">No forms. No sales funnel. No newsletter. Tell us what you are building
+          and we will tell you honestly whether Naad is ready for it.</p>
+        <a class="addr" href="mailto:naad@paramtatv.org">naad@paramtatv.org</a>
+      </div>
+      <div class="asks">
+        <div class="ask"><span class="t">Evaluation</span>
+          <h3>Run it on your own material</h3>
+          <p>The decoder, the conformance suite and the foreign oracle — run against your
+          corpus, so the numbers you act on are yours and not ours.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20evaluation&amp;body=What%20we%20want%20to%20evaluate%3A%0A%0ACorpus%20%2F%20material%3A%0A%0ATarget%20platform%3A%0A">Request an evaluation →</a></div>
+        <div class="ask"><span class="t">Embedded &amp; OEM</span>
+          <h3>Silicon that ships for a decade</h3>
+          <p>A decoder with no runtime and no dependencies, targeting RISC-V, for hardware
+          players, DACs and studio equipment that must stay serviceable long after the vendor
+          has moved on.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20embedded%20%2F%20OEM&amp;body=Product%3A%0A%0ATarget%20silicon%3A%0A%0AVolumes%20%2F%20timeline%3A%0A">Discuss an integration →</a></div>
+        <div class="ask"><span class="t">Archival</span>
+          <h3>Collections that outlive their tools</h3>
+          <p>For archives that must still decode in fifty years: an exact, integer-only decoder
+          short enough to read in full, under a toolchain that rebuilds itself from source.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20archival&amp;body=Collection%20size%20%2F%20format%3A%0A%0APreservation%20horizon%3A%0A">Ask about archival →</a></div>
+      </div>
     </div>
-    <div class="wrap"><div class="asks">
-      <div class="ask"><span class="t">Evaluation</span>
-        <h3>Run it on your own material</h3>
-        <p>The decoder, the conformance suite and the foreign oracle — run against your
-        corpus, so the numbers you act on are yours and not ours.</p>
-        <a href="mailto:naad@paramtatv.org?subject=Naad%20evaluation&amp;body=What%20we%20want%20to%20evaluate%3A%0A%0ACorpus%20%2F%20material%3A%0A%0ATarget%20platform%3A%0A">Request an evaluation →</a></div>
-      <div class="ask"><span class="t">Embedded &amp; OEM</span>
-        <h3>Silicon that ships for a decade</h3>
-        <p>A decoder with no runtime and no dependencies, targeting RISC-V, for hardware
-        players, DACs and studio equipment that must stay serviceable long after the vendor
-        has moved on.</p>
-        <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20embedded%20%2F%20OEM&amp;body=Product%3A%0A%0ATarget%20silicon%3A%0A%0AVolumes%20%2F%20timeline%3A%0A">Discuss an integration →</a></div>
-      <div class="ask"><span class="t">Archival</span>
-        <h3>Collections that outlive their tools</h3>
-        <p>For archives that must still decode in fifty years: an exact, integer-only decoder
-        short enough to read in full, under a toolchain that rebuilds itself from source.</p>
-        <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20archival&amp;body=Collection%20size%20%2F%20format%3A%0A%0APreservation%20horizon%3A%0A">Ask about archival →</a></div>
-    </div></div>
-  </section>
+  </div>
+</section>
 
-  <footer><div class="wrap">
-    <div class="fmark">
-      <svg viewBox="0 0 128 128" aria-hidden="true"><use href="#naadmark"/></svg>
-      <span class="dev">नाद</span>
-    </div>
-    <p><b style="color:#fff">Naad — Natural Acoustic Audio Dynamics.</b> Built on Sassembly.
-    Every figure on this page is reproducible from the repository, on the named corpus, at the
-    stated setting. Where work is unfinished, the frontier section says so.</p>
-    <p>Enquiries · <a href="mailto:naad@paramtatv.org">naad@paramtatv.org</a></p>
-  </div></footer>
-</div>
+<footer><div class="wrap">
+  <div class="fmark">
+    <svg viewBox="0 0 128 128" aria-hidden="true"><use href="#naadmark"/></svg>
+    <span class="dev">नाद</span>
+  </div>
+  <p><b>Naad — Natural Acoustic Audio Dynamics.</b> Built on Sassembly. Every figure on this
+  page is reproducible from the repository, on the named corpus, at the stated setting. Where
+  work is unfinished, the frontier section says so.</p>
+  <p>Enquiries · <a href="mailto:naad@paramtatv.org">naad@paramtatv.org</a></p>
+</div></footer>
 
 <script>
 (function(){
@@ -569,11 +672,14 @@
     }
     ctx.strokeStyle=colour; ctx.lineWidth=width; ctx.lineJoin='round'; ctx.lineCap='round'; ctx.stroke();
   }
-  function axis(y,label){
-    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y);
-    ctx.strokeStyle='rgba(150,190,245,.20)'; ctx.lineWidth=1; ctx.stroke();
-    ctx.font='500 10px "JetBrains Mono", monospace';
-    ctx.fillStyle='rgba(169,194,228,.85)'; ctx.fillText(label, 10, y-8);
+  // The label goes at the TOP OF ITS BAND, not on the zero line. Drawn beside
+  // the axis it landed on the waveform itself and read as a smudge.
+  function band(top, mid, label){
+    ctx.beginPath(); ctx.moveTo(0,mid); ctx.lineTo(W,mid);
+    ctx.strokeStyle='rgba(190,220,255,.22)'; ctx.lineWidth=1; ctx.stroke();
+    ctx.font='500 9.5px "JetBrains Mono", monospace';
+    ctx.fillStyle='rgba(206,229,255,.72)';
+    ctx.fillText(label, 14, top + 16);
   }
 
   // The traces are ALWAYS drawn in full — the page's first still frame must be
@@ -582,14 +688,18 @@
   function frame(ts){
     if (t0===null) t0=ts;
     ctx.clearRect(0,0,W,H);
-    var topMid=H*0.31, botMid=H*0.77, amp=H*0.21;
-    axis(topMid,'SIGNAL'); axis(botMid,'RESIDUAL — WHAT IS ACTUALLY STORED');
+    var split=H*0.54, topMid=H*0.30, botMid=H*0.78, amp=H*0.165;
+    band(0, topMid, 'SIGNAL');
+    band(split, botMid, 'RESIDUAL — WHAT IS STORED');
+    // the divider between the two bands
+    ctx.beginPath(); ctx.moveTo(0,split); ctx.lineTo(W,split);
+    ctx.strokeStyle='rgba(190,220,255,.13)'; ctx.lineWidth=1; ctx.stroke();
     trace(sig, topMid, amp, '#FFFFFF', 1.6);
-    trace(res, botMid, amp, '#2E7BFF', 1.4);
+    trace(res, botMid, amp, '#9FD8FF', 1.3);
     if (reduce) return;
     var period=5600, x=(((ts-t0)%period)/period)*W;
     ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H);
-    ctx.strokeStyle='#B8372B'; ctx.lineWidth=1.5; ctx.globalAlpha=.75; ctx.stroke(); ctx.globalAlpha=1;
+    ctx.strokeStyle='#FF8A74'; ctx.lineWidth=1.5; ctx.globalAlpha=.85; ctx.stroke(); ctx.globalAlpha=1;
     raf = requestAnimationFrame(frame);
   }
   function start(){ if(raf) cancelAnimationFrame(raf); resize(); t0=null; raf=requestAnimationFrame(frame); }

@@ -1,32 +1,46 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Naad">
   <title>Naad</title>
   <!--
-    THE MARK IS बिन्दु → नाद : a point, and sound radiating from it.
+    बिन्दु → नाद : a point, and sound radiating from it.
 
-    This is not a sound-wave icon with an Indian gloss applied afterwards. In the
-    tradition the project takes its vocabulary from, नाद (nāda) is sound as
-    vibration, and it is described as arising from बिन्दु (bindu) — the
-    dimensionless point. So the oldest available diagram of what sound IS happens
-    to be identical to the most legible modern icon for it: a source, and arcs.
+    In the tradition this project takes its vocabulary from, नाद (nāda) is sound
+    as vibration, and it arises from बिन्दु (bindu), the dimensionless point. The
+    oldest available diagram of what sound IS happens to be the most legible
+    modern icon for it.
 
-    The bindu is RED MATT and flat — no gradient, ever. It is the still thing.
-    The arcs are BLUE GLOSS and lose weight as they travel, because energy does.
+    EVERY SURFACE HERE IS GLOSS. The bindu is a lacquered sphere — a radial
+    highlight offset up-left, a saturated body, a darker terminator at the
+    lower right — not a flat disc. The arcs carry the same light from the same
+    direction, so the whole mark reads as one object under one lamp.
   -->
   <defs>
-    <linearGradient id="naad-gloss" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%"   stop-color="#2E7BFF"/>
-      <stop offset="55%"  stop-color="#1559C7"/>
+    <radialGradient id="bindu" cx="34%" cy="28%" r="78%">
+      <stop offset="0%"   stop-color="#FF8A74"/>
+      <stop offset="32%"  stop-color="#E2513A"/>
+      <stop offset="72%"  stop-color="#C0362A"/>
+      <stop offset="100%" stop-color="#8E2118"/>
+    </radialGradient>
+    <linearGradient id="arc1" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%"   stop-color="#7FB8FF"/>
+      <stop offset="42%"  stop-color="#2E7BFF"/>
       <stop offset="100%" stop-color="#0B3D8F"/>
+    </linearGradient>
+    <linearGradient id="gleam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
   </defs>
 
-  <!-- arcs: three wavefronts, thinning outward -->
-  <g fill="none" stroke="url(#naad-gloss)" stroke-linecap="round">
-    <path d="M 58 26 A 46 46 0 0 1 58 102" stroke-width="11"/>
-    <path d="M 76 16 A 64 64 0 0 1 76 112" stroke-width="8"  opacity="0.66"/>
-    <path d="M 94  8 A 82 82 0 0 1 94 120" stroke-width="5.5" opacity="0.36"/>
+  <g fill="none" stroke="url(#arc1)" stroke-linecap="round">
+    <path d="M 58 26 A 46 46 0 0 1 58 102" stroke-width="12"/>
+    <path d="M 77 15 A 65 65 0 0 1 77 113" stroke-width="8.5" opacity=".62"/>
+    <path d="M 96  6 A 84 84 0 0 1 96 122" stroke-width="5.5" opacity=".32"/>
   </g>
+  <!-- specular run along the top of the leading wavefront -->
+  <path d="M 58 26 A 46 46 0 0 1 92 46" fill="none" stroke="url(#gleam)"
+        stroke-width="3.4" stroke-linecap="round" opacity=".9"/>
 
-  <!-- the bindu: flat, matt, the origin -->
-  <circle cx="34" cy="64" r="15" fill="#B8372B"/>
+  <circle cx="34" cy="64" r="16" fill="url(#bindu)"/>
+  <ellipse cx="29.5" cy="57.5" rx="6.4" ry="4.4" fill="#FFFFFF" opacity=".55"
+           transform="rotate(-28 29.5 57.5)"/>
 </svg>
