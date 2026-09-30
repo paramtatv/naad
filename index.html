@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Naad Lossless Audio</title>
-<meta name="description" content="Natural Acoustic Audio Dynamics — the only audio codec you can audit all the way to the metal. 1,182 lines of Sanskrit, zero C, bit-exact forever.">
+<meta name="description" content="Natural Acoustic Audio Dynamics — the only audio codec you can audit all the way to the metal. 1,182 lines of Sanskrit, zero C, bit-exact forever. From Paramtatva, a frontier computing lab.">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+Devanagari:wght@400..700&display=swap">
 <style>
@@ -294,7 +294,19 @@
     border-bottom:1px solid rgba(255,255,255,.45); align-self:flex-start}
   .ask a:hover{border-bottom-color:#fff}
 
+  .lab{display:grid; gap:26px; align-items:center; margin-top:56px; padding-top:40px;
+    border-top:1px solid rgba(255,255,255,.16)}
+  @media (min-width:800px){ .lab{grid-template-columns:auto 1fr} }
+  .lab .name{font-family:var(--f-display); font-weight:800; font-size:clamp(22px,2.8vw,30px);
+    color:#fff; letter-spacing:-0.025em; line-height:1.15}
+  .lab .name span{display:block; font-family:var(--f-mono); font-weight:500; font-size:11px;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--b-pale); margin-top:9px}
+  .lab p{margin:0; color:rgba(214,232,255,.84); font-size:16px; max-width:58ch}
+
   footer{padding:54px 0 76px; color:var(--ink-2); font-size:15px}
+  footer .labline{font-family:var(--f-display); font-weight:700; color:var(--ink); font-size:17px}
+  footer .labline span{font-family:var(--f-mono); font-weight:500; font-size:11px;
+    letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3); margin-left:10px}
   footer .fmark{display:flex; align-items:center; gap:12px}
   footer .fmark svg{width:30px; height:30px; filter:drop-shadow(0 2px 5px rgba(16,40,92,.25))}
   footer .fmark .dev{font-family:var(--f-dev); font-size:23px; color:var(--b)}
@@ -486,7 +498,8 @@
         <h2>Sassembly — a systems language whose every keyword is Sanskrit.</h2>
         <p class="lead">Not a transliteration layer. Not a DSL over C. A complete instruction
           set architecture and language, royalty-free, compiling to 64-bit RISC-V — and
-          written in itself.</p>
+          written in itself. Built at <b style="color:#fff">Paramtatva</b>, a frontier
+          computing lab.</p>
       </div>
       <div class="sassy">
         <div><span class="n">12<small>MB</small></span><h3>The entire toolchain</h3>
@@ -602,6 +615,14 @@
           and we will tell you honestly whether Naad is ready for it.</p>
         <a class="addr" href="mailto:naad@paramtatv.org">naad@paramtatv.org</a>
       </div>
+      <div class="lab">
+        <div class="name">Paramtatva<span>Frontier Computing Lab</span></div>
+        <p>Naad is one of several things we build on Sassembly. The lab works on the
+        layer most of the industry treats as settled — the language, the instruction set,
+        the compiler — on the view that a stack you cannot read to the bottom is a stack
+        you do not own.</p>
+      </div>
+
       <div class="asks">
         <div class="ask"><span class="t">Evaluation</span>
           <h3>Run it on your own material</h3>
@@ -629,6 +650,7 @@
     <svg viewBox="0 0 128 128" aria-hidden="true"><use href="#naadmark"/></svg>
     <span class="dev">नाद</span>
   </div>
+  <p class="labline">Paramtatva<span>Frontier Computing Lab</span></p>
   <p><b>Naad — Natural Acoustic Audio Dynamics.</b> Built on Sassembly. Every figure on this
   page is reproducible from the repository, on the named corpus, at the stated setting. Where
   work is unfinished, the frontier section says so.</p>

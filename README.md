@@ -1,5 +1,7 @@
 # नाद · Naad
 
+**From Paramtatva — a frontier computing lab.**
+
 **Natural Acoustic Audio Dynamics** — a lossless audio codec whose entire decoder
 is 1,182 lines of Sanskrit, compiled to 64-bit RISC-V, with no foreign code
 beneath it.
@@ -30,6 +32,11 @@ Naad is a verified codec core, not yet a drop-in player. The page says so too.
 ## Enquiries
 
 <naad@paramtatv.org>
+
+Naad is one of several things Paramtatva builds on Sassembly. The lab works on
+the layer most of the industry treats as settled — the language, the instruction
+set, the compiler — on the view that a stack you cannot read to the bottom is a
+stack you do not own.
 
 ## On the claims
 
