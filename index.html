@@ -199,8 +199,11 @@
   .claims{display:grid; gap:18px; margin-top:48px}
   @media (min-width:900px){ .claims{grid-template-columns:repeat(3,1fr)} }
   .claim{padding:32px 28px 34px}
-  .claim .idx{font-family:var(--f-mono); font-size:12px; color:var(--r); letter-spacing:.14em}
-  .claim h3{margin:12px 0 0}
+  .claim .idx{font-family:var(--f-mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+    color:#fff; display:inline-block; padding:6px 12px; border-radius:100px;
+    background:linear-gradient(176deg, var(--r-hi), var(--r) 40%, var(--r-mid));
+    box-shadow:0 3px 8px -2px rgba(192,54,42,.45), inset 0 1px 0 rgba(255,255,255,.45)}
+  .claim h3{margin:16px 0 0; font-size:22px}
   .claim p{margin:13px 0 0; color:var(--ink-2); font-size:16.5px}
 
   /* spec sheet inside one glass panel */
@@ -368,11 +371,11 @@
       </div>
       <h1>The only codec you can audit <em>all the way to the metal.</em></h1>
       <p class="lede">
-        Every codec you have ever used rests on something you cannot read — a C runtime, a
-        vendor's binary, a dependency tree nobody has audited in a decade.
-        <b>Naad rests on nothing.</b> Its decoder is 1,182 lines of Sanskrit, built by a
-        toolchain that compiles <b>itself</b> to a byte-identical image, on a royalty-free
-        instruction set.
+        Streaming hands you what a model from the 1990s decided you would not miss. Naad hands
+        you <b>the master — every sample of it</b>, at six times real time, from a decoder of
+        1,182 lines you can read end to end. Built on a royalty-free instruction set, with no
+        runtime, no dependencies and no per-unit licence, so it ships in a headset as readily
+        as in a mastering chain.
       </p>
       <div class="cta">
         <a class="btn lg" href="#buy">Request an evaluation</a>
@@ -407,26 +410,30 @@
 
 <section id="claims">
   <div class="wrap sec-head">
-    <span class="kicker">The two promises</span>
+    <span class="kicker">What you get</span>
     <h2>Nothing lost. Nothing hidden.</h2>
+    <p class="lead">Three different people want three different things from a codec. Naad is
+      built for all three, and the same property serves each one.</p>
   </div>
   <div class="wrap"><div class="claims">
-    <div class="claim glass"><span class="idx">01</span>
-      <h3>Identical. Not &ldquo;transparent&rdquo;.</h3>
-      <p>The samples you encoded are the samples you get back — the same integers, every one.
-      We will never tell you a lossless format sounds <em>warmer</em>; that claim is how you
-      spot someone who has not done the arithmetic. We hand you the conformance suite
-      instead.</p></div>
-    <div class="claim glass"><span class="idx">02</span>
-      <h3>Six times real time, with no C.</h3>
-      <p>1,814 instructions per channel-sample on a 1&nbsp;GHz core, through a decoder with
-      <em>zero</em> lines of compiled-language code beneath it. Most codecs buy their speed
-      with a C runtime and a dependency tree. Naad has neither.</p></div>
-    <div class="claim glass"><span class="idx">03</span>
-      <h3>Level with FLAC, on FLAC's ground.</h3>
-      <p>All 64 files of the IETF test corpus — a set built to break decoders — cleared, at
-      the same size <span class="num">flac -8</span> produces. Twenty years of tuning, met by
-      Levinson–Durbin, apodisation and a full Rice partition search written in Sanskrit.</p></div>
+    <div class="claim glass"><span class="idx">FOR LISTENING</span>
+      <h3>Hear the master. Not a guess at it.</h3>
+      <p>Every streaming service hands you what a psychoacoustic model from the 1990s decided
+      you would not miss. Naad hands you <b>the studio master, sample for sample</b> — the
+      decay on the cymbal, the room behind the strings, the breath before the note. Nothing
+      was thrown away, so nothing has to be imagined back.</p></div>
+    <div class="claim glass"><span class="idx">FOR THE ROOM</span>
+      <h3>The night the room has to be perfect.</h3>
+      <p>Every frame costs <b>exactly the same number of instructions</b> — measured to
+      <span class="num">0.0000%</span> deviation. No garbage collector, no runtime, no
+      allocation in the decode path, nothing that can pause. Latency you budget once and
+      trust for the whole set.</p></div>
+    <div class="claim glass"><span class="idx">FOR THE PRODUCT</span>
+      <h3>Put it in the silicon.</h3>
+      <p>No runtime. No dependencies. No per-unit licence. A 1,182-line decoder targeting a
+      <b>royalty-free</b> instruction set, small enough for a headset's DSP and exact enough
+      for a mastering desk — and it will still build from source when the vendor who sold you
+      the chip is gone.</p></div>
   </div></div>
 </section>
 
@@ -610,9 +617,9 @@
     <div class="lacquer buyslab">
       <div class="sec-head">
         <span class="kicker">Licensing &amp; evaluation</span>
-        <h2>Talk to the people who wrote the decoder.</h2>
-        <p class="lead">No forms. No sales funnel. No newsletter. Tell us what you are building
-          and we will tell you honestly whether Naad is ready for it.</p>
+        <h2>Bring us the hardest thing you have.</h2>
+        <p class="lead">No forms. No funnel. No newsletter. One address, read by the people
+          who wrote the decoder — and a straight answer about what it will do for you.</p>
         <a class="addr" href="mailto:naad@paramtatv.org">naad@paramtatv.org</a>
       </div>
       <div class="lab">
@@ -624,22 +631,24 @@
       </div>
 
       <div class="asks">
-        <div class="ask"><span class="t">Evaluation</span>
-          <h3>Run it on your own material</h3>
-          <p>The decoder, the conformance suite and the foreign oracle — run against your
-          corpus, so the numbers you act on are yours and not ours.</p>
-          <a href="mailto:naad@paramtatv.org?subject=Naad%20evaluation&amp;body=What%20we%20want%20to%20evaluate%3A%0A%0ACorpus%20%2F%20material%3A%0A%0ATarget%20platform%3A%0A">Request an evaluation →</a></div>
-        <div class="ask"><span class="t">Embedded &amp; OEM</span>
-          <h3>Silicon that ships for a decade</h3>
-          <p>A decoder with no runtime and no dependencies, targeting RISC-V, for hardware
-          players, DACs and studio equipment that must stay serviceable long after the vendor
-          has moved on.</p>
-          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20embedded%20%2F%20OEM&amp;body=Product%3A%0A%0ATarget%20silicon%3A%0A%0AVolumes%20%2F%20timeline%3A%0A">Discuss an integration →</a></div>
-        <div class="ask"><span class="t">Archival</span>
-          <h3>Collections that outlive their tools</h3>
-          <p>For archives that must still decode in fifty years: an exact, integer-only decoder
-          short enough to read in full, under a toolchain that rebuilds itself from source.</p>
-          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20archival&amp;body=Collection%20size%20%2F%20format%3A%0A%0APreservation%20horizon%3A%0A">Ask about archival →</a></div>
+        <div class="ask"><span class="t">Listeners &amp; studios</span>
+          <h3>Your library, exactly as it was cut</h3>
+          <p>Run Naad against your own masters and hear the difference between a recording and
+          a reconstruction of one. Bring the material you know best — that is the only test
+          that means anything.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20listening%20%2F%20studio&amp;body=Material%20we%20work%20with%3A%0A%0ACurrent%20chain%20%2F%20formats%3A%0A%0AWhat%20we%20want%20to%20hear%3A%0A">Bring your masters →</a></div>
+        <div class="ask"><span class="t">Live &amp; installation</span>
+          <h3>Playback that does not flinch</h3>
+          <p>Constant-cost decode for rooms where a dropout is the whole night. Concert
+          playback, immersive installations, houses of worship, anywhere the system has to run
+          for six hours and never think about it.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20live%20%2F%20install&amp;body=Venue%20%2F%20system%3A%0A%0AChannel%20count%20and%20rate%3A%0A%0ALatency%20budget%3A%0A">Talk about the room →</a></div>
+        <div class="ask"><span class="t">OEM &amp; silicon</span>
+          <h3>Ship it in the hardware</h3>
+          <p>Speakers, headsets, phones, DACs, car audio, studio monitors. A decoder with no
+          runtime, no dependency tree and no per-unit royalty, on an instruction set nobody
+          charges for.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20OEM%20%2F%20silicon&amp;body=Product%20category%3A%0A%0ATarget%20silicon%20%2F%20DSP%3A%0A%0AVolumes%20and%20timeline%3A%0A">Start an integration →</a></div>
       </div>
     </div>
   </div>
