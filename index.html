@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naad Lossless Audio</title>
+<meta name="description" content="Natural Acoustic Audio Dynamics — a lossless audio codec whose entire decoder is 1,182 lines of Sanskrit you can read end to end.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+Devanagari:wght@400..700&display=swap">
+<style>
+  :root{
+    --ink:#0B0E10; --panel:#14191C; --panel-2:#1A2024; --rule:#2A3237;
+    --brass:#C8A04A; --brass-dim:#8A6E33; --champagne:#EFE4C8;
+    --trace:#5FD3C4; --text:#E8E4DA; --muted:#8B9499; --muted-2:#6B7479;
+    --ok:#7FBF7F; --warn:#D9A05B;
+    --measure:68ch;
+    --f-display:"Fraunces",Georgia,"Times New Roman",serif;
+    --f-body:"Newsreader",Georgia,"Times New Roman",serif;
+    --f-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --f-dev:"Noto Serif Devanagari","Fraunces",serif;
+  }
+  :root:not([data-theme="dark"]){}
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --ink:#F6F3EB; --panel:#EFEADD; --panel-2:#E7E1D1; --rule:#D3CBB8;
+      --brass:#8A6A1E; --brass-dim:#B49A5E; --champagne:#3A3526;
+      --trace:#1C7A6E; --text:#1A1E20; --muted:#5C6569; --muted-2:#7A8387;
+      --ok:#2F6B33; --warn:#8A5A18;
+    }
+  }
+  :root[data-theme="light"]{
+    --ink:#F6F3EB; --panel:#EFEADD; --panel-2:#E7E1D1; --rule:#D3CBB8;
+    --brass:#8A6A1E; --brass-dim:#B49A5E; --champagne:#3A3526;
+    --trace:#1C7A6E; --text:#1A1E20; --muted:#5C6569; --muted-2:#7A8387;
+    --ok:#2F6B33; --warn:#8A5A18;
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--ink); color:var(--text);
+    font-family:var(--f-body); font-size:18px; line-height:1.62;
+    font-optical-sizing:auto;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 16px}
+  @media (min-width:800px){ .wrap{padding:0 40px} }
+
+  a{color:var(--brass); text-decoration:none; border-bottom:1px solid var(--brass-dim)}
+  a:hover{border-bottom-color:var(--brass)}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--trace); outline-offset:3px}
+
+  h1,h2,h3{font-family:var(--f-display); font-weight:500; text-wrap:balance; margin:0}
+  .eyebrow{
+    font-family:var(--f-mono); font-size:11px; font-weight:500;
+    letter-spacing:.20em; text-transform:uppercase; color:var(--brass);
+  }
+  .num{font-family:var(--f-mono); font-variant-numeric:tabular-nums}
+
+  /* ── masthead ─────────────────────────────────────────── */
+  header.mast{border-bottom:1px solid var(--rule)}
+  .mast-in{display:flex; align-items:baseline; gap:18px; padding:20px 0}
+  .mark{font-family:var(--f-dev); font-size:30px; line-height:1; color:var(--brass)}
+  .wordmark{font-family:var(--f-display); font-size:20px; letter-spacing:.10em; text-transform:uppercase}
+  .mast-in .spacer{flex:1}
+  .mast-in nav{display:flex; gap:22px; font-family:var(--f-mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase}
+  .mast-in nav a{border:0; color:var(--muted)}
+  .mast-in nav a:hover{color:var(--brass)}
+  @media (max-width:720px){ .mast-in nav{display:none} }
+
+  /* ── hero ─────────────────────────────────────────────── */
+  .hero{padding:72px 0 56px}
+  .hero .dev{font-family:var(--f-dev); font-size:clamp(76px,15vw,168px); line-height:.92; color:var(--brass); margin:0}
+  .hero h1{
+    font-size:clamp(30px,4.6vw,54px); line-height:1.08; margin:14px 0 0;
+    font-variation-settings:"SOFT" 0,"WONK" 1; letter-spacing:-0.012em;
+  }
+  .hero .expand{
+    font-family:var(--f-mono); font-size:12.5px; letter-spacing:.17em;
+    text-transform:uppercase; color:var(--muted); margin-top:20px;
+  }
+  .hero p.lede{
+    font-size:21px; color:var(--champagne); max-width:var(--measure);
+    margin:26px 0 0;
+  }
+  .hero p.lede em{font-style:italic; color:var(--text)}
+
+  /* ── the instrument ───────────────────────────────────── */
+  .instrument{
+    margin:44px 0 0; background:var(--panel); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden;
+  }
+  .instrument .bezel{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    padding:12px 18px; border-bottom:1px solid var(--rule); background:var(--panel-2);
+  }
+  .instrument .bezel .lbl{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-2)}
+  .instrument .bezel .lbl b{color:var(--champagne); font-weight:500}
+  .instrument canvas{display:block; width:100%; height:290px}
+  @media (max-width:680px){ .instrument canvas{height:230px} }
+  .instrument figcaption{
+    padding:14px 18px 16px; border-top:1px solid var(--rule);
+    font-size:15.5px; color:var(--muted); max-width:82ch;
+  }
+  .instrument figcaption b{color:var(--champagne); font-weight:500}
+
+  /* ── sections ─────────────────────────────────────────── */
+  section{padding:68px 0; border-top:1px solid var(--rule)}
+  section > .wrap > .eyebrow{display:block; margin-bottom:14px}
+  h2{font-size:clamp(25px,3.2vw,36px); letter-spacing:-0.01em}
+  .sub{color:var(--muted); max-width:var(--measure); margin:16px 0 0; font-size:17.5px}
+  .body{max-width:var(--measure)}
+  .body p{margin:18px 0 0}
+  .body p:first-child{margin-top:22px}
+  .body strong{color:var(--champagne); font-weight:600}
+
+  /* ── spec sheet ───────────────────────────────────────── */
+  .sheet{margin-top:34px; border-top:1px solid var(--brass-dim)}
+  .row{
+    display:grid; grid-template-columns:1fr auto; gap:10px 28px;
+    padding:17px 2px; border-bottom:1px solid var(--rule); align-items:baseline;
+  }
+  @media (min-width:760px){ .row{grid-template-columns:20ch 1fr auto} }
+  .row .k{font-family:var(--f-mono); font-size:12px; letter-spacing:.11em; text-transform:uppercase; color:var(--brass)}
+  .row .d{color:var(--muted); font-size:16.5px}
+  .row .v{font-family:var(--f-mono); font-variant-numeric:tabular-nums; font-size:20px; color:var(--champagne); white-space:nowrap}
+  .row .v small{font-size:12px; color:var(--muted-2); letter-spacing:.06em}
+
+  /* ── plates ───────────────────────────────────────────── */
+  .plates{display:grid; gap:1px; margin-top:34px; background:var(--rule); border:1px solid var(--rule)}
+  @media (min-width:820px){ .plates{grid-template-columns:repeat(3,1fr)} }
+  .plate{background:var(--panel); padding:26px 22px}
+  .plate h3{font-size:19px; margin-bottom:10px; color:var(--champagne)}
+  .plate p{margin:0; font-size:16px; color:var(--muted)}
+  .plate .n{font-family:var(--f-mono); font-variant-numeric:tabular-nums; font-size:30px; color:var(--brass); display:block; margin-bottom:8px; line-height:1}
+
+  /* ── verification list ────────────────────────────────── */
+  .checks{margin-top:30px; display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule)}
+  @media (min-width:760px){ .checks{grid-template-columns:1fr 1fr} }
+  .check{background:var(--panel); padding:20px 22px; display:flex; gap:14px; align-items:flex-start}
+  .check .tick{font-family:var(--f-mono); color:var(--ok); font-size:14px; flex:0 0 auto; margin-top:3px}
+  .check div p{margin:4px 0 0; font-size:15.5px; color:var(--muted)}
+  .check div b{color:var(--champagne); font-weight:500; font-size:16.5px}
+
+  /* ── status ───────────────────────────────────────────── */
+  .status{margin-top:32px; border:1px solid var(--rule); background:var(--panel)}
+  .status .hd{padding:14px 20px; border-bottom:1px solid var(--rule); background:var(--panel-2)}
+  .status .hd span{font-family:var(--f-mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-2)}
+  .status ul{margin:0; padding:8px 0; list-style:none}
+  .status li{display:grid; grid-template-columns:auto 1fr; gap:14px; padding:11px 20px; align-items:baseline}
+  .status li .st{font-family:var(--f-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase}
+  .status li .st.done{color:var(--ok)} .status li .st.wip{color:var(--warn)}
+  .status li span:last-child{font-size:16px; color:var(--muted)}
+
+  /* ── buy ──────────────────────────────────────────────── */
+  .buy{background:var(--panel); border:1px solid var(--brass-dim); padding:40px 28px; margin-top:34px}
+  @media (min-width:800px){ .buy{padding:52px 48px} }
+  .buy h2{color:var(--champagne)}
+  .buy .addr{
+    font-family:var(--f-mono); font-size:clamp(19px,3.4vw,30px); color:var(--brass);
+    margin:26px 0 0; word-break:break-all; display:inline-block; border-bottom:1px solid var(--brass-dim);
+  }
+  .asks{display:grid; gap:1px; margin-top:34px; background:var(--rule); border:1px solid var(--rule)}
+  @media (min-width:760px){ .asks{grid-template-columns:repeat(3,1fr)} }
+  .ask{background:var(--panel-2); padding:22px; display:flex; flex-direction:column; gap:10px}
+  .ask .t{font-family:var(--f-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--brass)}
+  .ask p{margin:0; font-size:15.5px; color:var(--muted); flex:1}
+  .ask a{font-family:var(--f-mono); font-size:13.5px; border:0; color:var(--champagne)}
+  .ask a:hover{color:var(--brass)}
+
+  footer{border-top:1px solid var(--rule); padding:40px 0 64px; color:var(--muted-2); font-size:15px}
+  footer .dev{font-family:var(--f-dev); color:var(--brass-dim); font-size:22px}
+  footer p{margin:14px 0 0; max-width:74ch}
+
+  .note{
+    margin-top:30px; padding:18px 20px; border-left:2px solid var(--brass-dim);
+    background:var(--panel); color:var(--muted); font-size:16px; max-width:76ch;
+  }
+  .note b{color:var(--champagne); font-weight:500}
+
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important} }
+</style>
+</head>
+<body>
+
+<header class="mast"><div class="wrap"><div class="mast-in">
+  <span class="mark">नाद</span>
+  <span class="wordmark">Naad</span>
+  <span class="spacer"></span>
+  <nav>
+    <a href="#measured">Measured</a>
+    <a href="#lossless">Lossless</a>
+    <a href="#sassembly">Sassembly</a>
+    <a href="#buy">Enquire</a>
+  </nav>
+</div></div></header>
+
+<div class="wrap">
+  <div class="hero">
+    <p class="eyebrow">Natural Acoustic Audio Dynamics</p>
+    <p class="dev">नाद</p>
+    <h1>A lossless codec you can read from the first bit to the last.</h1>
+    <p class="expand">Lossless · Bit-exact · Auditable to the bottom of the stack</p>
+    <p class="lede">
+      Every lossless codec returns your samples unchanged — that is what the word means,
+      and anyone promising you a <em>warmer</em> lossless format is selling you something
+      else. What differs between them is what you can <em>verify</em>. Naad's entire
+      decoder is 1,182 lines of Sanskrit, compiled to a 64-bit RISC machine, with
+      <em>no</em> foreign code beneath it. You can read the whole thing in an afternoon.
+    </p>
+  </div>
+
+  <figure class="instrument">
+    <div class="bezel">
+      <span class="lbl">Signal <b>PCM 16-bit</b></span>
+      <span class="lbl">Predictor <b>LPC order 8</b></span>
+      <span class="lbl">Residual <b>Rice, partitioned</b></span>
+      <span class="lbl" style="margin-left:auto">Reconstruction <b>bit-exact</b></span>
+    </div>
+    <canvas id="scope" aria-label="A waveform above, and beneath it the much smaller residual that remains after prediction — the quantity a lossless codec actually stores."></canvas>
+    <figcaption>
+      <b>Why lossless compression works at all.</b> The upper trace is the music.
+      The lower trace, at the same scale, is what is left after the predictor guesses
+      each sample from the eight before it — the <b>residual</b>. That small, dense
+      signal is the only thing stored. The decoder adds the prediction back and the
+      original returns exactly, sample for sample, with nothing approximated.
+    </figcaption>
+  </figure>
+</div>
+
+<section id="measured">
+  <div class="wrap">
+    <p class="eyebrow">Measured, not claimed</p>
+    <h2>The numbers, and the conditions they were taken under.</h2>
+    <p class="sub">
+      Each figure below comes from a run in the open repository, on a named corpus,
+      at a stated setting. Where a number is parity rather than a win, it says parity.
+    </p>
+
+    <div class="sheet">
+      <div class="row">
+        <span class="k">Compression</span>
+        <span class="d">Against <span class="num">flac -8</span> on the official IETF FLAC test corpus — 64 of 64 files graded, none skipped. Naad <span class="num">52.8%</span> of raw, <span class="num">flac -8</span> <span class="num">52.7%</span>.</span>
+        <span class="v">+0.1% <small>PARITY</small></span>
+      </div>
+      <div class="row">
+        <span class="k">Decode speed</span>
+        <span class="d">Stereo mid/side, LPC order 8, partitioned Rice, CRC-8 and CRC-16 verified. 1,814 instructions per channel-sample at 44.1&nbsp;kHz, projected at 1&nbsp;GHz and 1&nbsp;IPC.</span>
+        <span class="v">6× <small>REAL TIME</small></span>
+      </div>
+      <div class="row">
+        <span class="k">Reconstruction</span>
+        <span class="d">Sample-exact. Not &ldquo;transparent&rdquo;, not &ldquo;perceptually identical&rdquo; — the same integers you put in.</span>
+        <span class="v">bit-exact</span>
+      </div>
+      <div class="row">
+        <span class="k">Decoder size</span>
+        <span class="d">Two Sanskrit source files, 21 public routines, covering every layer a FLAC frame defines.</span>
+        <span class="v">1,182 <small>LINES</small></span>
+      </div>
+      <div class="row">
+        <span class="k">Foreign code</span>
+        <span class="d">Lines of C, C++, Rust or assembly in the shipping decode path. There is no runtime, no dependency tree, and no supply chain to audit.</span>
+        <span class="v">0</span>
+      </div>
+      <div class="row">
+        <span class="k">Corpus</span>
+        <span class="d">The IETF working-group test files are adversarial by construction — &ldquo;blocksize 16&rdquo;, &ldquo;partition order 8&rdquo;, &ldquo;qlp precision 2 bit&rdquo;, &ldquo;rice partitions with escape code&rdquo;. Parity there is a stronger statement than parity on ordinary music.</span>
+        <span class="v">64 / 64</span>
+      </div>
+    </div>
+
+    <div class="note">
+      <b>What is not finished, stated plainly.</b> The frame decoder is complete and
+      verified. The container layer — walking a file of frames, seeking, metadata — is
+      in progress, as is support for more than two channels. The compression figure is
+      an exact bit count of the coded stream rather than a byte-for-byte file
+      comparison. Naad is not yet a drop-in player; it is a verified codec core.
+    </div>
+  </div>
+</section>
+
+<section id="lossless">
+  <div class="wrap">
+    <p class="eyebrow">For people who actually measure</p>
+    <h2>Three claims we will not make.</h2>
+    <div class="plates">
+      <div class="plate">
+        <h3>That it sounds better</h3>
+        <p>Lossless decoding returns the identical bitstream. Two correct lossless
+        decoders produce byte-identical output, and no cable, format or file layout
+        changes that. If a codec promises you a different <em>sound</em>, it is either
+        not lossless or not honest.</p>
+      </div>
+      <div class="plate">
+        <h3>That it is the fastest</h3>
+        <p>Mature C decoders run far ahead of 6× real time. Naad is fast <em>enough</em>,
+        with comfortable headroom on a 1&nbsp;GHz core, and it gets there without a
+        single line of C. Speed was the gate it had to pass, not the prize.</p>
+      </div>
+      <div class="plate">
+        <h3>That it compresses harder</h3>
+        <p>It reaches <span class="num">+0.1%</span> of <span class="num">flac -8</span>
+        — parity, on FLAC's own adversarial corpus, with Levinson–Durbin, apodisation
+        and a full Rice partition-order search. Matching a twenty-year-tuned reference
+        is the achievement; beating it is not claimed.</p>
+      </div>
+    </div>
+
+    <p class="eyebrow" style="display:block;margin-top:56px">What we do claim</p>
+    <h2>That you can check every one of these yourself.</h2>
+    <p class="sub">Verification here means enumeration, not sampling. Where a format
+      defines a space of codes, the test set contains all of them.</p>
+
+    <div class="checks">
+      <div class="check"><span class="tick">▪</span><div>
+        <b>All 64 subframe type codes</b>
+        <p>Not a selection. 39 legal codes and 25 reserved ones, each classified or
+        refused. The reserved codes are refused rather than masked — a decoder that
+        masks three bits and trusts them accepts a predictor order that was never written.</p>
+      </div></div>
+      <div class="check"><span class="tick">▪</span><div>
+        <b>All four frame-header code spaces</b>
+        <p>16 blocksize codes, 16 sample-rate codes, 16 channel assignments, 8 bit
+        depths, and both escape forms displaced by a seven-octet frame number — because
+        the escaped field sits after the number, not beside the code that triggers it.</p>
+      </div></div>
+      <div class="check"><span class="tick">▪</span><div>
+        <b>Both CRCs anchored externally</b>
+        <p>CRC-8 gives <span class="num">0xF4</span> and CRC-16/UMTS gives
+        <span class="num">0xFEE8</span> over <span class="num">"123456789"</span> — the
+        published catalogue values. A CRC checked only against another implementation of
+        the same polynomial agrees on every <em>wrong</em> polynomial too.</p>
+      </div></div>
+      <div class="check"><span class="tick">▪</span><div>
+        <b>Fourteen deliberate defects, each caught</b>
+        <p>The test suite is run against a sabotaged decoder — wasted bits ignored, the
+        Rice parameter width hardcoded, the side channel not widened — and every
+        mutation is caught at the exact case built to catch it.</p>
+      </div></div>
+      <div class="check"><span class="tick">▪</span><div>
+        <b>Two independent engines must agree</b>
+        <p>Every result is produced twice: once by an interpreter executing the Sanskrit
+        source, once by the compiled RISC-V image. A green requires both. One engine
+        agreeing with itself is not evidence.</p>
+      </div></div>
+      <div class="check"><span class="tick">▪</span><div>
+        <b>A foreign reference, on purpose</b>
+        <p>The oracle every result is checked against is written in another language
+        entirely. A reference written in Sanskrit and built by the same compiler would
+        be a twin, and a twin cannot be a witness.</p>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section id="sassembly">
+  <div class="wrap">
+    <p class="eyebrow">The technology</p>
+    <h2>Sassembly — a systems language written in Sanskrit.</h2>
+    <div class="body">
+      <p>Naad is not Sanskrit as decoration. <strong>Sassembly</strong> is a precise,
+      royalty-free instruction set and language whose keywords, types and operators are
+      Sanskrit words, and it compiles to 64-bit RISC-V. Its own compiler is written in
+      it: the source compiles itself to an image byte-identical to the one that built it.
+      That property — a reached fixpoint — is what makes the stack auditable rather than
+      merely open.</p>
+
+      <p>For a codec, that matters in a specific and unglamorous way.
+      <strong>The decoder never touches a floating-point number.</strong> Fitting the
+      predictor is floating-point work and lives in the encoder; quantising those
+      coefficients to integers plus a shift is the boundary, and everything after it is
+      exact arithmetic. Two machines, two decades apart, return the same samples,
+      because there is nothing in the path that could round differently.</p>
+
+      <p>And the vocabulary is load-bearing. <span class="num">निःशेषम्</span> —
+      <em>niḥśeṣam</em>, &ldquo;with no remainder&rdquo; — is the decoder's name, and it
+      is also a precise description of what lossless means. <span class="num">नाद</span>
+      — <em>nāda</em> — is sound considered as vibration rather than as signal, the term
+      the Indian tradition used for the thing itself. A field that named its concepts a
+      few thousand years ago turns out to have named them well.</p>
+    </div>
+
+    <div class="status">
+      <div class="hd"><span>Build status · verified on both engines</span></div>
+      <ul>
+        <li><span class="st done">complete</span><span>Frame header — all four code spaces enumerated, CRC-8 verified</span></li>
+        <li><span class="st done">complete</span><span>Subframe header — all 64 type codes, wasted-bits field</span></li>
+        <li><span class="st done">complete</span><span>All four subframe bodies — constant, verbatim, fixed orders 0–4, LPC orders 1–32</span></li>
+        <li><span class="st done">complete</span><span>Partitioned Rice residuals — both parameter widths, escape codes</span></li>
+        <li><span class="st done">complete</span><span>Stereo — independent, left/side, right/side, mid/side</span></li>
+        <li><span class="st done">complete</span><span>CRC-8 and CRC-16, anchored to published check values</span></li>
+        <li><span class="st wip">in progress</span><span>Container and streaming — a sequence of frames, seeking, metadata</span></li>
+        <li><span class="st wip">in progress</span><span>More than two channels</span></li>
+        <li><span class="st wip">in progress</span><span>Command-line encoder and player</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="buy">
+  <div class="wrap">
+    <div class="buy">
+      <p class="eyebrow">Licensing &amp; evaluation</p>
+      <h2>Talk to us directly.</h2>
+      <p class="sub" style="color:var(--muted)">
+        No forms, no sales funnel, no newsletter. One address, read by the people who
+        wrote the decoder. Tell us what you are building and we will tell you honestly
+        whether Naad is ready for it.
+      </p>
+      <a class="addr" href="mailto:naad@paramtatv.org">naad@paramtatv.org</a>
+
+      <div class="asks">
+        <div class="ask">
+          <span class="t">Evaluation</span>
+          <p>Run the decoder against your own corpus, with the conformance suite and the
+          foreign oracle included, and see the numbers on your material.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20evaluation&amp;body=What%20we%20want%20to%20evaluate%3A%0A%0ACorpus%20%2F%20material%3A%0A%0ATarget%20platform%3A%0A">Request an evaluation →</a>
+        </div>
+        <div class="ask">
+          <span class="t">Embedded &amp; OEM</span>
+          <p>A decoder with no runtime and no dependencies, targeting RISC-V, for
+          hardware players, DACs and studio equipment that must stay serviceable
+          for decades.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20embedded%20%2F%20OEM&amp;body=Product%3A%0A%0ATarget%20silicon%3A%0A%0AVolumes%20%2F%20timeline%3A%0A">Discuss an integration →</a>
+        </div>
+        <div class="ask">
+          <span class="t">Archival</span>
+          <p>For collections that must still decode in fifty years: an exact,
+          integer-only decoder short enough to read in full, with a
+          self-hosting toolchain.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20archival&amp;body=Collection%20size%20%2F%20format%3A%0A%0APreservation%20horizon%3A%0A">Ask about archival →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <p class="dev">नाद</p>
+  <p><strong style="color:var(--muted)">Naad — Natural Acoustic Audio Dynamics.</strong>
+  Built on Sassembly. Every figure on this page is reproducible from the repository, on
+  the named corpus, at the stated setting; where a result is parity, this page says
+  parity, and where work is unfinished it says so.</p>
+  <p>Enquiries · <a href="mailto:naad@paramtatv.org">naad@paramtatv.org</a></p>
+</div></footer>
+
+<script>
+(function(){
+  var cv = document.getElementById('scope');
+  if (!cv) return;
+  var ctx = cv.getContext('2d');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function css(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+
+  var N = 900, sig = new Float64Array(N), res = new Float64Array(N);
+
+  // A plausible musical fragment: a few partials with an envelope and a slow
+  // vibrato, plus a little noise so the residual is not artificially tidy.
+  function build(){
+    var i, t, env, v;
+    for (i=0;i<N;i++){
+      t = i/N;
+      env = Math.pow(Math.sin(Math.PI*Math.min(1,t*1.04)), 0.7);
+      v  = 0.62*Math.sin(2*Math.PI*(7.5*i/N*6 + 0.5*Math.sin(2*Math.PI*t*1.7)));
+      v += 0.26*Math.sin(2*Math.PI*(15.0*i/N*6));
+      v += 0.13*Math.sin(2*Math.PI*(22.5*i/N*6 + 1.1));
+      v += 0.05*Math.sin(2*Math.PI*(37.0*i/N*6 + 2.0));
+      v += (Math.random()-0.5)*0.02;
+      sig[i] = v*env;
+    }
+    // Second difference — the fixed order-2 predictor's residual. This is the
+    // real quantity a lossless coder stores, and it really is this much smaller.
+    for (i=0;i<N;i++){
+      res[i] = (i<2) ? 0 : sig[i] - 2*sig[i-1] + sig[i-2];
+    }
+  }
+  build();
+
+  var dpr = 1, W = 0, H = 0;
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  function trace(arr, yMid, amp, colour, width, upTo){
+    ctx.beginPath();
+    var n = Math.max(2, Math.floor(upTo*N));
+    for (var i=0;i<n;i++){
+      var x = (i/(N-1))*W;
+      var y = yMid - arr[i]*amp;
+      if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    }
+    ctx.strokeStyle = colour; ctx.lineWidth = width;
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    ctx.stroke();
+  }
+
+  function axis(y, label){
+    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y);
+    ctx.strokeStyle = css('--rule'); ctx.lineWidth = 1; ctx.stroke();
+    ctx.font = '500 10px "IBM Plex Mono", monospace';
+    ctx.fillStyle = css('--muted-2');
+    ctx.fillText(label, 8, y-7);
+  }
+
+  // THE TRACES ARE ALWAYS DRAWN IN FULL. An earlier version revealed them under
+  // a sweep, which meant the page's first still frame — a thumbnail, a shared
+  // link, a screenshot — showed a quarter of a waveform. The sweep is now a
+  // read-head passing OVER a complete picture, which is what a scope does anyway.
+  var t0 = null;
+  function frame(ts){
+    if (t0 === null) t0 = ts;
+
+    ctx.clearRect(0,0,W,H);
+    var topMid = H*0.30, botMid = H*0.76;
+    var amp = H*0.21;
+
+    axis(topMid, 'SIGNAL');
+    axis(botMid, 'RESIDUAL — WHAT IS ACTUALLY STORED');
+
+    trace(sig, topMid, amp, css('--champagne'), 1.5, 1);
+    // the residual is drawn at the SAME scale; its smallness is the point
+    trace(res, botMid, amp, css('--trace'), 1.3, 1);
+
+    if (reduce) return;
+
+    var period = 5200;
+    var x = (((ts - t0) % period) / period) * W;
+
+    // a soft leading glow, then the head itself
+    var g = ctx.createLinearGradient(Math.max(0,x-90), 0, x, 0);
+    g.addColorStop(0, 'rgba(200,160,74,0)');
+    g.addColorStop(1, 'rgba(200,160,74,0.16)');
+    ctx.fillStyle = g;
+    ctx.fillRect(Math.max(0,x-90), 0, Math.min(90,x), H);
+
+    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H);
+    ctx.strokeStyle = css('--brass'); ctx.lineWidth = 1;
+    ctx.globalAlpha = 0.55; ctx.stroke(); ctx.globalAlpha = 1;
+
+    raf = requestAnimationFrame(frame);
+  }
+
+  var raf = null;
+  function start(){
+    if (raf) cancelAnimationFrame(raf);
+    resize(); t0 = null; raf = requestAnimationFrame(frame);
+  }
+  start();
+  var rt; window.addEventListener('resize', function(){
+    clearTimeout(rt); rt = setTimeout(start, 140);
+  });
+  if (window.matchMedia){
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    if (mq.addEventListener) mq.addEventListener('change', start);
+  }
+})();
+</script>
+</body>
+</html>
