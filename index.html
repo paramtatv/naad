@@ -191,6 +191,35 @@
   .stats .n small{font-size:.42em; font-weight:700; margin-left:3px; color:var(--b)}
   .stats .l{display:block; margin-top:12px; font-size:14.5px; line-height:1.45; color:var(--ink-2)}
 
+  /* ══ FULL-BLEED VISUAL BANDS ══ */
+  .band{position:relative; margin:0; overflow:hidden}
+  .band.rounded{border-radius:30px; margin:0 auto; max-width:1240px}
+  @media (max-width:900px){ .band.rounded{border-radius:20px; margin:0 16px} }
+  .band img, .band > svg{display:block; width:100%; height:100%; object-fit:cover}
+  .band .scene{position:absolute; inset:0}
+  .band .scene img{width:100%; height:100%; object-fit:cover}
+  .band .over{position:relative; z-index:2; padding:88px 44px 76px; color:#fff}
+  @media (min-width:900px){ .band .over{padding:120px 64px 108px; max-width:62%} }
+  @media (max-width:600px){ .band .over{padding:56px 24px 52px} }
+  .band .over h2{color:#fff; text-shadow:0 3px 30px rgba(0,0,0,.55)}
+  .band .over p{margin:18px 0 0; font-size:clamp(17px,1.9vw,20px); color:rgba(226,239,255,.94);
+    max-width:46ch; text-shadow:0 2px 18px rgba(0,0,0,.5)}
+  .band .over .kicker{color:#FFC0AF}
+  .band .over .cta{display:flex; gap:14px; flex-wrap:wrap; margin-top:32px}
+  .band .figure{display:flex; gap:34px; flex-wrap:wrap; margin-top:34px}
+  .band .figure div{min-width:130px}
+  .band .figure .n{display:block; font-family:var(--f-display); font-weight:800;
+    font-size:clamp(28px,3.4vw,40px); line-height:1; letter-spacing:-0.03em; color:#fff}
+  .band .figure .l{display:block; margin-top:8px; font-family:var(--f-mono); font-size:10.5px;
+    letter-spacing:.14em; text-transform:uppercase; color:rgba(200,225,255,.82)}
+
+  /* device strip */
+  .devices{margin-top:44px; padding:38px 30px 30px; border-radius:22px}
+  .devices svg{width:100%; height:auto; display:block}
+  .devlabels{display:flex; justify-content:space-between; gap:12px; margin-top:14px; flex-wrap:wrap}
+  .devlabels span{font-family:var(--f-mono); font-size:10px; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--ink-3); flex:1; text-align:center; min-width:74px}
+
   /* ══ SECTIONS ══ */
   section{padding:92px 0}
   .lead{max-width:58ch; font-size:19px; color:var(--ink-2); margin:20px 0 0}
@@ -354,9 +383,9 @@
     <span class="wm">NAAD</span><span class="dev">नाद</span>
   </a>
   <nav>
-    <a href="#proof">Proof</a>
-    <a href="#sassembly">Sassembly</a>
-    <a href="#frontier">Frontier</a>
+    <a href="#live">Live</a>
+    <a href="#hardware">Hardware</a>
+    <a href="#proof">Engineering</a>
     <a class="btn" href="#buy">Enquire</a>
   </nav>
 </div></div></header>
@@ -369,44 +398,73 @@
         <svg viewBox="0 0 128 128" aria-label="Naad"><use href="#naadmark"/></svg>
         <span class="dev">नाद</span>
       </div>
-      <h1>The only codec you can audit <em>all the way to the metal.</em></h1>
+      <h1>Hear it the way <em>it was played.</em></h1>
       <p class="lede">
-        Streaming hands you what a model from the 1990s decided you would not miss. Naad hands
-        you <b>the master — every sample of it</b>, at six times real time, from a decoder of
-        1,182 lines you can read end to end. Built on a royalty-free instruction set, with no
-        runtime, no dependencies and no per-unit licence, so it ships in a headset as readily
-        as in a mastering chain.
+        Streaming gives you what a model from the 1990s decided you would not miss.
+        <b>Naad gives you the master — every sample of it.</b>
       </p>
       <div class="cta">
-        <a class="btn lg" href="#buy">Request an evaluation</a>
-        <span class="sub">naad@paramtatv.org</span>
+        <a class="btn lg" href="#live">For the booth</a>
+        <a class="btn lg ghost" href="#hardware" style="color:var(--ink) !important; background:rgba(255,255,255,.6); box-shadow:var(--sh-sm), inset 0 0 0 1px rgba(255,255,255,.9)">For hardware</a>
       </div>
     </div>
 
     <figure class="lacquer slab">
       <div class="bezel">
         <span>Signal <b>PCM 16-BIT</b></span>
-        <span>Predictor <b>LPC ORDER 8</b></span>
         <span style="margin-left:auto">Recon <b>BIT-EXACT</b></span>
       </div>
       <div class="screen">
-        <canvas id="scope" aria-label="A waveform above, and beneath it the far smaller residual that remains after prediction — the quantity a lossless codec actually stores."></canvas>
+        <canvas id="scope" aria-label="A waveform above, and beneath it the far smaller residual a lossless codec actually stores."></canvas>
       </div>
-      <figcaption>
-        <b>Why lossless compression works.</b> The upper trace is the music. The lower trace,
-        at the same scale, is what remains after the predictor guesses each sample from the
-        eight before it — the <b>residual</b>. That is the only thing stored.
-      </figcaption>
+      <figcaption><b>The upper trace is the music.</b> The lower one is all that gets stored —
+      the decoder puts the rest back exactly.</figcaption>
     </figure>
   </div>
-
-  <div class="stats">
-    <div class="glass"><span class="n">1,182</span><span class="l">lines of Sanskrit in the entire decoder</span></div>
-    <div class="glass"><span class="n">0</span><span class="l">lines of C, C++ or Rust beneath it</span></div>
-    <div class="glass"><span class="n">12<small>MB</small></span><span class="l">the whole toolchain — compiler to linker</span></div>
-    <div class="glass"><span class="n">64<small>/64</small></span><span class="l">files cleared on FLAC's adversarial corpus</span></div>
-  </div>
 </div>
+
+<!-- ══ EUPHORIA ══ -->
+<section id="live" style="padding:70px 0">
+  <div class="band rounded">
+    <div class="scene"><img src="concert.svg" alt="A crowd under stage lights"></div>
+    <div class="over">
+      <span class="kicker">Live · clubs · festivals · install</span>
+      <h2>Six hours. Not one dropout.</h2>
+      <p>Every frame costs the <b>same instruction count</b> — no garbage collector, no runtime,
+      nothing that can pause mid-set. The floor never hears the machine.</p>
+      <div class="figure">
+        <div><span class="n">0.0000%</span><span class="l">frame-to-frame drift</span></div>
+        <div><span class="n">6×</span><span class="l">real-time headroom</span></div>
+        <div><span class="n">0</span><span class="l">allocations while decoding</span></div>
+      </div>
+      <div class="cta">
+        <a class="btn lg" href="mailto:naad@paramtatv.org?subject=Naad%20for%20DJs%20%2F%20live&amp;body=Where%20I%20play%3A%0A%0ARig%20%2F%20controller%3A%0A%0ALibrary%20format%3A%0A">DJs &amp; live engineers →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HARDWARE ══ -->
+<section id="hardware" style="padding:26px 0 80px">
+  <div class="wrap sec-head">
+    <span class="kicker">Built in, not bolted on</span>
+    <h2>Small enough for a headset. Exact enough for a mastering desk.</h2>
+    <p class="lead">No runtime. No dependency tree. <b>No per-unit royalty.</b> A 1,182-line
+      decoder on a royalty-free instruction set.</p>
+  </div>
+  <div class="wrap">
+    <div class="devices glass">
+      <img src="devices.svg" alt="Headphones, speaker, phone, DAC, car audio, studio monitor">
+      <div class="devlabels">
+        <span>Headphones</span><span>Speakers</span><span>Phones</span>
+        <span>DACs &amp; amps</span><span>Car audio</span><span>Monitors</span>
+      </div>
+    </div>
+    <div class="cta" style="margin-top:30px; display:flex; gap:14px; flex-wrap:wrap">
+      <a class="btn lg" href="mailto:naad@paramtatv.org?subject=Naad%20for%20OEM%20%2F%20silicon&amp;body=Product%20category%3A%0A%0ATarget%20silicon%20%2F%20DSP%3A%0A%0AVolumes%20and%20timeline%3A%0A">Start an integration →</a>
+    </div>
+  </div>
+</section>
 
 <section id="claims">
   <div class="wrap sec-head">
@@ -418,23 +476,66 @@
   <div class="wrap"><div class="claims">
     <div class="claim glass"><span class="idx">FOR LISTENING</span>
       <h3>Hear the master. Not a guess at it.</h3>
-      <p>Every streaming service hands you what a psychoacoustic model from the 1990s decided
-      you would not miss. Naad hands you <b>the studio master, sample for sample</b> — the
-      decay on the cymbal, the room behind the strings, the breath before the note. Nothing
-      was thrown away, so nothing has to be imagined back.</p></div>
+      <p>The decay on the cymbal. The room behind the strings. The breath before the note. Nothing was thrown away, so nothing has to be imagined back.</p></div>
     <div class="claim glass"><span class="idx">FOR THE ROOM</span>
       <h3>The night the room has to be perfect.</h3>
-      <p>Every frame costs <b>exactly the same number of instructions</b> — measured to
-      <span class="num">0.0000%</span> deviation. No garbage collector, no runtime, no
-      allocation in the decode path, nothing that can pause. Latency you budget once and
-      trust for the whole set.</p></div>
+      <p>Latency you budget once and trust for the whole set. Measured to
+      <span class="num">0.0000%</span> drift, frame to frame.</p></div>
     <div class="claim glass"><span class="idx">FOR THE PRODUCT</span>
       <h3>Put it in the silicon.</h3>
-      <p>No runtime. No dependencies. No per-unit licence. A 1,182-line decoder targeting a
-      <b>royalty-free</b> instruction set, small enough for a headset's DSP and exact enough
-      for a mastering desk — and it will still build from source when the vendor who sold you
-      the chip is gone.</p></div>
+      <p>Still builds from source when the vendor who sold you the chip is gone. No royalty,
+      ever.</p></div>
   </div></div>
+</section>
+
+<section id="buy" style="padding-top:0">
+  <div class="wrap">
+    <div class="lacquer buyslab">
+      <div class="sec-head">
+        <span class="kicker">Licensing &amp; evaluation</span>
+        <h2>Bring us the hardest thing you have.</h2>
+        <p class="lead">No forms. No funnel. No newsletter. One address, read by the people
+          who wrote the decoder — and a straight answer about what it will do for you.</p>
+        <a class="addr" href="mailto:naad@paramtatv.org">naad@paramtatv.org</a>
+      </div>
+      <div class="lab">
+        <div class="name">Paramtatva<span>Frontier Computing Lab</span></div>
+        <p>Naad is one of several things we build on Sassembly. The lab works on the
+        layer most of the industry treats as settled — the language, the instruction set,
+        the compiler — on the view that a stack you cannot read to the bottom is a stack
+        you do not own.</p>
+      </div>
+
+      <div class="asks">
+        <div class="ask"><span class="t">Listeners &amp; studios</span>
+          <h3>Your library, exactly as it was cut</h3>
+          <p>Run Naad against your own masters and hear the difference between a recording and
+          a reconstruction of one. Bring the material you know best — that is the only test
+          that means anything.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20listening%20%2F%20studio&amp;body=Material%20we%20work%20with%3A%0A%0ACurrent%20chain%20%2F%20formats%3A%0A%0AWhat%20we%20want%20to%20hear%3A%0A">Bring your masters →</a></div>
+        <div class="ask"><span class="t">Live &amp; installation</span>
+          <h3>Playback that does not flinch</h3>
+          <p>Constant-cost decode for rooms where a dropout is the whole night. Concert
+          playback, immersive installations, houses of worship, anywhere the system has to run
+          for six hours and never think about it.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20live%20%2F%20install&amp;body=Venue%20%2F%20system%3A%0A%0AChannel%20count%20and%20rate%3A%0A%0ALatency%20budget%3A%0A">Talk about the room →</a></div>
+        <div class="ask"><span class="t">OEM &amp; silicon</span>
+          <h3>Ship it in the hardware</h3>
+          <p>Speakers, headsets, phones, DACs, car audio, studio monitors. A decoder with no
+          runtime, no dependency tree and no per-unit royalty, on an instruction set nobody
+          charges for.</p>
+          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20OEM%20%2F%20silicon&amp;body=Product%20category%3A%0A%0ATarget%20silicon%20%2F%20DSP%3A%0A%0AVolumes%20and%20timeline%3A%0A">Start an integration →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding:20px 0 0">
+  <div class="wrap">
+    <div style="border-top:1px solid var(--line); padding-top:34px">
+      <span class="kicker">Below · how it is built and how it is proved</span>
+    </div>
+  </div>
 </section>
 
 <section id="proof">
@@ -469,30 +570,20 @@
 
     <div class="checks">
       <div class="check glass"><h3>All 64 subframe type codes</h3>
-        <p>Not a selection — 39 legal codes and 25 reserved ones, each classified or refused.
-        Reserved codes are <em>refused</em> rather than masked: a decoder that masks three bits
-        and trusts them accepts a predictor order that was never written.</p></div>
+        <p>39 legal, 25 reserved — each classified or refused, never masked.</p></div>
       <div class="check glass"><h3>All four frame-header code spaces</h3>
-        <p>16 blocksize codes, 16 sample-rate codes, 16 channel assignments, 8 bit depths — and
-        both escape forms displaced by a seven-octet frame number, because the escaped field
-        sits after the number, not beside the code that triggers it.</p></div>
+        <p>16 blocksize, 16 sample-rate, 16 channel, 8 depth — plus both escape forms.</p></div>
       <div class="check glass"><h3>Both CRCs anchored externally</h3>
-        <p>CRC-8 gives <span class="num">0xF4</span> and CRC-16/UMTS gives
-        <span class="num">0xFEE8</span> over <span class="num">"123456789"</span> — published
-        catalogue values. A CRC checked only against another implementation of the same
-        polynomial agrees on every <em>wrong</em> polynomial too.</p></div>
+        <p><span class="num">0xF4</span> and <span class="num">0xFEE8</span> — the published
+        catalogue values, not our own implementation agreeing with itself.</p></div>
       <div class="check glass"><h3>Fourteen deliberate defects, each caught</h3>
-        <p>The suite runs against a sabotaged decoder — wasted bits ignored, Rice parameter
-        width hardcoded, the side channel not widened — and every mutation is caught at the
-        exact case built to catch it.</p></div>
-      <div class="check glass"><h3>Two independent engines must agree</h3>
-        <p>Every result is produced twice: once by an interpreter executing the Sanskrit
-        source, once by the compiled RISC-V image. A green requires both. One engine agreeing
-        with itself is not evidence.</p></div>
+        <p>The suite runs against a sabotaged decoder. Every mutation fails at the exact case
+        built to catch it.</p></div>
+      <div class="check glass"><h3>Two engines must agree</h3>
+        <p>An interpreter on the source and the compiled RISC-V image. Both, or it is not a
+        pass.</p></div>
       <div class="check glass"><h3>A foreign reference, on purpose</h3>
-        <p>The oracle every result is checked against is written in another language entirely.
-        A reference written in Sanskrit and built by the same compiler would be a twin — and a
-        twin cannot be a witness.</p></div>
+        <p>The oracle is written in another language. A twin cannot be a witness.</p></div>
     </div>
   </div>
 </section>
@@ -610,48 +701,6 @@
       <span class="gap">This is the thesis the project is actually chasing. <b>It is research,
       and this page marks it as research.</b></span></div>
   </div></div>
-</section>
-
-<section id="buy" style="padding-top:0">
-  <div class="wrap">
-    <div class="lacquer buyslab">
-      <div class="sec-head">
-        <span class="kicker">Licensing &amp; evaluation</span>
-        <h2>Bring us the hardest thing you have.</h2>
-        <p class="lead">No forms. No funnel. No newsletter. One address, read by the people
-          who wrote the decoder — and a straight answer about what it will do for you.</p>
-        <a class="addr" href="mailto:naad@paramtatv.org">naad@paramtatv.org</a>
-      </div>
-      <div class="lab">
-        <div class="name">Paramtatva<span>Frontier Computing Lab</span></div>
-        <p>Naad is one of several things we build on Sassembly. The lab works on the
-        layer most of the industry treats as settled — the language, the instruction set,
-        the compiler — on the view that a stack you cannot read to the bottom is a stack
-        you do not own.</p>
-      </div>
-
-      <div class="asks">
-        <div class="ask"><span class="t">Listeners &amp; studios</span>
-          <h3>Your library, exactly as it was cut</h3>
-          <p>Run Naad against your own masters and hear the difference between a recording and
-          a reconstruction of one. Bring the material you know best — that is the only test
-          that means anything.</p>
-          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20listening%20%2F%20studio&amp;body=Material%20we%20work%20with%3A%0A%0ACurrent%20chain%20%2F%20formats%3A%0A%0AWhat%20we%20want%20to%20hear%3A%0A">Bring your masters →</a></div>
-        <div class="ask"><span class="t">Live &amp; installation</span>
-          <h3>Playback that does not flinch</h3>
-          <p>Constant-cost decode for rooms where a dropout is the whole night. Concert
-          playback, immersive installations, houses of worship, anywhere the system has to run
-          for six hours and never think about it.</p>
-          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20live%20%2F%20install&amp;body=Venue%20%2F%20system%3A%0A%0AChannel%20count%20and%20rate%3A%0A%0ALatency%20budget%3A%0A">Talk about the room →</a></div>
-        <div class="ask"><span class="t">OEM &amp; silicon</span>
-          <h3>Ship it in the hardware</h3>
-          <p>Speakers, headsets, phones, DACs, car audio, studio monitors. A decoder with no
-          runtime, no dependency tree and no per-unit royalty, on an instruction set nobody
-          charges for.</p>
-          <a href="mailto:naad@paramtatv.org?subject=Naad%20for%20OEM%20%2F%20silicon&amp;body=Product%20category%3A%0A%0ATarget%20silicon%20%2F%20DSP%3A%0A%0AVolumes%20and%20timeline%3A%0A">Start an integration →</a></div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <footer><div class="wrap">
