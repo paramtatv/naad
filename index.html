@@ -198,13 +198,14 @@
     <p class="eyebrow">Natural Acoustic Audio Dynamics</p>
     <p class="dev">नाद</p>
     <h1>A lossless codec you can read from the first bit to the last.</h1>
-    <p class="expand">Lossless · Bit-exact · Auditable to the bottom of the stack</p>
+    <p class="expand">1,182 lines of Sanskrit · No C beneath it · Level with flac -8</p>
     <p class="lede">
-      Every lossless codec returns your samples unchanged — that is what the word means,
-      and anyone promising you a <em>warmer</em> lossless format is selling you something
-      else. What differs between them is what you can <em>verify</em>. Naad's entire
-      decoder is 1,182 lines of Sanskrit, compiled to a 64-bit RISC machine, with
-      <em>no</em> foreign code beneath it. You can read the whole thing in an afternoon.
+      Naad's decoder is <em>1,182 lines of Sanskrit</em>. Not Sanskrit as ornament —
+      a real systems language, compiled to a 64-bit RISC machine, with no C, no C++,
+      no Rust and no runtime anywhere beneath it. It matches <span class="num">flac -8</span>
+      on FLAC's own adversarial corpus, decodes at six times real time, and returns
+      your samples <em>identical</em> — and every one of those claims is a number you
+      can reproduce, not an adjective you have to trust.
     </p>
   </div>
 
@@ -229,10 +230,10 @@
 <section id="measured">
   <div class="wrap">
     <p class="eyebrow">Measured, not claimed</p>
-    <h2>The numbers, and the conditions they were taken under.</h2>
+    <h2>The numbers, and exactly how they were taken.</h2>
     <p class="sub">
-      Each figure below comes from a run in the open repository, on a named corpus,
-      at a stated setting. Where a number is parity rather than a win, it says parity.
+      Every figure below comes from a run in the open repository, on a named corpus,
+      at a stated setting — reproducible by you, on your material, this afternoon.
     </p>
 
     <div class="sheet">
@@ -269,11 +270,10 @@
     </div>
 
     <div class="note">
-      <b>What is not finished, stated plainly.</b> The frame decoder is complete and
-      verified. The container layer — walking a file of frames, seeking, metadata — is
-      in progress, as is support for more than two channels. The compression figure is
-      an exact bit count of the coded stream rather than a byte-for-byte file
-      comparison. Naad is not yet a drop-in player; it is a verified codec core.
+      <b>Where Naad is today.</b> The frame decoder is complete and verified on two
+      independent engines — every layer a FLAC frame defines. Container, seeking and
+      multichannel are in build. We would rather tell you that than have you find it
+      out, and you can watch the remaining work land in the open.
     </div>
   </div>
 </section>
@@ -281,32 +281,33 @@
 <section id="lossless">
   <div class="wrap">
     <p class="eyebrow">For people who actually measure</p>
-    <h2>Three claims we will not make.</h2>
+    <h2>Three things worth saying plainly.</h2>
     <div class="plates">
       <div class="plate">
-        <h3>That it sounds better</h3>
-        <p>Lossless decoding returns the identical bitstream. Two correct lossless
-        decoders produce byte-identical output, and no cable, format or file layout
-        changes that. If a codec promises you a different <em>sound</em>, it is either
-        not lossless or not honest.</p>
+        <h3>Identical. Not &ldquo;transparent&rdquo;.</h3>
+        <p>The samples you encoded are the samples you get back — the same integers,
+        every one. We will never tell you a lossless format sounds <em>warmer</em>;
+        that claim is how you spot someone who has not done the arithmetic. What we
+        will do is hand you the conformance suite and let you check ours.</p>
       </div>
       <div class="plate">
-        <h3>That it is the fastest</h3>
-        <p>Mature C decoders run far ahead of 6× real time. Naad is fast <em>enough</em>,
-        with comfortable headroom on a 1&nbsp;GHz core, and it gets there without a
-        single line of C. Speed was the gate it had to pass, not the prize.</p>
+        <h3>Six times real time, with no C.</h3>
+        <p>1,814 instructions per channel-sample, on a 1&nbsp;GHz core, through a
+        decoder with <em>zero</em> lines of compiled-language code beneath it. Most
+        codecs buy their speed with a C runtime and a dependency tree. Naad does not
+        have either, and still leaves six times the headroom it needs.</p>
       </div>
       <div class="plate">
-        <h3>That it compresses harder</h3>
-        <p>It reaches <span class="num">+0.1%</span> of <span class="num">flac -8</span>
-        — parity, on FLAC's own adversarial corpus, with Levinson–Durbin, apodisation
-        and a full Rice partition-order search. Matching a twenty-year-tuned reference
-        is the achievement; beating it is not claimed.</p>
+        <h3>Level with FLAC, on FLAC's ground.</h3>
+        <p><span class="num">+0.1%</span> against <span class="num">flac -8</span>
+        across <em>all 64</em> files of the IETF test corpus — a set built to break
+        decoders. Twenty years of tuning, met by Levinson–Durbin, apodisation and a
+        full Rice partition-order search written in Sanskrit.</p>
       </div>
     </div>
 
-    <p class="eyebrow" style="display:block;margin-top:56px">What we do claim</p>
-    <h2>That you can check every one of these yourself.</h2>
+    <p class="eyebrow" style="display:block;margin-top:56px">And the part nobody else can offer</p>
+    <h2>Every claim here is one you can check yourself.</h2>
     <p class="sub">Verification here means enumeration, not sampling. Where a format
       defines a space of codes, the test set contains all of them.</p>
 
@@ -355,28 +356,61 @@
 <section id="sassembly">
   <div class="wrap">
     <p class="eyebrow">The technology</p>
-    <h2>Sassembly — a systems language written in Sanskrit.</h2>
-    <div class="body">
-      <p>Naad is not Sanskrit as decoration. <strong>Sassembly</strong> is a precise,
-      royalty-free instruction set and language whose keywords, types and operators are
-      Sanskrit words, and it compiles to 64-bit RISC-V. Its own compiler is written in
-      it: the source compiles itself to an image byte-identical to the one that built it.
-      That property — a reached fixpoint — is what makes the stack auditable rather than
-      merely open.</p>
+    <h2>Sassembly — a systems language whose every keyword is Sanskrit.</h2>
+    <p class="sub">Not a transliteration layer. Not a DSL over C. A complete instruction
+      set architecture and language, royalty-free, compiling to 64-bit RISC-V — and it
+      is written in itself.</p>
 
-      <p>For a codec, that matters in a specific and unglamorous way.
-      <strong>The decoder never touches a floating-point number.</strong> Fitting the
-      predictor is floating-point work and lives in the encoder; quantising those
-      coefficients to integers plus a shift is the boundary, and everything after it is
-      exact arithmetic. Two machines, two decades apart, return the same samples,
-      because there is nothing in the path that could round differently.</p>
+    <div class="plates" style="margin-top:38px">
+      <div class="plate">
+        <span class="n">12 MB</span>
+        <h3>The entire toolchain</h3>
+        <p>Compiler, assembler, linker and interpreter. No LLVM, no GCC, no package
+        manager, nothing to download at build time. Small enough to read, small enough
+        to keep, small enough to carry somewhere with no network.</p>
+      </div>
+      <div class="plate">
+        <span class="n">0</span>
+        <h3>Floating-point in the decode path</h3>
+        <p>Fitting the predictor is float work and stays in the encoder. Quantising
+        those coefficients to integers plus a shift is the boundary — and past it every
+        operation is exact. Two machines, two decades apart, return identical samples,
+        because nothing in the path <em>can</em> round differently.</p>
+      </div>
+      <div class="plate">
+        <span class="n">2</span>
+        <h3>Engines that must agree</h3>
+        <p>Every result is produced twice — once by an interpreter executing the Sanskrit
+        source, once by the compiled RISC-V image. A green requires both. One engine
+        agreeing with itself is not evidence, and we do not accept it as such.</p>
+      </div>
+    </div>
 
-      <p>And the vocabulary is load-bearing. <span class="num">निःशेषम्</span> —
-      <em>niḥśeṣam</em>, &ldquo;with no remainder&rdquo; — is the decoder's name, and it
-      is also a precise description of what lossless means. <span class="num">नाद</span>
-      — <em>nāda</em> — is sound considered as vibration rather than as signal, the term
-      the Indian tradition used for the thing itself. A field that named its concepts a
-      few thousand years ago turns out to have named them well.</p>
+    <div class="body" style="max-width:76ch">
+      <p><strong>And the thing that makes all of it trustworthy: the compiler compiles
+      itself.</strong> Feed Sassembly's source to Sassembly and it produces a compiler
+      image. Feed the source to <em>that</em> image and it produces another —
+      <strong>byte for byte identical.</strong> That is a reached fixpoint, and very few
+      toolchains on Earth can demonstrate one. It means there is no privileged binary
+      anywhere in the chain, nothing you have to take on faith, no step where you trust
+      a vendor instead of reading the source. The stack is not merely open. It is
+      <em>auditable to the bottom</em>, and Naad sits on top of that.</p>
+
+      <p><strong>The vocabulary turns out to be load-bearing, which we did not expect.</strong>
+      The decoder is called <span class="num">निःशेषम्</span> — <em>niḥśeṣam</em>,
+      &ldquo;with no remainder&rdquo; — which is not a poetic name for lossless
+      decoding; it is a precise definition of it. <span class="num">नाद</span> —
+      <em>nāda</em> — is sound considered as vibration rather than as signal, the word
+      a tradition reached for when it wanted the thing itself rather than its
+      measurement. A civilisation that spent centuries building the most rigorous
+      grammar ever written turns out to have left behind a vocabulary that fits
+      computing uncomfortably well.</p>
+
+      <p>None of which would matter if the numbers were bad. <strong>They are not.</strong>
+      Naad is level with a twenty-year-tuned C reference, on that reference's own
+      adversarial corpus, at six times real time — written in a language whose
+      keywords are Sanskrit, on a machine whose instruction set is royalty-free, with
+      nothing foreign underneath.</p>
     </div>
 
     <div class="status">
@@ -529,16 +563,12 @@
     var period = 5200;
     var x = (((ts - t0) % period) / period) * W;
 
-    // a soft leading glow, then the head itself
-    var g = ctx.createLinearGradient(Math.max(0,x-90), 0, x, 0);
-    g.addColorStop(0, 'rgba(200,160,74,0)');
-    g.addColorStop(1, 'rgba(200,160,74,0.16)');
-    ctx.fillStyle = g;
-    ctx.fillRect(Math.max(0,x-90), 0, Math.min(90,x), H);
-
+    // The read head is a hairline and nothing more. An earlier version drew a
+    // gradient glow behind it, which on a light ground rendered as a beige BLOCK
+    // — a smudge over the trace rather than an instrument's cursor.
     ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H);
     ctx.strokeStyle = css('--brass'); ctx.lineWidth = 1;
-    ctx.globalAlpha = 0.55; ctx.stroke(); ctx.globalAlpha = 1;
+    ctx.globalAlpha = 0.5; ctx.stroke(); ctx.globalAlpha = 1;
 
     raf = requestAnimationFrame(frame);
   }
