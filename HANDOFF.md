@@ -146,8 +146,9 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    found by the decoder and the flac -a map is only a witness; 199,803,671 native
    instructions; per-frame controls for fold and boundary). It now reads STREAMINFO and starts
    from the file's first byte (native green), and resynchronises after a CRC-caught damaged
-   frame (native green, 205,506,180). Samples-out (pariksha_o) is building; its PCM is
-   compared byte for byte with ffmpeg's. What it does not do yet: bounded reads on early
+   frame (native green, 205,506,180). Samples-out (pariksha_o) is native green: 245,760 octets
+   of 24-bit PCM byte-identical to ffmpeg's for the ten frames. The page's fan element now
+   says "Naad has played this record", which is true of the bytes, not of a player. What it does not do yet: bounded reads on early
    damage, and handing samples anywhere. Those are the
    stream layer, in that order. Branch is now `stream`, cut from main after a peer merged
    `real-frame`; the peer pushes sravan main and says so each time.
