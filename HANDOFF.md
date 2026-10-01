@@ -144,8 +144,10 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    first frames of the Commons file in order (`reference/genstream.py`, `pariksha_s.t1`,
    frames packed eight octets to a word; ten frames green on both engines with the cursor carried, so boundaries are
    found by the decoder and the flac -a map is only a witness; 199,803,671 native
-   instructions; per-frame controls for fold and boundary). What it does not do yet: read
-   STREAMINFO, resynchronise after a damaged frame, or hand samples anywhere. Those are the
+   instructions; per-frame controls for fold and boundary). It now reads STREAMINFO and starts
+   from the file's first byte (native green), and resynchronises after a CRC-caught damaged
+   frame (interpreted green, native pending). What it does not do yet: bounded reads on early
+   damage, and handing samples anywhere. Those are the
    stream layer, in that order. Branch is now `stream`, cut from main after a peer merged
    `real-frame`; the peer pushes sravan main and says so each time.
 2a. **The packed-word reader in the peer's stash carries the inverted Rice unary.** Fixed on

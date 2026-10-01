@@ -202,7 +202,7 @@
       "value": "40,960",
       "status": "measured",
       "label": "samples per channel of the Grieg recording, its first ten frames (0.853 s), decoded in sequence by Naad's decoder and returned identical to ffmpeg's decode, both channels, independent stereo and mid/side, on the interpreter and on the native RV64 image",
-      "source": "sravan stream c260c79: pariksha_s.t1 (F = 10, cursor carried) predict -> 0 and halt status Some(0); per-frame controls answer 5 (fold) and 8 (boundary)",
+      "source": "sravan stream 1b00c3a: pariksha_s.t1 (F = 10, from the file's first byte) predict -> 0 and halt status Some(0); controls 5 (fold), 8 (boundary), 101 (marker), 114 (STREAMINFO field)",
       "command": "python3 reference/genstream.py 10; t1_image ... --entry परीक्षाप्रवाह मुख्यम् ; yantra-run"
     },
     "real_steps": {
@@ -283,10 +283,10 @@
       "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
     },
     "seq_steps": {
-      "value": "199,803,671",
+      "value": "200,463,153",
       "status": "measured",
-      "label": "native instructions to unpack the ten frames once and decode them with the cursor carried from frame to frame, checking twenty folds and ten boundaries, including setup",
-      "source": "sravan stream c260c79 (pariksha_s.t1, boundaries found by the decoder, flac -a map as witness), yantra-run steps line; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
+      "label": "native instructions to read the file's header, check STREAMINFO, then unpack and decode ten frames with the cursor carried, checking twenty folds and ten boundaries, including setup",
+      "source": "sravan stream 1b00c3a (pariksha_s.t1: STREAMINFO read, boundaries found by the decoder, flac -a map and metaflac as witnesses), yantra-run steps line; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "YANTRA_STEPS=4000000000 yantra-run s10.elf"
     },
     "real_secs": {
