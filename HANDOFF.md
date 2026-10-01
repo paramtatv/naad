@@ -140,17 +140,24 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 ## 7. What is next, in order
 
 1. **Owner review of this branch.** Nothing is public until then.
-2. **Attestation of S1** (`decode_hash_agreement` at k = 3 on Naad's decoder). The thesis
+2. **The stream layer, from the sequence test.** `sravan` branch `real-frame` now walks the
+   first frames of the Commons file in order (`reference/genstream.py`, `pariksha_s.t1`,
+   frames packed eight octets to a word; three frames green interpreted with a per-frame
+   control). What it does not do yet: find frame boundaries itself, read STREAMINFO,
+   resynchronise, or hand samples anywhere. Those are the stream layer, in that order.
+2a. **The packed-word reader in the peer's stash carries the inverted Rice unary.** Fixed on
+   `real-frame` (`पदरिचः`, one comparison); whoever lands the packed reader needs it.
+3. **Attestation of S1** (`decode_hash_agreement` at k = 3 on Naad's decoder). The thesis
    lists it as step 2 of its own build order, Darśana has the machinery, and it turns the
    page's one **planned** rung into a **measured** one.
-3. **The decoder on the page.** Build `nihshesha.t1` with the SQAM frame the thesis timed
+4. **The decoder on the page.** Build `nihshesha.t1` with the SQAM frame the thesis timed
    baked in, run it on `yantra-wasm` in the browser (`sansos/tools/build-sassembly-web.sh`
    emits a self-contained page; the machine takes an empty import object), stream samples
    out over the console call, draw the real decoded waveform, and show the digest beside the
    reference digest. User-supplied frames wait on the RAM-injection path (`wt-raminject`).
-4. Self-host the two font families. Add an `og:image` card for Naad (the one in
+5. Self-host the two font families. Add an `og:image` card for Naad (the one in
    `brand-assets/` is Paramtatva's). Decide on analytics or decide against them in writing.
-5. Generate `figures.json` from `sravan` metrics rather than by hand, once `sravan` keeps a
+6. Generate `figures.json` from `sravan` metrics rather than by hand, once `sravan` keeps a
    metrics file.
 
 ## Known-open
