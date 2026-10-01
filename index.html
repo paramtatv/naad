@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-01 public r12">
+<meta name="naad-build" content="2026-10-01 public r13 worth">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -150,6 +150,19 @@
   .naadread p{margin-top:10px; font-size:15.5px; color:var(--ink-2)}
   .naadread p b{color:#fff}
 
+  /* where better sound is worth money */
+  .rooms{display:grid; gap:16px; margin-top:44px}
+  @media (min-width:720px){ .rooms{grid-template-columns:repeat(2,1fr)} }
+  @media (min-width:1100px){ .rooms{grid-template-columns:repeat(4,1fr)} }
+  .room{padding:26px 22px 26px; display:flex; flex-direction:column}
+  .room .k{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase; color:var(--c-hi); text-shadow:var(--glow-c)}
+  .room .n{display:block; margin-top:12px; font-family:var(--f-display); font-weight:900; font-size:clamp(30px,3.4vw,40px); line-height:1; color:#fff; text-shadow:0 0 22px rgba(255,61,242,.75)}
+  .room .l{display:block; margin-top:8px; font-family:var(--f-mono); font-size:11px; line-height:1.5; color:var(--ink-3)}
+  .room h3{margin-top:16px; font-size:18px}
+  .room p{margin-top:10px; color:var(--ink-2); font-size:15.5px; flex:1}
+  .room .src{display:block; margin-top:14px; padding-top:10px; border-top:1px solid var(--line); font-family:var(--f-mono); font-size:10.5px; color:var(--ink-3)}
+  .room .src a{color:var(--c-hi); text-decoration:none}
+
   /* full-bleed scenes */
   .band{position:relative; overflow:hidden; border-radius:30px; margin:0 auto; max-width:1200px; box-shadow:var(--sh)}
   @media (max-width:900px){ .band{border-radius:20px; margin:0 16px} }
@@ -290,6 +303,7 @@
     <a href="#live">Live</a>
     <a href="#room">Your room</a>
     <a href="#keep">Yours for good</a>
+    <a href="#worth">Worth</a>
     <a href="#proof">Under the hood</a>
     <a class="btn" href="#enquire">Talk to us</a>
   </nav>
@@ -461,6 +475,42 @@
     <div class="panel"><span class="n"><span data-fig="song_fmt">24-bit / 48 kHz</span></span>
       <h3>The master, not a copy of it</h3>
       <p>Naad is licensed to the makers of players and gear. What you keep is the recording itself, every sample, on your own drive, and it does not expire with anyone's account.</p></div>
+  </div></div>
+</section>
+
+<!-- ══ WHERE BETTER SOUND IS WORTH MONEY ══ -->
+<section id="worth" style="padding-top:40px">
+  <div class="wrap sec-head">
+    <span class="kicker">Where better sound is worth money</span>
+    <h2>Four rooms where sound is the business.</h2>
+    <p class="lead">Every figure here is somebody else's audited number, linked. What Naad brings to each room is the same thing:
+      the master, exactly, from a decoder small enough to live anywhere and simple enough to trust for a whole night.</p>
+  </div>
+  <div class="wrap"><div class="rooms">
+    <div class="room panel"><span class="k">Concerts</span>
+      <span class="n" data-fig="mkt_live">$23.2B</span>
+      <span class="l">Live Nation alone, 2024, with <span data-fig="mkt_fans">151 million</span> fans through the doors</span>
+      <h3>The most expensive silence in music</h3>
+      <p>A dropout in front of fifty thousand people is a refund, a headline and a cancelled rebooking. Naad plays every frame at the same cost, so there is nothing in the chain that needs a breather at two in the morning.</p>
+      <span class="src">Source: <a href="https://www.sec.gov/Archives/edgar/data/1335258/000133525825000028/lyv-20241231.htm">Live Nation 10-K, FY2024</a></span></div>
+    <div class="room panel"><span class="k">Recording</span>
+      <span class="n" data-fig="mkt_rec">$29.6B</span>
+      <span class="l">global recorded music, 2024, every format</span>
+      <h3>The master is the asset</h3>
+      <p>Every other copy is derived from it. A format whose decode is provably exact, and whose decoder can be read in full, is how a master survives the next thirty years of players, chips and companies that will not.</p>
+      <span class="src">Source: <a href="https://www.musicbusinessworldwide.com/global-recorded-music-revenues-hit-29-6bn-in-2024-up-4-8-yoy-users-of-paid-music-subscriptions-reach-752m/">IFPI Global Music Report 2025</a></span></div>
+    <div class="room panel"><span class="k">Hardware</span>
+      <span class="n" data-fig="mkt_dolby">$1.18B</span>
+      <span class="l">what Dolby earned in one year licensing audio technology into gear; <span data-fig="mkt_hw">454.6 million</span> headphones shipped in 2024</span>
+      <h3>Licensed into the gear itself</h3>
+      <p>That is the shape of this business: a technology small enough to sit inside a product and worth paying for on every unit. Naad asks under <span data-fig="core_phone">3%</span> of a phone core, needs no runtime, and fits in earbuds, DACs and cars.</p>
+      <span class="src">Sources: <a href="https://www.sec.gov/Archives/edgar/data/1308547/000162828024048519/dlb-20240927.htm">Dolby 10-K, FY2024</a> · <a href="https://tadviser.com/index.php/Article:Headphones_(Global_Market)">Canalys, 2025</a></span></div>
+    <div class="room panel"><span class="k">Streaming</span>
+      <span class="n" data-fig="mkt_stream">$20.4B</span>
+      <span class="l">streaming revenue, 2024; <span data-fig="mkt_subs">752 million</span> people paying for it</span>
+      <h3>Lossless as the default, not the upsell</h3>
+      <p>Most of those people are served at 96 or 160 kbps. On this page the master is <span data-fig="master_x">10×</span> the bits of a High stream. The service that makes the master cheap enough to be the default wins the listeners who can hear the difference, and keeps the ones who cannot.</p>
+      <span class="src">Source: <a href="https://www.billboard.com/pro/ifpi-global-report-2025-music-revenue-market-share-ai/">IFPI Global Music Report 2025</a></span></div>
   </div></div>
 </section>
 

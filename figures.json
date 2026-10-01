@@ -211,6 +211,62 @@
       "label": "native instructions to decode that frame and check both folds, including setup",
       "source": "sravan@9c6184b, yantra-run steps line",
       "command": "YANTRA_STEPS=2000000000 yantra-run r2.elf"
+    },
+    "mkt_live": {
+      "value": "$23.2B",
+      "status": "measured",
+      "label": "Live Nation Entertainment revenue, full year 2024, the largest live-music company; 151 million fans attended its shows",
+      "source": "Live Nation Form 10-K for FY2024, sec.gov; Billboard 2025-02-20",
+      "command": "https://www.sec.gov/Archives/edgar/data/1335258/000133525825000028/lyv-20241231.htm"
+    },
+    "mkt_fans": {
+      "value": "151 million",
+      "status": "measured",
+      "label": "fans at Live Nation shows in 2024",
+      "source": "Live Nation full-year 2024 results",
+      "command": "https://www.billboard.com/pro/live-nation-earnings-full-year-2024-revenue-record-23-billion/"
+    },
+    "mkt_rec": {
+      "value": "$29.6B",
+      "status": "measured",
+      "label": "global recorded-music revenue, 2024, all formats",
+      "source": "IFPI Global Music Report 2025",
+      "command": "https://www.musicbusinessworldwide.com/global-recorded-music-revenues-hit-29-6bn-in-2024-up-4-8-yoy-users-of-paid-music-subscriptions-reach-752m/"
+    },
+    "mkt_stream": {
+      "value": "$20.4B",
+      "status": "measured",
+      "label": "global streaming revenue, 2024, 69% of recorded music; 752 million paid subscribers",
+      "source": "IFPI Global Music Report 2025",
+      "command": "https://www.billboard.com/pro/ifpi-global-report-2025-music-revenue-market-share-ai/"
+    },
+    "mkt_subs": {
+      "value": "752 million",
+      "status": "measured",
+      "label": "paid music-subscription users worldwide, end of 2024",
+      "source": "IFPI Global Music Report 2025",
+      "command": "https://www.musicbusinessworldwide.com/global-recorded-music-revenues-hit-29-6bn-in-2024-up-4-8-yoy-users-of-paid-music-subscriptions-reach-752m/"
+    },
+    "mkt_hw": {
+      "value": "454.6 million",
+      "status": "measured",
+      "label": "headphones of all types shipped worldwide in 2024",
+      "source": "Canalys, 2025-03-03",
+      "command": "https://tadviser.com/index.php/Article:Headphones_(Global_Market)"
+    },
+    "mkt_dolby": {
+      "value": "$1.18B",
+      "status": "measured",
+      "label": "Dolby Laboratories licensing revenue, fiscal 2024: what one licensed audio technology earns from the gear it sits inside",
+      "source": "Dolby Form 10-K FY2024, sec.gov: licensing revenue $1,181,794 thousand",
+      "command": "https://www.sec.gov/Archives/edgar/data/1308547/000162828024048519/dlb-20240927.htm"
+    },
+    "master_x": {
+      "value": "10×",
+      "status": "measured",
+      "label": "the master's bits against the 160 kbps stream, from the files on this page: 25,778,747 / 2,621,694 = 9.8",
+      "source": "grieg-mountain-king.flac and grieg-mountain-king-160k.ogg sizes",
+      "command": "ls -l grieg-mountain-king.flac grieg-mountain-king-160k.ogg"
     }
   }
 }
