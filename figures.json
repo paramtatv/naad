@@ -68,14 +68,14 @@
     "ipcs": {
       "value": "1,500",
       "status": "measured",
-      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
+      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
       "source": "sravan real-frame f631d7d, re-taken on the fixed kernel: slope (16,585,091 − 4,299,531)/8 = 1,535,695 per frame of 1,024 channel-samples; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "reference/gentiming.py, two-point slope"
     },
     "realtime": {
       "value": "7.6×",
       "status": "measured",
-      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
+      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
       "source": "sravan real-frame f631d7d, realtime_factor = 1,535,695 × 44100/512 / 1e9 = 0.132; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "1 / (1500 × 44100 × 2 / 1e9)"
     },
@@ -206,11 +206,11 @@
       "command": "python3 reference/genstream.py 10; t1_image ... --entry परीक्षाप्रवाह मुख्यम् ; yantra-run"
     },
     "real_steps": {
-      "value": "11,422,135",
+      "value": "8,602,692",
       "status": "measured",
-      "label": "native instructions to decode frame 0 and check both folds, including setup; frames 1 and 2 took 16,745,289 and 19,630,338; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
-      "source": "sravan@6be713d, yantra-run steps lines; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
-      "command": "YANTRA_STEPS=2000000000 yantra-run r.elf"
+      "label": "native instructions to decode frame 0 of the recording and check both folds, including setup; current compiler tree (origin/main 34c9712a); the old tree gave 11,422,135, the difference being compiler codegen, commit pending",
+      "source": "sravan stream (pariksha_r.t1 blob 9e7db3b7) built with --compiler and --spec-root from sansos origin/main 34c9712a, host t1_image md5 1591d0e8, yantra-run md5 494573a4297f; predict -> 0, halt Some(0)",
+      "command": "t1_image --spec-root <34c9712a>/spec --compiler <34c9712a>/crates/sadhana-t1/src ... --entry परीक्षार मुख्यम्; yantra-run"
     },
     "mkt_live": {
       "value": "$23.2B",
@@ -278,14 +278,14 @@
     "timing_retake": {
       "value": "1,535,695",
       "status": "measured",
-      "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
+      "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
       "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
     },
     "seq_steps": {
       "value": "200,463,153",
       "status": "measured",
-      "label": "native instructions to read the file's header, check STREAMINFO, then unpack and decode ten frames with the cursor carried, checking twenty folds and ten boundaries, including setup; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
+      "label": "native instructions to read the file's header, check STREAMINFO, then unpack and decode ten frames with the cursor carried, checking twenty folds and ten boundaries, including setup; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
       "source": "sravan stream 1b00c3a (pariksha_s.t1: STREAMINFO read, boundaries found by the decoder, flac -a map and metaflac as witnesses), yantra-run steps line; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "YANTRA_STEPS=4000000000 yantra-run s10.elf"
     },
@@ -299,17 +299,17 @@
     "resync_steps": {
       "value": "205,506,180",
       "status": "measured",
-      "label": "native instructions for the ten-frame walk with frame 4's CRC-16 deliberately damaged: the frame is refused, the decoder finds frame 5 by sync-code scan with a CRC-8-verified header, and the walk completes; measured on the 2026-09-27 toolchain build, re-take pending",
+      "label": "native instructions for the ten-frame walk with frame 4's CRC-16 deliberately damaged: the frame is refused, the decoder finds frame 5 by sync-code scan with a CRC-8-verified header, and the walk completes; measured on the 2026-09-27 toolchain build, re-take pending; old compiler tree (51598b3c); re-take on 34c9712a in progress",
       "source": "sravan stream 0846ea6 (pariksha_s2.t1), predict -> 0, halt status Some(0); controls 17 (damage declared on the wrong frame) and 201 (landing witness moved); compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f)",
       "command": "python3 reference/genstream.py 10 --corrupt 4; t1_image ... --entry परीक्षाप्रवाह२ मुख्यम् ; yantra-run"
     },
     "pcm_octets": {
       "value": "245,760",
       "status": "measured",
-      "label": "octets of 24-bit stereo audio the native RV64 image wrote for the first ten frames of the Grieg recording, byte-identical to ffmpeg's decode of the same frames (cmp exit 0, md5 29fc76d8e0cc3ed935aa1f28498406d9)",
+      "label": "octets of 24-bit stereo audio the native RV64 image wrote for the first ten frames of the Grieg recording, byte-identical to ffmpeg's decode of the same frames (cmp exit 0, md5 29fc76d8e0cc3ed935aa1f28498406d9); old compiler tree (51598b3c); re-take on 34c9712a in progress",
       "source": "sravan stream 5230164 (pariksha_o.t1), yantra-run stdout captured; 204,682,388 instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f)",
       "command": "python3 reference/genstream.py 10 --emit; t1_image ... --entry परीक्षानिर्गम मुख्यम्; yantra-run o.elf > naad10.pcm; cmp naad10.pcm grieg10.pcm"
     }
   },
-  "compiler": "compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f; byte-identical to the yantra-run built from origin/main 34c9712a on 2026-10-01); a toolchain build from 2026-10-01 counts this program 24.7% lower, cause unattributed (W-347); re-take on origin/main 34c9712a in progress"
+  "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."
 }

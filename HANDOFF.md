@@ -174,9 +174,12 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
   back identical to the instruction. ALL native counts were taken on a 2026-09-27 toolchain
   build; a 2026-10-01 toolchain build counts the same program 24.7% lower; the toolchain owner
   first attributed that to f168e91a (W-306c) and retracted it after a build containing
-  f168e91a reproduced the old count to the instruction. Cause unattributed (W-347). Every
-  native count is being re-taken on origin/main 34c9712a, built into .build/ in the sravan
-  worktree, and must then carry that commit. Build time is n^1.80 in emitted lines (sansos-dd, uncontended), not quadratic. The next rung is the packed-word reader; when it lands,
+  f168e91a reproduced the old count to the instruction. Cause found 19:19Z: the .t1 COMPILER TREE passed as
+  --compiler (the Rust t1_image is only the host). All earlier counts used the tree at
+  51598b3c; with --compiler and --spec-root from origin/main 34c9712a pariksha_r reads
+  8,602,692, the owner's number exactly. Provenance for a native count is three parts:
+  compiler tree, spec, host. The new tree also costs 13.2x more interpreter steps to run
+  the compile (5 min -> 42 min on pariksha_r), so the remaining re-takes are slow. Build time is n^1.80 in emitted lines (sansos-dd, uncontended), not quadratic. The next rung is the packed-word reader; when it lands,
   re-take every figure that names a commit, together, and bump the build stamp.
 - Speed is presented as a floor, not a ceiling: the 1 GHz / IPC 1 model is named as the
   most pessimistic machine anyone ships, and the phone and laptop projections sit beside
