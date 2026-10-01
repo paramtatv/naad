@@ -199,11 +199,11 @@
       "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-160k.ogg"
     },
     "real_samples": {
-      "value": "12,288",
+      "value": "40,960",
       "status": "measured",
-      "label": "samples per channel of the Grieg recording, its first three frames (0.256 s), that Naad's decoder returned identical to ffmpeg's decode, both channels, independent stereo and mid/side, on the interpreter and on the native RV64 image",
-      "source": "sravan real-frame branch 6be713d: pariksha_r / _r1 / _r2 each predict -> 0 and halt status Some(0); controls answer 2 and 1",
-      "command": "t1_image ... --entry परीक्षार{,१,२} मुख्यम् ; yantra-run"
+      "label": "samples per channel of the Grieg recording, its first ten frames (0.853 s), decoded in sequence by Naad's decoder and returned identical to ffmpeg's decode, both channels, independent stereo and mid/side, on the interpreter and on the native RV64 image",
+      "source": "sravan real-frame 5e9c1a6: pariksha_s.t1 (F = 10) predict -> 0 and halt status Some(0); per-frame control answers 5",
+      "command": "python3 reference/genstream.py 10; t1_image ... --entry परीक्षाप्रवाह मुख्यम् ; yantra-run"
     },
     "real_steps": {
       "value": "11,422,135",
@@ -269,11 +269,11 @@
       "command": "ls -l grieg-mountain-king.flac grieg-mountain-king-160k.ogg"
     },
     "real_frames": {
-      "value": "three",
+      "value": "ten",
       "status": "measured",
-      "label": "frames of the Grieg file decoded natively: 0 (independent stereo), 1 and 2 (mid/side)",
-      "source": "sravan@6be713d",
-      "command": "python3 reference/genreal.py 0 1 2"
+      "label": "consecutive frames of the Grieg file decoded natively in one run: 0 (independent stereo), 1 to 9 (mid/side)",
+      "source": "sravan@5e9c1a6",
+      "command": "python3 reference/genstream.py 10"
     },
     "timing_retake": {
       "value": "1,535,695",
@@ -281,6 +281,20 @@
       "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix",
       "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions",
       "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
+    },
+    "seq_steps": {
+      "value": "200,566,103",
+      "status": "measured",
+      "label": "native instructions to unpack and decode the ten frames in sequence and check twenty folds, including setup",
+      "source": "sravan@5e9c1a6, yantra-run steps line",
+      "command": "YANTRA_STEPS=4000000000 yantra-run s10.elf"
+    },
+    "real_secs": {
+      "value": "0.853",
+      "status": "measured",
+      "label": "seconds of the recording those ten frames are: 40,960 / 48,000",
+      "source": "arithmetic on sravan@5e9c1a6",
+      "command": "40960 / 48000"
     }
   }
 }

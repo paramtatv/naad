@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-01 public r15 retake">
+<meta name="naad-build" content="2026-10-01 public r16 ten-frames">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -380,10 +380,11 @@
       </figcaption>
       <div class="naadread">
         <span class="tag measured">Decoded by Naad</span>
-        <p><b>Naad has read this record.</b> The opening of this very file, the first <span data-fig="real_samples">12,288</span> samples
-        of each channel, went through the Sanskrit decoder and came back identical to what a reference decoder gives, bit for bit,
-        on both of our engines. It is <span data-fig="real_frames">three</span> frames, a quarter of a second, not the whole piece;
-        the rest is the player we are building. But it is this recording, and it is real.</p>
+        <p><b>Naad has read this record.</b> The opening of this very file, the first <span data-fig="real_samples">40,960</span> samples
+        of each channel, went through the Sanskrit decoder one frame after another and came back identical to what a reference
+        decoder gives, bit for bit, on both of our engines. It is <span data-fig="real_frames">ten</span> frames, just under a
+        second (<span data-fig="real_secs">0.853</span> s), not the whole piece; the rest is the player we are building. But it is
+        this recording, and it is real.</p>
       </div>
       <figcaption>
       <span class="fine">The two streams were made from this same master with the Vorbis encoder at the bitrates a major service uses
@@ -597,7 +598,7 @@
     <div class="ledger panel">
       <div class="hd"><span>What ships today, and what does not</span></div>
       <ul>
-        <li><span class="tag measured">Green</span><span><b>Real frames</b>: frames 0, 1 and 2 of the Grieg recording on this page, 24-bit, independent stereo and mid/side, written by a real encoder, decoded by Naad on both engines with the expected samples taken from ffmpeg, a foreign witness. Frame 0 took <span data-fig="real_steps">11,422,135</span> native instructions. Controls: a fold off by one answers two, a corrupted octet is refused. This test found and fixed an inverted Rice unary that every self-written test had shared.</span></li>
+        <li><span class="tag measured">Green</span><span><b>Real frames, in sequence</b>: the first ten frames of the Grieg recording on this page, 24-bit, independent stereo and mid/side, written by a real encoder, walked in order by one run of Naad's decoder on both engines, every frame checked against ffmpeg's samples, a foreign witness: <span data-fig="seq_steps">200,566,103</span> native instructions. Frame 0 alone took <span data-fig="real_steps">11,422,135</span>. Controls: a fold off by one answers the code that names its frame and channel, a corrupted octet is refused. The frame map is given; finding boundaries, reading STREAMINFO and resynchronising are the stream layer, not built. This work found and fixed an inverted Rice unary that every self-written test had shared.</span></li>
         <li><span class="tag measured">Green</span><span><b>Frame decoder</b>: header with all four code spaces, all four subframe bodies, partitioned Rice with escapes, every stereo pairing, both CRCs. One or two channels.</span></li>
         <li><span class="tag measured">Green</span><span><b>Timing re-taken after the fix</b>: <span data-fig="timing_retake">1,535,695</span> instructions per frame on the corrected decoder, identical to the instruction to the figure before it, as predicted before the run.</span></li>
         <li><span class="tag measured">Green</span><span><b>Sassembly</b>: the compiler compiled itself byte for byte on <span data-fig="fixpoint_date">2026-09-22</span> and has on every change since.</span></li>
