@@ -68,21 +68,21 @@
     "ipcs": {
       "value": "1,500",
       "status": "measured",
-      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC",
+      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; taken before the Rice polarity fix of 2026-10-01, re-take owed",
       "source": "sravan@85f90b2, THESIS.md §6 S1 table CRC row; 1,535,695 per frame",
       "command": "reference/gentiming.py, two-point slope"
     },
     "realtime": {
       "value": "7.6×",
       "status": "projected",
-      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon",
+      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon; taken before the Rice polarity fix of 2026-10-01, re-take owed",
       "source": "sravan@85f90b2, realtime_factor = 0.132",
       "command": "1 / (1500 × 44100 × 2 / 1e9)"
     },
     "crcshare": {
       "value": "24.0%",
       "status": "measured",
-      "label": "share of decode cost spent in CRC-16 after the octet-wise table; was 37.1% before it",
+      "label": "share of decode cost spent in CRC-16 after the octet-wise table; was 37.1% before it; taken before the Rice polarity fix of 2026-10-01, re-take owed",
       "source": "sravan@85f90b2; THESIS.md §6 S1, 367,838 of 1,535,695 per frame",
       "command": "reference/gentiming.py against a kernel with CRC-16 removed"
     },
@@ -197,6 +197,20 @@
       "label": "kbps of the High-quality stream version, Ogg Vorbis, made from the same master",
       "source": "ffprobe grieg-mountain-king-160k.ogg: vorbis, 48000 Hz, 160000 b/s",
       "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-160k.ogg"
+    },
+    "real_samples": {
+      "value": "4,096",
+      "status": "measured",
+      "label": "samples per channel of the Grieg recording's frame 0 that Naad's decoder returned identical to ffmpeg's decode, both channels, on the interpreter and on the native RV64 image",
+      "source": "sravan@9c6184b kernel/pariksha_r.t1: predict -> 0, halt status Some(0)",
+      "command": "t1_image ... --entry परीक्षार मुख्यम् ; yantra-run"
+    },
+    "real_steps": {
+      "value": "11,422,135",
+      "status": "measured",
+      "label": "native instructions to decode that frame and check both folds, including setup",
+      "source": "sravan@9c6184b, yantra-run steps line",
+      "command": "YANTRA_STEPS=2000000000 yantra-run r2.elf"
     }
   }
 }
