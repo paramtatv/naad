@@ -295,6 +295,13 @@
       "label": "seconds of the recording those ten frames are: 40,960 / 48,000",
       "source": "arithmetic on sravan@5e9c1a6",
       "command": "40960 / 48000"
+    },
+    "resync_steps": {
+      "value": "205,506,180",
+      "status": "measured",
+      "label": "native instructions for the ten-frame walk with frame 4's CRC-16 deliberately damaged: the frame is refused, the decoder finds frame 5 by sync-code scan with a CRC-8-verified header, and the walk completes; measured on the 2026-09-27 toolchain build, re-take pending",
+      "source": "sravan stream 0846ea6 (pariksha_s2.t1), predict -> 0, halt status Some(0); controls 17 (damage declared on the wrong frame) and 201 (landing witness moved); compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f)",
+      "command": "python3 reference/genstream.py 10 --corrupt 4; t1_image ... --entry परीक्षाप्रवाह२ मुख्यम् ; yantra-run"
     }
   },
   "compiler": "compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary; SUPERSEDED: trunk f168e91a (2026-10-01 06:13) removed instructions (W-306c), so every native count here is a correct measurement of an older codegen; re-take on a current build pending"
