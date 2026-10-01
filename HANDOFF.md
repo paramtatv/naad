@@ -51,7 +51,7 @@ Every figure on the page carries one of three tags, and the tag is part of the f
 
 | tag | means | examples |
 |---|---|---|
-| **measured** | taken from a named repository at a named commit with a named command | 1,182 lines · 17 kernel mutations · +0.1% vs flac -8 |
+| **measured** | taken from a named repository at a named commit with a named command | 1,290 lines · 17 kernel mutations · +0.1% vs flac -8 |
 | **projected** | computed from a measurement under a stated assumption | 6× real time, from 1,814 instructions/channel-sample at 1 GHz and 1 IPC; not timed on silicon |
 | **planned** | a completion condition, written before the work | one digest on 3 instruction sets |
 
@@ -72,7 +72,7 @@ every commit; a CI step on `main` should run it on push.
 
 **`kernel/`.** `sravan` is **private**, so a link there 404s for the public and "reproducible
 from the repository" was not true for anyone outside the lab. The two kernel files are
-vendored here at `6b0001e`, which is where 1,182 lines and 21 routines were read. Updating
+vendored here at `85f90b2`, which is where 1,290 lines and 25 routines were read. Updating
 them means re-taking every figure in `figures.json` that cites a commit, not only the two
 the check re-takes. `kernel/PROVENANCE.md` says which commit.
 
@@ -125,8 +125,10 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## Known-open
 
-- `realtime_factor` improves when the octet-wise CRC lands; CRC-16 is 37.1% of decode
-  time. The proof sheet, the frontier and `figures.json` all carry the figure; change all
-  three or the check goes red.
-- The `sravan` working tree already reads 1,290 lines and more routines than `6b0001e`.
-  The page is pinned to the commit, deliberately, until the figures are re-taken together.
+- The page is pinned to `sravan@85f90b2` (octet-wise CRC landed, 1,500 instructions per
+  channel-sample, 7.6× at 1 GHz / IPC 1). The next rung is the packed-word reader; when it
+  lands, re-take every figure that names a commit, together, and bump the build stamp.
+- Speed is presented as a floor, not a ceiling: the 1 GHz / IPC 1 model is named as the
+  most pessimistic machine anyone ships, and the phone and laptop projections sit beside
+  it, tagged projected. The frontier item is cycles per hour of audio (battery), never
+  "can it keep up".

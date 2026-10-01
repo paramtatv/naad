@@ -1,19 +1,19 @@
 {
   "_about": "Every number on index.html is a data-fig span whose text must equal a value here. tools/check-figures.py refuses the page otherwise. status is one of measured | projected | planned. source names the repository, commit and file or section the value was read from; command is how to take it again.",
-  "figures_date": "2026-09-30",
+  "figures_date": "2026-09-30 (sravan@85f90b2)",
   "figures": {
     "lines": {
-      "value": "1,182",
+      "value": "1,290",
       "status": "measured",
       "label": "lines in the decoder, both files",
-      "source": "sravan@6b0001e kernel/nihshesha.t1 (1,051) + kernel/mapana.t1 (131); vendored here under kernel/",
+      "source": "sravan@85f90b2 kernel/nihshesha.t1 (1,159) + kernel/mapana.t1 (131); vendored here under kernel/",
       "command": "wc -l kernel/nihshesha.t1 kernel/mapana.t1"
     },
     "routines": {
-      "value": "21",
+      "value": "25",
       "status": "measured",
       "label": "public routines, both files",
-      "source": "sravan@6b0001e: 17 in nihshesha.t1 + 4 in mapana.t1",
+      "source": "sravan@85f90b2: 21 in nihshesha.t1 + 4 in mapana.t1",
       "command": "grep -c 'सार्वजनिक वृत्तिः' kernel/nihshesha.t1 kernel/mapana.t1"
     },
     "foreign": {
@@ -66,24 +66,24 @@
       "command": "any published CRC catalogue"
     },
     "ipcs": {
-      "value": "1,814",
+      "value": "1,500",
       "status": "measured",
-      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio",
-      "source": "sravan@5e1370d, realtime_factor re-measured; THESIS.md §6 S1",
+      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC",
+      "source": "sravan@85f90b2, THESIS.md §6 S1 table CRC row; 1,535,695 per frame",
       "command": "reference/gentiming.py, two-point slope"
     },
     "realtime": {
-      "value": "6×",
+      "value": "7.6×",
       "status": "projected",
-      "label": "real time, from 1,814 instructions per channel-sample at 1 GHz and 1 instruction per cycle; not timed on silicon",
-      "source": "sravan@5e1370d, realtime_factor = 0.160",
-      "command": "1 / (1814 × 44100 × 2 / 1e9)"
+      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon",
+      "source": "sravan@85f90b2, realtime_factor = 0.132",
+      "command": "1 / (1500 × 44100 × 2 / 1e9)"
     },
     "crcshare": {
-      "value": "37.1%",
+      "value": "24.0%",
       "status": "measured",
-      "label": "share of decode cost spent in CRC-16",
-      "source": "sravan@2335495; THESIS.md §6 S1 table, 689,812 of 1,857,669 per frame",
+      "label": "share of decode cost spent in CRC-16 after the octet-wise table; was 37.1% before it",
+      "source": "sravan@85f90b2; THESIS.md §6 S1, 367,838 of 1,535,695 per frame",
       "command": "reference/gentiming.py against a kernel with CRC-16 removed"
     },
     "ratio": {
@@ -148,6 +148,34 @@
       "label": "independent engines that must agree on every result: an interpreter on the source, and the compiled RISC-V image",
       "source": "sravan THESIS.md §8c, 'green on both engines'",
       "command": "t1_image --predict-only (interpreter) and yantra-run (native) on the same test"
+    },
+    "rt_phone": {
+      "value": "36×",
+      "status": "projected",
+      "label": "real time on a phone big core, 2.4 GHz at 2 instructions per cycle, from the same 1,500 instructions per channel-sample",
+      "source": "projection from sravan@85f90b2 ipcs",
+      "command": "4.8e9 / (1500 × 44100 × 2)"
+    },
+    "core_phone": {
+      "value": "3%",
+      "status": "projected",
+      "label": "of one phone big core busy decoding stereo 44.1 kHz; 2.8% rounded up",
+      "source": "projection from sravan@85f90b2 ipcs at 2.4 GHz, IPC 2",
+      "command": "(1500 × 44100 × 2) / 4.8e9"
+    },
+    "rt_laptop": {
+      "value": "79×",
+      "status": "projected",
+      "label": "real time on a laptop core, 3.5 GHz at 3 instructions per cycle",
+      "source": "projection from sravan@85f90b2 ipcs",
+      "command": "10.5e9 / (1500 × 44100 × 2)"
+    },
+    "crc_gain": {
+      "value": "1.21×",
+      "status": "measured",
+      "label": "whole-decoder speedup from the octet-wise CRC, inside the 1.20–1.28× band registered before the build",
+      "source": "sravan@85f90b2 commit message and THESIS.md §6 S1",
+      "command": "1,857,669 / 1,535,695"
     }
   }
 }

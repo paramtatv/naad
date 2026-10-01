@@ -2,7 +2,7 @@
 
 **From Paramtatva, a frontier computing lab.**
 
-A lossless audio decoder you can read to the bottom: integer arithmetic only, 1,182 lines
+A lossless audio decoder you can read to the bottom: integer arithmetic only, 1,290 lines
 of Sanskrit, compiled to 64-bit RISC-V, with no foreign code beneath it. One stream decodes
 to one file on every machine, forever, and you can check.
 
@@ -17,10 +17,10 @@ Read [`figures.json`](figures.json); it is the source and this table is a mirror
 
 | | |
 |---|---|
-| Decoder | **1,182 lines, 21 public routines**, two files, 0 foreign lines in the decode path |
+| Decoder | **1,290 lines, 25 public routines**, two files, 0 foreign lines in the decode path |
 | Reconstruction | **bit-exact** on two engines, for every layer of a FLAC frame, one or two channels |
 | Verification | all 64 subframe type codes and all four header code spaces enumerated; 10 whole frames graded; 17 kernel mutations each caught |
-| Decode cost | **1,814 instructions per channel-sample** on native RV64; **6× real time** is a projection at 1 GHz and 1 IPC, not a silicon timing |
+| Decode cost | **1,500 instructions per channel-sample** on native RV64; **7.6× real time** is a projection at 1 GHz and 1 IPC, not a silicon timing |
 | Encoder, a separate program in Python | **+0.1%** vs `flac -8` on 64 of 64 IETF test files, as an exact bit count; the join is open |
 
 ## What is not finished

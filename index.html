@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-09-30 redesign r3 neon">
+<meta name="naad-build" content="2026-09-30 redesign r4 crc">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -339,7 +339,7 @@
       chain that suddenly needs a breather at two in the morning. <b>The floor never hears the machine.</b></p>
       <div class="figure">
         <div><span class="n" data-fig="drift">0.0000%</span><span class="l">wobble, frame to frame</span></div>
-        <div><span class="n" data-fig="realtime">6×</span><span class="l">faster than it needs to be</span></div>
+        <div><span class="n" data-fig="realtime">7.6×</span><span class="l">faster than it needs to be, worst case</span></div>
         <div><span class="n" data-fig="engines">2</span><span class="l">machines check every frame</span></div>
       </div>
       <div class="cta">
@@ -401,7 +401,7 @@
     </div>
   </div>
   <div class="wrap"><div class="keep">
-    <div class="panel"><span class="n"><span data-fig="lines">1,182</span><small>LINES</small></span>
+    <div class="panel"><span class="n"><span data-fig="lines">1,290</span><small>LINES</small></span>
       <h3>Short enough to print</h3>
       <p>The whole player fits in a pamphlet. One person can read it in an afternoon and know there's nothing hiding in it. <a href="kernel/nihshesha.t1">Here it is.</a></p></div>
     <div class="panel"><span class="n"><span data-fig="toolchain">12</span><small>MB</small></span>
@@ -463,10 +463,10 @@
     <div class="ladder">
       <div class="rung panel"><span class="tag measured">Measured</span><span class="n"><span data-fig="engines">2</span></span>
         <span class="l">independent engines, an interpreter on the source and the compiled RISC-V image, that must agree on every result. Bit-exact on both for every layer of a FLAC frame.</span></div>
-      <div class="rung panel"><span class="tag measured">Measured</span><span class="n"><span data-fig="routines">21</span></span>
+      <div class="rung panel"><span class="tag measured">Measured</span><span class="n"><span data-fig="routines">25</span></span>
         <span class="l">public routines in two files, every one of them verified on both engines.</span></div>
-      <div class="rung panel"><span class="tag projected">Projected</span><span class="n"><span data-fig="realtime">6×</span></span>
-        <span class="l">real time, from <span class="num" data-fig="ipcs">1,814</span> instructions per channel-sample at 1 GHz and one instruction per cycle. Not yet timed on silicon.</span></div>
+      <div class="rung panel"><span class="tag projected">Projected</span><span class="n"><span data-fig="realtime">7.6×</span></span>
+        <span class="l">real time, from <span class="num" data-fig="ipcs">1,500</span> instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships. On a phone's big core that is <span data-fig="rt_phone">36×</span>, under <span data-fig="core_phone">3%</span> of one core. Not yet timed on silicon.</span></div>
       <div class="rung panel"><span class="tag planned">Planned</span><span class="n"><span data-fig="attest_k">3</span></span>
         <span class="l">instruction sets that must yield one digest of the decoded samples. The sister project Darśana has reached this for a transform. Naad has not yet.</span></div>
     </div>
@@ -485,8 +485,8 @@
         <span class="d">The suite runs against a deliberately broken decoder, and each mutation fails at exactly the case built to catch it. Both CRCs are anchored to the published check values <span class="num" data-fig="crc8">0xF4</span> and <span class="num" data-fig="crc16">0xFEE8</span>, never to our own oracle.</span>
         <span class="v"><span data-fig="mutations">17</span><small>KERNEL MUTATIONS</small></span></div>
       <div class="row"><span class="k">Decode cost</span>
-        <span class="d">Stereo mid/side, LPC order 8, partitioned Rice, both CRCs verified, at the corpus's own coded ratio. <b>CRC-16 is <span data-fig="crcshare">37.1%</span> of it</b>, and the frontier below says what that buys.</span>
-        <span class="v"><span class="num" data-fig="ipcs">1,814</span><small>INSTRUCTIONS / CHANNEL-SAMPLE</small></span></div>
+        <span class="d">Stereo mid/side, LPC order 8, partitioned Rice, both CRCs verified, at the corpus's own coded ratio. The octet-wise CRC landed on 2026-09-30 and bought <span data-fig="crc_gain">1.21×</span> on the whole decoder; <b>CRC-16 is still <span data-fig="crcshare">24.0%</span> of it</b>, and the frontier below says what comes next.</span>
+        <span class="v"><span class="num" data-fig="ipcs">1,500</span><small>INSTRUCTIONS / CHANNEL-SAMPLE</small></span></div>
       <div class="row"><span class="k">The encoder</span>
         <span class="d"><b>A separate claim about a separate program.</b> The encoder is Python, in the Śravaṇa repository. Its figure is an exact bit count on every one of the IETF test files, which are adversarial by construction. It is not yet an emitted file that decodes back.</span>
         <span class="v"><span data-fig="ratio">+0.1%</span><small>VS FLAC -8 · <span data-fig="corpus">64 of 64</span> FILES</small></span></div>
@@ -525,10 +525,10 @@
       Naad is behind the state of the art, what the gap measures, and what we already know about closing it.</p>
   </div>
   <div class="wrap"><div class="front">
-    <div class="fitem panel"><span class="tag open">Open · throughput</span>
-      <h3>Raw decode speed</h3>
-      <p>Mature C decoders run well ahead of six times real time. Naad is fast enough to play anything on anything, and not yet fast enough to be the obvious choice for a battery-powered device decoding for ten hours.</p>
-      <span class="gap">Profiled to the instruction. <b>CRC-16 alone is <span data-fig="crcshare">37.1%</span> of decode time</b>: it re-traverses every bit of the frame. An octet-wise path is worth 1.60× on the whole decoder before any other work.</span></div>
+    <div class="fitem panel"><span class="tag open">Open · battery</span>
+      <h3>Cycles per hour of audio</h3>
+      <p>Playback was never in question. Naad decodes at <span data-fig="realtime">7.6×</span> real time on a 1 GHz core at one instruction per cycle, the most pessimistic machine anyone ships; on a laptop core that is <span data-fig="rt_laptop">79×</span>. Where we are genuinely behind is how many cycles that takes: a mature C decoder does the same work in a fraction of them, and on a device decoding all day that shows up as battery life, not as dropouts.</p>
+      <span class="gap">Profiled to the instruction. CRC-16 is still <b><span data-fig="crcshare">24.0%</span></b> of decode time after the octet-wise table. <b>Next: the packed-word reader</b>, which addresses the per-bit gather the table cannot touch and is worth more than the CRC was.</span></div>
     <div class="fitem panel"><span class="tag open">Open · compression</span>
       <h3>The encoder is Python, and its stream is not yet emitted</h3>
       <p>Levinson-Durbin, apodization and the partition-order search are real and measured at parity with flac -8. None of it is native yet, and its size figure is an exact bit count rather than a file.</p>
@@ -561,7 +561,7 @@
   <p><b>Naad</b> is the format. <b>Śravaṇa</b> is the bigger project it belongs to. Both are built on Sassembly. Every figure on this page
   carries a metric, a commit and a command in <a href="figures.json">figures.json</a>, and the decoder the figures describe is
   shipped here under <a href="kernel/nihshesha.t1">kernel/</a>. Where work is unfinished, the page says so.</p>
-  <p>Figures as of 2026-09-30. Say hello: <a href="mailto:naad@paramtatv.org">naad@paramtatv.org</a></p>
+  <p>Figures as of 2026-09-30, from the Śravaṇa repository at 85f90b2. Say hello: <a href="mailto:naad@paramtatv.org">naad@paramtatv.org</a></p>
 </div></footer>
 
 <script>
