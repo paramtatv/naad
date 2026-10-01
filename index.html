@@ -318,11 +318,12 @@
     </div>
     <figure class="scopebox panel">
       <div class="screen">
-        <canvas id="scope" aria-label="Nine hundred samples of a real recording above, and beneath them at the same scale the tiny remainder a lossless file actually has to keep."></canvas>
+        <canvas id="scope" aria-label="A real recording being rebuilt one sample at a time from the tiny numbers a lossless file keeps, and checked against the original as it goes."></canvas>
       </div>
-      <figcaption><b>Top: the music. Bottom: all we have to write down to bring it back exactly.</b>
-      Real recording, same scale. The music peaks at <span class="num" data-fig="win_peak">7,100</span>; what we keep peaks at
-      <span class="num" data-fig="res_peak">22</span>. That's how a lossless file stays small without throwing anything away.</figcaption>
+      <figcaption><b>Watch a real recording come back.</b> The bottom line is everything a Naad file keeps:
+      tiny numbers, peaking at <span class="num" data-fig="res_peak">22</span> where the music peaks at
+      <span class="num" data-fig="win_peak">7,100</span>. The top line is the music, rebuilt from them one sample at a
+      time and checked against the original as it goes. Exact, every time. That is what lossless means.</figcaption>
     </figure>
   </div>
 </section>
@@ -579,38 +580,70 @@
   var ctx=cv.getContext('2d');
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var SAMPLES=[3643,3940,4226,4500,4763,5011,5246,5466,5670,5859,6032,6187,6325,6446,6548,6633,6698,6746,6774,6784,6775,6747,6700,6635,6552,6451,6333,6196,6044,5875,5690,5490,5275,5046,4805,4550,4283,4006,3718,3421,3115,2802,2482,2156,1825,1490,1152,812,471,130,-211,-550,-886,-1220,-1549,-1872,-2190,-2501,-2804,-3099,-3384,-3660,-3925,-4179,-4421,-4650,-4868,-5071,-5261,-5436,-5596,-5741,-5872,-5986,-6085,-6167,-6234,-6284,-6319,-6337,-6339,-6324,-6294,-6248,-6186,-6109,-6017,-5910,-5788,-5652,-5503,-5340,-5165,-4976,-4776,-4565,-4344,-4111,-3869,-3619,-3360,-3093,-2819,-2539,-2253,-1962,-1666,-1367,-1065,-761,-456,-150,157,462,766,1068,1368,1663,1954,2242,2523,2798,3066,3327,3581,3826,4061,4287,4502,4706,4900,5082,5251,5408,5553,5683,5800,5904,5993,6067,6127,6172,6202,6216,6216,6200,6169,6122,6061,5984,5892,5785,5663,5527,5377,5212,5034,4843,4640,4423,4194,3955,3704,3443,3172,2892,2604,2308,2004,1694,1379,1059,735,408,78,-253,-584,-916,-1247,-1575,-1901,-2223,-2541,-2853,-3158,-3457,-3748,-4030,-4302,-4564,-4814,-5053,-5279,-5491,-5689,-5873,-6041,-6194,-6330,-6450,-6552,-6637,-6704,-6753,-6783,-6795,-6789,-6763,-6719,-6655,-6574,-6474,-6356,-6219,-6065,-5894,-5706,-5501,-5280,-5045,-4795,-4530,-4252,-3962,-3661,-3348,-3025,-2693,-2353,-2006,-1653,-1294,-931,-566,-199,170,538,905,1270,1632,1989,2340,2685,3023,3353,3672,3981,4279,4566,4839,5098,5342,5571,5784,5981,6161,6323,6467,6593,6699,6787,6856,6905,6934,6944,6934,6905,6857,6789,6702,6597,6473,6332,6173,5998,5805,5598,5375,5138,4887,4624,4348,4062,3765,3458,3143,2821,2492,2156,1816,1472,1127,779,430,81,-266,-611,-954,-1293,-1626,-1954,-2275,-2589,-2895,-3191,-3478,-3755,-4020,-4273,-4514,-4742,-4957,-5158,-5344,-5516,-5672,-5813,-5939,-6048,-6141,-6219,-6279,-6324,-6352,-6364,-6360,-6339,-6303,-6251,-6183,-6100,-6002,-5890,-5763,-5622,-5468,-5302,-5122,-4931,-4728,-4514,-4290,-4056,-3813,-3562,-3302,-3035,-2762,-2483,-2198,-1908,-1615,-1318,-1020,-719,-417,-114,188,489,789,1087,1382,1673,1960,2243,2519,2790,3054,3312,3560,3801,4033,4256,4468,4670,4861,5041,5209,5365,5508,5639,5756,5860,5950,6026,6087,6134,6167,6185,6187,6175,6148,6106,6048,5976,5889,5787,5671,5541,5395,5236,5064,4879,4680,4468,4245,4011,3764,3507,3241,2965,2680,2386,2085,1777,1464,1146,822,495,165,-167,-500,-834,-1167,-1498,-1828,-2154,-2476,-2793,-3104,-3409,-3706,-3994,-4274,-4543,-4801,-5048,-5281,-5502,-5708,-5901,-6077,-6238,-6383,-6511,-6622,-6714,-6789,-6845,-6883,-6901,-6901,-6881,-6842,-6784,-6706,-6610,-6495,-6362,-6210,-6040,-5853,-5648,-5428,-5191,-4939,-4671,-4391,-4097,-3790,-3472,-3144,-2806,-2459,-2105,-1743,-1376,-1005,-631,-253,125,504,881,1256,1629,1996,2358,2714,3062,3401,3731,4050,4358,4653,4934,5201,5453,5690,5910,6113,6298,6465,6613,6742,6852,6942,7012,7061,7091,7100,7089,7058,7007,6935,6845,6734,6606,6459,6294,6111,5912,5697,5466,5221,4961,4689,4405,4109,3803,3487,3164,2832,2493,2150,1802,1450,1096,740,384,29,-325,-676,-1024,-1367,-1705,-2037,-2361,-2677,-2984,-3283,-3570,-3847,-4111,-4363,-4603,-4829,-5041,-5239,-5421,-5588,-5741,-5876,-5996,-6100,-6188,-6259,-6313,-6352,-6373,-6379,-6368,-6341,-6298,-6240,-6166,-6077,-5974,-5856,-5724,-5579,-5421,-5250,-5067,-4873,-4668,-4452,-4226,-3992,-3749,-3497,-3238,-2973,-2702,-2425,-2143,-1857,-1568,-1277,-983,-687,-391,-95,201,496,789,1079,1366,1650,1929,2203,2472,2736,2992,3242,3483,3717,3942,4158,4365,4561,4747,4922,5086,5238,5378,5506,5621,5723,5812,5888,5951,5999,6033,6053,6059,6051,6028,5991,5940,5874,5793,5699,5591,5468,5332,5182,5020,4843,4655,4454,4241,4017,3781,3535,3280,3014,2739,2456,2165,1868,1564,1255,940,622,300,-24,-351,-678,-1004,-1331,-1656,-1977,-2296,-2610,-2920,-3222,-3518,-3807,-4087,-4357,-4617,-4866,-5102,-5327,-5538,-5735,-5917,-6084,-6236,-6370,-6488,-6589,-6671,-6736,-6782,-6810,-6818,-6808,-6779,-6730,-6663,-6576,-6470,-6346,-6204,-6043,-5865,-5670,-5458,-5230,-4986,-4727,-4454,-4168,-3869,-3558,-3237,-2905,-2564,-2215,-1859,-1497,-1131,-761,-387,-13,362,737,1110,1479,1844,2205,2560,2906,3245,3574,3893,4200,4495,4777,5046,5299,5537,5758,5963,6150,6319,6470,6602,6714,6807,6880,6933,6966,6980,6972,6945,6899,6832,6746,6641,6518,6377,6217,6041,5848,5640,5415,5177,4925,4661,4384,4096,3798,3491,3175,2852,2524,2189,1850,1508,1162,816,470,125,-220,-562,-899,-1233,-1562,-1884,-2199,-2506,-2806,-3095,-3375,-3643,-3901,-4147,-4381,-4601,-4808,-5001,-5180,-5344,-5494,-5628,-5748,-5852,-5940,-6013,-6070,-6112,-6138,-6148,-6144,-6124,-6089,-6040,-5976,-5898,-5805,-5700,-5581,-5450,-5307,-5151,-4984,-4807,-4618,-4420,-4213,-3997,-3772,-3539,-3299,-3053,-2801,-2542,-2280,-2013,-1742,-1467,-1190,-911,-631,-351,-69,212,492,770,1047,1322,1593,1860,2124,2383,2636,2884,3125,3361,3589,3809,4021,4224,4418,4604,4778,4943,5097,5241,5372,5492,5600,5695,5778,5848,5904,5948,5977,5993,5995,5982,5955,5914,5859,5790,5705,5607,5494,5368,5227,5072,4905,4724,4529,4322,4103,3872,3629];
-  var N=SAMPLES.length, res=new Array(N), peak=0, i;
+  // WHAT THIS ANIMATION IS. It performs a real lossless decode, in the page.
+  // `res` is what a file keeps: the residual under the fixed order-2
+  // predictor, r[i] = s[i] - 2 s[i-1] + s[i-2]. `rebuilt` is what the decoder
+  // does with it, starting from the two warm-up samples a frame begins with:
+  // s[i] = r[i] + 2 s[i-1] - s[i-2]. Every rebuilt sample is compared with the
+  // original, and the readout counts the matches. The music on the top trace
+  // is drawn only as far as it has been rebuilt, so the viewer watches a real
+  // recording come back from tiny numbers, and watches it be checked.
+  var N=SAMPLES.length, res=new Array(N), rebuilt=new Array(N), peak=0, i;
   for(i=0;i<N;i++){ res[i]=(i<2)?0:SAMPLES[i]-2*SAMPLES[i-1]+SAMPLES[i-2]; if(Math.abs(SAMPLES[i])>peak) peak=Math.abs(SAMPLES[i]); }
+  rebuilt[0]=SAMPLES[0]; rebuilt[1]=SAMPLES[1];
+  for(i=2;i<N;i++) rebuilt[i]=res[i]+2*rebuilt[i-1]-rebuilt[i-2];
   var dpr=1,W=0,H=0;
   function resize(){ dpr=Math.min(window.devicePixelRatio||1,2); W=cv.clientWidth; H=cv.clientHeight;
     cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0); }
-  function trace(arr,yMid,amp,colour,width,glow){
+  function X(i){ return (i/(N-1))*W; }
+  function trace(arr,from,to,yMid,amp,colour,width,glow,alpha){
+    if(to<=from) return;
     ctx.beginPath();
-    for(var i=0;i<N;i++){ var x=(i/(N-1))*W, y=yMid-(arr[i]/peak)*amp; if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); }
-    ctx.shadowColor=glow; ctx.shadowBlur=12;
+    for(var i=from;i<to;i++){ var x=X(i), y=yMid-(arr[i]/peak)*amp; if(i===from) ctx.moveTo(x,y); else ctx.lineTo(x,y); }
+    ctx.globalAlpha=alpha; ctx.shadowColor=glow; ctx.shadowBlur=glow?12:0;
     ctx.strokeStyle=colour; ctx.lineWidth=width; ctx.lineJoin='round'; ctx.lineCap='round'; ctx.stroke();
-    ctx.shadowBlur=0;
+    ctx.shadowBlur=0; ctx.globalAlpha=1;
   }
-  function band(top,mid,label){
-    ctx.beginPath(); ctx.moveTo(0,mid); ctx.lineTo(W,mid); ctx.strokeStyle='rgba(216,180,254,.18)'; ctx.lineWidth=1; ctx.stroke();
-    ctx.font='500 9.5px ui-monospace, Menlo, monospace'; ctx.fillStyle='rgba(233,213,255,.7)'; ctx.fillText(label,14,top+16);
+  function label(text,x,y,colour,align){
+    ctx.font='500 9.5px ui-monospace, Menlo, monospace'; ctx.textAlign=align||'left'; ctx.fillStyle=colour; ctx.fillText(text,x,y); ctx.textAlign='left';
   }
-  var t0=null,raf=null;
-  function frame(ts){
-    if(t0===null) t0=ts;
+  function dot(x,y,colour,r){ ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fillStyle=colour; ctx.shadowColor=colour; ctx.shadowBlur=14; ctx.fill(); ctx.shadowBlur=0; }
+  var PERIOD=7600, HOLD=1600, t0=null, raf=null;
+  function draw(k){
     ctx.clearRect(0,0,W,H);
     var split=H*0.54, topMid=H*0.29, botMid=H*0.78, amp=H*0.19;
-    band(0,topMid,'THE MUSIC');
-    band(split,botMid,'WHAT WE KEEP  ·  SAME SCALE');
-    ctx.beginPath(); ctx.moveTo(0,split); ctx.lineTo(W,split); ctx.strokeStyle='rgba(216,180,254,.12)'; ctx.lineWidth=1; ctx.stroke();
-    trace(SAMPLES,topMid,amp,'#FF9DF8',1.5,'rgba(255,61,242,.9)');
-    trace(res,botMid,amp,'#A5F3FC',1.5,'rgba(34,211,238,.9)');
-    if(reduce) return;
-    var period=5600, x=(((ts-t0)%period)/period)*W;
-    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.strokeStyle='#FFFFFF'; ctx.lineWidth=1.2; ctx.globalAlpha=.7; ctx.stroke(); ctx.globalAlpha=1;
+    // bands
+    ctx.beginPath(); ctx.moveTo(0,topMid); ctx.lineTo(W,topMid); ctx.strokeStyle='rgba(216,180,254,.18)'; ctx.lineWidth=1; ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,botMid); ctx.lineTo(W,botMid); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,split); ctx.lineTo(W,split); ctx.strokeStyle='rgba(216,180,254,.12)'; ctx.stroke();
+    label('THE MUSIC  ·  REBUILT FROM WHAT WE KEEP',14,16,'rgba(233,213,255,.7)');
+    label('WHAT THE FILE KEEPS  ·  SAME SCALE',14,split+16,'rgba(165,243,252,.7)');
+    // what the file keeps: all of it, dim; the part already read, bright
+    trace(res,0,N,botMid,amp,'#A5F3FC',1.2,null,.35);
+    trace(res,0,k,botMid,amp,'#A5F3FC',1.6,'rgba(34,211,238,.9)',1);
+    // the music, only as far as it has been rebuilt
+    trace(rebuilt,0,k,topMid,amp,'#FF9DF8',1.6,'rgba(255,61,242,.9)',1);
+    // the reading: where the decoder is now
+    var ok=0; for(var j=0;j<k;j++) if(rebuilt[j]===SAMPLES[j]) ok++;
+    if(k>0){
+      var c=k-1, x=X(c), yT=topMid-(rebuilt[c]/peak)*amp, yB=botMid-(res[c]/peak)*amp;
+      ctx.beginPath(); ctx.moveTo(x,yB); ctx.lineTo(x,yT); ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.lineWidth=1; ctx.stroke();
+      dot(x,yB,'#A5F3FC',3); dot(x,yT,'#FF9DF8',3.5);
+    }
+    // the readout: a real count, not a caption
+    var done=(k>=N), pad=14;
+    label((done?'EVERY SAMPLE BACK':'REBUILDING')+'  ·  '+k+' / '+N, W-pad, 16, 'rgba(247,241,255,.85)', 'right');
+    label('CHECKED AGAINST THE ORIGINAL  ·  '+ok+' EXACT'+(k>0&&ok<k?'  ·  '+(k-ok)+' WRONG':''), W-pad, split+16, (k>0&&ok<k)?'#FF9DF8':'rgba(165,243,252,.85)', 'right');
+    if(done){ ctx.font='700 11px ui-monospace, Menlo, monospace'; ctx.textAlign='right'; ctx.fillStyle='#FFFFFF'; ctx.shadowColor='rgba(34,211,238,.9)'; ctx.shadowBlur=16;
+      ctx.fillText(ok===N?'EXACT  ✓':'NOT EXACT  ✗', W-pad, topMid+amp+18); ctx.shadowBlur=0; ctx.textAlign='left'; }
+  }
+  function frame(ts){
+    if(t0===null) t0=ts;
+    var t=(ts-t0)%(PERIOD+HOLD), k=Math.min(N,Math.floor((t/PERIOD)*N));
+    draw(k);
     raf=requestAnimationFrame(frame);
   }
-  function start(){ if(raf) cancelAnimationFrame(raf); resize(); t0=null; raf=requestAnimationFrame(frame); }
+  function start(){ if(raf) cancelAnimationFrame(raf); resize(); t0=null; if(reduce){ draw(N); return; } raf=requestAnimationFrame(frame); }
   start();
   var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(start,140); });
 })();
