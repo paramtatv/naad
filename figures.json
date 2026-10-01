@@ -69,14 +69,14 @@
       "value": "1,500",
       "status": "measured",
       "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC",
-      "source": "sravan real-frame f631d7d, re-taken on the fixed kernel: slope (16,585,091 − 4,299,531)/8 = 1,535,695 per frame of 1,024 channel-samples; identical to 85f90b2",
+      "source": "sravan real-frame f631d7d, re-taken on the fixed kernel: slope (16,585,091 − 4,299,531)/8 = 1,535,695 per frame of 1,024 channel-samples; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "reference/gentiming.py, two-point slope"
     },
     "realtime": {
       "value": "7.6×",
       "status": "projected",
       "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon",
-      "source": "sravan real-frame f631d7d, realtime_factor = 1,535,695 × 44100/512 / 1e9 = 0.132; identical to 85f90b2",
+      "source": "sravan real-frame f631d7d, realtime_factor = 1,535,695 × 44100/512 / 1e9 = 0.132; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "1 / (1500 × 44100 × 2 / 1e9)"
     },
     "crcshare": {
@@ -209,7 +209,7 @@
       "value": "11,422,135",
       "status": "measured",
       "label": "native instructions to decode frame 0 and check both folds, including setup; frames 1 and 2 took 16,745,289 and 19,630,338",
-      "source": "sravan@6be713d, yantra-run steps lines",
+      "source": "sravan@6be713d, yantra-run steps lines; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "YANTRA_STEPS=2000000000 yantra-run r.elf"
     },
     "mkt_live": {
@@ -279,14 +279,14 @@
       "value": "1,535,695",
       "status": "measured",
       "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix",
-      "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions",
+      "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
     },
     "seq_steps": {
       "value": "200,566,103",
       "status": "measured",
       "label": "native instructions to unpack and decode the ten frames in sequence and check twenty folds, including setup",
-      "source": "sravan@5e9c1a6, yantra-run steps line",
+      "source": "sravan@5e9c1a6, yantra-run steps line; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "YANTRA_STEPS=4000000000 yantra-run s10.elf"
     },
     "real_secs": {
@@ -296,5 +296,6 @@
       "source": "arithmetic on sravan@5e9c1a6",
       "command": "40960 / 48000"
     }
-  }
+  },
+  "compiler": "compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary"
 }
