@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-01 public r16 ten-frames">
+<meta name="naad-build" content="2026-10-01 public r17 boundaries">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -598,7 +598,7 @@
     <div class="ledger panel">
       <div class="hd"><span>What ships today, and what does not</span></div>
       <ul>
-        <li><span class="tag measured">Green</span><span><b>Real frames, in sequence</b>: the first ten frames of the Grieg recording on this page, 24-bit, independent stereo and mid/side, written by a real encoder, walked in order by one run of Naad's decoder on both engines, every frame checked against ffmpeg's samples, a foreign witness: <span data-fig="seq_steps">200,566,103</span> native instructions. Frame 0 alone took <span data-fig="real_steps">11,422,135</span>. Controls: a fold off by one answers the code that names its frame and channel, a corrupted octet is refused. The frame map is given; finding boundaries, reading STREAMINFO and resynchronising are the stream layer, not built. This work found and fixed an inverted Rice unary that every self-written test had shared.</span></li>
+        <li><span class="tag measured">Green</span><span><b>Real frames, in sequence</b>: the first ten frames of the Grieg recording on this page, 24-bit, independent stereo and mid/side, written by a real encoder, walked in order by one run of Naad's decoder on both engines, each frame's boundary found by the decoder itself and every frame checked against ffmpeg's samples, a foreign witness: <span data-fig="seq_steps">199,803,671</span> native instructions. Frame 0 alone took <span data-fig="real_steps">11,422,135</span>. Controls: a fold off by one answers the code that names its frame and channel, a boundary moved by one octet answers the code that names its frame, a corrupted octet is refused. Reading STREAMINFO and resynchronising after a damaged frame are the stream layer, not built. This work found and fixed an inverted Rice unary that every self-written test had shared.</span></li>
         <li><span class="tag measured">Green</span><span><b>Frame decoder</b>: header with all four code spaces, all four subframe bodies, partitioned Rice with escapes, every stereo pairing, both CRCs. One or two channels.</span></li>
         <li><span class="tag measured">Green</span><span><b>Timing re-taken after the fix</b>: <span data-fig="timing_retake">1,535,695</span> instructions per frame on the corrected decoder, identical to the instruction to the figure before it, as predicted before the run.</span></li>
         <li><span class="tag measured">Green</span><span><b>Sassembly</b>: the compiler compiled itself byte for byte on <span data-fig="fixpoint_date">2026-09-22</span> and has on every change since.</span></li>

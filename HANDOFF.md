@@ -142,9 +142,12 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 1. **Owner review of this branch.** Nothing is public until then.
 2. **The stream layer, from the sequence test.** `sravan` branch `real-frame` now walks the
    first frames of the Commons file in order (`reference/genstream.py`, `pariksha_s.t1`,
-   frames packed eight octets to a word; ten frames green on both engines, 200,566,103
-   native instructions, with a per-frame control). What it does not do yet: find frame boundaries itself, read STREAMINFO,
-   resynchronise, or hand samples anywhere. Those are the stream layer, in that order.
+   frames packed eight octets to a word; ten frames green on both engines with the cursor carried, so boundaries are
+   found by the decoder and the flac -a map is only a witness; 199,803,671 native
+   instructions; per-frame controls for fold and boundary). What it does not do yet: read
+   STREAMINFO, resynchronise after a damaged frame, or hand samples anywhere. Those are the
+   stream layer, in that order. Branch is now `stream`, cut from main after a peer merged
+   `real-frame`; the peer pushes sravan main and says so each time.
 2a. **The packed-word reader in the peer's stash carries the inverted Rice unary.** Fixed on
    `real-frame` (`पदरिचः`, one comparison); whoever lands the packed reader needs it.
 3. **Attestation of S1** (`decode_hash_agreement` at k = 3 on Naad's decoder). The thesis
