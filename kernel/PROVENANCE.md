@@ -15,4 +15,5 @@ re-takes both from these files on every run.
 for the public. They are not edited here; to update them, copy from a newer commit and
 re-take every figure in `figures.json` that names a commit, together, in one change.
 
-BSD 3-Clause, as in the source repository.
+The source repository's LICENSE file is BSD 3-Clause as of 85f90b2. The owner has said Naad is a
+licensed product; see HANDOFF.md §5 item 8. This copy carries no licence grant of its own.

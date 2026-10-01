@@ -118,6 +118,14 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
+8. **Naad and Śravaṇa are licensed products, not free ones.** Owner's ruling, 2026-10-01.
+   No "royalty-free", "no fee", "open", "nobody owns it" or "no subscription" promise
+   anywhere on the page. The listener-side promise is that files do not expire with an
+   account; the maker-side promise is that Naad is licensed to them. **OPEN CONFLICT,
+   owner's call before anything is public:** `sravan`'s LICENSE, README and THESIS say BSD
+   3-Clause, and `kernel/` on this page is a verbatim copy under that notice with a public
+   "read the decoder" link. A BSD notice grants royalty-free use. Either the licence changes
+   before the page ships, or the vendored decoder and the link come off the page.
 
 ## 6. Names
 
