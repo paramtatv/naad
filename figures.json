@@ -1,0 +1,146 @@
+{
+  "_about": "Every number on index.html is a data-fig span whose text must equal a value here. tools/check-figures.py refuses the page otherwise. status is one of measured | projected | planned. source names the repository, commit and file or section the value was read from; command is how to take it again.",
+  "figures_date": "2026-09-30",
+  "figures": {
+    "lines": {
+      "value": "1,182",
+      "status": "measured",
+      "label": "lines in the decoder, both files",
+      "source": "sravan@6b0001e kernel/nihshesha.t1 (1,051) + kernel/mapana.t1 (131); vendored here under kernel/",
+      "command": "wc -l kernel/nihshesha.t1 kernel/mapana.t1"
+    },
+    "routines": {
+      "value": "21",
+      "status": "measured",
+      "label": "public routines, both files",
+      "source": "sravan@6b0001e: 17 in nihshesha.t1 + 4 in mapana.t1",
+      "command": "grep -c 'सार्वजनिक वृत्तिः' kernel/nihshesha.t1 kernel/mapana.t1"
+    },
+    "foreign": {
+      "value": "0",
+      "status": "measured",
+      "label": "lines of C, C++, Rust or assembly in the decode path",
+      "source": "sravan kernel/ contains only .t1 and README.md; the Python under reference/ is the encoder and the oracle, not the decode path",
+      "command": "find kernel -type f -not -name '*.t1' -not -name '*.md' | wc -l"
+    },
+    "frames": {
+      "value": "10",
+      "status": "measured",
+      "label": "complete FLAC frames graded, plus three that must be refused",
+      "source": "sravan THESIS.md §8c, 'The whole frame'",
+      "command": "see kernel/pariksha_f.t1 subjects"
+    },
+    "headers": {
+      "value": "78",
+      "status": "measured",
+      "label": "complete frame headers, all four code spaces enumerated",
+      "source": "sravan THESIS.md §8c, 'The frame header'",
+      "command": "see kernel/pariksha_h.t1 subjects"
+    },
+    "typecodes": {
+      "value": "64",
+      "status": "measured",
+      "label": "subframe type codes, 39 legal and 25 reserved, every one classified or refused",
+      "source": "sravan THESIS.md §8c, 'The subframe header'",
+      "command": "see kernel/pariksha_t*.t1 subjects"
+    },
+    "mutations": {
+      "value": "17",
+      "status": "measured",
+      "label": "kernel mutations, each caught by the subject built for it",
+      "source": "sravan THESIS.md §8c: 3 (dispatcher) + 9 (header, CRCs, stereo) + 5 (whole frame)",
+      "command": "count the kernel-mutation rows in THESIS.md §8c"
+    },
+    "crc8": {
+      "value": "0xF4",
+      "status": "measured",
+      "label": "CRC-8 over b\"123456789\", the published check value",
+      "source": "sravan THESIS.md §8c; catalogue value for poly 0x07",
+      "command": "python3 -c \"import crcmod\" or any published CRC catalogue"
+    },
+    "crc16": {
+      "value": "0xFEE8",
+      "status": "measured",
+      "label": "CRC-16/UMTS over b\"123456789\", the published check value",
+      "source": "sravan THESIS.md §8c; catalogue value for poly 0x8005 init 0",
+      "command": "any published CRC catalogue"
+    },
+    "ipcs": {
+      "value": "1,814",
+      "status": "measured",
+      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio",
+      "source": "sravan@5e1370d, realtime_factor re-measured; THESIS.md §6 S1",
+      "command": "reference/gentiming.py, two-point slope"
+    },
+    "realtime": {
+      "value": "6×",
+      "status": "projected",
+      "label": "real time, from 1,814 instructions per channel-sample at 1 GHz and 1 instruction per cycle; not timed on silicon",
+      "source": "sravan@5e1370d, realtime_factor = 0.160",
+      "command": "1 / (1814 × 44100 × 2 / 1e9)"
+    },
+    "crcshare": {
+      "value": "37.1%",
+      "status": "measured",
+      "label": "share of decode cost spent in CRC-16",
+      "source": "sravan@2335495; THESIS.md §6 S1 table, 689,812 of 1,857,669 per frame",
+      "command": "reference/gentiming.py against a kernel with CRC-16 removed"
+    },
+    "ratio": {
+      "value": "+0.1%",
+      "status": "measured",
+      "label": "coded size versus flac -8, the ENCODER, in Python, as an exact bit count and not an emitted stream",
+      "source": "sravan@9d1ceed; THESIS.md §6 S1 table, 52.8% vs 52.7%",
+      "command": "reference/bench_ietf.py"
+    },
+    "corpus": {
+      "value": "64 of 64",
+      "status": "measured",
+      "label": "IETF FLAC test files the encoder figure covers; nothing skipped",
+      "source": "sravan@9d1ceed; ietf-wg-cellar/flac-test-files",
+      "command": "reference/bench_ietf.py"
+    },
+    "toolchain": {
+      "value": "12",
+      "status": "measured",
+      "label": "MB, the whole Sassembly toolchain: 12,124,352 octets",
+      "source": "sansos vision.md rev 2026-09-28, metric shipped_bytes",
+      "command": "metric shipped_bytes in .loop/METRICS.tsv"
+    },
+    "fixpoint_date": {
+      "value": "2026-09-22",
+      "status": "measured",
+      "label": "the day the compiler compiled itself byte for byte",
+      "source": "sansos vision.md §5",
+      "command": "tools/fixpoint.sh, Stage 2 == Stage 1"
+    },
+    "attest_k": {
+      "value": "3",
+      "status": "planned",
+      "label": "instruction sets that must yield one digest of the decoded samples; Darśana reached this for a transform, Naad has not yet",
+      "source": "sravan THESIS.md §6 S4; Darsan README decode_hash_agreement = 1 at k = 3",
+      "command": "not yet taken for Naad"
+    },
+    "win_peak": {
+      "value": "7,100",
+      "status": "measured",
+      "label": "peak sample in the hero window",
+      "source": "sravan vectors/real_audio.txt, the 900-sample window of highest energy, at offset 4,650 (tools/hero-window.py)",
+      "command": "see tools/hero-window.py"
+    },
+    "res_peak": {
+      "value": "22",
+      "status": "measured",
+      "label": "peak residual in the hero window under the fixed order-2 predictor",
+      "source": "computed from the same window",
+      "command": "see tools/hero-window.py"
+    },
+    "drift": {
+      "value": "0.0000%",
+      "status": "measured",
+      "label": "frame-to-frame drift in decode cost: the model predicted 12,097,471 instructions for a run and 12,097,471 were measured",
+      "source": "naad HANDOFF.md at 620b1b3, carried from sravan reference/gentiming.py",
+      "command": "reference/gentiming.py, predicted vs measured instruction count"
+    }
+  }
+}

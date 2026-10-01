@@ -1,0 +1,1051 @@
+मण्डलम् निःशेष ॥
+आयातः मापन ।
+
+॰ निःशेषम् — THE LOSSLESS DECODER, NATIVE.
+॰
+॰ S1's decode path: Rice decoding, then the predictor's inverse. Both are
+॰ integer end to end — no float appears anywhere, which is why this stratum
+॰ needed nothing from Sassembly that did not already work, and why it can be
+॰ measured before the language has a float type at all.
+॰
+॰ THIS IS THE OPERATION THE PROJECT IS ABOUT. The encoder chooses; the decoder
+॰ is what ships inside the file and what must be exact on every machine. Its
+॰ cost per sample is `realtime_factor`, the measurement that decides whether
+॰ Śravaṇa plays audio or only archives it.
+
+॰ ── RICE DECODING ───────────────────────────────────────────────────
+॰
+॰ A Rice code is a unary quotient, a terminating zero, then k low bits. The
+॰ stream is held one BIT per element here rather than packed, because the
+॰ measurement being taken is the ARITHMETIC cost per sample; a bit-packed
+॰ reader adds shifting and masking that belong to a later, separate
+॰ measurement and would confound this one.
+॰
+॰ Answers the decoded value and advances सूचकम् past the code. Because a
+॰ routine cannot return two things, the cursor is carried in a one-element
+॰ array the caller owns — the array idiom measured on 2026-09-30: writes
+॰ DO reach the caller, provided the caller sized the array first.
+सार्वजनिक वृत्तिः रिचपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ कः ॱॱ न६४ ददाति न६४ आदि
+    चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+
+    ॰ the unary quotient
+    चरः भागः ॱॱ न६४ भवति ० ।
+    यावत् धारा अङ्कः स्थानम् अन्तः समम् १ आदि
+        भागः भवति भागः योगः १ ।
+        स्थानम् भवति स्थानम् योगः १ ।
+    इति
+    स्थानम् भवति स्थानम् योगः १ ।      ॰ the terminating zero
+
+    ॰ the k low bits, most significant first
+    चरः शेषम् ॱॱ न६४ भवति ० ।
+    चरः इ ॱॱ न६४ भवति ० ।
+    यावत् इ न्यूनम् कः आदि
+        शेषम् भवति शेषम् वामसृ १ ।
+        शेषम् भवति शेषम् विकल्प धारा अङ्कः स्थानम् अन्तः ।
+        स्थानम् भवति स्थानम् योगः १ ।
+        इ भवति इ योगः १ ।
+    इति
+
+    सूचकम् अङ्कः ० अन्तः भवति स्थानम् ।
+
+    ॰ un-zigzag: ० १ २ ३ ४ → ० −१ १ −२ २
+    चरः सम्पूर्णम् ॱॱ न६४ भवति भागः वामसृ कः ।
+    सम्पूर्णम् भवति सम्पूर्णम् विकल्प शेषम् ।
+    चरः अन्त्यम् ॱॱ न६४ भवति सम्पूर्णम् युक् १ ।
+    चरः अर्धम् ॱॱ न६४ भवति सम्पूर्णम् दक्षिणसृ १ ।
+    यदि अन्त्यम् समम् ० आदि
+        प्रत्यागमनम् अर्धम् ।
+    इति
+    प्रत्यागमनम् ० वियोगः अर्धम् वियोगः १ ।
+इति
+
+॰ ── THE FOLD ────────────────────────────────────────────────────────
+॰
+॰ A test compares one number against one the oracle computed, so this is the
+॰ single place a `.t1` result becomes comparable. BOTH HALVES OF EVERY WORD
+॰ ENTER IT: an arithmetic-versus-logical shift defect, and a sign-extension
+॰ defect, differ ONLY in the high 32 bits, and a 32-bit fold is blind to
+॰ exactly the class of defect this decoder is most likely to have. That
+॰ blindness shipped here twice before the rule was written down.
+॰
+॰ आरम्भः exists because a restored block's leading क्रमः slots are warm-up
+॰ carried outside the residual; folding them would compare zeros to data.
+सार्वजनिक वृत्तिः मेलनम् आदाय सरणी ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ गणना ॱॱ न६४ ददाति न६४ आदि
+    चरः मानकम् ॱॱ न६४ भवति २१४७४८३६४७ ।
+    चरः आच्छादनम् ॱॱ न६४ भवति ४२९४९६७२९५ ।
+    चरः संचयः ॱॱ न६४ भवति ० ।
+    चरः ज ॱॱ न६४ भवति ० ।
+    यावत् ज न्यूनम् गणना आदि
+        चरः व ॱॱ न६४ भवति सरणी अङ्कः आरम्भः योगः ज अन्तः ।
+        चरः अधः ॱॱ न६४ भवति व युक् आच्छादनम् ।
+        चरः ऊर्ध्वसृतम् ॱॱ न६४ भवति व दक्षिणसृ ३२ ।
+        चरः ऊर्ध्वम् ॱॱ न६४ भवति ऊर्ध्वसृतम् युक् आच्छादनम् ।
+        संचयः भवति संचयः गुणनम् १३१ ।
+        संचयः भवति संचयः योगः अधः ।
+        संचयः भवति संचयः शेषः मानकम् ।
+        संचयः भवति संचयः गुणनम् १३१ ।
+        संचयः भवति संचयः योगः ऊर्ध्वम् ।
+        संचयः भवति संचयः योगः ज ।
+        संचयः भवति संचयः शेषः मानकम् ।
+        ज भवति ज योगः १ ।
+    इति
+    प्रत्यागमनम् संचयः ।
+इति
+
+॰ ── THE FIXED PREDICTOR'S INVERSE ───────────────────────────────────
+॰
+॰ The n-th order fixed predictor is the n-th DIFFERENCE, so its inverse is the
+॰ n-th running sum. Orders ०..४ are the binomial coefficients, and restoring
+॰ each one is a single accumulate per sample — which is why this decode is
+॰ cheap and why the encoder is where all the cost lives.
+॰
+॰ नमूनाः must already hold the first क्रमः warm-up samples, and is filled from
+॰ क्रमः onward. Answers the position-weighted fold over the restored samples,
+॰ so one number carries the whole decode across architectures.
+सार्वजनिक वृत्तिः स्थिरपुनःस्थापनम् आदाय अवशेषाः ॱॱ अङ्कः अन्तः न६४ ऽ नमूनाः ॱॱ अङ्कः अन्तः न६४ ऽ गणना ॱॱ न६४ ऽ क्रमः ॱॱ न६४ ददाति न६४ आदि
+    चरः इ ॱॱ न६४ भवति क्रमः ।
+    यावत् इ न्यूनम् गणना आदि
+        चरः पूर्वानुमानम् ॱॱ न६४ भवति ० ।
+
+        यदि क्रमः समम् १ आदि
+            चरः अकः ॱॱ न६४ भवति इ वियोगः १ ।
+            पूर्वानुमानम् भवति नमूनाः अङ्कः अकः अन्तः ।
+        इति
+        यदि क्रमः समम् २ आदि
+            चरः बकः ॱॱ न६४ भवति इ वियोगः १ ।
+            चरः बखः ॱॱ न६४ भवति इ वियोगः २ ।
+            चरः बएकम् ॱॱ न६४ भवति नमूनाः अङ्कः बकः अन्तः ।
+            चरः बद्वे ॱॱ न६४ भवति नमूनाः अङ्कः बखः अन्तः ।
+            पूर्वानुमानम् भवति बएकम् गुणनम् २ ।
+            पूर्वानुमानम् भवति पूर्वानुमानम् वियोगः बद्वे ।
+        इति
+        यदि क्रमः समम् ३ आदि
+            चरः गकः ॱॱ न६४ भवति इ वियोगः १ ।
+            चरः गखः ॱॱ न६४ भवति इ वियोगः २ ।
+            चरः गगः ॱॱ न६४ भवति इ वियोगः ३ ।
+            चरः गएकम् ॱॱ न६४ भवति नमूनाः अङ्कः गकः अन्तः ।
+            चरः गद्वे ॱॱ न६४ भवति नमूनाः अङ्कः गखः अन्तः ।
+            चरः गत्रि ॱॱ न६४ भवति नमूनाः अङ्कः गगः अन्तः ।
+            पूर्वानुमानम् भवति गएकम् गुणनम् ३ ।
+            चरः गमध्यम् ॱॱ न६४ भवति गद्वे गुणनम् ३ ।
+            पूर्वानुमानम् भवति पूर्वानुमानम् वियोगः गमध्यम् ।
+            पूर्वानुमानम् भवति पूर्वानुमानम् योगः गत्रि ।
+        इति
+        यदि क्रमः समम् ४ आदि
+            चरः घकः ॱॱ न६४ भवति इ वियोगः १ ।
+            चरः घखः ॱॱ न६४ भवति इ वियोगः २ ।
+            चरः घगः ॱॱ न६४ भवति इ वियोगः ३ ।
+            चरः घघः ॱॱ न६४ भवति इ वियोगः ४ ।
+            चरः घएकम् ॱॱ न६४ भवति नमूनाः अङ्कः घकः अन्तः ।
+            चरः घद्वे ॱॱ न६४ भवति नमूनाः अङ्कः घखः अन्तः ।
+            चरः घत्रि ॱॱ न६४ भवति नमूनाः अङ्कः घगः अन्तः ।
+            चरः घचतुः ॱॱ न६४ भवति नमूनाः अङ्कः घघः अन्तः ।
+            पूर्वानुमानम् भवति घएकम् गुणनम् ४ ।
+            चरः घषट् ॱॱ न६४ भवति घद्वे गुणनम् ६ ।
+            पूर्वानुमानम् भवति पूर्वानुमानम् वियोगः घषट् ।
+            चरः घचत्वारि ॱॱ न६४ भवति घत्रि गुणनम् ४ ।
+            पूर्वानुमानम् भवति पूर्वानुमानम् योगः घचत्वारि ।
+            पूर्वानुमानम् भवति पूर्वानुमानम् वियोगः घचतुः ।
+        इति
+
+        चरः वर्तमानम् ॱॱ न६४ भवति अवशेषाः अङ्कः इ अन्तः ।
+        वर्तमानम् भवति वर्तमानम् योगः पूर्वानुमानम् ।
+        नमूनाः अङ्कः इ अन्तः भवति वर्तमानम् ।
+        इ भवति इ योगः १ ।
+    इति
+
+    प्रत्यागमनम् मेलनम् आरभ्य नमूनाः ऽ ० ऽ गणना समाप्तम् ।
+इति
+
+॰ ── THE SUBFRAME BODIES FLAC DEFINES ────────────────────────────────
+॰
+॰ RFC 9639 §9.2.1: a subframe is one of four kinds, and the decoder
+॰ dispatches on the type bits in its header. This kernel had only FIXED.
+॰ CONSTANT and VERBATIM are added here; LPC follows.
+॰
+॰ The rung order is not arbitrary. CONSTANT and VERBATIM cost nothing to
+॰ decode and appear in real streams — silence is CONSTANT and incompressible
+॰ passages are VERBATIM — so a decoder without them fails on ordinary audio
+॰ before it fails on anything exotic.
+
+॰ CONSTANT — every sample in the block is one value.
+॰ The encoder writes the value once at the sample's bit depth; the decoder
+॰ fills. Cost: one read, गणना writes.
+सार्वजनिक वृत्तिः अचलपूरणम् आदाय नमूनाः ॱॱ अङ्कः अन्तः न६४ ऽ गणना ॱॱ न६४ ऽ मूल्यम् ॱॱ न६४ ददाति न६४ आदि
+    चरः इ ॱॱ न६४ भवति ० ।
+    यावत् इ न्यूनम् गणना आदि
+        नमूनाः अङ्कः इ अन्तः भवति मूल्यम् ।
+        इ भवति इ योगः १ ।
+    इति
+    प्रत्यागमनम् गणना ।
+इति
+
+॰ VERBATIM — the block did not compress, so the samples are stored raw at
+॰ the stream's bit depth. The decoder reads गहनता bits per sample, most
+॰ significant first, and sign-extends from that width.
+॰
+॰ Sign extension is the part worth care: a २४-bit sample read into an न६४
+॰ is positive-looking whatever its true sign, so the top bit of the SAMPLE
+॰ must be propagated rather than the top bit of the word.
+सार्वजनिक वृत्तिः यथावत्पाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ नमूनाः ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ गणना ॱॱ न६४ ऽ गहनता ॱॱ न६४ ददाति न६४ आदि
+    चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    चरः शीर्षस्थानम् ॱॱ न६४ भवति गहनता वियोगः १ ।
+    चरः इ ॱॱ न६४ भवति ० ।
+
+    यावत् इ न्यूनम् गणना आदि
+        चरः मूल्यम् ॱॱ न६४ भवति ० ।
+        चरः ज ॱॱ न६४ भवति ० ।
+        यावत् ज न्यूनम् गहनता आदि
+            मूल्यम् भवति मूल्यम् वामसृ १ ।
+            मूल्यम् भवति मूल्यम् विकल्प धारा अङ्कः स्थानम् अन्तः ।
+            स्थानम् भवति स्थानम् योगः १ ।
+            ज भवति ज योगः १ ।
+        इति
+
+        ॰ sign-extend from गहनता bits, not from ६४
+        चरः चिह्नम् ॱॱ न६४ भवति मूल्यम् दक्षिणसृ शीर्षस्थानम् ।
+        चिह्नम् भवति चिह्नम् युक् १ ।
+        यदि चिह्नम् समम् १ आदि
+            चरः एकम् ॱॱ न६४ भवति १ वामसृ गहनता ।
+            मूल्यम् भवति मूल्यम् वियोगः एकम् ।
+        इति
+
+        नमूनाः अङ्कः आरम्भः योगः इ अन्तः भवति मूल्यम् ।
+        इ भवति इ योगः १ ।
+    इति
+
+    सूचकम् अङ्कः ० अन्तः भवति स्थानम् ।
+    प्रत्यागमनम् गणना ।
+इति
+
+॰ ── THE FOURTH SUBFRAME BODY: LPC ───────────────────────────────────
+॰
+॰ RFC 9639 §9.2.6. The predictor's coefficients are sent with the block
+॰ rather than implied by its order, so the decoder applies whatever it is
+॰ handed: a multiply-accumulate over the previous क्रमः samples, then one
+॰ arithmetic shift right by सृतिः.
+॰
+॰ THE DECODER NEVER SEES A FLOAT. Fitting the coefficients is Levinson-Durbin
+॰ and lives in the encoder, where floats are allowed; quantising them to
+॰ integers plus a shift IS the boundary, and everything after it is exact.
+॰ That split is what lets S3's neural decoder make the same promise later —
+॰ this is the same architecture at a scale that can be checked today.
+॰
+॰ The accumulator is the thing to watch. At २४-bit with order १२ and १५-bit
+॰ coefficients the sum reaches २४ + १५ + log२(१२) ≈ ४३ bits, comfortably
+॰ inside न६४ — and the IETF corpus carries two files named "predictor
+॰ overflow check" precisely to catch a decoder that assumed otherwise.
+सार्वजनिक वृत्तिः रैखिकपुनःस्थापनम् आदाय अवशेषाः ॱॱ अङ्कः अन्तः न६४ ऽ नमूनाः ॱॱ अङ्कः अन्तः न६४ ऽ गणना ॱॱ न६४ ऽ गुणकाः ॱॱ अङ्कः अन्तः न६४ ऽ क्रमः ॱॱ न६४ ऽ सृतिः ॱॱ न६४ ददाति न६४ आदि
+    चरः इ ॱॱ न६४ भवति क्रमः ।
+    यावत् इ न्यूनम् गणना आदि
+        चरः संचयः ॱॱ न६४ भवति ० ।
+        चरः ज ॱॱ न६४ भवति ० ।
+        यावत् ज न्यूनम् क्रमः आदि
+            चरः पूर्वम् ॱॱ न६४ भवति इ वियोगः १ ।
+            पूर्वम् भवति पूर्वम् वियोगः ज ।
+            चरः गुणकः ॱॱ न६४ भवति गुणकाः अङ्कः ज अन्तः ।
+            चरः नमूना ॱॱ न६४ भवति नमूनाः अङ्कः पूर्वम् अन्तः ।
+            चरः गुणितम् ॱॱ न६४ भवति गुणकः गुणनम् नमूना ।
+            संचयः भवति संचयः योगः गुणितम् ।
+            ज भवति ज योगः १ ।
+        इति
+
+        ॰ one arithmetic shift, signed — the sum is signed and सृतिः may
+        ॰ discard bits that carry the sign
+        चरः पूर्वानुमानम् ॱॱ न६४ भवति मापनॱदक्षिणसृचिह्नित आरभ्य संचयः ऽ सृतिः समाप्तम् ।
+        चरः वर्तमानम् ॱॱ न६४ भवति अवशेषाः अङ्कः इ अन्तः ।
+        वर्तमानम् भवति वर्तमानम् योगः पूर्वानुमानम् ।
+        नमूनाः अङ्कः इ अन्तः भवति वर्तमानम् ।
+        इ भवति इ योगः १ ।
+    इति
+    प्रत्यागमनम् गणना ।
+इति
+
+॰ ── PARTITIONED RICE ────────────────────────────────────────────────
+॰
+॰ RFC 9639 §9.2.7. A block's residual is split into २^क्रमविभागः partitions,
+॰ each carrying its OWN Rice parameter, because the statistics drift within a
+॰ block and one parameter for the whole of it is the average of several wrong
+॰ answers. This decoder had assumed a single partition.
+॰
+॰ The first partition is shorter than the rest: it gives up क्रमः samples to
+॰ the predictor's warm-up, which are stored outside the residual. Getting that
+॰ off by one desynchronises everything after it — a Rice stream has no frame
+॰ markers to resynchronise on, so the error is total rather than local.
+॰
+॰ THE ESCAPE: a parameter of all-ones (१५ for ४-bit, ३१ for ५-bit) means the
+॰ partition is NOT Rice-coded — it stores गहनता raw bits per residual, where
+॰ गहनता is read from the five bits after the escape. Zero is legal and means
+॰ the whole partition is zero.
+सार्वजनिक वृत्तिः विभागपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ अवशेषाः ॱॱ अङ्कः अन्तः न६४ ऽ गणना ॱॱ न६४ ऽ क्रमः ॱॱ न६४ ऽ क्रमविभागः ॱॱ न६४ ऽ प्राचलविस्तारः ॱॱ न६४ ददाति न६४ आदि
+    चरः विभागाः ॱॱ न६४ भवति १ वामसृ क्रमविभागः ।
+    चरः विभागमापः ॱॱ न६४ भवति गणना दक्षिणसृ क्रमविभागः ।
+    चरः पलायनम् ॱॱ न६४ भवति १ वामसृ प्राचलविस्तारः ।
+    पलायनम् भवति पलायनम् वियोगः १ ।
+
+    चरः लेखनी ॱॱ न६४ भवति क्रमः ।     ॰ where residuals start: after warm-up
+    चरः व ॱॱ न६४ भवति ० ।
+
+    यावत् व न्यूनम् विभागाः आदि
+        ॰ this partition's Rice parameter, प्राचलविस्तारः bits
+        चरः प्राचलः ॱॱ न६४ भवति ० ।
+        चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+        चरः ब ॱॱ न६४ भवति ० ।
+        यावत् ब न्यूनम् प्राचलविस्तारः आदि
+            प्राचलः भवति प्राचलः वामसृ १ ।
+            प्राचलः भवति प्राचलः विकल्प धारा अङ्कः स्थानम् अन्तः ।
+            स्थानम् भवति स्थानम् योगः १ ।
+            ब भवति ब योगः १ ।
+        इति
+        सूचकम् अङ्कः ० अन्तः भवति स्थानम् ।
+
+        ॰ how many residuals this partition carries — the FIRST one is short
+        चरः सङ्ख्या ॱॱ न६४ भवति विभागमापः ।
+        यदि व समम् ० आदि
+            सङ्ख्या भवति सङ्ख्या वियोगः क्रमः ।
+        इति
+
+        यदि प्राचलः समम् पलायनम् आदि
+            ॰ ESCAPED: गहनता raw bits each, गहनता read from the next five
+            चरः गहनता ॱॱ न६४ भवति ० ।
+            चरः स्थानद्वि ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+            चरः ग ॱॱ न६४ भवति ० ।
+            यावत् ग न्यूनम् ५ आदि
+                गहनता भवति गहनता वामसृ १ ।
+                गहनता भवति गहनता विकल्प धारा अङ्कः स्थानद्वि अन्तः ।
+                स्थानद्वि भवति स्थानद्वि योगः १ ।
+                ग भवति ग योगः १ ।
+            इति
+            सूचकम् अङ्कः ० अन्तः भवति स्थानद्वि ।
+
+            चरः घ ॱॱ न६४ भवति ० ।
+            यावत् घ न्यूनम् सङ्ख्या आदि
+                यदि गहनता समम् ० आदि
+                    अवशेषाः अङ्कः लेखनी अन्तः भवति ० ।
+                इति
+                यदि गहनता अधिकम् ० आदि
+                    चरः उपेक्षा ॱॱ न६४ भवति यथावत्पाठः आरभ्य धारा ऽ सूचकम् ऽ अवशेषाः ऽ लेखनी ऽ १ ऽ गहनता समाप्तम् ।
+                इति
+                लेखनी भवति लेखनी योगः १ ।
+                घ भवति घ योगः १ ।
+            इति
+        इति
+
+        यदि प्राचलः असमम् पलायनम् आदि
+            चरः च ॱॱ न६४ भवति ० ।
+            यावत् च न्यूनम् सङ्ख्या आदि
+                चरः मूल्यम् ॱॱ न६४ भवति रिचपाठः आरभ्य धारा ऽ सूचकम् ऽ प्राचलः समाप्तम् ।
+                अवशेषाः अङ्कः लेखनी अन्तः भवति मूल्यम् ।
+                लेखनी भवति लेखनी योगः १ ।
+                च भवति च योगः १ ।
+            इति
+        इति
+
+        व भवति व योगः १ ।
+    इति
+    प्रत्यागमनम् लेखनी ।
+इति
+
+॰ ── THE SUBFRAME HEADER ──────────────────────────────────────────────
+॰
+॰ RFC 9639 §9.2.1. This is what turns four subframe BODIES into a decoder:
+॰ until something reads the type field off the stream, the bodies are routines
+॰ nobody can reach from a file.
+॰
+॰ THE SIX-BIT TYPE FIELD IS IRREGULAR AND HAS 25 RESERVED CODES OF 64:
+॰
+॰   ००००००            CONSTANT
+॰   ०००००१            VERBATIM
+॰   ००१xxx            FIXED, order xxx — AND ONLY xxx <= ४ IS LEGAL
+॰   १xxxxx            LPC, order xxxxx PLUS ONE
+॰   everything else   reserved
+॰
+॰ Two traps, and both are the kind that produce plausible wrong audio rather
+॰ than a fault. The FIXED range spans eight codes but only five are orders ०–४:
+॰ a decoder that masks three bits and trusts them accepts order ५, ६ or ७ and
+॰ then reads a warm-up that the encoder never wrote. And THE LPC ORDER IS ONE
+॰ MORE THAN THE FIELD, so order ३२ is encodable and order ० is not — an
+॰ off-by-one here misreads every coefficient that follows.
+॰
+॰ So this routine REFUSES reserved codes rather than masking them. लक्षणम्
+॰ carries the three results out: प्रकारः, क्रमः, व्ययितम्. (It is NOT named
+॰ विवरम् — ADR-0018 made that a keyword meaning U+0020 wherever a value may
+॰ stand, so it binds as a name and then reads as a SPACE. The refusal is
+॰ `Str([32]) is not something that can be assigned to`, which names neither
+॰ the name nor the line.)
+॰ ANSWERS ० on success, १ if the padding bit is set, २ on a reserved code.
+सार्वजनिक वृत्तिः उपखण्डशीर्षपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ लक्षणम् ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
+    चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+
+    ॰ the mandatory zero padding bit. A set bit here means the stream is not
+    ॰ where the caller thinks it is, and every later field would be garbage.
+    यदि धारा अङ्कः स्थानम् अन्तः असमम् ० आदि
+        प्रत्यागमनम् १ ।
+    इति
+    स्थानम् भवति स्थानम् योगः १ ।
+
+    चरः संकेतः ॱॱ न६४ भवति ० ।
+    चरः ब ॱॱ न६४ भवति ० ।
+    यावत् ब न्यूनम् ६ आदि
+        संकेतः भवति संकेतः वामसृ १ ।
+        संकेतः भवति संकेतः विकल्प धारा अङ्कः स्थानम् अन्तः ।
+        स्थानम् भवति स्थानम् योगः १ ।
+        ब भवति ब योगः १ ।
+    इति
+
+    चरः प्रकारः ॱॱ न६४ भवति ४ ।       ॰ ४ is "not yet classified"
+    चरः क्रमः ॱॱ न६४ भवति ० ।
+
+    यदि संकेतः समम् ० आदि
+        प्रकारः भवति ० ।
+    इति
+    यदि संकेतः समम् १ आदि
+        प्रकारः भवति १ ।
+    इति
+
+    ॰ LPC first, because its single high bit claims half the code space
+    चरः शीर्षम् ॱॱ न६४ भवति संकेतः दक्षिणसृ ५ ।
+    यदि शीर्षम् समम् १ आदि
+        प्रकारः भवति ३ ।
+        क्रमः भवति संकेतः युक् ३१ ।
+        क्रमः भवति क्रमः योगः १ ।      ॰ THE OFF-BY-ONE, stated once
+    इति
+
+    यदि प्रकारः समम् ४ आदि
+        चरः त्रिकम् ॱॱ न६४ भवति संकेतः दक्षिणसृ ३ ।
+        यदि त्रिकम् समम् १ आदि
+            चरः सम्भाव्यक्रमः ॱॱ न६४ भवति संकेतः युक् ७ ।
+            यदि सम्भाव्यक्रमः अधिकम् ४ आदि
+                प्रत्यागमनम् २ ।     ॰ ००११०१..००११११ are reserved
+            इति
+            प्रकारः भवति २ ।
+            क्रमः भवति सम्भाव्यक्रमः ।
+        इति
+    इति
+
+    यदि प्रकारः समम् ४ आदि
+        प्रत्यागमनम् २ ।
+    इति
+
+    ॰ wasted bits: one flag, then k as UNARY (k−१ zeros, then a one). The flag
+    ॰ being set therefore means k >= १; clear means k = ०.
+    चरः व्ययितम् ॱॱ न६४ भवति ० ।
+    यदि धारा अङ्कः स्थानम् अन्तः समम् १ आदि
+        स्थानम् भवति स्थानम् योगः १ ।
+        व्ययितम् भवति १ ।
+        यावत् धारा अङ्कः स्थानम् अन्तः समम् ० आदि
+            व्ययितम् भवति व्ययितम् योगः १ ।
+            स्थानम् भवति स्थानम् योगः १ ।
+        इति
+        स्थानम् भवति स्थानम् योगः १ ।
+    इति
+    यदि व्ययितम् समम् ० आदि
+        स्थानम् भवति स्थानम् योगः १ ।
+    इति
+
+    लक्षणम् अङ्कः ० अन्तः भवति प्रकारः ।
+    लक्षणम् अङ्कः १ अन्तः भवति क्रमः ।
+    लक्षणम् अङ्कः २ अन्तः भवति व्ययितम् ।
+    सूचकम् अङ्कः ० अन्तः भवति स्थानम् ।
+    प्रत्यागमनम् ० ।
+इति
+
+॰ ── AN UNSIGNED FIELD ────────────────────────────────────────────────
+॰
+॰ यथावत्पाठः sign-extends, because samples are signed. Header fields are not:
+॰ a precision of ०b१००० is ८, not −८. Reading one through the signed reader
+॰ turns every field whose top bit is set into a negative number, and those are
+॰ exactly the large legal values — precision १२..१४, shift १६..३१, partition
+॰ order ८..१५. So the two readers are separate on purpose.
+सार्वजनिक वृत्तिः अचिह्नितपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ गणना ॱॱ न६४ ददाति न६४ आदि
+    चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    चरः मूल्यम् ॱॱ न६४ भवति ० ।
+    चरः इ ॱॱ न६४ भवति ० ।
+    यावत् इ न्यूनम् गणना आदि
+        मूल्यम् भवति मूल्यम् वामसृ १ ।
+        मूल्यम् भवति मूल्यम् विकल्प धारा अङ्कः स्थानम् अन्तः ।
+        स्थानम् भवति स्थानम् योगः १ ।
+        इ भवति इ योगः १ ।
+    इति
+    सूचकम् अङ्कः ० अन्तः भवति स्थानम् ।
+    प्रत्यागमनम् मूल्यम् ।
+इति
+
+॰ ── THE SUBFRAME DISPATCHER ──────────────────────────────────────────
+॰
+॰ RFC 9639 §9.2. Reads a header, then the body that header names. THIS IS THE
+॰ ROUTINE THAT DECODES A CHANNEL: everything before it was a piece that a
+॰ caller had to know the shape of in advance.
+॰
+॰ The caller sizes नमूनाः, अवशेषाः, गुणकाः and लक्षणम् before the call —
+॰ a .t1 array parameter is not grown by its callee.
+॰
+॰ ORDER OF FIELDS, and it is not the order the routines were written in:
+॰   header  ->  warm-up (क्रमः samples)  ->  [LPC only: precision, shift,
+॰   coefficients]  ->  residual coding method + partition order  ->  residual
+॰
+॰ THE DEPTH THE BODY READS AT IS गहनता MINUS व्ययितम्, NOT गहनता. Wasted bits
+॰ are trailing zeros the encoder shifted out, so every stored field is narrower
+॰ and every decoded sample is shifted back at the end. A decoder that reads at
+॰ the full depth is not slightly wrong; it is one bit out per sample from the
+॰ first warm-up onward.
+॰
+॰ ANSWERS ० on success, १/२ from the header, ३ on an invalid LPC precision
+॰ (०b११११), ४ on a reserved residual coding method, ५ if the residual did not
+॰ fill the block.
+सार्वजनिक वृत्तिः उपखण्डपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ नमूनाः ॱॱ अङ्कः अन्तः न६४ ऽ अवशेषाः ॱॱ अङ्कः अन्तः न६४ ऽ गुणकाः ॱॱ अङ्कः अन्तः न६४ ऽ लक्षणम् ॱॱ अङ्कः अन्तः न६४ ऽ खण्डमापः ॱॱ न६४ ऽ गहनता ॱॱ न६४ ददाति न६४ आदि
+    चरः शीर्षफलम् ॱॱ न६४ भवति उपखण्डशीर्षपाठः आरभ्य धारा ऽ सूचकम् ऽ लक्षणम् समाप्तम् ।
+    यदि शीर्षफलम् असमम् ० आदि
+        प्रत्यागमनम् शीर्षफलम् ।
+    इति
+    चरः प्रकारः ॱॱ न६४ भवति लक्षणम् अङ्कः ० अन्तः ।
+    चरः क्रमः ॱॱ न६४ भवति लक्षणम् अङ्कः १ अन्तः ।
+    चरः व्ययितम् ॱॱ न६४ भवति लक्षणम् अङ्कः २ अन्तः ।
+    चरः प्रभावी ॱॱ न६४ भवति गहनता वियोगः व्ययितम् ।
+
+    ॰ CONSTANT — one sample, repeated across the block
+    यदि प्रकारः समम् ० आदि
+        चरः उ१ ॱॱ न६४ भवति यथावत्पाठः आरभ्य धारा ऽ सूचकम् ऽ नमूनाः ऽ ० ऽ १ ऽ प्रभावी समाप्तम् ।
+        चरः अचलम् ॱॱ न६४ भवति नमूनाः अङ्कः ० अन्तः ।
+        चरः उ२ ॱॱ न६४ भवति अचलपूरणम् आरभ्य नमूनाः ऽ खण्डमापः ऽ अचलम् समाप्तम् ।
+    इति
+
+    ॰ VERBATIM — every sample stored
+    यदि प्रकारः समम् १ आदि
+        चरः उ३ ॱॱ न६४ भवति यथावत्पाठः आरभ्य धारा ऽ सूचकम् ऽ नमूनाः ऽ ० ऽ खण्डमापः ऽ प्रभावी समाप्तम् ।
+    इति
+
+    ॰ FIXED and LPC — warm-up, then a predictor, then a residual
+    यदि प्रकारः अधिकम् १ आदि
+        चरः उ४ ॱॱ न६४ भवति यथावत्पाठः आरभ्य धारा ऽ सूचकम् ऽ नमूनाः ऽ ० ऽ क्रमः ऽ प्रभावी समाप्तम् ।
+        चरः सृतिः ॱॱ न६४ भवति ० ।
+
+        यदि प्रकारः समम् ३ आदि
+            चरः परिशुद्धिः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ४ समाप्तम् ।
+            यदि परिशुद्धिः समम् १५ आदि
+                प्रत्यागमनम् ३ ।      ॰ ०b११११ is invalid, not a precision of १६
+            इति
+            परिशुद्धिः भवति परिशुद्धिः योगः १ ।
+            सृतिः भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ५ समाप्तम् ।
+            ॰ the coefficients ARE signed, at परिशुद्धिः bits each
+            चरः उ५ ॱॱ न६४ भवति यथावत्पाठः आरभ्य धारा ऽ सूचकम् ऽ गुणकाः ऽ ० ऽ क्रमः ऽ परिशुद्धिः समाप्तम् ।
+        इति
+
+        चरः विधिः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ २ समाप्तम् ।
+        यदि विधिः अधिकम् १ आदि
+            प्रत्यागमनम् ४ ।          ॰ १० and ११ are reserved
+        इति
+        ॰ AND THE METHOD IS THE PARAMETER WIDTH. It also sets the escape
+        ॰ marker, all-ones in that width, so reading ५ bits from a ४-bit
+        ॰ stream does not merely misread k — it misses every escape.
+        चरः विस्तारः ॱॱ न६४ भवति ४ ।
+        यदि विधिः समम् १ आदि
+            विस्तारः भवति ५ ।
+        इति
+        चरः क्रमविभागः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ४ समाप्तम् ।
+
+        चरः लिखितम् ॱॱ न६४ भवति विभागपाठः आरभ्य धारा ऽ सूचकम् ऽ अवशेषाः ऽ खण्डमापः ऽ क्रमः ऽ क्रमविभागः ऽ विस्तारः समाप्तम् ।
+        यदि लिखितम् असमम् खण्डमापः आदि
+            प्रत्यागमनम् ५ ।
+        इति
+
+        यदि प्रकारः समम् २ आदि
+            चरः उ६ ॱॱ न६४ भवति स्थिरपुनःस्थापनम् आरभ्य अवशेषाः ऽ नमूनाः ऽ खण्डमापः ऽ क्रमः समाप्तम् ।
+        इति
+        यदि प्रकारः समम् ३ आदि
+            चरः उ७ ॱॱ न६४ भवति रैखिकपुनःस्थापनम् आरभ्य अवशेषाः ऽ नमूनाः ऽ खण्डमापः ऽ गुणकाः ऽ क्रमः ऽ सृतिः समाप्तम् ।
+        इति
+    इति
+
+    ॰ and finally the wasted bits go back on
+    यदि व्ययितम् अधिकम् ० आदि
+        चरः ज ॱॱ न६४ भवति ० ।
+        यावत् ज न्यूनम् खण्डमापः आदि
+            चरः व ॱॱ न६४ भवति नमूनाः अङ्कः ज अन्तः ।
+            नमूनाः अङ्कः ज अन्तः भवति व वामसृ व्ययितम् ।
+            ज भवति ज योगः १ ।
+        इति
+    इति
+    प्रत्यागमनम् ० ।
+इति
+
+॰ ── XOR, BUILT ───────────────────────────────────────────────────────
+॰
+॰ `विषम` is the thirteenth binary operator and IT WORKS NATIVELY — measured,
+॰ not assumed. grammar-t1.ebnf:643 declares it, `ast.t1:65` gives it kind ११,
+॰ `parse.t1:457` parses it, `ir.t1:2295` lowers it, and a probe compiled it to
+॰ RV64 and got the right answer.
+॰
+॰ IT IS STILL UNUSABLE HERE, and the reason is the other engine: THE RUST
+॰ INTERPRETER REFUSES IT — `विषम` is not a name in scope — so a source using
+॰ it cannot be checked through the interpreted predict, and a green in this
+॰ repository requires both engines to agree. The asymmetry runs the opposite
+॰ way to the usual one, where the Rust front end is the lenient half.
+॰
+॰ So XOR is built from two operators both engines have.
+॰
+॰ a XOR b == (a OR b) − (a AND b). OR counts every set bit once, AND counts
+॰ only the shared ones, so the difference is the bits set in exactly one
+॰ operand. NO BORROW IS POSSIBLE: (a AND b) is a submask of (a OR b), so the
+॰ subtraction never crosses a bit position. Verified on the top word
+॰ (२^६४−१ XOR २५५), on self-XOR, and on XOR with zero.
+सार्वजनिक वृत्तिः परोक्षविषमम् आदाय अ ॱॱ न६४ ऽ ब ॱॱ न६४ ददाति न६४ आदि
+    चरः सर्वम् ॱॱ न६४ भवति अ विकल्प ब ।
+    चरः उभयम् ॱॱ न६४ भवति अ युक् ब ।
+    प्रत्यागमनम् सर्वम् वियोगः उभयम् ।
+इति
+
+॰ ── CRC-8 ────────────────────────────────────────────────────────────
+॰
+॰ RFC 9639 §9.1.7. Polynomial x^८+x^२+x+१ (०x०७), init ०, no reflection, no
+॰ final xor. Octet-at-a-time: xor the octet in, then eight shift-and-reduce
+॰ steps. There is no flush, because the octet enters by XOR rather than being
+॰ shifted in — the two formulations agree and only one of them is this short.
+॰
+॰ The register is masked to eight bits at every step. That is not tidiness:
+॰ दक्षिणसृ on न६४ is an ARITHMETIC shift, so a register allowed to grow past
+॰ bit ६३ would sign-extend on the next दक्षिणसृ and the remainder would be
+॰ wrong in a way no small test shows.
+सार्वजनिक वृत्तिः क्रमाष्टकम् आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ अष्टकगणना ॱॱ न६४ ददाति न६४ आदि
+    चरः शेषम् ॱॱ न६४ भवति ० ।
+    चरः स्थानम् ॱॱ न६४ भवति आरम्भः ।
+    चरः इ ॱॱ न६४ भवति ० ।
+    यावत् इ न्यूनम् अष्टकगणना आदि
+        चरः अष्टकम् ॱॱ न६४ भवति ० ।
+        चरः ब ॱॱ न६४ भवति ० ।
+        यावत् ब न्यूनम् ८ आदि
+            अष्टकम् भवति अष्टकम् वामसृ १ ।
+            अष्टकम् भवति अष्टकम् विकल्प धारा अङ्कः स्थानम् अन्तः ।
+            स्थानम् भवति स्थानम् योगः १ ।
+            ब भवति ब योगः १ ।
+        इति
+        शेषम् भवति परोक्षविषमम् आरभ्य शेषम् ऽ अष्टकम् समाप्तम् ।
+        चरः ज ॱॱ न६४ भवति ० ।
+        यावत् ज न्यूनम् ८ आदि
+            चरः शीर्षम् ॱॱ न६४ भवति शेषम् दक्षिणसृ ७ ।
+            शीर्षम् भवति शीर्षम् युक् १ ।
+            शेषम् भवति शेषम् वामसृ १ ।
+            शेषम् भवति शेषम् युक् २५५ ।
+            यदि शीर्षम् समम् १ आदि
+                शेषम् भवति परोक्षविषमम् आरभ्य शेषम् ऽ ७ समाप्तम् ।
+            इति
+            ज भवति ज योगः १ ।
+        इति
+        इ भवति इ योगः १ ।
+    इति
+    प्रत्यागमनम् शेषम् ।
+इति
+
+॰ ── THE CODED NUMBER ─────────────────────────────────────────────────
+॰
+॰ RFC 9639 §9.1.5. UTF-8's scheme widened to ३६ bits — NOT actually UTF-8,
+॰ because the seven-octet form carries ३६ bits and UTF-8 never needed it.
+॰ The leading octet's run of ones gives the total octet count; each
+॰ continuation must be १०xxxxxx and contributes six bits.
+॰
+॰ फलम् अङ्कः ० अन्तः takes the value. ANSWERS ० on success, १ if the leading
+॰ octet is १०xxxxxx (a continuation where a leader belongs), २ if the run of
+॰ ones exceeds seven, ३ if a continuation is not १०xxxxxx.
+सार्वजनिक वृत्तिः उत्फपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ फलम् ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
+    चरः प्रथमम् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ८ समाप्तम् ।
+
+    यदि प्रथमम् न्यूनम् १२८ आदि
+        फलम् अङ्कः ० अन्तः भवति प्रथमम् ।
+        प्रत्यागमनम् ० ।
+    इति
+
+    ॰ count the leading ones
+    चरः गणना ॱॱ न६४ भवति ० ।
+    चरः परीक्ष्यम् ॱॱ न६४ भवति १२८ ।
+    यावत् प्रथमम् युक् परीक्ष्यम् असमम् ० आदि
+        गणना भवति गणना योगः १ ।
+        परीक्ष्यम् भवति परीक्ष्यम् दक्षिणसृ १ ।
+    इति
+    यदि गणना समम् १ आदि
+        प्रत्यागमनम् १ ।      ॰ १०xxxxxx is a continuation, not a leader
+    इति
+    यदि गणना अधिकम् ७ आदि
+        प्रत्यागमनम् २ ।
+    इति
+
+    ॰ the leader keeps (७ − गणना) low bits
+    चरः रक्षितम् ॱॱ न६४ भवति ७ वियोगः गणना ।
+    चरः आच्छादनम् ॱॱ न६४ भवति १ वामसृ रक्षितम् ।
+    आच्छादनम् भवति आच्छादनम् वियोगः १ ।
+    चरः मूल्यम् ॱॱ न६४ भवति प्रथमम् युक् आच्छादनम् ।
+
+    चरः क ॱॱ न६४ भवति १ ।
+    यावत् क न्यूनम् गणना आदि
+        चरः अनु ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ८ समाप्तम् ।
+        चरः शीर्षद्वयम् ॱॱ न६४ भवति अनु युक् १९२ ।
+        यदि शीर्षद्वयम् असमम् १२८ आदि
+            प्रत्यागमनम् ३ ।
+        इति
+        मूल्यम् भवति मूल्यम् वामसृ ६ ।
+        मूल्यम् भवति मूल्यम् विकल्प अनु युक् ६३ ।
+        क भवति क योगः १ ।
+    इति
+    फलम् अङ्कः ० अन्तः भवति मूल्यम् ।
+    प्रत्यागमनम् ० ।
+इति
+
+॰ ── THE FRAME HEADER ─────────────────────────────────────────────────
+॰
+॰ RFC 9639 §9.1. FOUR CODE SPACES, each with reserved members and two of them
+॰ with escapes:
+॰
+॰   blocksize    ४ bits.  ०००० reserved. ०००१ = १९२. ००१०–०१०१ = ५७६·२^(n−२).
+॰                ०११०/०१११ ESCAPE to an ८/१६-bit field holding blocksize−१.
+॰                १०००–११११ = २५६·२^(n−८).
+॰   sample rate  ४ bits.  ०००० means "ask STREAMINFO". ११००/११०१/१११० ESCAPE
+॰                to ८-bit kHz / १६-bit Hz / १६-bit tens-of-Hz. ११११ invalid.
+॰   channels     ४ bits.  ००००–०१११ = n+१ independent. १०००/१००१/१०१० are
+॰                left/side, right/side, mid/side. १०११ and up reserved.
+॰   bit depth    ३ bits.  ००० means "ask STREAMINFO". ०११ reserved.
+॰
+॰ THE ESCAPED FIELDS DO NOT SIT BESIDE THE CODE THAT TRIGGERS THEM. They come
+॰ AFTER the coded number, and a decoder that reads them where they appear in
+॰ the table reads the coded number's octets as a blocksize and is then wrong
+॰ about both. This is the trap the layout hides, and the order below is the
+॰ wire order rather than the table order.
+॰
+॰ THE CRC-८ COVERS THE WHOLE HEADER INCLUDING THE SYNC CODE, up to but not
+॰ including the CRC octet. A CRC taken over the wrong span still looks like a
+॰ CRC, so the span is computed from the cursor rather than assumed.
+॰
+॰ लक्षणम्: ० blocking strategy, १ blocksize, २ sample rate, ३ channels,
+॰ ४ decorrelation (० independent, १ left/side, २ right/side, ३ mid/side),
+॰ ५ depth, ६ the coded number. A depth or rate of ० means "ask STREAMINFO"
+॰ and is not an error.
+॰
+॰ ANSWERS ० on success, १ bad sync, २ reserved bit set, ३ reserved blocksize
+॰ code, ४ invalid rate code, ५ reserved channel code, ६ reserved depth code,
+॰ ७ a bad coded number, ८ CRC-८ mismatch.
+सार्वजनिक वृत्तिः खण्डशीर्षपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ लक्षणम् ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
+    चरः आरम्भः ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+
+    चरः संकेतः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १५ समाप्तम् ।
+    यदि संकेतः असमम् ३२७६४ आदि
+        प्रत्यागमनम् १ ।        ॰ ०b१११११११११११११०० = ३२७६४
+    इति
+
+    चरः परिवर्ती ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १ समाप्तम् ।
+    चरः खण्डसंकेतः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ४ समाप्तम् ।
+    चरः दरसंकेतः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ४ समाप्तम् ।
+    चरः वाहिसंकेतः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ४ समाप्तम् ।
+    चरः गहनसंकेतः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ३ समाप्तम् ।
+    चरः रक्षितम् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १ समाप्तम् ।
+    यदि रक्षितम् असमम् ० आदि
+        प्रत्यागमनम् २ ।
+    इति
+
+    ॰ the coded number comes BEFORE the escaped fields
+    चरः सङ्ख्याफलम् ॱॱ अङ्कः अन्तः न६४ भवति ० ।
+    सङ्ख्याफलम् अङ्कः ० अन्तः भवति ० ।
+    चरः सङ्ख्यास्थितिः ॱॱ न६४ भवति उत्फपाठः आरभ्य धारा ऽ सूचकम् ऽ सङ्ख्याफलम् समाप्तम् ।
+    यदि सङ्ख्यास्थितिः असमम् ० आदि
+        प्रत्यागमनम् ७ ।
+    इति
+
+    ॰ ── blocksize ────────────────────────────────────────────────────
+    यदि खण्डसंकेतः समम् ० आदि
+        प्रत्यागमनम् ३ ।
+    इति
+    चरः खण्डमापः ॱॱ न६४ भवति ० ।
+    यदि खण्डसंकेतः समम् १ आदि
+        खण्डमापः भवति १९२ ।
+    इति
+    यदि खण्डसंकेतः बृहत्समम् २ आदि
+        यदि खण्डसंकेतः न्यूनम् ६ आदि
+            चरः सृ ॱॱ न६४ भवति खण्डसंकेतः वियोगः २ ।
+            खण्डमापः भवति ५७६ वामसृ सृ ।
+        इति
+    इति
+    यदि खण्डसंकेतः समम् ६ आदि
+        चरः अल्पम् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ८ समाप्तम् ।
+        खण्डमापः भवति अल्पम् योगः १ ।
+    इति
+    यदि खण्डसंकेतः समम् ७ आदि
+        चरः बृहत् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १६ समाप्तम् ।
+        खण्डमापः भवति बृहत् योगः १ ।
+    इति
+    यदि खण्डसंकेतः बृहत्समम् ८ आदि
+        चरः सृद्वि ॱॱ न६४ भवति खण्डसंकेतः वियोगः ८ ।
+        खण्डमापः भवति २५६ वामसृ सृद्वि ।
+    इति
+
+    ॰ ── sample rate ──────────────────────────────────────────────────
+    यदि दरसंकेतः समम् १५ आदि
+        प्रत्यागमनम् ४ ।
+    इति
+    चरः दरः ॱॱ न६४ भवति ० ।      ॰ ० means "ask STREAMINFO", not an error
+    यदि दरसंकेतः समम् १ आदि दरः भवति ८८२०० । इति
+    यदि दरसंकेतः समम् २ आदि दरः भवति १७६४०० । इति
+    यदि दरसंकेतः समम् ३ आदि दरः भवति १९२००० । इति
+    यदि दरसंकेतः समम् ४ आदि दरः भवति ८००० । इति
+    यदि दरसंकेतः समम् ५ आदि दरः भवति १६००० । इति
+    यदि दरसंकेतः समम् ६ आदि दरः भवति २२०५० । इति
+    यदि दरसंकेतः समम् ७ आदि दरः भवति २४००० । इति
+    यदि दरसंकेतः समम् ८ आदि दरः भवति ३२००० । इति
+    यदि दरसंकेतः समम् ९ आदि दरः भवति ४४१०० । इति
+    यदि दरसंकेतः समम् १० आदि दरः भवति ४८००० । इति
+    यदि दरसंकेतः समम् ११ आदि दरः भवति ९६००० । इति
+    यदि दरसंकेतः समम् १२ आदि
+        चरः किलो ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ८ समाप्तम् ।
+        दरः भवति किलो गुणनम् १००० ।
+    इति
+    यदि दरसंकेतः समम् १३ आदि
+        दरः भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १६ समाप्तम् ।
+    इति
+    यदि दरसंकेतः समम् १४ आदि
+        चरः दशकम् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १६ समाप्तम् ।
+        दरः भवति दशकम् गुणनम् १० ।
+    इति
+
+    ॰ ── channels and decorrelation ───────────────────────────────────
+    यदि वाहिसंकेतः अधिकम् १० आदि
+        प्रत्यागमनम् ५ ।
+    इति
+    चरः वाहिनः ॱॱ न६४ भवति २ ।
+    चरः व्युत्क्रमः ॱॱ न६४ भवति ० ।
+    यदि वाहिसंकेतः न्यूनम् ८ आदि
+        वाहिनः भवति वाहिसंकेतः योगः १ ।
+    इति
+    यदि वाहिसंकेतः समम् ८ आदि व्युत्क्रमः भवति १ । इति
+    यदि वाहिसंकेतः समम् ९ आदि व्युत्क्रमः भवति २ । इति
+    यदि वाहिसंकेतः समम् १० आदि व्युत्क्रमः भवति ३ । इति
+
+    ॰ ── bit depth ────────────────────────────────────────────────────
+    यदि गहनसंकेतः समम् ३ आदि
+        प्रत्यागमनम् ६ ।
+    इति
+    चरः गहनता ॱॱ न६४ भवति ० ।     ॰ ० means "ask STREAMINFO"
+    यदि गहनसंकेतः समम् १ आदि गहनता भवति ८ । इति
+    यदि गहनसंकेतः समम् २ आदि गहनता भवति १२ । इति
+    यदि गहनसंकेतः समम् ४ आदि गहनता भवति १६ । इति
+    यदि गहनसंकेतः समम् ५ आदि गहनता भवति २० । इति
+    यदि गहनसंकेतः समम् ६ आदि गहनता भवति २४ । इति
+    यदि गहनसंकेतः समम् ७ आदि गहनता भवति ३२ । इति
+
+    ॰ ── the CRC-८, over exactly what has been read ───────────────────
+    चरः अन्तः२ ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    चरः विस्तारः ॱॱ न६४ भवति अन्तः२ वियोगः आरम्भः ।
+    चरः अष्टकगणना ॱॱ न६४ भवति विस्तारः विभाजनम् ८ ।
+    चरः अपेक्षितम् ॱॱ न६४ भवति क्रमाष्टकम् आरभ्य धारा ऽ आरम्भः ऽ अष्टकगणना समाप्तम् ।
+    चरः प्राप्तम् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ८ समाप्तम् ।
+    यदि प्राप्तम् असमम् अपेक्षितम् आदि
+        प्रत्यागमनम् ८ ।
+    इति
+
+    लक्षणम् अङ्कः ० अन्तः भवति परिवर्ती ।
+    लक्षणम् अङ्कः १ अन्तः भवति खण्डमापः ।
+    लक्षणम् अङ्कः २ अन्तः भवति दरः ।
+    लक्षणम् अङ्कः ३ अन्तः भवति वाहिनः ।
+    लक्षणम् अङ्कः ४ अन्तः भवति व्युत्क्रमः ।
+    लक्षणम् अङ्कः ५ अन्तः भवति गहनता ।
+    लक्षणम् अङ्कः ६ अन्तः भवति सङ्ख्याफलम् अङ्कः ० अन्तः ।
+    प्रत्यागमनम् ० ।
+इति
+
+॰ ── CRC-16 ───────────────────────────────────────────────────────────
+॰
+॰ RFC 9639 §9.3. Polynomial x^१६+x^१५+x^२+१ = ०x८००५ = ३२७७३ decimal,
+॰ init ०. The decimal form is written out because ०x८००५ mistyped as ३२७७७
+॰ is a CRC that still looks like a CRC. Same shape as
+॰ the CRC-८ above with a १६-bit register, and it covers a WHOLE FRAME — header
+॰ and every subframe — rather than just a header.
+सार्वजनिक वृत्तिः क्रमषोडशकम् आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ अष्टकगणना ॱॱ न६४ ददाति न६४ आदि
+    चरः शेषम् ॱॱ न६४ भवति ० ।
+    चरः स्थानम् ॱॱ न६४ भवति आरम्भः ।
+    चरः इ ॱॱ न६४ भवति ० ।
+    यावत् इ न्यूनम् अष्टकगणना आदि
+        चरः अष्टकम् ॱॱ न६४ भवति ० ।
+        चरः ब ॱॱ न६४ भवति ० ।
+        यावत् ब न्यूनम् ८ आदि
+            अष्टकम् भवति अष्टकम् वामसृ १ ।
+            अष्टकम् भवति अष्टकम् विकल्प धारा अङ्कः स्थानम् अन्तः ।
+            स्थानम् भवति स्थानम् योगः १ ।
+            ब भवति ब योगः १ ।
+        इति
+        ॰ the octet enters at the TOP of a १६-bit register, not the bottom
+        चरः उन्नीतम् ॱॱ न६४ भवति अष्टकम् वामसृ ८ ।
+        शेषम् भवति परोक्षविषमम् आरभ्य शेषम् ऽ उन्नीतम् समाप्तम् ।
+        चरः ज ॱॱ न६४ भवति ० ।
+        यावत् ज न्यूनम् ८ आदि
+            चरः शीर्षम् ॱॱ न६४ भवति शेषम् दक्षिणसृ १५ ।
+            शीर्षम् भवति शीर्षम् युक् १ ।
+            शेषम् भवति शेषम् वामसृ १ ।
+            शेषम् भवति शेषम् युक् ६५५३५ ।
+            यदि शीर्षम् समम् १ आदि
+                शेषम् भवति परोक्षविषमम् आरभ्य शेषम् ऽ ३२७७३ समाप्तम् ।
+            इति
+            ज भवति ज योगः १ ।
+        इति
+        इ भवति इ योगः १ ।
+    इति
+    प्रत्यागमनम् शेषम् ।
+इति
+
+॰ ── STEREO DECORRELATION ─────────────────────────────────────────────
+॰
+॰ RFC 9639 §4. FLAC stores stereo as one of four pairings, and three of them
+॰ store a DIFFERENCE, which is smaller than either channel whenever the two
+॰ are correlated — which for music is almost always.
+॰
+॰   ० independent    a = left,        b = right
+॰   १ left/side      a = left,        b = left − right
+॰   २ right/side     a = left − right, b = right
+॰   ३ mid/side       a = (left+right) >> १,  b = left − right
+॰
+॰ MID/SIDE THROWS A BIT AWAY AND THEN FINDS IT AGAIN. `mid` is the average
+॰ with its low bit shifted out, so it is one bit short — but left+right and
+॰ left−right always have the SAME parity, so the lost bit is recoverable from
+॰ the side channel's low bit. That is what `(mid << १) विकल्प (side युक् १)`
+॰ is doing, and without it every odd-sum sample is off by one.
+॰
+॰ AND THE HALVING MUST FLOOR, NOT TRUNCATE TOWARD ZERO. दक्षिणसृ on न६४ is an
+॰ ARITHMETIC shift, which floors — and here that is exactly what is wanted,
+॰ the one place in this decoder where the arithmetic shift is the correct
+॰ operation rather than a hazard to work around.
+॰
+॰ Rewrites वामः and दक्षिणः in place. ANSWERS ० on success, १ on an unknown
+॰ pairing.
+सार्वजनिक वृत्तिः युग्मव्युत्क्रमः आदाय वामः ॱॱ अङ्कः अन्तः न६४ ऽ दक्षिणः ॱॱ अङ्कः अन्तः न६४ ऽ गणना ॱॱ न६४ ऽ भेदः ॱॱ न६४ ददाति न६४ आदि
+    यदि भेदः अधिकम् ३ आदि
+        प्रत्यागमनम् १ ।
+    इति
+    यदि भेदः समम् ० आदि
+        प्रत्यागमनम् ० ।
+    इति
+
+    चरः इ ॱॱ न६४ भवति ० ।
+    यावत् इ न्यूनम् गणना आदि
+        चरः अ ॱॱ न६४ भवति वामः अङ्कः इ अन्तः ।
+        चरः ब ॱॱ न६४ भवति दक्षिणः अङ्कः इ अन्तः ।
+
+        यदि भेदः समम् १ आदि
+            ॰ a is left, b is the side; right = left − side
+            दक्षिणः अङ्कः इ अन्तः भवति अ वियोगः ब ।
+        इति
+        यदि भेदः समम् २ आदि
+            ॰ a is the side, b is right; left = side + right
+            वामः अङ्कः इ अन्तः भवति अ योगः ब ।
+        इति
+        यदि भेदः समम् ३ आदि
+            चरः मध्यम् ॱॱ न६४ भवति अ वामसृ १ ।
+            चरः अल्पांशः ॱॱ न६४ भवति ब युक् १ ।
+            मध्यम् भवति मध्यम् विकल्प अल्पांशः ।
+            चरः योगफलम् ॱॱ न६४ भवति मध्यम् योगः ब ।
+            चरः अन्तरम् ॱॱ न६४ भवति मध्यम् वियोगः ब ।
+            वामः अङ्कः इ अन्तः भवति योगफलम् दक्षिणसृ १ ।
+            दक्षिणः अङ्कः इ अन्तः भवति अन्तरम् दक्षिणसृ १ ।
+        इति
+        इ भवति इ योगः १ ।
+    इति
+    प्रत्यागमनम् ० ।
+इति
+
+॰ ── A WHOLE FRAME ────────────────────────────────────────────────────
+॰
+॰ RFC 9639 §9. THE COMPOSITION, and the point at which this stops being a set
+॰ of routines: header, one subframe per channel read bit-continuously, padding
+॰ to the next octet boundary, CRC-१६ over all of it, then undo the stereo
+॰ pairing. Nothing is told to the caller that the bits do not say.
+॰
+॰ THE SIDE CHANNEL IS STORED ONE BIT WIDER, AND WHICH CHANNEL THAT IS DEPENDS
+॰ ON THE PAIRING. A difference of two गहनता-bit values does not fit in गहनता,
+॰ so the difference channel gets गहनता+१:
+॰
+॰   १ left/side    वामः is left  (गहनता),      दक्षिणः is the side (गहनता+१)
+॰   २ right/side   वामः is the side (गहनता+१), दक्षिणः is right (गहनता)
+॰   ३ mid/side     वामः is mid   (गहनता),      दक्षिणः is the side (गहनता+१)
+॰
+॰ A decoder giving both channels the same depth CLIPS EXACTLY THE LOUD
+॰ PASSAGES — quiet music decodes perfectly and the failure appears only where
+॰ the difference needs its extra bit. That is this routine's real trap; the
+॰ arithmetic is the easy half.
+॰
+॰ SCOPE, stated rather than hidden: one or two channels. खण्डशीर्षपाठः parses
+॰ counts to eight and this refuses them, because युग्मव्युत्क्रमः is a pair
+॰ and an unimplemented path must answer, not guess.
+॰
+॰ ANSWERS ० on success; १–८ straight from the frame header; १० more than two
+॰ channels; २०+n from a failing subframe (n its own code, +४० for the second
+॰ channel); १३ non-zero padding; १४ CRC-१६ mismatch; १५ an unknown pairing.
+सार्वजनिक वृत्तिः खण्डपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ वामः ॱॱ अङ्कः अन्तः न६४ ऽ दक्षिणः ॱॱ अङ्कः अन्तः न६४ ऽ अवशेषाः ॱॱ अङ्कः अन्तः न६४ ऽ गुणकाः ॱॱ अङ्कः अन्तः न६४ ऽ लक्षणम् ॱॱ अङ्कः अन्तः न६४ ऽ उपलक्षणम् ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
+    चरः आरम्भः ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+
+    चरः शीर्षफलम् ॱॱ न६४ भवति खण्डशीर्षपाठः आरभ्य धारा ऽ सूचकम् ऽ लक्षणम् समाप्तम् ।
+    यदि शीर्षफलम् असमम् ० आदि
+        प्रत्यागमनम् शीर्षफलम् ।
+    इति
+
+    चरः खण्डमापः ॱॱ न६४ भवति लक्षणम् अङ्कः १ अन्तः ।
+    चरः वाहिनः ॱॱ न६४ भवति लक्षणम् अङ्कः ३ अन्तः ।
+    चरः व्युत्क्रमः ॱॱ न६४ भवति लक्षणम् अङ्कः ४ अन्तः ।
+    चरः गहनता ॱॱ न६४ भवति लक्षणम् अङ्कः ५ अन्तः ।
+
+    यदि वाहिनः अधिकम् २ आदि
+        प्रत्यागमनम् १० ।
+    इति
+
+    ॰ the extra bit goes to whichever channel holds the difference
+    चरः वामगहनता ॱॱ न६४ भवति गहनता ।
+    चरः दक्षिणगहनता ॱॱ न६४ भवति गहनता ।
+    यदि व्युत्क्रमः समम् १ आदि
+        दक्षिणगहनता भवति गहनता योगः १ ।
+    इति
+    यदि व्युत्क्रमः समम् २ आदि
+        वामगहनता भवति गहनता योगः १ ।
+    इति
+    यदि व्युत्क्रमः समम् ३ आदि
+        दक्षिणगहनता भवति गहनता योगः १ ।
+    इति
+
+    चरः अ ॱॱ न६४ भवति उपखण्डपाठः आरभ्य धारा ऽ सूचकम् ऽ वामः ऽ अवशेषाः ऽ गुणकाः ऽ उपलक्षणम् ऽ खण्डमापः ऽ वामगहनता समाप्तम् ।
+    यदि अ असमम् ० आदि
+        प्रत्यागमनम् २० योगः अ ।
+    इति
+
+    यदि वाहिनः समम् २ आदि
+        चरः ब ॱॱ न६४ भवति उपखण्डपाठः आरभ्य धारा ऽ सूचकम् ऽ दक्षिणः ऽ अवशेषाः ऽ गुणकाः ऽ उपलक्षणम् ऽ खण्डमापः ऽ दक्षिणगहनता समाप्तम् ।
+        यदि ब असमम् ० आदि
+            प्रत्यागमनम् ६० योगः ब ।
+        इति
+    इति
+
+    ॰ pad to the next octet boundary; the padding MUST be zero, and checking
+    ॰ it is the only way a truncated subframe is caught before the CRC.
+    ॰
+    ॰ THE DISTANCE GOES IN ITS OWN BINDING. Written inline as
+    ॰ `सूचकम् अङ्कः ० अन्तः वियोगः आरम्भः शेषः ८`, this reads
+    ॰ `सूचकम्[०] − (आरम्भः शेषः ८)`, because शेषः is a mul-level operator and
+    ॰ वियोगः an add-level one — so शेषः binds TIGHTER. The loop then never
+    ॰ terminates where it should and the first real bit reads as padding. That
+    ॰ cost a build; the grammar's order, loosest first, is
+    ॰ विकल्प, विषम, युक्, shift, add, mul.
+    चरः दूरम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः वियोगः आरम्भः ।
+    यावत् दूरम् शेषः ८ असमम् ० आदि
+        चरः पूरकम् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १ समाप्तम् ।
+        यदि पूरकम् असमम् ० आदि
+            प्रत्यागमनम् १३ ।
+        इति
+        दूरम् भवति सूचकम् अङ्कः ० अन्तः वियोगः आरम्भः ।
+    इति
+
+    चरः विस्तारः ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः वियोगः आरम्भः ।
+    चरः अष्टकगणना ॱॱ न६४ भवति विस्तारः विभाजनम् ८ ।
+    चरः अपेक्षितम् ॱॱ न६४ भवति क्रमषोडशकम् आरभ्य धारा ऽ आरम्भः ऽ अष्टकगणना समाप्तम् ।
+    चरः प्राप्तम् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १६ समाप्तम् ।
+    यदि प्राप्तम् असमम् अपेक्षितम् आदि
+        प्रत्यागमनम् १४ ।
+    इति
+
+    यदि वाहिनः समम् २ आदि
+        चरः य ॱॱ न६४ भवति युग्मव्युत्क्रमः आरभ्य वामः ऽ दक्षिणः ऽ खण्डमापः ऽ व्युत्क्रमः समाप्तम् ।
+        यदि य असमम् ० आदि
+            प्रत्यागमनम् १५ ।
+        इति
+    इति
+    प्रत्यागमनम् ० ।
+इति
