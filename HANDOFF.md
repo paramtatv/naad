@@ -156,8 +156,9 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 ## Known-open
 
 - The page is pinned to `sravan@85f90b2` (octet-wise CRC landed, 1,500 instructions per
-  channel-sample, 7.6× at 1 GHz / IPC 1). The next rung is the packed-word reader; when it
-  lands, re-take every figure that names a commit, together, and bump the build stamp.
+  channel-sample, 7.6× at 1 GHz / IPC 1). The timing figures were re-taken on the fixed kernel (sravan real-frame f631d7d) and came
+  back identical to the instruction. The next rung is the packed-word reader; when it lands,
+  re-take every figure that names a commit, together, and bump the build stamp.
 - Speed is presented as a floor, not a ceiling: the 1 GHz / IPC 1 model is named as the
   most pessimistic machine anyone ships, and the phone and laptop projections sit beside
   it, tagged projected. The frontier item is cycles per hour of audio (battery), never

@@ -68,22 +68,22 @@
     "ipcs": {
       "value": "1,500",
       "status": "measured",
-      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; taken before the Rice polarity fix of 2026-10-01, re-take owed",
-      "source": "sravan@85f90b2, THESIS.md §6 S1 table CRC row; 1,535,695 per frame",
+      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC",
+      "source": "sravan real-frame f631d7d, re-taken on the fixed kernel: slope (16,585,091 − 4,299,531)/8 = 1,535,695 per frame of 1,024 channel-samples; identical to 85f90b2",
       "command": "reference/gentiming.py, two-point slope"
     },
     "realtime": {
       "value": "7.6×",
       "status": "projected",
-      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon; taken before the Rice polarity fix of 2026-10-01, re-take owed",
-      "source": "sravan@85f90b2, realtime_factor = 0.132",
+      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon",
+      "source": "sravan real-frame f631d7d, realtime_factor = 1,535,695 × 44100/512 / 1e9 = 0.132; identical to 85f90b2",
       "command": "1 / (1500 × 44100 × 2 / 1e9)"
     },
     "crcshare": {
       "value": "24.0%",
       "status": "measured",
-      "label": "share of decode cost spent in CRC-16 after the octet-wise table; was 37.1% before it; taken before the Rice polarity fix of 2026-10-01, re-take owed",
-      "source": "sravan@85f90b2; THESIS.md §6 S1, 367,838 of 1,535,695 per frame",
+      "label": "share of decode cost spent in CRC-16 after the octet-wise table; was 37.1% before it",
+      "source": "sravan@85f90b2; THESIS.md §6 S1, 367,838 of 1,535,695 per frame; the full-decoder total re-taken identical on the fixed kernel (f631d7d), CRC code untouched by the fix",
       "command": "reference/gentiming.py against a kernel with CRC-16 removed"
     },
     "ratio": {
@@ -274,6 +274,13 @@
       "label": "frames of the Grieg file decoded natively: 0 (independent stereo), 1 and 2 (mid/side)",
       "source": "sravan@6be713d",
       "command": "python3 reference/genreal.py 0 1 2"
+    },
+    "timing_retake": {
+      "value": "1,535,695",
+      "status": "measured",
+      "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix",
+      "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions",
+      "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
     }
   }
 }
