@@ -121,20 +121,6 @@
       "source": "sravan THESIS.md §6 S4; Darsan README decode_hash_agreement = 1 at k = 3",
       "command": "not yet taken for Naad"
     },
-    "win_peak": {
-      "value": "7,100",
-      "status": "measured",
-      "label": "peak sample in the hero window",
-      "source": "sravan vectors/real_audio.txt, the 900-sample window of highest energy, at offset 4,650 (tools/hero-window.py)",
-      "command": "see tools/hero-window.py"
-    },
-    "res_peak": {
-      "value": "22",
-      "status": "measured",
-      "label": "peak residual in the hero window under the fixed order-2 predictor",
-      "source": "computed from the same window",
-      "command": "see tools/hero-window.py"
-    },
     "drift": {
       "value": "0.0000%",
       "status": "measured",
@@ -176,6 +162,27 @@
       "label": "whole-decoder speedup from the octet-wise CRC, inside the 1.20–1.28× band registered before the build",
       "source": "sravan@85f90b2 commit message and THESIS.md §6 S1",
       "command": "1,857,669 / 1,535,695"
+    },
+    "dyn": {
+      "value": "sixteen",
+      "status": "measured",
+      "label": "times louder: RMS of 140-150 s against RMS of 0-10 s of the Grieg recording, 24.3 dB, which is 16.4x in amplitude",
+      "source": "tools/song-wave.py over the Commons original; opening -37.5 dBFS, ending -13.2 dBFS",
+      "command": "python3 tools/song-wave.py"
+    },
+    "song_fmt": {
+      "value": "24-bit / 48 kHz",
+      "status": "measured",
+      "label": "format of the source recording and of the shipped excerpt",
+      "source": "ffprobe on the Commons original and on grieg-mountain-king-ending.flac",
+      "command": "ffprobe -show_entries stream=sample_rate,bits_per_raw_sample grieg-mountain-king-ending.flac"
+    },
+    "song_len": {
+      "value": "2:34",
+      "status": "measured",
+      "label": "length of the whole recording, 154.09 s",
+      "source": "ffprobe on the Commons original",
+      "command": "ffprobe -show_entries format=duration"
     }
   }
 }

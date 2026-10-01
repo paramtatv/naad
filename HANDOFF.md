@@ -76,11 +76,22 @@ vendored here at `85f90b2`, which is where 1,290 lines and 25 routines were read
 them means re-taking every figure in `figures.json` that cites a commit, not only the two
 the check re-takes. `kernel/PROVENANCE.md` says which commit.
 
-**`tools/hero-window.py`.** The hero scope draws **real audio**: 900 samples from
-`sravan/vectors/real_audio.txt` at offset 4,650, and the residual under the fixed order-2
-predictor, computed in the browser, on one shared vertical scale. The earlier page drew
-synthetic sine waves plus random noise on a page whose ethos is that every figure was
-measured. Constraint 4 below is that this never happens again.
+**No waveform, no scope, no decode animation in the fan sections.** Owner's ruling,
+2026-09-30, after three versions: a waveform rebuilding itself is a tech concept and means
+nothing to a listener, however real the samples behind it. If the page ever shows a
+demonstration, it is **a real song, played back**, which needs two things that do not exist
+yet: a licensed recording the lab may publish, and the stream layer (nothing walks a file of
+frames). The only real audio in `sravan` is `vectors/real_audio.txt`, a single plucked note
+at about 355 Hz that decays in 1.5 s; it is not a song and must not be dressed as one. Until
+both exist, the Listen section shows **a real recording, as itself**: Grieg, *In the Hall of the
+Mountain King*, Musopen Symphony, public domain, from Wikimedia Commons, 24-bit / 48 kHz. The
+waveform is the whole piece drawn from its own samples (`wave.json`, 1,800 columns of min /
+max / rms); the play button plays the last 30 s, re-encoded losslessly
+(`grieg-mountain-king-ending.flac`, 5.9 MB). `tools/song-wave.py` regenerates both from the
+Commons original. The caption says plainly that the browser's own decoder plays it today and
+that Naad's playback of this file is what goes there next. A Bon Jovi master, which the owner
+named as the ideal, is not ours to publish; a public-domain orchestral recording with the same
+whisper-to-roar dynamics is the honest substitute.
 
 **`tools/verify-deploy.sh`.** Compares the live page's `<meta name="naad-build">` stamp
 and byte count to the checkout. Bump the stamp on every revision. Two instruments because
@@ -94,7 +105,10 @@ one was fooled before: a content grep matched a substring that survived between 
    prose without a span is a defect; the check will not see it.
 3. **The frontier section stays**, and now includes attestation as "not yet taken for
    Naad", because the page must not read as attested when it is only deterministic.
-4. **Nothing synthetic on the page.** No generated waveforms, no illustrative numbers.
+4. **Nothing synthetic on the page.** No generated waveforms, no illustrative numbers, no
+   invented tracks or artists.
+7. **No tech concepts above the divider.** No waveforms, scopes, counters or "engines";
+   figures in fan sections are labelled in a listener's words (drift, headroom).
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
