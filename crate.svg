@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 640" role="img" aria-label="A wooden crate of records, one pulled halfway out, under a warm lamp">
+  <title>Your crate</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0D0618"/><stop offset="1" stop-color="#161B2A"/></linearGradient>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8A6245"/><stop offset=".5" stop-color="#5A3F2E"/><stop offset="1" stop-color="#2E1F16"/></linearGradient>
+    <linearGradient id="woodside" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3A271C"/><stop offset="1" stop-color="#201510"/></linearGradient>
+    <linearGradient id="grain" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".5" stop-color="#000" stop-opacity=".18"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+    <radialGradient id="lamp"><stop offset="0" stop-color="#FF7AF5" stop-opacity=".32"/><stop offset="1" stop-color="#FF7AF5" stop-opacity="0"/></radialGradient>
+    <radialGradient id="shadow"><stop offset="0" stop-color="#000" stop-opacity=".65"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <linearGradient id="sleeve" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="#F2EBDD"/><stop offset="1" stop-color="#C9BFAE"/></linearGradient>
+    <linearGradient id="sleeveink" x1="0" y1="0" x2=".3" y2="1"><stop offset="0" stop-color="#1A2540"/><stop offset="1" stop-color="#0F0620"/></linearGradient>
+    <radialGradient id="label" cx=".36" cy=".3" r=".8"><stop offset="0" stop-color="#FF7AF5"/><stop offset=".3" stop-color="#F038E0"/><stop offset=".72" stop-color="#A21CAF"/><stop offset="1" stop-color="#701A75"/></radialGradient>
+    <radialGradient id="vinyl" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#1B1226"/><stop offset=".6" stop-color="#07040E"/><stop offset="1" stop-color="#2E2244"/></radialGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1"><stop offset=".25" stop-color="#fff" stop-opacity="0"/><stop offset=".38" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="24"/></filter>
+    <filter id="blursm" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="6"/></filter>
+    <!-- a record's top edge seen in the crate: a sleeve with a coloured spine -->
+    <g id="edge"><rect x="0" y="0" width="14" height="300" rx="2"/></g>
+  </defs>
+
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <circle cx="560" cy="120" r="520" fill="url(#lamp)"/>
+  <ellipse cx="600" cy="600" rx="420" ry="50" fill="url(#shadow)" filter="url(#blur)"/>
+
+  <!-- the crate: back wall, then the records, then the front wall over them -->
+  <g transform="translate(280,170)">
+    <!-- back and side panels -->
+    <rect x="30" y="0" width="640" height="300" fill="#2A1C14"/>
+    <rect x="0" y="40" width="40" height="320" fill="url(#woodside)"/>
+    <rect x="660" y="40" width="40" height="320" fill="url(#woodside)"/>
+    <!-- the records, seen from the front-top: a run of sleeves with spines -->
+    <g transform="translate(44,24)">
+      <use xlink:href="#edge" x="0" fill="#E8DCC8"/><use xlink:href="#edge" x="16" fill="#2E1F4D"/><use xlink:href="#edge" x="32" fill="#A21CAF"/><use xlink:href="#edge" x="48" fill="#DCD2C0"/>
+      <use xlink:href="#edge" x="64" fill="#3B2A5E"/><use xlink:href="#edge" x="80" fill="#F2EBDD"/><use xlink:href="#edge" x="96" fill="#7C3AED"/><use xlink:href="#edge" x="112" fill="#E8DCC8"/>
+      <use xlink:href="#edge" x="128" fill="#3A2A22"/><use xlink:href="#edge" x="144" fill="#DCD2C0"/><use xlink:href="#edge" x="160" fill="#701A75"/><use xlink:href="#edge" x="176" fill="#2E1F4D"/>
+      <use xlink:href="#edge" x="192" fill="#F2EBDD"/><use xlink:href="#edge" x="208" fill="#3B2A5E"/><use xlink:href="#edge" x="224" fill="#E8DCC8"/><use xlink:href="#edge" x="240" fill="#A21CAF"/>
+      <!-- a gap where one has been pulled -->
+      <use xlink:href="#edge" x="300" fill="#DCD2C0"/><use xlink:href="#edge" x="316" fill="#7C3AED"/><use xlink:href="#edge" x="332" fill="#F2EBDD"/><use xlink:href="#edge" x="348" fill="#2E1F4D"/>
+      <use xlink:href="#edge" x="364" fill="#E8DCC8"/><use xlink:href="#edge" x="380" fill="#3A2A22"/><use xlink:href="#edge" x="396" fill="#DCD2C0"/><use xlink:href="#edge" x="412" fill="#3B2A5E"/>
+      <use xlink:href="#edge" x="428" fill="#F2EBDD"/><use xlink:href="#edge" x="444" fill="#701A75"/><use xlink:href="#edge" x="460" fill="#E8DCC8"/><use xlink:href="#edge" x="476" fill="#2E1F4D"/>
+      <use xlink:href="#edge" x="492" fill="#DCD2C0"/><use xlink:href="#edge" x="508" fill="#7C3AED"/><use xlink:href="#edge" x="524" fill="#F2EBDD"/><use xlink:href="#edge" x="540" fill="#3B2A5E"/>
+      <use xlink:href="#edge" x="556" fill="#E8DCC8"/><use xlink:href="#edge" x="572" fill="#A21CAF"/><use xlink:href="#edge" x="588" fill="#DCD2C0"/>
+      <!-- the shadow the crate's lip throws on the sleeves -->
+      <rect x="0" y="0" width="604" height="300" fill="url(#grain)"/>
+    </g>
+    <!-- the one pulled out, face on, with its record showing -->
+    <g transform="translate(290,-120) rotate(-6)">
+      <rect x="0" y="0" width="230" height="230" rx="3" fill="url(#sleeve)"/>
+      <rect x="12" y="12" width="206" height="206" fill="url(#sleeveink)"/>
+      <circle cx="115" cy="115" r="78" fill="#140C24"/>
+      <circle cx="115" cy="115" r="76" fill="url(#vinyl)"/>
+      <circle cx="115" cy="115" r="76" fill="url(#sheen)"/>
+      <circle cx="115" cy="115" r="26" fill="url(#label)"/>
+      <circle cx="115" cy="115" r="3" fill="#0A0612"/>
+      <text x="115" y="206" text-anchor="middle" font-family="Archivo, system-ui, sans-serif" font-size="10" letter-spacing="3" fill="#F2EBDD" opacity=".8">THE MASTER · SIDE A</text>
+      <rect x="0" y="0" width="230" height="230" rx="3" fill="url(#sheen)" opacity=".5"/>
+    </g>
+    <!-- front panel, over everything -->
+    <rect x="0" y="200" width="700" height="160" rx="4" fill="url(#wood)"/>
+    <rect x="0" y="200" width="700" height="160" rx="4" fill="url(#grain)"/>
+    <rect x="0" y="200" width="700" height="4" fill="#fff" opacity=".18"/>
+    <!-- the planks -->
+    <path d="M0 252 H700 M0 306 H700" stroke="#1E1410" stroke-width="3" opacity=".7"/>
+    <path d="M0 256 H700 M0 310 H700" stroke="#A47B5A" stroke-width="1" opacity=".35"/>
+    <!-- stencilled on the front -->
+    <text x="350" y="290" text-anchor="middle" font-family="Archivo, system-ui, sans-serif" font-weight="800" font-size="30" letter-spacing="8" fill="#F2EBDD" opacity=".55">MINE</text>
+    <!-- handle cut-outs -->
+    <rect x="40" y="226" width="70" height="20" rx="10" fill="#140D09"/>
+    <rect x="590" y="226" width="70" height="20" rx="10" fill="#140D09"/>
+  </g>
+  <!-- the floor line and the warm pool -->
+  <ellipse cx="600" cy="540" rx="300" ry="40" fill="#FF7AF5" opacity=".10" filter="url(#blursm)"/>
+</svg>

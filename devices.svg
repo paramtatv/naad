@@ -3,11 +3,11 @@
   <defs>
     <!-- the lacquer: lit from upper-left, the same lamp as the page -->
     <linearGradient id="lac" x1="0" y1="0" x2=".55" y2="1">
-      <stop offset="0" stop-color="#6FAAFF"/><stop offset=".3" stop-color="#2A72E8"/>
-      <stop offset=".7" stop-color="#1450BE"/><stop offset="1" stop-color="#0A2E73"/>
+      <stop offset="0" stop-color="#D8B4FE"/><stop offset=".3" stop-color="#9333EA"/>
+      <stop offset=".7" stop-color="#6D28D9"/><stop offset="1" stop-color="#3B0764"/>
     </linearGradient>
     <linearGradient id="lacdark" x1="0" y1="0" x2=".5" y2="1">
-      <stop offset="0" stop-color="#2E63B8"/><stop offset=".5" stop-color="#132F6E"/><stop offset="1" stop-color="#081B45"/>
+      <stop offset="0" stop-color="#7E22CE"/><stop offset=".5" stop-color="#4C1D95"/><stop offset="1" stop-color="#2E1065"/>
     </linearGradient>
     <!-- the sweep that makes a surface read as finished -->
     <linearGradient id="sweep" x1="0" y1="0" x2=".4" y2="1">
@@ -19,27 +19,27 @@
     </linearGradient>
     <!-- a cone: dark centre, lit rim -->
     <radialGradient id="cone" cx=".42" cy=".38" r=".62">
-      <stop offset="0" stop-color="#9CC4FF"/><stop offset=".35" stop-color="#1E55BE"/>
-      <stop offset=".8" stop-color="#0A2460"/><stop offset="1" stop-color="#2E6FDC"/>
+      <stop offset="0" stop-color="#E9D5FF"/><stop offset=".35" stop-color="#7C3AED"/>
+      <stop offset=".8" stop-color="#3B0764"/><stop offset="1" stop-color="#A855F7"/>
     </radialGradient>
     <radialGradient id="dome" cx=".35" cy=".3" r=".7">
-      <stop offset="0" stop-color="#EAF3FF"/><stop offset=".4" stop-color="#5FA0FF"/><stop offset="1" stop-color="#0A2E73"/>
+      <stop offset="0" stop-color="#FAF5FF"/><stop offset=".4" stop-color="#C084FC"/><stop offset="1" stop-color="#3B0764"/>
     </radialGradient>
     <!-- the polished red, for the one control that matters on each object -->
     <radialGradient id="red" cx=".34" cy=".28" r=".78">
-      <stop offset="0" stop-color="#FF8A74"/><stop offset=".32" stop-color="#E2513A"/>
-      <stop offset=".72" stop-color="#C0362A"/><stop offset="1" stop-color="#8E2118"/>
+      <stop offset="0" stop-color="#FF7AF5"/><stop offset=".32" stop-color="#F038E0"/>
+      <stop offset=".72" stop-color="#A21CAF"/><stop offset="1" stop-color="#701A75"/>
     </radialGradient>
     <!-- a screen: near-black glass with a faint sky reflection -->
     <linearGradient id="glass" x1="0" y1="0" x2=".6" y2="1">
-      <stop offset="0" stop-color="#1C3A78"/><stop offset=".45" stop-color="#061230"/><stop offset="1" stop-color="#030A1E"/>
+      <stop offset="0" stop-color="#3B0764"/><stop offset=".45" stop-color="#120826"/><stop offset="1" stop-color="#06030F"/>
     </linearGradient>
     <linearGradient id="reflect" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/>
     </linearGradient>
     <!-- the shadow each object casts on the table -->
     <radialGradient id="shade">
-      <stop offset="0" stop-color="#0A2E73" stop-opacity=".45"/><stop offset="1" stop-color="#0A2E73" stop-opacity="0"/>
+      <stop offset="0" stop-color="#3B0764" stop-opacity=".45"/><stop offset="1" stop-color="#3B0764" stop-opacity="0"/>
     </radialGradient>
     <filter id="blur" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="6"/></filter>
     <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5"/></filter>
@@ -74,8 +74,8 @@
     <circle cx="-62" cy="63" r="4.5" fill="url(#red)"/>
     <circle cx="62" cy="63" r="4.5" fill="url(#red)"/>
     <!-- ear pads, seen edge-on -->
-    <rect x="-42" y="36" width="7" height="54" rx="3.5" fill="#071B45"/>
-    <rect x="35" y="36" width="7" height="54" rx="3.5" fill="#071B45"/>
+    <rect x="-42" y="36" width="7" height="54" rx="3.5" fill="#1E0B3A"/>
+    <rect x="35" y="36" width="7" height="54" rx="3.5" fill="#1E0B3A"/>
   </g>
 
   <!-- 2 · bookshelf speaker -->
@@ -84,19 +84,19 @@
     <rect x="-54" y="-82" width="108" height="170" rx="12" fill="url(#sweep)"/>
     <rect x="-48" y="-76" width="96" height="158" rx="9" fill="url(#lacdark)" opacity=".85"/>
     <!-- woofer -->
-    <circle cx="0" cy="20" r="36" fill="#061230"/>
+    <circle cx="0" cy="20" r="36" fill="#120826"/>
     <circle cx="0" cy="20" r="33" fill="url(#cone)"/>
     <circle cx="0" cy="20" r="18" fill="url(#cone)" opacity=".9"/>
     <circle cx="0" cy="20" r="9" fill="url(#dome)"/>
     <path d="M-28 6 a32 32 0 0 1 20 -16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/>
     <!-- tweeter -->
-    <circle cx="0" cy="-42" r="16" fill="#061230"/>
+    <circle cx="0" cy="-42" r="16" fill="#120826"/>
     <circle cx="0" cy="-42" r="13" fill="url(#cone)"/>
     <circle cx="0" cy="-42" r="5" fill="url(#dome)"/>
     <!-- port and the one lamp -->
-    <rect x="-20" y="64" width="40" height="7" rx="3.5" fill="#061230"/>
+    <rect x="-20" y="64" width="40" height="7" rx="3.5" fill="#120826"/>
     <circle cx="36" cy="72" r="3" fill="url(#red)"/>
-    <circle cx="36" cy="72" r="5" fill="#FF8A74" opacity=".35" filter="url(#glow)"/>
+    <circle cx="36" cy="72" r="5" fill="#FF7AF5" opacity=".35" filter="url(#glow)"/>
   </g>
 
   <!-- 3 · phone -->
@@ -106,16 +106,16 @@
     <rect x="-37" y="-79" width="74" height="162" rx="14" fill="url(#glass)"/>
     <rect x="-37" y="-79" width="74" height="162" rx="14" fill="url(#reflect)"/>
     <!-- a waveform on the screen, in the page's blue -->
-    <path d="M-28 2 l4 -10 l4 20 l4 -34 l4 46 l4 -30 l4 14 l4 -8 l4 22 l4 -40 l4 30 l4 -12 l4 6 l4 -16 l4 12" fill="none" stroke="#5FA0FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M-28 2 H30" stroke="#5FA0FF" stroke-width="1" opacity=".35"/>
+    <path d="M-28 2 l4 -10 l4 20 l4 -34 l4 46 l4 -30 l4 14 l4 -8 l4 22 l4 -40 l4 30 l4 -12 l4 6 l4 -16 l4 12" fill="none" stroke="#C084FC" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M-28 2 H30" stroke="#C084FC" stroke-width="1" opacity=".35"/>
     <!-- play control -->
     <circle cx="0" cy="54" r="11" fill="url(#red)"/>
     <path d="M-3 48 l9 6 l-9 6 z" fill="#fff" opacity=".9"/>
     <!-- island -->
-    <rect x="-12" y="-72" width="24" height="7" rx="3.5" fill="#030A1E"/>
+    <rect x="-12" y="-72" width="24" height="7" rx="3.5" fill="#06030F"/>
     <!-- side keys -->
-    <rect x="-45" y="-30" width="3" height="18" rx="1.5" fill="#1450BE"/>
-    <rect x="42" y="-20" width="3" height="28" rx="1.5" fill="#1450BE"/>
+    <rect x="-45" y="-30" width="3" height="18" rx="1.5" fill="#6D28D9"/>
+    <rect x="42" y="-20" width="3" height="28" rx="1.5" fill="#6D28D9"/>
   </g>
 
   <!-- 4 · DAC / amplifier -->
@@ -125,22 +125,22 @@
     <!-- front face, slightly recessed -->
     <rect x="-90" y="-30" width="180" height="80" rx="9" fill="url(#lacdark)" opacity=".8"/>
     <!-- the volume knob, large, with a lit rim and a position mark -->
-    <circle cx="-50" cy="10" r="28" fill="#061230"/>
+    <circle cx="-50" cy="10" r="28" fill="#120826"/>
     <circle cx="-50" cy="10" r="25" fill="url(#dome)"/>
     <circle cx="-50" cy="10" r="20" fill="url(#lac)"/>
     <path d="M-50 -6 L-50 2" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
     <!-- the display: a level meter -->
     <rect x="-8" y="-14" width="86" height="48" rx="6" fill="url(#glass)"/>
-    <g fill="#5FA0FF">
+    <g fill="#C084FC">
       <rect x="0" y="22" width="5" height="6" rx="1"/><rect x="8" y="16" width="5" height="12" rx="1"/><rect x="16" y="8" width="5" height="20" rx="1"/>
       <rect x="24" y="2" width="5" height="26" rx="1"/><rect x="32" y="-6" width="5" height="34" rx="1"/><rect x="40" y="-2" width="5" height="30" rx="1"/>
       <rect x="48" y="6" width="5" height="22" rx="1"/><rect x="56" y="14" width="5" height="14" rx="1"/>
     </g>
     <rect x="64" y="10" width="5" height="18" rx="1" fill="url(#red)"/>
     <!-- input selector lamps -->
-    <circle cx="-10" cy="44" r="2.2" fill="#5FA0FF"/><circle cx="2" cy="44" r="2.2" fill="#5FA0FF" opacity=".4"/><circle cx="14" cy="44" r="2.2" fill="#5FA0FF" opacity=".4"/>
+    <circle cx="-10" cy="44" r="2.2" fill="#C084FC"/><circle cx="2" cy="44" r="2.2" fill="#C084FC" opacity=".4"/><circle cx="14" cy="44" r="2.2" fill="#C084FC" opacity=".4"/>
     <!-- feet -->
-    <rect x="-80" y="56" width="18" height="6" rx="3" fill="#061230"/><rect x="62" y="56" width="18" height="6" rx="3" fill="#061230"/>
+    <rect x="-80" y="56" width="18" height="6" rx="3" fill="#120826"/><rect x="62" y="56" width="18" height="6" rx="3" fill="#120826"/>
   </g>
 
   <!-- 5 · car, side on, headlamps lit -->
@@ -151,18 +151,18 @@
     <!-- glasshouse -->
     <path d="M-40 6 L-16 -24 C-10 -30 -4 -32 8 -32 L44 -32 C54 -32 60 -29 66 -22 L84 2 Z" fill="url(#glass)"/>
     <path d="M-40 6 L-16 -24 C-10 -30 -4 -32 8 -32 L44 -32 C54 -32 60 -29 66 -22 L84 2 Z" fill="url(#reflect)"/>
-    <rect x="20" y="-32" width="3" height="38" fill="#0A2E73" opacity=".8"/>
+    <rect x="20" y="-32" width="3" height="38" fill="#3B0764" opacity=".8"/>
     <!-- sill line -->
     <path d="M-86 32 H92" stroke="#fff" stroke-width="1.5" opacity=".35"/>
     <!-- wheels -->
-    <circle cx="-56" cy="50" r="20" fill="#061230"/><circle cx="-56" cy="50" r="12" fill="url(#dome)"/><circle cx="-56" cy="50" r="5" fill="#0A2E73"/>
-    <circle cx="62" cy="50" r="20" fill="#061230"/><circle cx="62" cy="50" r="12" fill="url(#dome)"/><circle cx="62" cy="50" r="5" fill="#0A2E73"/>
+    <circle cx="-56" cy="50" r="20" fill="#120826"/><circle cx="-56" cy="50" r="12" fill="url(#dome)"/><circle cx="-56" cy="50" r="5" fill="#3B0764"/>
+    <circle cx="62" cy="50" r="20" fill="#120826"/><circle cx="62" cy="50" r="12" fill="url(#dome)"/><circle cx="62" cy="50" r="5" fill="#3B0764"/>
     <!-- lamps -->
-    <ellipse cx="100" cy="18" rx="5" ry="7" fill="#EAF3FF"/>
-    <ellipse cx="100" cy="18" rx="9" ry="10" fill="#DCEBFF" opacity=".35" filter="url(#glow)"/>
+    <ellipse cx="100" cy="18" rx="5" ry="7" fill="#FAF5FF"/>
+    <ellipse cx="100" cy="18" rx="9" ry="10" fill="#F3E8FF" opacity=".35" filter="url(#glow)"/>
     <rect x="-102" y="14" width="6" height="14" rx="3" fill="url(#red)"/>
     <!-- the speaker in the door, the point of the picture -->
-    <circle cx="-14" cy="26" r="11" fill="#061230"/><circle cx="-14" cy="26" r="9" fill="url(#cone)"/><circle cx="-14" cy="26" r="3" fill="url(#dome)"/>
+    <circle cx="-14" cy="26" r="11" fill="#120826"/><circle cx="-14" cy="26" r="9" fill="url(#cone)"/><circle cx="-14" cy="26" r="3" fill="url(#dome)"/>
   </g>
 
   <!-- 6 · studio monitor, tilted cabinet -->
@@ -171,17 +171,17 @@
     <path d="M-50 90 L-38 -86 C-37 -92 -33 -94 -28 -94 L28 -94 C33 -94 37 -92 38 -86 L50 90 C51 95 48 98 44 98 L-44 98 C-48 98 -51 95 -50 90 Z" fill="url(#sweep)"/>
     <path d="M-43 86 L-32 -82 L32 -82 L43 86 Z" fill="url(#lacdark)" opacity=".85"/>
     <!-- waveguide and tweeter -->
-    <ellipse cx="0" cy="-48" rx="24" ry="20" fill="#061230"/>
+    <ellipse cx="0" cy="-48" rx="24" ry="20" fill="#120826"/>
     <ellipse cx="0" cy="-48" rx="20" ry="16" fill="url(#cone)"/>
     <circle cx="0" cy="-48" r="7" fill="url(#dome)"/>
     <!-- woofer -->
-    <circle cx="0" cy="26" r="36" fill="#061230"/>
+    <circle cx="0" cy="26" r="36" fill="#120826"/>
     <circle cx="0" cy="26" r="33" fill="url(#cone)"/>
     <circle cx="0" cy="26" r="19" fill="url(#cone)" opacity=".9"/>
     <circle cx="0" cy="26" r="9" fill="url(#dome)"/>
     <path d="M-28 12 a32 32 0 0 1 20 -16" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".55"/>
     <!-- power lamp, lit -->
     <circle cx="30" cy="80" r="3" fill="url(#red)"/>
-    <circle cx="30" cy="80" r="5.5" fill="#FF8A74" opacity=".35" filter="url(#glow)"/>
+    <circle cx="30" cy="80" r="5.5" fill="#FF7AF5" opacity=".35" filter="url(#glow)"/>
   </g>
 </svg>

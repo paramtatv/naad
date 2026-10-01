@@ -141,6 +141,13 @@
       "label": "frame-to-frame drift in decode cost: the model predicted 12,097,471 instructions for a run and 12,097,471 were measured",
       "source": "naad HANDOFF.md at 620b1b3, carried from sravan reference/gentiming.py",
       "command": "reference/gentiming.py, predicted vs measured instruction count"
+    },
+    "engines": {
+      "value": "2",
+      "status": "measured",
+      "label": "independent engines that must agree on every result: an interpreter on the source, and the compiled RISC-V image",
+      "source": "sravan THESIS.md §8c, 'green on both engines'",
+      "command": "t1_image --predict-only (interpreter) and yantra-run (native) on the same test"
     }
   }
 }

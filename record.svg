@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="A record on a turntable, light sweeping across the grooves, the tonearm resting on the first track">
+  <title>The record</title>
+  <defs>
+    <radialGradient id="vinyl" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#1B1226"/><stop offset=".3" stop-color="#0D0816"/>
+      <stop offset=".7" stop-color="#07040E"/><stop offset=".96" stop-color="#17102A"/><stop offset="1" stop-color="#2E2244"/>
+    </radialGradient>
+    <!-- the sheen: light from upper-left crossing the grooves, and its mirror -->
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".28" stop-color="#C084FC" stop-opacity=".22"/>
+      <stop offset=".36" stop-color="#FFFFFF" stop-opacity=".34"/>
+      <stop offset=".44" stop-color="#A855F7" stop-opacity=".16"/>
+      <stop offset=".52" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".72" stop-color="#FF7AF5" stop-opacity=".10"/>
+      <stop offset=".8" stop-color="#FFD1FB" stop-opacity=".18"/>
+      <stop offset=".88" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="label" cx=".36" cy=".3" r=".8">
+      <stop offset="0" stop-color="#FF7AF5"/><stop offset=".3" stop-color="#F038E0"/>
+      <stop offset=".72" stop-color="#A21CAF"/><stop offset="1" stop-color="#701A75"/>
+    </radialGradient>
+    <radialGradient id="spindle" cx=".35" cy=".3" r=".8">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#C4B5E0"/><stop offset="1" stop-color="#4A3D63"/>
+    </radialGradient>
+    <linearGradient id="arm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FAF5FF"/><stop offset=".45" stop-color="#CBB8E8"/><stop offset="1" stop-color="#6B5A8A"/>
+    </linearGradient>
+    <linearGradient id="armdark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2E2048"/><stop offset="1" stop-color="#140C24"/>
+    </linearGradient>
+    <radialGradient id="platter" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#2B1D45"/><stop offset=".9" stop-color="#161D2C"/><stop offset="1" stop-color="#0A0612"/>
+    </radialGradient>
+    <radialGradient id="glowblue">
+      <stop offset="0" stop-color="#C084FC" stop-opacity=".35"/><stop offset="1" stop-color="#C084FC" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowred">
+      <stop offset="0" stop-color="#FF7AF5" stop-opacity=".28"/><stop offset="1" stop-color="#FF7AF5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="shadow">
+      <stop offset="0" stop-color="#000" stop-opacity=".7"/><stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="blursm" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="3"/></filter>
+    <!-- grooves: thin rings, slightly uneven in spacing and opacity, like a real pressing -->
+    <g id="grooves" fill="none" stroke="#FFFFFF" stroke-width="1">
+      <circle r="402" opacity=".05"/><circle r="396" opacity=".08"/><circle r="391" opacity=".05"/><circle r="385" opacity=".07"/>
+      <circle r="378" opacity=".05"/><circle r="372" opacity=".09"/><circle r="367" opacity=".05"/><circle r="360" opacity=".06"/>
+      <circle r="354" opacity=".08"/><circle r="349" opacity=".05"/><circle r="342" opacity=".07"/><circle r="336" opacity=".05"/>
+      <circle r="330" opacity=".09"/><circle r="325" opacity=".05"/><circle r="318" opacity=".06"/><circle r="312" opacity=".08"/>
+      <circle r="306" opacity=".05"/><circle r="300" opacity=".07"/><circle r="295" opacity=".05"/><circle r="288" opacity=".09"/>
+      <circle r="282" opacity=".05"/><circle r="276" opacity=".06"/><circle r="270" opacity=".08"/><circle r="265" opacity=".05"/>
+      <circle r="258" opacity=".07"/><circle r="252" opacity=".05"/><circle r="246" opacity=".09"/><circle r="240" opacity=".05"/>
+      <circle r="234" opacity=".06"/><circle r="229" opacity=".08"/><circle r="222" opacity=".05"/><circle r="216" opacity=".07"/>
+      <circle r="210" opacity=".05"/><circle r="204" opacity=".09"/><circle r="198" opacity=".05"/><circle r="192" opacity=".06"/>
+      <circle r="186" opacity=".08"/><circle r="180" opacity=".05"/><circle r="174" opacity=".07"/><circle r="168" opacity=".05"/>
+      <!-- the gaps between tracks are wider and lighter -->
+      <circle r="344" opacity=".16" stroke-width="2.5"/><circle r="262" opacity=".16" stroke-width="2.5"/><circle r="200" opacity=".16" stroke-width="2.5"/>
+    </g>
+  </defs>
+
+  <!-- the air around it -->
+  <circle cx="330" cy="300" r="420" fill="url(#glowblue)"/>
+  <circle cx="740" cy="760" r="340" fill="url(#glowred)"/>
+
+  <!-- the platter under the record, and the shadow it throws -->
+  <ellipse cx="520" cy="540" rx="440" ry="430" fill="url(#shadow)" filter="url(#blur)"/>
+  <circle cx="500" cy="500" r="432" fill="url(#platter)"/>
+  <circle cx="500" cy="500" r="432" fill="none" stroke="#fff" stroke-opacity=".08"/>
+
+  <!-- the record -->
+  <circle cx="500" cy="500" r="410" fill="url(#vinyl)"/>
+  <g transform="translate(500,500)"><use href="#grooves"/></g>
+  <!-- the sheen crosses everything -->
+  <circle cx="500" cy="500" r="410" fill="url(#sheen)"/>
+  <!-- the edge catches the lamp -->
+  <path d="M 500 90 A 410 410 0 0 0 90 500" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>
+  <path d="M 910 500 A 410 410 0 0 0 500 90" fill="none" stroke="#fff" stroke-opacity=".10" stroke-width="1.5"/>
+
+  <!-- the label -->
+  <circle cx="500" cy="500" r="150" fill="#4A0A4F"/>
+  <circle cx="500" cy="500" r="146" fill="url(#label)"/>
+  <circle cx="500" cy="500" r="146" fill="none" stroke="#fff" stroke-opacity=".18"/>
+  <ellipse cx="455" cy="440" rx="54" ry="30" fill="#fff" opacity=".22" transform="rotate(-28 455 440)"/>
+  <!-- the mark on the label: a point, and sound from it -->
+  <g transform="translate(500,500)" fill="none" stroke="#FFE4FC" stroke-linecap="round">
+    <path d="M 10 -40 A 46 46 0 0 1 10 40" stroke-width="9" opacity=".95"/>
+    <path d="M 30 -58 A 66 66 0 0 1 30 58" stroke-width="6" opacity=".6"/>
+    <path d="M 50 -76 A 86 86 0 0 1 50 76" stroke-width="4" opacity=".32"/>
+  </g>
+  <circle cx="470" cy="500" r="13" fill="#FFF0FE"/>
+  <text x="500" y="606" text-anchor="middle" font-family="'Noto Serif Devanagari', Georgia, serif" font-size="30" fill="#FFE4FC" opacity=".9">नाद</text>
+  <text x="500" y="420" text-anchor="middle" font-family="Archivo, system-ui, sans-serif" font-size="11" letter-spacing="3" fill="#FFE4FC" opacity=".7">SIDE A · 33⅓</text>
+  <!-- spindle -->
+  <circle cx="500" cy="500" r="9" fill="#0A0612"/>
+  <circle cx="500" cy="500" r="6" fill="url(#spindle)"/>
+
+  <!-- the tonearm, from the top right, resting on the first track -->
+  <g>
+    <!-- base -->
+    <circle cx="890" cy="130" r="54" fill="url(#armdark)"/>
+    <circle cx="890" cy="130" r="54" fill="none" stroke="#fff" stroke-opacity=".12"/>
+    <circle cx="890" cy="130" r="30" fill="url(#arm)"/>
+    <circle cx="890" cy="130" r="30" fill="none" stroke="#000" stroke-opacity=".3"/>
+    <!-- counterweight -->
+    <rect x="918" y="112" width="52" height="36" rx="10" fill="url(#armdark)" transform="rotate(32 890 130)"/>
+    <!-- the arm itself -->
+    <path d="M 890 130 L 596 296" stroke="url(#arm)" stroke-width="13" stroke-linecap="round"/>
+    <path d="M 890 130 L 596 296" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-linecap="round" transform="translate(-1,-3)"/>
+    <!-- headshell -->
+    <g transform="rotate(-29.5 596 296)">
+      <rect x="548" y="282" width="56" height="28" rx="6" fill="url(#armdark)"/>
+      <rect x="548" y="282" width="56" height="28" rx="6" fill="none" stroke="#fff" stroke-opacity=".2"/>
+      <rect x="556" y="306" width="10" height="16" rx="2" fill="#CBB8E8"/>
+    </g>
+    <!-- the stylus point, and the tiny glint where it meets the groove -->
+    <circle cx="560" cy="330" r="7" fill="#FFFFFF" opacity=".5" filter="url(#blursm)"/>
+    <circle cx="560" cy="330" r="2.2" fill="#FFFFFF"/>
+  </g>
+</svg>
