@@ -4,8 +4,8 @@ Live: https://paramtatv.github.io/naad/ · source `index.html`, a single file wi
 build step · `figures.json` is the provenance of every number on it · `kernel/` is the
 decoder the page describes, vendored at the commit the figures were taken from.
 
-**This branch (`redesign`) is not public.** Pages deploys on push to `main`. Nothing
-here goes to `main` until the owner has seen it and said so.
+**Published to `main` on 2026-10-01 at the owner's request.** Pages deploys on push to `main`;
+`tools/verify-deploy.sh` confirms the live stamp.
 
 ## 1. Positioning, in one sentence
 
@@ -124,8 +124,10 @@ one was fooled before: a content grep matched a substring that survived between 
    account; the maker-side promise is that Naad is licensed to them. **OPEN CONFLICT,
    owner's call before anything is public:** `sravan`'s LICENSE, README and THESIS say BSD
    3-Clause, and `kernel/` on this page is a verbatim copy under that notice with a public
-   "read the decoder" link. A BSD notice grants royalty-free use. Either the licence changes
-   before the page ships, or the vendored decoder and the link come off the page.
+   "read the decoder" link. A BSD notice grants royalty-free use. Decision taken at publish time,
+   2026-10-01: the vendored decoder and its links are OFF the public page until the owner settles
+   the licence; withholding is reversible, publishing source is not. `tools/check-figures.py`
+   re-takes lines and routines from `kernel/` only when it is present.
 
 ## 6. Names
 

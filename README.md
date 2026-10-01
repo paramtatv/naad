@@ -7,8 +7,7 @@ of Sanskrit, compiled to 64-bit RISC-V, with no foreign code beneath it. One str
 to one file on every machine, forever, and you can check.
 
 The public page is [`index.html`](index.html), a static file with no build step. The
-decoder it describes is under [`kernel/`](kernel/), vendored at the commit every figure was
-taken from. The provenance of every number on the page is [`figures.json`](figures.json),
+provenance of every number on the page is [`figures.json`](figures.json),
 and `tools/check-figures.py` refuses the page when the two disagree.
 
 ## What is measured
