@@ -174,7 +174,7 @@
       "value": "24-bit / 48 kHz",
       "status": "measured",
       "label": "format of the source recording and of the shipped excerpt",
-      "source": "ffprobe on the Commons original and on grieg-mountain-king-ending.flac",
+      "source": "ffprobe on the Commons original, shipped unchanged as grieg-mountain-king.flac (md5 4655be52db91a64bac7b575f4124e9e4)",
       "command": "ffprobe -show_entries stream=sample_rate,bits_per_raw_sample grieg-mountain-king-ending.flac"
     },
     "song_len": {
@@ -183,6 +183,20 @@
       "label": "length of the whole recording, 154.09 s",
       "source": "ffprobe on the Commons original",
       "command": "ffprobe -show_entries format=duration"
+    },
+    "s_norm": {
+      "value": "96",
+      "status": "measured",
+      "label": "kbps of the Normal-quality stream version, Ogg Vorbis, made from the same master",
+      "source": "ffprobe grieg-mountain-king-96k.ogg: vorbis, 48000 Hz, 96000 b/s",
+      "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-96k.ogg"
+    },
+    "s_high": {
+      "value": "160",
+      "status": "measured",
+      "label": "kbps of the High-quality stream version, Ogg Vorbis, made from the same master",
+      "source": "ffprobe grieg-mountain-king-160k.ogg: vorbis, 48000 Hz, 160000 b/s",
+      "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-160k.ogg"
     }
   }
 }

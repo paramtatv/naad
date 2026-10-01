@@ -83,15 +83,19 @@ demonstration, it is **a real song, played back**, which needs two things that d
 yet: a licensed recording the lab may publish, and the stream layer (nothing walks a file of
 frames). The only real audio in `sravan` is `vectors/real_audio.txt`, a single plucked note
 at about 355 Hz that decays in 1.5 s; it is not a song and must not be dressed as one. Until
-both exist, the Listen section shows **a real recording, as itself**: Grieg, *In the Hall of the
-Mountain King*, Musopen Symphony, public domain, from Wikimedia Commons, 24-bit / 48 kHz. The
-waveform is the whole piece drawn from its own samples (`wave.json`, 1,800 columns of min /
-max / rms); the play button plays the last 30 s, re-encoded losslessly
-(`grieg-mountain-king-ending.flac`, 5.9 MB). `tools/song-wave.py` regenerates both from the
-Commons original. The caption says plainly that the browser's own decoder plays it today and
-that Naad's playback of this file is what goes there next. A Bon Jovi master, which the owner
-named as the ideal, is not ours to publish; a public-domain orchestral recording with the same
-whisper-to-roar dynamics is the honest substitute.
+both exist, the Listen section shows **a real recording, as itself, three ways**: Grieg, *In
+the Hall of the Mountain King*, Musopen Symphony, public domain, from Wikimedia Commons,
+24-bit / 48 kHz, the whole piece. The listener switches, while it plays, between the master
+(`grieg-mountain-king.flac`, 24.6 MB, the Commons file unchanged) and two Vorbis encodes of
+that same master at 96 and 160 kbps (`-96k.ogg` 1.7 MB, `-160k.ogg` 2.6 MB), the Normal and
+High settings of a major streaming service. The waveform is the whole piece drawn from its
+own samples (`wave.json`). `tools/song-wave.py` regenerates all of it from the Commons
+original. The caption says the browser plays all three today and that Naad's playback of
+the master is what goes there next; it also says a phone speaker may not reveal the
+difference, because that is true. A Bon Jovi master, which the owner named as the ideal, is
+not ours to publish; a public-domain orchestral recording with the same whisper-to-roar
+dynamics is the honest substitute. **The page is now about 29 MB with audio**; the audio
+loads only on play (`preload="none"`).
 
 **`tools/verify-deploy.sh`.** Compares the live page's `<meta name="naad-build">` stamp
 and byte count to the checkout. Bump the stamp on every revision. Two instruments because
