@@ -140,7 +140,17 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 ## 7. What is next, in order
 
 1. **Owner review of this branch.** Nothing is public until then.
-2. **The stream layer, from the sequence test.** `sravan` branch `real-frame` now walks the
+2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
+   `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
+   sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
+   window of the input, decodes one frame per window with the cursor carried, resyncs on
+   refusal, and writes 24-bit PCM out. No data literal, so a corpus run is one small image
+   run per file. Interpreted (`t1_image --input … --predict-sink`): the whole Commons
+   recording, 1,806 frames, decodes sample-exact against the MD5 the encoder stored in the
+   file's own STREAMINFO (= ffmpeg's s24le). Native run (`YANTRA_INPUT=<file> yantra-run`)
+   is next; the page claims nothing from this until that lands. Must build on a tree with
+   the W-306 narrow-store fix (6365e334); 34c9712a has it.
+2b. **The sequence test, superseded for everything but its counts.** `sravan` branch `real-frame` now walks the
    first frames of the Commons file in order (`reference/genstream.py`, `pariksha_s.t1`,
    frames packed eight octets to a word; ten frames green on both engines with the cursor carried, so boundaries are
    found by the decoder and the flac -a map is only a witness; 199,803,671 native
