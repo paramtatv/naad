@@ -199,18 +199,18 @@
       "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-160k.ogg"
     },
     "real_samples": {
-      "value": "4,096",
+      "value": "12,288",
       "status": "measured",
-      "label": "samples per channel of the Grieg recording's frame 0 that Naad's decoder returned identical to ffmpeg's decode, both channels, on the interpreter and on the native RV64 image",
-      "source": "sravan@9c6184b kernel/pariksha_r.t1: predict -> 0, halt status Some(0)",
-      "command": "t1_image ... --entry परीक्षार मुख्यम् ; yantra-run"
+      "label": "samples per channel of the Grieg recording, its first three frames (0.256 s), that Naad's decoder returned identical to ffmpeg's decode, both channels, independent stereo and mid/side, on the interpreter and on the native RV64 image",
+      "source": "sravan real-frame branch 6be713d: pariksha_r / _r1 / _r2 each predict -> 0 and halt status Some(0); controls answer 2 and 1",
+      "command": "t1_image ... --entry परीक्षार{,१,२} मुख्यम् ; yantra-run"
     },
     "real_steps": {
       "value": "11,422,135",
       "status": "measured",
-      "label": "native instructions to decode that frame and check both folds, including setup",
-      "source": "sravan@9c6184b, yantra-run steps line",
-      "command": "YANTRA_STEPS=2000000000 yantra-run r2.elf"
+      "label": "native instructions to decode frame 0 and check both folds, including setup; frames 1 and 2 took 16,745,289 and 19,630,338",
+      "source": "sravan@6be713d, yantra-run steps lines",
+      "command": "YANTRA_STEPS=2000000000 yantra-run r.elf"
     },
     "mkt_live": {
       "value": "$23.2B",
@@ -267,6 +267,13 @@
       "label": "the master's bits against the 160 kbps stream, from the files on this page: 25,778,747 / 2,621,694 = 9.8",
       "source": "grieg-mountain-king.flac and grieg-mountain-king-160k.ogg sizes",
       "command": "ls -l grieg-mountain-king.flac grieg-mountain-king-160k.ogg"
+    },
+    "real_frames": {
+      "value": "three",
+      "status": "measured",
+      "label": "frames of the Grieg file decoded natively: 0 (independent stereo), 1 and 2 (mid/side)",
+      "source": "sravan@6be713d",
+      "command": "python3 reference/genreal.py 0 1 2"
     }
   }
 }

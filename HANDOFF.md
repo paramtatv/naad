@@ -91,8 +91,8 @@ that same master at 96 and 160 kbps (`-96k.ogg` 1.7 MB, `-160k.ogg` 2.6 MB), the
 High settings of a major streaming service. The waveform is the whole piece drawn from its
 own samples (`wave.json`). `tools/song-wave.py` regenerates all of it from the Commons
 original. The caption says the browser plays all three today and that Naad plays the master once the
-player exists; a fourth element says, truthfully, that Naad decoded frame 0 of this file on
-both engines against ffmpeg's samples (sravan `real-frame` branch, `pariksha_r.t1`), which
+player exists; a fourth element says, truthfully, that Naad decoded frames 0, 1 and 2 of this file (12,288
+samples per channel, independent stereo and mid/side) on both engines against ffmpeg's samples (sravan `real-frame` branch, `pariksha_r.t1`), which
 also found and fixed an inverted Rice unary polarity no self-written test could see; it also says a phone speaker may not reveal the
 difference, because that is true. A Bon Jovi master, which the owner named as the ideal, is
 not ours to publish; a public-domain orchestral recording with the same whisper-to-roar
