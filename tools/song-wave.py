@@ -23,7 +23,7 @@ import array, json, math, os, subprocess, sys, urllib.request
 
 SRC = ("https://upload.wikimedia.org/wikipedia/commons/8/84/"
        "Grieg_-_Peer_Gynt_Suite_No._1%2C_Op._46_-_IV._In_the_Hall_of_the_Mountain_King_%28Musopen_Symphony%29.flac")
-UA = "naad-page/1 (naad@paramtatv.org)"
+UA = "naad-page/1 (naad@paramtatva.org)"
 COLS = 1800
 
 tmp = "/tmp/naad-song.flac"

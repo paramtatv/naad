@@ -41,4 +41,4 @@ See [`HANDOFF.md`](HANDOFF.md) for the positioning, the claim ladder and the con
 
 ## Enquiries
 
-<naad@paramtatv.org>
+<naad@paramtatva.org>
