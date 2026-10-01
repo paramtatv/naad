@@ -68,14 +68,14 @@
     "ipcs": {
       "value": "1,500",
       "status": "measured",
-      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; measured on a 2026-09-27 toolchain build, superseded by f168e91a on 2026-10-01, re-take pending",
+      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
       "source": "sravan real-frame f631d7d, re-taken on the fixed kernel: slope (16,585,091 − 4,299,531)/8 = 1,535,695 per frame of 1,024 channel-samples; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "reference/gentiming.py, two-point slope"
     },
     "realtime": {
       "value": "7.6×",
       "status": "measured",
-      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon; measured on a 2026-09-27 toolchain build, superseded by f168e91a on 2026-10-01, re-take pending",
+      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
       "source": "sravan real-frame f631d7d, realtime_factor = 1,535,695 × 44100/512 / 1e9 = 0.132; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "1 / (1500 × 44100 × 2 / 1e9)"
     },
@@ -208,7 +208,7 @@
     "real_steps": {
       "value": "11,422,135",
       "status": "measured",
-      "label": "native instructions to decode frame 0 and check both folds, including setup; frames 1 and 2 took 16,745,289 and 19,630,338; measured on a 2026-09-27 toolchain build, superseded by f168e91a on 2026-10-01, re-take pending",
+      "label": "native instructions to decode frame 0 and check both folds, including setup; frames 1 and 2 took 16,745,289 and 19,630,338; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
       "source": "sravan@6be713d, yantra-run steps lines; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "YANTRA_STEPS=2000000000 yantra-run r.elf"
     },
@@ -278,14 +278,14 @@
     "timing_retake": {
       "value": "1,535,695",
       "status": "measured",
-      "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; measured on a 2026-09-27 toolchain build, superseded by f168e91a on 2026-10-01, re-take pending",
+      "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
       "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
     },
     "seq_steps": {
       "value": "200,463,153",
       "status": "measured",
-      "label": "native instructions to read the file's header, check STREAMINFO, then unpack and decode ten frames with the cursor carried, checking twenty folds and ten boundaries, including setup; measured on a 2026-09-27 toolchain build, superseded by f168e91a on 2026-10-01, re-take pending",
+      "label": "native instructions to read the file's header, check STREAMINFO, then unpack and decode ten frames with the cursor carried, checking twenty folds and ten boundaries, including setup; measured on a 2026-09-27 toolchain build; a 2026-10-01 build counts 24.7% lower, cause unattributed; re-take on origin/main 34c9712a in progress",
       "source": "sravan stream 1b00c3a (pariksha_s.t1: STREAMINFO read, boundaries found by the decoder, flac -a map and metaflac as witnesses), yantra-run steps line; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
       "command": "YANTRA_STEPS=4000000000 yantra-run s10.elf"
     },
@@ -311,5 +311,5 @@
       "command": "python3 reference/genstream.py 10 --emit; t1_image ... --entry परीक्षानिर्गम मुख्यम्; yantra-run o.elf > naad10.pcm; cmp naad10.pcm grieg10.pcm"
     }
   },
-  "compiler": "compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary; SUPERSEDED: trunk f168e91a (2026-10-01 06:13) removed instructions (W-306c), so every native count here is a correct measurement of an older codegen; re-take on a current build pending"
+  "compiler": "compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f; byte-identical to the yantra-run built from origin/main 34c9712a on 2026-10-01); a toolchain build from 2026-10-01 counts this program 24.7% lower, cause unattributed (W-347); re-take on origin/main 34c9712a in progress"
 }

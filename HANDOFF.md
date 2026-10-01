@@ -172,9 +172,11 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 - The page is pinned to `sravan@85f90b2` (octet-wise CRC landed, 1,500 instructions per
   channel-sample, 7.6× at 1 GHz / IPC 1). The timing figures were re-taken on the fixed kernel (sravan real-frame f631d7d) and came
   back identical to the instruction. ALL native counts were taken on a 2026-09-27 toolchain
-  build; trunk f168e91a (2026-10-01) removed ~25% of instructions (W-306c), so every native
-  count on the page is owed a re-take on a current build, and must then carry that build's
-  commit. Build time is n^1.80 in emitted lines (sansos-dd, uncontended), not quadratic. The next rung is the packed-word reader; when it lands,
+  build; a 2026-10-01 toolchain build counts the same program 24.7% lower; the toolchain owner
+  first attributed that to f168e91a (W-306c) and retracted it after a build containing
+  f168e91a reproduced the old count to the instruction. Cause unattributed (W-347). Every
+  native count is being re-taken on origin/main 34c9712a, built into .build/ in the sravan
+  worktree, and must then carry that commit. Build time is n^1.80 in emitted lines (sansos-dd, uncontended), not quadratic. The next rung is the packed-word reader; when it lands,
   re-take every figure that names a commit, together, and bump the build stamp.
 - Speed is presented as a floor, not a ceiling: the 1 GHz / IPC 1 model is named as the
   most pessimistic machine anyone ships, and the phone and laptop projections sit beside
