@@ -13,9 +13,15 @@ stamp() { grep -o '<meta name="naad-build" content="[^"]*"' "$1"; }
 ls_=$(stamp "$LIVE"); lh=$(stamp "$HERE/index.html")
 bs=$(wc -c < "$LIVE" | tr -d ' '); bh=$(wc -c < "$HERE/index.html" | tr -d ' ')
 rm -f "$LIVE"
-if [ "$ls_" = "$lh" ] && [ "$bs" = "$bh" ]; then
-  echo "OK live == local: $lh, $bh bytes"; exit 0
+# figures.json ships beside the page and a push can change it alone, which
+# the page's stamp cannot see: compare it by checksum too.
+FJ=$(mktemp); curl -fsSL --max-time 20 "${URL%/}/figures.json" -o "$FJ" || { echo "RED could not fetch figures.json" >&2; exit 2; }
+fl=$(md5 -q "$FJ" 2>/dev/null || md5sum "$FJ" | cut -c1-32); fh=$(md5 -q "$HERE/figures.json" 2>/dev/null || md5sum "$HERE/figures.json" | cut -c1-32)
+rm -f "$FJ"
+if [ "$ls_" = "$lh" ] && [ "$bs" = "$bh" ] && [ "$fl" = "$fh" ]; then
+  echo "OK live == local: $lh, $bh bytes; figures.json md5 $fh"; exit 0
 fi
+[ "$fl" = "$fh" ] || echo "RED figures.json live md5 $fl vs local $fh" >&2
 echo "RED live stamp: ${ls_:-none}" >&2
 echo "RED local stamp: $lh" >&2
 echo "RED bytes live $bs vs local $bh" >&2
