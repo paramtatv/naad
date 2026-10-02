@@ -96,7 +96,13 @@ header reader + octet chain walk 41bc838 with 204/205 refusals, floor-and-presen
 15a6588); **the subset re-run under the fully fixed walker landed 14:20Z (r33): 57 pass, 7
 declined by design (>2 channels, status 310), prediction held**; the page's Proof row now
 leads with 57/7 and keeps the first run's 39/25 breakdown as history (figure
-`ietf_pass_first`). Walker 15a6588, image md5 66feb91e…, table recounted. The `.t1` ENCODER
+`ietf_pass_first`). Walker 15a6588, image md5 66feb91e…, table recounted. Multichannel
+(>2) is scoped in sravan `SCOPE-multichannel.md` (e4f6d48): four changes in dependency
+order (flat channel array in खण्डपाठः, moving 19 call sites; an offset for the verbatim
+reader; the >2 path is SIMPLER than stereo since decorrelation is stereo-only; the walker's
+two unrolled emission blocks become a loop, they are NOT a loop today); two costs unmeasured
+(8-channel sample slots vs the 20 MiB default RAM; W-359 forcing the declaring frame to
+size them on every run). Nothing on the page claims the output half is ready. The `.t1` ENCODER
 has started (sravan `kernel/sanketaka.t1`: frame header, CONSTANT/VERBATIM subframes,
 verified against the Python oracle's packed bits and round-tripped through निःशेष; 957d4de,
 30d937e, 29413bd); still not an encoder. W-359 new shape: a callee-filled table stays all
