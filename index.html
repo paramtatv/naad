@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-02 public r39 same-work">
+<meta name="naad-build" content="2026-10-02 public r40 own-rate">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -534,7 +534,7 @@
       machine we have tried, so there's nothing in the chain that suddenly needs a breather at two in the morning. <b>The floor never hears the machine.</b></p>
       <div class="figure">
         <div><span class="n" data-fig="drift">0.0000%</span><span class="l">drift, set to set</span></div>
-        <div><span class="n" data-fig="realtime">3.7×</span><span class="l">headroom on the slowest chip we'd ever use</span></div>
+        <div><span class="n" data-fig="realtime">3.4×</span><span class="l">headroom on the slowest chip we'd ever use</span></div>
       </div>
       <div class="cta">
         <a class="btn lg" href="mailto:naad@paramtatva.org?subject=Naad%20for%20DJs%20%2F%20live&amp;body=Where%20I%20play%3A%0A%0ARig%20%2F%20controller%3A%0A%0ALibrary%20format%3A%0A">I play out</a>
@@ -600,7 +600,7 @@
       <p>Small enough to run inside the gear itself: earbuds, a DAC, a car head unit, a chip with no operating system and no room for a runtime. Fewer lines means fewer moving parts between the file and your ears, and nothing in the chain you cannot read. <a href="kernel/nihshesha.t1">Read it yourself.</a></p></div>
     <div class="panel"><span class="n"><span data-fig="toolchain">12</span><small>MB</small></span>
       <h3>Light on power, heavy on headroom</h3>
-      <p>The whole toolchain is smaller than one album, and the decoder it builds asks under <span data-fig="core_phone">6%</span> of a phone's core to play the master, <span data-fig="realtime">3.7×</span> faster than real time on the slowest chip we would plan for. Less work per note means more battery for the music, on anything from a laptop to the chip in your headphones.</p></div>
+      <p>The whole toolchain is smaller than one album, and the decoder it builds asks about <span data-fig="core_phone">6%</span> of a phone's core to play the master, <span data-fig="realtime">3.4×</span> faster than real time on the slowest chip we would plan for. Less work per note means more battery for the music, on anything from a laptop to the chip in your headphones.</p></div>
     <div class="panel"><span class="n"><span data-fig="song_fmt">24-bit / 48 kHz</span></span>
       <h3>The master, not a copy of it</h3>
       <p>Naad is licensed to the makers of players and gear. What you keep is the recording itself, every sample, on your own drive, and it does not expire with anyone's account. The archive it is being built for carries its own player inside the file, so a recording still opens when today's apps are gone.</p></div>
@@ -632,7 +632,7 @@
       <span class="n" data-fig="mkt_dolby">$1.18B</span>
       <span class="l">what Dolby earned in one year licensing audio technology into gear; <span data-fig="mkt_hw">454.6 million</span> headphones shipped in 2024</span>
       <h3>Licensed into the gear itself</h3>
-      <p>That is the shape of this business: a technology small enough to sit inside a product and worth paying for on every unit. Naad asks under <span data-fig="core_phone">6%</span> of a phone core, needs no runtime, and fits in earbuds, DACs and cars.</p>
+      <p>That is the shape of this business: a technology small enough to sit inside a product and worth paying for on every unit. Naad asks about <span data-fig="core_phone">6%</span> of a phone core, needs no runtime, and fits in earbuds, DACs and cars.</p>
       <span class="src">Sources: <a href="https://www.sec.gov/Archives/edgar/data/1308547/000162828024048519/dlb-20240927.htm">Dolby 10-K, FY2024</a> · <a href="https://tadviser.com/index.php/Article:Headphones_(Global_Market)">Canalys, 2025</a></span></div>
     <div class="room panel"><span class="k">Streaming</span>
       <span class="n" data-fig="mkt_stream">$20.4B</span>
@@ -695,8 +695,8 @@
         <span class="l">independent engines, an interpreter on the source and the compiled RISC-V image, that must agree on every result. Bit-exact on both for every layer of a FLAC frame.</span></div>
       <div class="rung panel"><span class="tag measured">Measured</span><span class="n"><span data-fig="routines">32</span></span>
         <span class="l">public routines in two files. The frame decoder, the header reader and the resync among them are verified on both engines against real recordings.</span></div>
-      <div class="rung panel"><span class="tag projected">Projected</span><span class="n"><span data-fig="realtime">3.7×</span></span>
-        <span class="l">real time, from <span class="num" data-fig="walker_ipcs">3,076</span> instructions per channel-sample on the path the product runs, the whole-record decoder reading a real 24-bit file, at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships. On a phone's big core, taken as 2.4 GHz at two instructions per cycle, that is <span data-fig="rt_phone">18×</span>, under <span data-fig="core_phone">6%</span> of one core (5.3% before rounding). Not yet timed on silicon.</span></div>
+      <div class="rung panel"><span class="tag projected">Projected</span><span class="n"><span data-fig="realtime">3.4×</span></span>
+        <span class="l">real time, from <span class="num" data-fig="walker_ipcs">3,076</span> instructions per channel-sample on the path the product runs, the whole-record decoder reading a real 24-bit file, at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships. On a phone's big core, taken as 2.4 GHz at two instructions per cycle, that is <span data-fig="rt_phone">16×</span>, about <span data-fig="core_phone">6%</span> of one core (<span data-fig="core_phone_exact">6.2%</span> before rounding). Real time here means the recording on this page at its own sample rate; at CD rate the same cost reads <span data-fig="realtime_cd">3.7×</span>. Not yet timed on silicon.</span></div>
       <div class="rung panel"><span class="tag planned">Planned</span><span class="n"><span data-fig="attest_k">3</span></span>
         <span class="l">instruction sets that must yield one digest of the decoded samples. The sister project Darśana has reached this for a transform. Naad has taken the first step, one image on three machines and two instruction sets, listed below; the third is still owed.</span></div>
     </div>
@@ -765,7 +765,7 @@
   <div class="wrap"><div class="front">
     <div class="fitem panel"><span class="tag open">Open · battery</span>
       <h3>Cycles per hour of audio</h3>
-      <p>Playback was never in question. Naad decodes at <span data-fig="realtime">3.7×</span> real time on a 1 GHz core at one instruction per cycle, the most pessimistic machine anyone ships; on a laptop core, taken as 3.5 GHz at three instructions per cycle, that is <span data-fig="rt_laptop">39×</span>. Where we are genuinely behind is how many cycles that takes: a mature C decoder does the same work in a fraction of them, and on a device decoding all day that shows up as battery life, not as dropouts.</p>
+      <p>Playback was never in question. Naad decodes at <span data-fig="realtime">3.4×</span> real time on a 1 GHz core at one instruction per cycle, the most pessimistic machine anyone ships; on a laptop core, taken as 3.5 GHz at three instructions per cycle, that is <span data-fig="rt_laptop">36×</span>. Where we are genuinely behind is how many cycles that takes: a mature C decoder does the same work in a fraction of them, and on a device decoding all day that shows up as battery life, not as dropouts.</p>
       <span class="gap">Profiled to the instruction. CRC-16 is still <b><span data-fig="crcshare">24.0%</span></b> of decode time after the octet-wise table. <b>Next: the packed-word reader</b>, which addresses the per-bit gather the table cannot touch and is worth more than the CRC was.</span></div>
     <div class="fitem panel"><span class="tag open">Open · compression</span>
       <h3>The encoder is Python, and its files trail its own count</h3>

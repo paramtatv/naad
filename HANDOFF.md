@@ -186,7 +186,22 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r39, 2026-10-02 15:04 EDT, one fan claim made true.** The booth section and the Concerts
+8. **r40, 2026-10-02 15:09 EDT, the speed figures moved to the recording's own rate, and the
+   gate now derives them.** The four speed figures were computed at 44.1 kHz stereo; the
+   cost they rest on was measured on the 48 kHz master, and the fan text says "to play the
+   master". At the master's rate "under 6%" was false (6.2%). Now: `realtime` 3.4× (was
+   3.7×), `rt_phone` 16× (18×), `rt_laptop` 36× (39×), `core_phone` 6% described as
+   "about" (was "under"), new `core_phone_exact` 6.2% replacing a hand-typed "5.3% before
+   rounding" that was the earlier walker's, new `realtime_cd` 3.7× so the CD-rate reading
+   stays on the page, labelled. **`tools/check-figures.py` has a fourth check:** 18 figures
+   are re-derived on every run from `grieg-mountain-king.flac`'s STREAMINFO, the file
+   sizes beside the page, and `walker_steps1`/`walker_steps10` (format, length, sizes,
+   `master_x`, `real_secs`, `pcm_octets`, `whole_ram_mb`, `walker_frame_steps`,
+   `walker_ipcs` and the whole speed chain). To re-take the product path after the
+   per-read bound: change the two step counts, run the gate, copy what it prints. This is
+   §7.6's first half; the second (figures from sravan run logs) still needs a metrics file
+   there. Reported to the owner as a downward correction they may want worded differently.
+   **r39, 2026-10-02 15:04 EDT, one fan claim made true.** The booth section and the Concerts
    card said "Naad plays every frame at exactly the same cost". Real frames do not: the
    product-path row itself says frames 1 to 9 differ in size, and the `drift` figure behind
    the sentence came from the synthetic test path (one repeated frame, predicted and
@@ -279,7 +294,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r39 as of 2026-10-02 15:04 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r40 as of 2026-10-02 15:09 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
@@ -360,7 +375,8 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    §7.3 note: attestation's first measurement exists (one image, three hosts, two ISAs, one
    digest; sravan THESIS §8d); the page's planned rung stays planned until a third ISA or
    the wasm machine agrees. §7.4: consult sent to sansos-e0 before any build.
-6. Generate `figures.json` from `sravan` metrics rather than by hand, once `sravan` keeps a
+6. HALF DONE (r40): 18 figures are derived by the gate from files beside the page and two
+   step counts. Remaining: generate the rest of `figures.json` from `sravan` metrics rather than by hand, once `sravan` keeps a
    metrics file.
 
 ## Known-open
