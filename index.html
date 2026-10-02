@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-02 public r40 own-rate">
+<meta name="naad-build" content="2026-10-02 public r41 stream-settings">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -506,7 +506,7 @@
         one frame after another, and the audio it wrote out, all <span data-fig="whole_pcm_octets">44,378,214</span> bytes of it,
         is identical to the master, byte for byte, down to the fingerprint the studio sealed inside the file.
         That is <span data-fig="whole_secs">154</span> seconds of music, every sample, and it did it inside
-        <span data-fig="whole_ram_mb">6.6</span> MB of memory, less than one photo. The player around it is what we are building.
+        <span data-fig="whole_ram_mb">6.6</span> MB of memory, about <span data-fig="ram_share">a quarter</span> of the size of the file it was playing. The player around it is what we are building.
         But it is this recording, all of it, it came out of Naad, and it is real.</p>
         <p>And not only this one. Naad has now played all <span data-fig="sqam_files">70</span> recordings of the broadcasters'
         reference library, the EBU test set that studios have judged sound by for decades, and <span data-fig="sqam_match">70</span>
@@ -514,7 +514,7 @@
         Not one miss.</p>
       </div>
       <figcaption>
-      <span class="fine">The two streams were made from this same master with the Vorbis encoder at the bitrates a major service uses
+      <span class="fine">The two streams were made from this same master with the Vorbis encoder at the settings a major service uses
       for Normal and High. Your browser plays all three today; Naad plays the master once the player exists.
       <a href="https://commons.wikimedia.org/wiki/File:Grieg_-_Peer_Gynt_Suite_No._1,_Op._46_-_IV._In_the_Hall_of_the_Mountain_King_(Musopen_Symphony).flac">The recording on Wikimedia Commons.</a></span></figcaption>
       <audio id="a-s96" preload="none" src="grieg-mountain-king-96k.ogg"></audio>
@@ -638,7 +638,7 @@
       <span class="n" data-fig="mkt_stream">$20.4B</span>
       <span class="l">streaming revenue, 2024; <span data-fig="mkt_subs">752 million</span> people paying for it</span>
       <h3>Lossless as the default, not the upsell</h3>
-      <p>Most of those people are served at 96 or 160 kbps. On this page the master is <span data-fig="master_x">10×</span> the bits of a High stream. The service that makes the master cheap enough to be the default wins the listeners who can hear the difference, and keeps the ones who cannot.</p>
+      <p>Most of those people are served at <span data-fig="s_norm">96</span> or <span data-fig="s_high">160</span> kbps. On this page the master is <span data-fig="master_x">10×</span> the bits of a High stream. The service that makes the master cheap enough to be the default wins the listeners who can hear the difference, and keeps the ones who cannot.</p>
       <span class="src">Source: <a href="https://www.billboard.com/pro/ifpi-global-report-2025-music-revenue-market-share-ai/">IFPI Global Music Report 2025</a></span></div>
   </div></div>
 </section>

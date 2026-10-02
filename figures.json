@@ -187,15 +187,15 @@
   "s_norm": {
    "value": "96",
    "status": "measured",
-   "label": "kbps of the Normal-quality stream version, Ogg Vorbis, made from the same master",
-   "source": "ffprobe grieg-mountain-king-96k.ogg: vorbis, 48000 Hz, 96000 b/s",
+   "label": "kbps SETTING of the Normal-quality stream version: the nominal bitrate in the file's own Ogg Vorbis header (96,000), the way a streaming service names its tier. The file's actual average is lower, 86.5 kbps (1,666,974 octets over 154.091 s), because Vorbis treats the setting as a quality target; made from the same master",
+   "source": "grieg-mountain-king-96k.ogg, Vorbis identification header (nominal 96000, no minimum or maximum set); encoder Lavc62.11.100 libvorbis; ffprobe format bit_rate 86544; re-derived by tools/check-figures.py",
    "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-96k.ogg"
   },
   "s_high": {
    "value": "160",
    "status": "measured",
-   "label": "kbps of the High-quality stream version, Ogg Vorbis, made from the same master",
-   "source": "ffprobe grieg-mountain-king-160k.ogg: vorbis, 48000 Hz, 160000 b/s",
+   "label": "kbps SETTING of the High-quality stream version: the nominal bitrate in the file's own Ogg Vorbis header (160,000), the way a streaming service names its tier. The file's actual average is lower, 136.1 kbps (2,621,694 octets over 154.091 s); made from the same master. master_x is taken from the actual file sizes, so it is 9.8 against this file and would be 8.4 against a stream that truly averaged 160 kbps",
+   "source": "grieg-mountain-king-160k.ogg, Vorbis identification header (nominal 160000, no minimum or maximum set); encoder Lavc62.11.100 libvorbis; ffprobe format bit_rate 136111; re-derived by tools/check-figures.py",
    "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-160k.ogg"
   },
   "real_samples": {
@@ -264,7 +264,7 @@
   "master_x": {
    "value": "10×",
    "status": "measured",
-   "label": "the master's bits against the 160 kbps stream, from the files on this page: 25,778,747 / 2,621,694 = 9.8",
+   "label": "the master's bits against the 160 kbps stream, from the files on this page: 25,778,747 / 2,621,694 = 9.8; that is against the High file's actual size (136.1 kbps average under a 160 kbps setting); against a true 160 kbps average the master would be 8.4x",
    "source": "grieg-mountain-king.flac and grieg-mountain-king-160k.ogg sizes",
    "command": "ls -l grieg-mountain-king.flac grieg-mountain-king-160k.ogg"
   },
@@ -526,6 +526,13 @@
    "label": "the same measured cost expressed as real time for CD-rate stereo (44.1 kHz, two channels) at 1 GHz and one instruction per cycle; 3.686 before rounding. The per-sample cost was measured on 24-bit 48 kHz material, so this is that cost at another rate, not a measurement of a 16-bit file. This was the page's headline figure until r40",
    "source": "CURRENT WALKER, interim: sravan agent/harness-depth 15a6588 (geometry at the file's channels and depth, max-framesize floor, bounded 64-octet header reader, octet chain walk, STREAMINFO presence), image w15a6588.elf md5 66feb91eb4392ee2c69e8bfdee8c8de3, 98,936 octets, copied to wt-sravan-real/.build/ so the cited bytes cannot be overwritten; run 2026-10-02 12:05Z by sansos-39 on the Mac under yantra-run md5 494573a4297f (34c9712a tree) with YANTRA_INPUT=vectors/grieg-{1frame,10frames}.flac: 8,982,263 and 235,791,469 executed instructions, outputs 24,576 and 245,760 octets with md5 b21af4a687b42e2f890c4ed4603844d0 and 29fc76d8e0cc3ed935aa1f28498406d9 (= ffmpeg); slope (235,791,469 - 8,982,263) / 9 = 25,201,023 per 4,096x2 frame = 3,076 per channel-sample. HISTORY: walker 68ca747 measured 10,698,984 / 222,021,689, slope 23,480,301, 2,866 per channel-sample (03:47Z). On this recording the max-framesize floor costs +7.3% per frame (its declared 22,078 octets is near the VERBATIM bound), not the +47.9% measured on IETF file 01 whose declared maximum is 2.6x below the bound: the floor's cost is input-dependent. The header window shrinking from 65,536 to 64 octets cut the fixed cost (1-frame point 11,096,335 -> 8,982,263). Re-take owed when a per-read overrun bound replaces the floor (sansos-4b 05176c5: the O(1) check tried first fired on honest input and was reverted).",
    "command": "1e9 / ((235,791,469 - 8,982,263) / 9 × 44100 / 4096)  # tools/check-figures.py re-derives it"
+  },
+  "ram_share": {
+   "value": "a quarter",
+   "status": "measured",
+   "label": "the native whole-file decode's memory high water against the size of the file it decoded: 6,561,000 / 25,778,747 = 25.5%. Replaces 'less than one photo' (r41), which no figure supported: many phone photos are smaller than 6.6 MB",
+   "source": "sravan agent/4b-native-walker 68ca747 (kernel/pariksha_i.t1 with the W-359 workaround: धारा sized in मुख्यम् for both windows), run by sansos-4b 2026-10-01 21:03-21:24 EDT; host t1_image and yantra-run from sansos wt-tick 19c3c8f3, --compiler wt-tick/crates/sadhana-t1/src, --spec-root wt-tick/spec (19c3c8f3 contains 6365e334 and 34c9712a); halt Finisher { value: 21845, status: Some(0) }; md5 8247b607e1fe753f4ccc8d503e613bfe = interpreted run (sravan stream fe0056e) = STREAMINFO MD5 in the file NOTE 2026-10-02 12:00Z: the file walkerown.elf cited here (md5 698ca641…, 100,712 octets) was later OVERWRITTEN in sansos-4b's worktree by the 1efe84e geometry build (md5 840563ce…, 97,560 octets); the measured bytes are not on disk, the commit 68ca747 is the provenance. The 1efe84e image under yantra-run built from 34c9712a on three hosts (Mac x86-64 Darwin, Ubuntu x86-64 Linux, Jetson aarch64 Linux) gives identical octets, md5 and instruction counts (1 frame 11,096,335; 10 frames 225,995,199; md5s equal to ffmpeg's): one image, three hosts, two ISAs, one digest; this attests the runner across hosts, not the codec compiled per ISA.",
+   "command": "whole_ram_octets / size of grieg-mountain-king.flac  # tools/check-figures.py re-derives it"
   }
  },
  "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."

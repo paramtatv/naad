@@ -186,7 +186,19 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r40, 2026-10-02 15:09 EDT, the speed figures moved to the recording's own rate, and the
+8. **r41, 2026-10-02 15:13 EDT, the stream tiles and one comparison.** (a) "96 kbps" and
+   "160 kbps" are the encoder SETTINGS (nominal bitrate in each Ogg file's own header),
+   which is how a service names its tiers; the files' actual averages are 86.5 and 136.1
+   kbps. The page keeps the settings, the labels now disclose the averages, and the gate
+   reads the settings from the files (`s_norm`, `s_high`). `master_x` (10×) is from actual
+   file sizes: 9.8 against this High file, 8.4 against a true 160 kbps average; disclosed
+   in its label. (b) "6.6 MB of memory, less than one photo" had no figure and is often
+   false (phone photos are commonly 2 to 5 MB); it now reads "about a quarter of the size
+   of the file it was playing", new derived figure `ram_share` (25.5%). (c) the market
+   card's hand-typed "96 or 160 kbps" now carries the two figure ids. Gate: 76 figures, 21
+   derived. NOT changed, for the owner: the booth headline "Six hours. Not one skip." is a
+   promise, not a run; the longest real decode is the 154 s recording.
+   **r40, 2026-10-02 15:09 EDT, the speed figures moved to the recording's own rate, and the
    gate now derives them.** The four speed figures were computed at 44.1 kHz stereo; the
    cost they rest on was measured on the 48 kHz master, and the fan text says "to play the
    master". At the master's rate "under 6%" was false (6.2%). Now: `realtime` 3.4× (was
@@ -294,7 +306,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r40 as of 2026-10-02 15:09 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r41 as of 2026-10-02 15:13 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
@@ -375,7 +387,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    §7.3 note: attestation's first measurement exists (one image, three hosts, two ISAs, one
    digest; sravan THESIS §8d); the page's planned rung stays planned until a third ISA or
    the wasm machine agrees. §7.4: consult sent to sansos-e0 before any build.
-6. HALF DONE (r40): 18 figures are derived by the gate from files beside the page and two
+6. HALF DONE (r40, r41): 21 figures are derived by the gate from files beside the page and two
    step counts. Remaining: generate the rest of `figures.json` from `sravan` metrics rather than by hand, once `sravan` keeps a
    metrics file.
 

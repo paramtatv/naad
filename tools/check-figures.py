@@ -10,7 +10,8 @@ Four checks, each of which can go red on its own:
      re-taken from kernel/ and must still agree;
   4. every figure that follows by arithmetic from files shipped beside the page
      or from other figures is re-derived and must still agree: the recording's
-     format, length and sizes from its own STREAMINFO, and the speed chain from
+     format, length and sizes from its own STREAMINFO, the stream settings from
+     the stream files' own headers, and the speed chain from
      the two measured step counts. A figure in this set is never typed by hand;
      change its inputs and copy what this script prints.
 
@@ -80,6 +81,18 @@ if flac_path.exists():
         ogg = root / "grieg-mountain-king-160k.ogg"
         if ogg.exists():
             derived["master_x"] = f"{round(len(flac) / ogg.stat().st_size)}×"
+        # The stream tiles show the encoder SETTING, as services name their tiers; it is the
+        # nominal bitrate in each file's own Vorbis identification header, not its average.
+        for fid, name in (("s_norm", "grieg-mountain-king-96k.ogg"), ("s_high", "grieg-mountain-king-160k.ogg")):
+            if (root / name).exists():
+                head = (root / name).read_bytes()[:4096]
+                at = head.find(b"\x01vorbis")
+                if at < 0:
+                    fails.append(f"{name}: no Vorbis identification header")
+                else:
+                    derived[fid] = str(int.from_bytes(head[at + 20:at + 24], "little") // 1000)
+        share = integer("whole_ram_octets") / len(flac)   # memory high water against the file's own size
+        derived["ram_share"] = "a quarter" if abs(share - 0.25) < 0.02 else f"{round(100 * share)}%"
         samples = integer("real_samples")
         derived["real_secs"] = f"{samples / rate:.3f}"
         derived["pcm_octets"] = f"{samples * channels * depth // 8:,}"
