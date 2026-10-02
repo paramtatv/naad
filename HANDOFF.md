@@ -477,7 +477,25 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    29fc76d8e0cc3ed935aa1f28498406d9 (ten frames, = ffmpeg) AND the native step count to
    the instruction, which would make wasm Naad's third instruction set; (iv) the `.wasm`
    must be served from this repo (no third-party asset; the gate's check 7 will refuse
-   anything else), size not yet known, asked of e0. The pinned `.build/tc-34c9712a/t1_image`
+   anything else).
+   **18:12 EDT: IT RUNS IN A BROWSER.** `yantra-wasm` built from the sansos trunk at 8108dc67
+   (`cargo build -p yantra-wasm --target wasm32-unknown-unknown --release`, 104,914 octets,
+   md5 99efd016…). In headless Chrome 154 on this Mac, with the walker image 66feb91e
+   (sravan 36c3b8f content) and the page's own FLAC sliced at 2,906 and 87,464 octets fed
+   through `yantra_input_alloc`/`yantra_input_name_alloc`: code 0 both, 24,576 and 245,760
+   octets out, SHA-256 equal to the native outputs (2590c468…, 21fd1c10…); the same under
+   node 25 with md5 b21af4a6… and 29fc76d8…. Say it as "four venues, same OUTPUT" (x86-64
+   Mac, x86-64 Linux, aarch64, and the browser machine, a fourth execution model, not a
+   fourth ISA), never "same execution": the wasm exposes no instruction count, so the
+   step-count half of the attestation has no browser reading until e0 adds a `yantra_steps`
+   export (asked 18:15 EDT). Two costs for the page: `load_elf` needs RAM ≥ 536,971,808
+   octets (the compiler's .bss span), so the browser allocates 540 MB of linear memory,
+   fine on a laptop and not on a phone; and the ten-frame run took about 12 s of CPU under
+   node. Harness: `wt-sravan-real/.build/web/{harness.html,run.mjs}`. NOT ON THE PAGE:
+   putting a running decoder on the page is new framing and waits for the owner's yes;
+   what would ship is the .wasm and the walker image from this repo (about 200 KB), a
+   "decode ten frames in your browser" control under the Proof row, and the digest shown
+   beside ffmpeg's. The pinned `.build/tc-34c9712a/t1_image`
    (md5 1591d0e8, mtime 2026-10-01 14:23 EDT, clean checkout) is NOT the stale binary.
 5. Self-host the two font families: **DONE ON A BRANCH, 2026-10-02 18:25Z, held for the
    owner** (`self-host-fonts` fb0085d, pushed, not merged; main is live). Five woff2 files,
