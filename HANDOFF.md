@@ -186,7 +186,19 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **2026-10-02 15:31 EDT, no page change (still r44): `tools/verify-deploy.sh` compares every
+8. **r45, 2026-10-02 15:47 EDT, the three scene bands are readable at every width.** A
+   phone-width pass (390 px, measured in an iframe because headless Chrome will not go
+   below 500): no horizontal overflow, no text under 10 px, but in "Your room" and "Yours,
+   for good" the words sat on top of the picture's subject (white text over the crate's
+   cream record spines and over the speakers). The same was true at tablet width and, less
+   badly, at desktop: the scenes have been unchanged since 2026-09-30 and leave no empty
+   side for 60% of the band. Fix, CSS only, no art changed: below 900 px the band STACKS
+   (the picture whole at 16:10 or 16:8, then the words on the panel); at 900 px and up a
+   one-sided dark gradient sits under the words (`.band .scene::after`, mirrored for
+   `.band.right`) and the other side of the picture is left as drawn. Viewed at 390, 768
+   and 1280 before the push. This touches the look the owner approved on 2026-09-30, so it
+   is reported to them with a before/after image; reverting is deleting three CSS rules.
+   **2026-10-02 15:31 EDT, no page change (still r44): `tools/verify-deploy.sh` compares every
    tracked file.** It had checked the page's stamp and byte count and `figures.json`'s
    checksum, so a push that changed only `kernel/`, an image, a font or the audio was
    never verified. Now, once the stamp agrees, all tracked files are fetched and compared
@@ -352,7 +364,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r44 as of 2026-10-02 15:28 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r45 as of 2026-10-02 15:47 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
