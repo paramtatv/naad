@@ -75,9 +75,12 @@ still not built**, but as of 12:50Z its foundation exists: `kernel/lekha.t1` (sr
 encode, cost) verified read-after-write against निःशेष's readers inside one image (six field
 widths, 48 Rice cases, 2,877,325 instructions); ported from Darśana but NOT copied, because
 Darśana packs 64 bits per word and Śravaṇa holds one bit per word under the same name धारा.
-Also: the trunk's `t1_image` cannot emit an image since 08:16 EDT ("`पाठः` is not a type"
-inside the .t1 linker, reported to sansos-e0); every build in this lane uses the pinned
-`.build/tc-34c9712a/t1_image`, which is unaffected. **IETF subset, 2026-10-02 09:25Z (r29):** 39 of 64 decode to STREAMINFO's
+Also: the trunk's `t1_image` BINARY could not emit an image from 08:16 EDT ("`पाठः` is not
+a type" inside the .t1 linker), reported by sansos-4b. sansos-e0's diagnosis, relayed by the
+coordinator at 14:35 EDT and NOT verified here: an orphaned binary built from uncommitted
+work that the cycle's cleanup then removed from the source (W-354), not a source
+regression; a build from origin/main emits. Every build in this lane uses the pinned
+`.build/tc-34c9712a/t1_image`, which is unaffected either way. **IETF subset, 2026-10-02 09:25Z (r29):** 39 of 64 decode to STREAMINFO's
 MD5; none of the 25 others produced wrong audio: 12 metadata beyond the walker's fixed
 65,536-octet header window (10 × status 203; 2 HALTED by the machine, BeyondRam, when a
 16,777,206-octet SEEKTABLE length advanced the header reader's bit cursor out of its array:

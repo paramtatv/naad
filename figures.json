@@ -484,6 +484,27 @@
    "label": "of the 64 that decoded to STREAMINFO's MD5 under the walker of 09:25Z, before the morning's fixes; all stereo",
    "source": "HISTORY, the first run (09:25Z, walker 68ca747 with the geometry fix only): sansos-4b's run of the same whole-record walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3) over the IETF subset corpus (sansos research/specs/media/flac-test-files/subset, 64 files, ietf-wg-cellar/flac-test-files pinned aa7b0c6c), harness sravan agent/encoder 0fe29cd tools/sqam-conformance.sh <corpus>; per-file table ~/darsan-logs/subset-conformance.tsv recounted by sansos-39 at 2026-10-02 09:27Z: 64 rows; 39 Some(0) with md5==STREAMINFO (all 2ch); 10 Some(203) + 2 no-status (metadata beyond the walker's fixed 65,536-octet header window); 1 Some(361) (STREAMINFO max framesize 0, frame window derived from it); 7 Some(310) 0 octets (3-8 channels, declined by design in nihshesha.t1); 5 mono Some(0) md5!= (decoded sample-exact per reference/walker_geometry.py, mis-described by the two-channel output). sravan THESIS §6",
    "command": "tools/sqam-conformance.sh <subset-dir>; awk recount by channel count and status"
+  },
+  "attest_hosts": {
+   "value": "3",
+   "status": "measured",
+   "label": "machines on which one and the same decoder image produced the same audio digest and the same instruction count: a Mac and a Linux PC (both x86-64) and an ARM64 Linux board",
+   "source": "sravan THESIS §8d (main d27391f): the walker image walkerown.elf as built by 1efe84e (md5 840563ce2c354e2049a7567319922832, 97,560 octets) run by sansos-39 on 2026-10-02 12:00Z under yantra-run built from sansos 34c9712a on each host: Mac (x86-64 Darwin, Intel i9-9980HK; runner md5 494573a4297f), ubuntu-local (x86-64 Linux; 9cb07514d864), the owner's Jetson (aarch64 Linux; 5d4c0341e86c). grieg-1frame.flac -> 24,576 octets, md5 b21af4a687b42e2f890c4ed4603844d0, 11,096,335 executed instructions on all three; grieg-10frames.flac -> 245,760 octets, md5 29fc76d8e0cc3ed935aa1f28498406d9, 225,995,199 on all three; both digests equal ffmpeg -f s24le. This attests the RUNNER (one RV64 image under the machine on each host), not the codec compiled per instruction set; the page's planned rung (one digest on 3 instruction sets) stays planned.",
+   "command": "YANTRA_INPUT=grieg-10frames.flac YANTRA_INPUT_NAME=परीक्षानिवेश YANTRA_STEPS=4000000000 yantra-run walkerown.elf > out.pcm; md5 out.pcm  # on each host"
+  },
+  "attest_isas": {
+   "value": "2",
+   "status": "measured",
+   "label": "instruction sets among those three hosts: x86-64 and aarch64",
+   "source": "sravan THESIS §8d (main d27391f): the walker image walkerown.elf as built by 1efe84e (md5 840563ce2c354e2049a7567319922832, 97,560 octets) run by sansos-39 on 2026-10-02 12:00Z under yantra-run built from sansos 34c9712a on each host: Mac (x86-64 Darwin, Intel i9-9980HK; runner md5 494573a4297f), ubuntu-local (x86-64 Linux; 9cb07514d864), the owner's Jetson (aarch64 Linux; 5d4c0341e86c). grieg-1frame.flac -> 24,576 octets, md5 b21af4a687b42e2f890c4ed4603844d0, 11,096,335 executed instructions on all three; grieg-10frames.flac -> 245,760 octets, md5 29fc76d8e0cc3ed935aa1f28498406d9, 225,995,199 on all three; both digests equal ffmpeg -f s24le. This attests the RUNNER (one RV64 image under the machine on each host), not the codec compiled per instruction set; the page's planned rung (one digest on 3 instruction sets) stays planned.",
+   "command": "YANTRA_INPUT=grieg-10frames.flac YANTRA_INPUT_NAME=परीक्षानिवेश YANTRA_STEPS=4000000000 yantra-run walkerown.elf > out.pcm; md5 out.pcm  # on each host"
+  },
+  "attest_steps10": {
+   "value": "225,995,199",
+   "status": "measured",
+   "label": "executed instructions to decode ten frames of the Grieg file, identical on all three hosts",
+   "source": "sravan THESIS §8d (main d27391f): the walker image walkerown.elf as built by 1efe84e (md5 840563ce2c354e2049a7567319922832, 97,560 octets) run by sansos-39 on 2026-10-02 12:00Z under yantra-run built from sansos 34c9712a on each host: Mac (x86-64 Darwin, Intel i9-9980HK; runner md5 494573a4297f), ubuntu-local (x86-64 Linux; 9cb07514d864), the owner's Jetson (aarch64 Linux; 5d4c0341e86c). grieg-1frame.flac -> 24,576 octets, md5 b21af4a687b42e2f890c4ed4603844d0, 11,096,335 executed instructions on all three; grieg-10frames.flac -> 245,760 octets, md5 29fc76d8e0cc3ed935aa1f28498406d9, 225,995,199 on all three; both digests equal ffmpeg -f s24le. This attests the RUNNER (one RV64 image under the machine on each host), not the codec compiled per instruction set; the page's planned rung (one digest on 3 instruction sets) stays planned.",
+   "command": "YANTRA_INPUT=grieg-10frames.flac YANTRA_INPUT_NAME=परीक्षानिवेश YANTRA_STEPS=4000000000 yantra-run walkerown.elf > out.pcm; md5 out.pcm  # on each host"
   }
  },
  "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."
