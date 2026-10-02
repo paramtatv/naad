@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-02 public r41 stream-settings">
+<meta name="naad-build" content="2026-10-02 public r42 emitter-clean">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -769,7 +769,7 @@
       <span class="gap">Profiled to the instruction. CRC-16 is still <b><span data-fig="crcshare">24.0%</span></b> of decode time after the octet-wise table. <b>Next: the packed-word reader</b>, which addresses the per-bit gather the table cannot touch and is worth more than the CRC was.</span></div>
     <div class="fitem panel"><span class="tag open">Open · compression</span>
       <h3>The encoder is Python, and its files trail its own count</h3>
-      <p>Levinson-Durbin, apodization and the partition-order search are real and measured at parity with flac -8, as an exact bit count rather than a file. A second Python program now writes real FLAC files, and on the one stereo file measured flac and ffmpeg decode its output back to the original bit for bit. It searches fewer choices than the count prices and lands at <span data-fig="emit_ratio">+1.44%</span> over flac -8 there. flac also warns on that file: its header misstates the minimum block size, a two-byte error with a known fix. None of this is native yet.</p>
+      <p>Levinson-Durbin, apodization and the partition-order search are real and measured at parity with flac -8, as an exact bit count rather than a file. A second Python program now writes real FLAC files, and on the one stereo file measured flac and ffmpeg decode its output back to the original bit for bit, and flac's own test accepts the file without a warning. It searches fewer choices than the count prices and lands at <span data-fig="emit_ratio">+1.44%</span> over flac -8 there. None of this is native yet.</p>
       <span class="gap"><b>The join, that a stream of exactly that size decodes back, is not closed.</b> The file writer checks its price against its own bits on every block, but no file it writes is yet as small as the count claims. Until one is, the encoder figure and the decoder figure are two claims, and the page keeps them apart.</span></div>
     <div class="fitem panel"><span class="tag build">Building · the archive</span>
       <h3>A file that carries its own decoder</h3>

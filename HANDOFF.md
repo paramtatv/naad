@@ -186,7 +186,14 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r41, 2026-10-02 15:13 EDT, the stream tiles and one comparison.** (a) "96 kbps" and
+8. **r42, 2026-10-02 15:21 EDT, the emitter's header defect is fixed and the page says so.**
+   sansos-4b fixed `emit.py` in `agent/encoder` 953b03d (minimum block size excludes the
+   last block; the acceptance check had passed `--totally-silent` and now refuses on any
+   warning). Re-taken here at 953b03d with the prediction registered first: 555,283 octets,
+   +1.44%, 0 `flac -t` warnings, byte-identical to the two-octet patch of the e3c7c78
+   output. All held. The page's Frontier card drops the warning clause and says flac's own
+   test accepts the file; `emit_ratio` cites 953b03d with the history in its label.
+   **r41, 2026-10-02 15:13 EDT, the stream tiles and one comparison.** (a) "96 kbps" and
    "160 kbps" are the encoder SETTINGS (nominal bitrate in each Ogg file's own header),
    which is how a service names its tiers; the files' actual averages are 86.5 and 136.1
    kbps. The page keeps the settings, the labels now disclose the averages, and the gate
@@ -306,7 +313,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r41 as of 2026-10-02 15:13 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r42 as of 2026-10-02 15:21 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
