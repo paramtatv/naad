@@ -68,7 +68,10 @@ cost-model figures price LPC and partition search; the join is tested only once 
 makes those choices, with the model's prediction registered first. **The `.t1` encoder is
 still not built.** **IETF subset, 2026-10-02 09:25Z (r29):** 39 of 64 decode to STREAMINFO's
 MD5; none of the 25 others produced wrong audio: 12 metadata beyond the walker's fixed
-65,536-octet header window (10 × status 203, 2 with no halt line), 1 frame window derived
+65,536-octet header window (10 × status 203; 2 HALTED by the machine, BeyondRam, when a
+16,777,206-octet SEEKTABLE length advanced the header reader's bit cursor out of its array:
+an unbounded index from an input field, sravan 186f91b; the fix is a bound checked before
+every header read and body skip, option (A), being built by sansos-4b), 1 frame window derived
 from a STREAMINFO max framesize legally 0 (status 361), 7 declined by design for >2 channels
 (310, no output), 5 mono decoded sample-exact but mis-described by the two-channel output
 (figures `ietf_*`; table `~/darsan-logs/subset-conformance.tsv`, harness sravan
