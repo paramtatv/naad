@@ -186,7 +186,18 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r38, 2026-10-02 15:00 EDT, the re-take notes made true.** The "Real frames, in sequence"
+8. **r39, 2026-10-02 15:04 EDT, one fan claim made true.** The booth section and the Concerts
+   card said "Naad plays every frame at exactly the same cost". Real frames do not: the
+   product-path row itself says frames 1 to 9 differ in size, and the `drift` figure behind
+   the sentence came from the synthetic test path (one repeated frame, predicted and
+   measured at 12,097,471). What is measured on real music is that the same record costs
+   the same every time: ten frames of the Grieg file, 225,995,199 instructions on each of
+   three machines, difference 0. Both sentences now say "the same work for the same record
+   every time it plays", and `drift` (still 0.0000%, "drift, set to set") is re-founded on
+   that run with its history kept in the label. Everything else above the divider was read
+   against its figure and holds. NOT asked of the owner: this corrects a claim, it adds no
+   framing; it is reported to them.
+   **r38, 2026-10-02 15:00 EDT, the re-take notes made true.** The "Real frames, in sequence"
    row said its ten-frame count "is being re-taken", and three figure labels (`seq_steps`,
    `resync_steps`, `pcm_octets`) said "re-take on 34c9712a in progress"; those re-takes were
    stopped on 2026-10-02 when embedded-literal tests were retired (W-361). The page and the
@@ -268,7 +279,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r38 as of 2026-10-02 15:00 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r39 as of 2026-10-02 15:04 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a

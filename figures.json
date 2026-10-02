@@ -124,9 +124,9 @@
   "drift": {
    "value": "0.0000%",
    "status": "measured",
-   "label": "frame-to-frame drift in decode cost: the model predicted 12,097,471 instructions for a run and 12,097,471 were measured",
-   "source": "naad HANDOFF.md at 620b1b3, carried from sravan reference/gentiming.py",
-   "command": "reference/gentiming.py, predicted vs measured instruction count"
+   "label": "run-to-run difference in the work of decoding the same audio: ten frames of the Grieg recording on this page decoded on three machines, 225,995,199 executed instructions on each, difference 0 instructions (one part in 225,995,199 would be 0.0000004%); and one frame, 11,096,335 on each. This is the claim the fan text makes: the same record costs the same every time. It is NOT a claim that every frame costs the same: frames of real music differ in size and cost (walker_frame_steps is an average over frames 1 to 9). Until r39 this figure rested on the synthetic test path, where one repeated frame was predicted at 12,097,471 instructions by a two-point model and measured at 12,097,471, and the fan text said 'every frame at exactly the same cost', which real frames do not support",
+   "source": "same runs as attest_steps10: sravan THESIS §8d (main d27391f), walkerown.elf (md5 840563ce2c354e2049a7567319922832) under yantra-run built from sansos 34c9712a on a Mac (x86-64 Darwin), ubuntu-local (x86-64 Linux) and the owner's Jetson (aarch64 Linux), 2026-10-02 12:00Z; earlier provenance: naad HANDOFF.md at 620b1b3, carried from sravan reference/gentiming.py",
+   "command": "YANTRA_INPUT=grieg-10frames.flac YANTRA_INPUT_NAME=परीक्षानिवेश YANTRA_STEPS=4000000000 yantra-run walkerown.elf > out.pcm  # steps line, on each host"
   },
   "engines": {
    "value": "2",
