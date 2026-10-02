@@ -68,21 +68,21 @@
   "ipcs": {
    "value": "1,500",
    "status": "measured",
-   "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
+   "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; EMBEDDED SYNTHETIC TEST PATH (pariksha_t2/t10, one LPC-8 frame as literals), old compiler tree (51598b3c); its re-take on the current tree was still compiling at 2026-10-02 03:47Z; the product path's figure is walker_ipcs",
    "source": "sravan real-frame f631d7d, re-taken on the fixed kernel: slope (16,585,091 − 4,299,531)/8 = 1,535,695 per frame of 1,024 channel-samples; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
    "command": "reference/gentiming.py, two-point slope"
   },
   "realtime": {
-   "value": "7.6×",
-   "status": "measured",
-   "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
-   "source": "sravan real-frame f631d7d, realtime_factor = 1,535,695 × 44100/512 / 1e9 = 0.132; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
-   "command": "1 / (1500 × 44100 × 2 / 1e9)"
+   "value": "4.0×",
+   "status": "projected",
+   "label": "real time on the product path, from 2,866 instructions per channel-sample at 1 GHz and one instruction per cycle, 44.1 kHz stereo (3.6x at this recording's 48 kHz); not timed on silicon; current compiler tree (19c3c8f3 = 34c9712a codegen)",
+   "source": "product path: sravan kernel/pariksha_i.t1 (host-fed walker) as built by sansos-4b from agent/4b-native-walker 68ca747 on toolchain 19c3c8f3 (walkerown.elf md5 698ca64119a178f90bd3455e2578eb47; .t1 compiler sources and spec byte-identical to 34c9712a by git diff), run 2026-10-02 03:42-03:47Z by sansos-39 under yantra-run md5 494573a4297f (prints executed instructions; step-ceiling bisection agreed to the instruction on the 1-frame point): grieg-1frame.flac 10,698,984; grieg-10frames.flac 222,021,689; slope (222,021,689 - 10,698,984) / 9 = 23,480,301 per 4,096x2 frame = 2,866 per channel-sample; real 24-bit music at this recording's own ratio, mid/side, including the walker's window unpack and console emission. THESIS §6 'THE PRODUCT PATH'",
+   "command": "1e9 / (2866 × 44100 × 2)"
   },
   "crcshare": {
    "value": "24.0%",
    "status": "measured",
-   "label": "share of decode cost spent in CRC-16 after the octet-wise table; was 37.1% before it",
+   "label": "share of decode cost spent in CRC-16 after the octet-wise table; was 37.1% before it; embedded synthetic test path, old compiler tree (51598b3c); the product path's figure is walker_ipcs",
    "source": "sravan@85f90b2; THESIS.md §6 S1, 367,838 of 1,535,695 per frame; the full-decoder total re-taken identical on the fixed kernel (f631d7d), CRC code untouched by the fix",
    "command": "reference/gentiming.py against a kernel with CRC-16 removed"
   },
@@ -136,25 +136,25 @@
    "command": "t1_image --predict-only (interpreter) and yantra-run (native) on the same test"
   },
   "rt_phone": {
-   "value": "36×",
+   "value": "19×",
    "status": "projected",
-   "label": "real time on a phone big core, 2.4 GHz at 2 instructions per cycle, from the same 1,500 instructions per channel-sample",
-   "source": "projection from sravan@85f90b2 ipcs",
-   "command": "4.8e9 / (1500 × 44100 × 2)"
+   "label": "real time on a phone big core, 2.4 GHz at 2 instructions per cycle, from 2,866 instructions per channel-sample on the product path",
+   "source": "product path: sravan kernel/pariksha_i.t1 (host-fed walker) as built by sansos-4b from agent/4b-native-walker 68ca747 on toolchain 19c3c8f3 (walkerown.elf md5 698ca64119a178f90bd3455e2578eb47; .t1 compiler sources and spec byte-identical to 34c9712a by git diff), run 2026-10-02 03:42-03:47Z by sansos-39 under yantra-run md5 494573a4297f (prints executed instructions; step-ceiling bisection agreed to the instruction on the 1-frame point): grieg-1frame.flac 10,698,984; grieg-10frames.flac 222,021,689; slope (222,021,689 - 10,698,984) / 9 = 23,480,301 per 4,096x2 frame = 2,866 per channel-sample; real 24-bit music at this recording's own ratio, mid/side, including the walker's window unpack and console emission. THESIS §6 'THE PRODUCT PATH'",
+   "command": "4.8e9 / (2866 × 44100 × 2)"
   },
   "core_phone": {
-   "value": "3%",
+   "value": "6%",
    "status": "projected",
-   "label": "of one phone big core busy decoding stereo 44.1 kHz; 2.8% rounded up",
-   "source": "projection from sravan@85f90b2 ipcs at 2.4 GHz, IPC 2",
-   "command": "(1500 × 44100 × 2) / 4.8e9"
+   "label": "of one phone big core busy decoding stereo 44.1 kHz on the product path; 5.3% rounded up",
+   "source": "product path: sravan kernel/pariksha_i.t1 (host-fed walker) as built by sansos-4b from agent/4b-native-walker 68ca747 on toolchain 19c3c8f3 (walkerown.elf md5 698ca64119a178f90bd3455e2578eb47; .t1 compiler sources and spec byte-identical to 34c9712a by git diff), run 2026-10-02 03:42-03:47Z by sansos-39 under yantra-run md5 494573a4297f (prints executed instructions; step-ceiling bisection agreed to the instruction on the 1-frame point): grieg-1frame.flac 10,698,984; grieg-10frames.flac 222,021,689; slope (222,021,689 - 10,698,984) / 9 = 23,480,301 per 4,096x2 frame = 2,866 per channel-sample; real 24-bit music at this recording's own ratio, mid/side, including the walker's window unpack and console emission. THESIS §6 'THE PRODUCT PATH'",
+   "command": "(2866 × 44100 × 2) / 4.8e9"
   },
   "rt_laptop": {
-   "value": "79×",
+   "value": "42×",
    "status": "projected",
-   "label": "real time on a laptop core, 3.5 GHz at 3 instructions per cycle",
-   "source": "projection from sravan@85f90b2 ipcs",
-   "command": "10.5e9 / (1500 × 44100 × 2)"
+   "label": "real time on a laptop core, 3.5 GHz at 3 instructions per cycle, product path; 41.5 rounded",
+   "source": "product path: sravan kernel/pariksha_i.t1 (host-fed walker) as built by sansos-4b from agent/4b-native-walker 68ca747 on toolchain 19c3c8f3 (walkerown.elf md5 698ca64119a178f90bd3455e2578eb47; .t1 compiler sources and spec byte-identical to 34c9712a by git diff), run 2026-10-02 03:42-03:47Z by sansos-39 under yantra-run md5 494573a4297f (prints executed instructions; step-ceiling bisection agreed to the instruction on the 1-frame point): grieg-1frame.flac 10,698,984; grieg-10frames.flac 222,021,689; slope (222,021,689 - 10,698,984) / 9 = 23,480,301 per 4,096x2 frame = 2,866 per channel-sample; real 24-bit music at this recording's own ratio, mid/side, including the walker's window unpack and console emission. THESIS §6 'THE PRODUCT PATH'",
+   "command": "10.5e9 / (2866 × 44100 × 2)"
   },
   "crc_gain": {
    "value": "1.21×",
@@ -278,7 +278,7 @@
   "timing_retake": {
    "value": "1,535,695",
    "status": "measured",
-   "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
+   "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; EMBEDDED SYNTHETIC TEST PATH (pariksha_t2/t10, one LPC-8 frame as literals), old compiler tree (51598b3c); its re-take on the current tree was still compiling at 2026-10-02 03:47Z; the product path's figure is walker_ipcs",
    "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
    "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
   },
@@ -351,6 +351,34 @@
    "label": "octets of RAM high water for the native whole-file decode (same measurement as whole_ram_mb)",
    "source": "sravan agent/4b-native-walker 68ca747 (kernel/pariksha_i.t1 with the W-359 workaround: धारा sized in मुख्यम् for both windows), run by sansos-4b 2026-10-01 21:03-21:24 EDT; host t1_image and yantra-run from sansos wt-tick 19c3c8f3, --compiler wt-tick/crates/sadhana-t1/src, --spec-root wt-tick/spec (19c3c8f3 contains 6365e334 and 34c9712a); halt Finisher { value: 21845, status: Some(0) }; md5 8247b607e1fe753f4ccc8d503e613bfe = interpreted run (sravan stream fe0056e) = STREAMINFO MD5 in the file",
    "command": "yantra-run's ram high-water line on the whole-file run"
+  },
+  "walker_steps1": {
+   "value": "10,698,984",
+   "status": "measured",
+   "label": "native instructions for the walker to read the header, fill the first window and decode one frame of the Grieg file (grieg-1frame.flac); almost all fixed cost, not a per-frame figure",
+   "source": "product path: sravan kernel/pariksha_i.t1 (host-fed walker) as built by sansos-4b from agent/4b-native-walker 68ca747 on toolchain 19c3c8f3 (walkerown.elf md5 698ca64119a178f90bd3455e2578eb47; .t1 compiler sources and spec byte-identical to 34c9712a by git diff), run 2026-10-02 03:42-03:47Z by sansos-39 under yantra-run md5 494573a4297f (prints executed instructions; step-ceiling bisection agreed to the instruction on the 1-frame point): grieg-1frame.flac 10,698,984; grieg-10frames.flac 222,021,689; slope (222,021,689 - 10,698,984) / 9 = 23,480,301 per 4,096x2 frame = 2,866 per channel-sample; real 24-bit music at this recording's own ratio, mid/side, including the walker's window unpack and console emission. THESIS §6 'THE PRODUCT PATH'",
+   "command": "YANTRA_INPUT=vectors/grieg-{1frame,10frames}.flac YANTRA_INPUT_NAME=परीक्षानिवेश YANTRA_STEPS=4000000000 yantra-run walkerown.elf 2>&1 >/dev/null | grep ^steps; (s10 - s1) / 9 / 8192"
+  },
+  "walker_steps10": {
+   "value": "222,021,689",
+   "status": "measured",
+   "label": "native instructions for the walker to read the header and decode ten frames of the Grieg file (grieg-10frames.flac)",
+   "source": "product path: sravan kernel/pariksha_i.t1 (host-fed walker) as built by sansos-4b from agent/4b-native-walker 68ca747 on toolchain 19c3c8f3 (walkerown.elf md5 698ca64119a178f90bd3455e2578eb47; .t1 compiler sources and spec byte-identical to 34c9712a by git diff), run 2026-10-02 03:42-03:47Z by sansos-39 under yantra-run md5 494573a4297f (prints executed instructions; step-ceiling bisection agreed to the instruction on the 1-frame point): grieg-1frame.flac 10,698,984; grieg-10frames.flac 222,021,689; slope (222,021,689 - 10,698,984) / 9 = 23,480,301 per 4,096x2 frame = 2,866 per channel-sample; real 24-bit music at this recording's own ratio, mid/side, including the walker's window unpack and console emission. THESIS §6 'THE PRODUCT PATH'",
+   "command": "YANTRA_INPUT=vectors/grieg-{1frame,10frames}.flac YANTRA_INPUT_NAME=परीक्षानिवेश YANTRA_STEPS=4000000000 yantra-run walkerown.elf 2>&1 >/dev/null | grep ^steps; (s10 - s1) / 9 / 8192"
+  },
+  "walker_frame_steps": {
+   "value": "23,480,301",
+   "status": "measured",
+   "label": "native instructions per frame of 4,096 stereo samples on the product path: slope between the one-frame and ten-frame runs, header and first-window cost cancelled; an average over frames 1-9, which differ in size",
+   "source": "product path: sravan kernel/pariksha_i.t1 (host-fed walker) as built by sansos-4b from agent/4b-native-walker 68ca747 on toolchain 19c3c8f3 (walkerown.elf md5 698ca64119a178f90bd3455e2578eb47; .t1 compiler sources and spec byte-identical to 34c9712a by git diff), run 2026-10-02 03:42-03:47Z by sansos-39 under yantra-run md5 494573a4297f (prints executed instructions; step-ceiling bisection agreed to the instruction on the 1-frame point): grieg-1frame.flac 10,698,984; grieg-10frames.flac 222,021,689; slope (222,021,689 - 10,698,984) / 9 = 23,480,301 per 4,096x2 frame = 2,866 per channel-sample; real 24-bit music at this recording's own ratio, mid/side, including the walker's window unpack and console emission. THESIS §6 'THE PRODUCT PATH'",
+   "command": "YANTRA_INPUT=vectors/grieg-{1frame,10frames}.flac YANTRA_INPUT_NAME=परीक्षानिवेश YANTRA_STEPS=4000000000 yantra-run walkerown.elf 2>&1 >/dev/null | grep ^steps; (s10 - s1) / 9 / 8192"
+  },
+  "walker_ipcs": {
+   "value": "2,866",
+   "status": "measured",
+   "label": "instructions per channel-sample on the product path (23,480,301 / 8,192); 1.9x the embedded synthetic test path's 1,500",
+   "source": "product path: sravan kernel/pariksha_i.t1 (host-fed walker) as built by sansos-4b from agent/4b-native-walker 68ca747 on toolchain 19c3c8f3 (walkerown.elf md5 698ca64119a178f90bd3455e2578eb47; .t1 compiler sources and spec byte-identical to 34c9712a by git diff), run 2026-10-02 03:42-03:47Z by sansos-39 under yantra-run md5 494573a4297f (prints executed instructions; step-ceiling bisection agreed to the instruction on the 1-frame point): grieg-1frame.flac 10,698,984; grieg-10frames.flac 222,021,689; slope (222,021,689 - 10,698,984) / 9 = 23,480,301 per 4,096x2 frame = 2,866 per channel-sample; real 24-bit music at this recording's own ratio, mid/side, including the walker's window unpack and console emission. THESIS §6 'THE PRODUCT PATH'",
+   "command": "YANTRA_INPUT=vectors/grieg-{1frame,10frames}.flac YANTRA_INPUT_NAME=परीक्षानिवेश YANTRA_STEPS=4000000000 yantra-run walkerown.elf 2>&1 >/dev/null | grep ^steps; (s10 - s1) / 9 / 8192"
   }
  },
  "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."

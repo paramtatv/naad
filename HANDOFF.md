@@ -188,7 +188,15 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## Known-open
 
-- The page is pinned to `sravan@85f90b2` (octet-wise CRC landed, 1,500 instructions per
+- **The speed tiles use the PRODUCT PATH since r25 (2026-10-02 03:50Z):** the whole-record
+  walker reading the real Grieg file, 2,866 instructions per channel-sample on the current
+  tree (slope of the one-frame and ten-frame runs, 23,480,301 per 4,096×2 frame; figures
+  `walker_*`), so realtime 4.0×, phone 19× / 6%, laptop 42×. The 1,500 figure (`ipcs`) is the
+  embedded synthetic test path and stays in the Decode-cost row labelled as such; its re-take
+  on the current tree (pariksha_t2/t10, 8.5 h compiling) lands beside it when done. One
+  toolchain tree for all Śravaṇa native figures: 19c3c8f3, whose compiler sources and spec
+  are byte-identical to 34c9712a (checked by `git diff --stat`).
+- The page was pinned to `sravan@85f90b2` (octet-wise CRC landed, 1,500 instructions per
   channel-sample, 7.6× at 1 GHz / IPC 1). The timing figures were re-taken on the fixed kernel (sravan real-frame f631d7d) and came
   back identical to the instruction. ALL native counts were taken on a 2026-09-27 toolchain
   build; a 2026-10-01 toolchain build counts the same program 24.7% lower; the toolchain owner
