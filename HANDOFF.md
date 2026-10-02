@@ -185,6 +185,13 @@ one was fooled before: a content grep matched a substring that survived between 
    anywhere on the page. The listener-side promise is that files do not expire with an
    account; the maker-side promise is that Naad is licensed to them. **CONFLICT SETTLED
    2026-10-01 21:05 EDT by the owner: "don't worry about license - change BSD3 to AGPL3."**
+   **Two later relays: at ~05:18Z sansos-4b relayed "sravan STAYS BSD-3" (merge held, revert
+   not made, pending the owner's direct word); at ~14:45Z sansos-e0 relayed "inform all agents
+   to use AGPL3 to replace BSD3 and have a common license", AGPL-3.0 across every repo. The
+   later ruling matches the owner's direct instruction to sansos-39 and the branch stands as
+   AGPL; naad's own LICENSE is the AGPL-3.0 text since its initial commit; the page is a
+   static site built from this public repository, which is its corresponding source under
+   AGPL's network clause.**
    `sravan`'s LICENSE is now GNU AGPL v3 (commit `8907df2` on `stream`, canonical gnu.org
    text, the same licence this repository carries). History: `sravan` said BSD 3-Clause, which
    grants royalty-free use, so on 2026-10-01 the vendored `kernel/` copy and its "read the
