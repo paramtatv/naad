@@ -186,7 +186,20 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r36, 2026-10-02 14:45 EDT, on the owner's two YES answers:** (a) the decoder source is
+8. **r37, 2026-10-02 15:00 EDT, three stale statements corrected after viewing the rendered
+   page** (headless Chrome at 1280 and 500 px; the r36 regions render cleanly, no overflow):
+   (a) the ledger's "Attestation ... has not been run on Naad" contradicted the r35 row two
+   lines above it; it now says two instruction sets are done and the third is owed. (b) and
+   (c) the encoder row and the Frontier card said no stream is emitted. Śravaṇa's Python
+   emitter (`agent/encoder` e3c7c78, sansos-4b's branch, unmerged) does write real files:
+   re-taken here on IETF file 01, 555,283 octets vs flac -8's 547,392, new figure
+   `emit_ratio` +1.44%, flac -d and ffmpeg bit-exact, STREAMINFO MD5 correct. The page says
+   so, keeps "the join is not closed" (no emitted file reaches the model's size), and
+   discloses the defect the re-take found: STREAMINFO minimum block size includes the short
+   last block, flac -t warns 75 times, two-octet patch clears it; reported to sansos-4b.
+   Rule for next time: view the render before the push, not a release later, and re-read
+   the rows NEAR a new row for claims the new row has overtaken.
+   **r36, 2026-10-02 14:45 EDT, on the owner's two YES answers:** (a) the decoder source is
    back on the page: `kernel/nihshesha.t1` and `kernel/mapana.t1` copied verbatim from sravan
    main `d27391f` (1,547 lines, 32 public routines, re-taken by the gate), with
    `kernel/PROVENANCE.md` and the three links restored; (b) the page frames the container:
@@ -246,7 +259,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r36 as of 2026-10-02 14:50 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r37 as of 2026-10-02 15:00 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
@@ -288,14 +301,23 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    digest on 3 instruction sets) stays planned: the third could be the wasm machine in the
    browser (item 4) or the interpreter-free decode on another ISA. Hosts: `ssh ubuntu-local`,
    `ssh jetson` (seed by git archive; no GitHub, no flac there).
-4. **The decoder on the page.** CONSULT SENT to sansos-e0 (2026-10-02 18:20Z), no build
-   yet: run the walker on `yantra-wasm` in the browser with the frame fed at run time
-   through the input channel (no baked literals: W-361 put the cost in literals), show the
-   decoded digest beside ffmpeg's and the step count beside the native one. Open questions
-   to e0: whether `sansos/tools/build-sassembly-web.sh` takes an arbitrary multi-module
-   program, whether the wasm machine exposes the input channel, and whether the trunk
-   `t1_image` binary emits again (W-354). If the input channel is absent, wait for it rather
-   than bake a frame.
+4. **The decoder on the page.** BLOCKED, ANSWERED by sansos-e0 (toolchain lane) on
+   2026-10-02 18:47Z; nothing built. The plan: run the walker on `yantra-wasm` in the
+   browser with the file fed at run time (no baked literals: W-361 put the cost in
+   literals), show the decoded digest beside ffmpeg's and the step count beside the native
+   one. e0's three answers, from the trunk: (a) `sansos/tools/build-sassembly-web.sh` does
+   NOT take an arbitrary program (its `$1` is its own output path; it builds the shipped
+   application from `spec/application-load.tsv`); (b) `yantra-wasm` has NO input channel
+   (exports are `yantra_alloc`, `yantra_run`, `yantra_host`, `yantra_out_ptr/len`,
+   `yantra_surface_ptr/len`, `yantra_halt_ptr`; `inject`/`SASINPUT`/`ARGV` occur zero times
+   in `crates/yantra-wasm/src/lib.rs`); (c) the trunk `t1_image` "emit regression" was a
+   stale binary in `wt-tick` (W-354, b30e8acc), not a defect in any tree. The missing piece
+   is one export, `yantra_input(ptr, len)` calling `input::inject` on the loaded RAM before
+   `run`; it is e0's lane (adjacent to W-350) and e0 will put it to the owner. Naad's need,
+   as sent: one ~100 KB walker image, one injected FLAC file found by the same `SASINPUT`
+   scan as native, PCM read back through `yantra_out_ptr/len`. Do not build until that
+   export is on the trunk; do not bake a frame. The pinned `.build/tc-34c9712a/t1_image`
+   (md5 1591d0e8, mtime 2026-10-01 14:23 EDT, clean checkout) is NOT the stale binary.
 5. Self-host the two font families: **DONE ON A BRANCH, 2026-10-02 18:25Z, held for the
    owner** (`self-host-fonts` fb0085d, pushed, not merged; main is live). Five woff2 files,
    340 KB, under `fonts/` with their OFL texts; twelve inline `@font-face` rules; falsifier

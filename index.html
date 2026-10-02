@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-02 public r36 decoder-returns">
+<meta name="naad-build" content="2026-10-02 public r37 encoder-files">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -718,7 +718,7 @@
         <span class="d">The synthetic test path: one stereo mid/side LPC-8 frame at the corpus's own coded ratio, partitioned Rice, both CRCs verified, embedded in a generated test. The octet-wise CRC landed on 2026-09-30 and bought <span data-fig="crc_gain">1.21×</span> on the whole decoder; <b>CRC-16 is still <span data-fig="crcshare">24.0%</span> of it</b>. On the path the product runs, the whole-record decoder reading the real 24-bit Grieg file, the cost is <span class="num" data-fig="walker_ipcs">3,076</span> per channel-sample, about twice this figure: real residuals, the window unpack and the sample emission are all in it.</span>
         <span class="v"><span class="num" data-fig="ipcs">1,500</span><small>INSTRUCTIONS / CHANNEL-SAMPLE · TEST PATH</small></span></div>
       <div class="row"><span class="k">The encoder</span>
-        <span class="d"><b>A separate claim about a separate program.</b> The encoder is Python, in the Śravaṇa repository. Its figure is an exact bit count on every one of the IETF test files, which are adversarial by construction. It is not yet an emitted file that decodes back.</span>
+        <span class="d"><b>A separate claim about a separate program.</b> The encoder is Python, in the Śravaṇa repository. Its figure is an exact bit count on every one of the IETF test files, which are adversarial by construction. A second, simpler Python program does write real files: on the one stereo file measured, flac and ffmpeg decode its output back bit for bit, at <span data-fig="emit_ratio">+1.44%</span> against flac -8. No emitted file yet reaches the size the count claims.</span>
         <span class="v"><span data-fig="ratio">+0.1%</span><small>VS FLAC -8 · <span data-fig="corpus">64 of 64</span> FILES</small></span></div>
     </div>
 
@@ -737,7 +737,7 @@
         <li><span class="tag measured">Green</span><span><b>Sassembly</b>: the compiler compiled itself byte for byte on <span data-fig="fixpoint_date">2026-09-22</span> and has on every change since.</span></li>
         <li><span class="tag planned">Not built</span><span><b>The player</b>: seeking to a timestamp, tags and cover art, and a playback surface. The file walker that reads whole recordings exists and is measured above; a player around it does not.</span></li>
         <li><span class="tag planned">Not built</span><span><b>More than two channels</b>: surround parses its header and is refused rather than guessed at.</span></li>
-        <li><span class="tag planned">Not built</span><span><b>Attestation</b>: one digest on three instruction sets. The machinery exists in Darśana; it has not been run on Naad.</span></li>
+        <li><span class="tag planned">Not built</span><span><b>Attestation on a third instruction set</b>: the bar is one digest on three. Two are done, in the first row of this list; the third is owed. The machinery for it exists in Darśana.</span></li>
       </ul>
     </div>
 
@@ -768,9 +768,9 @@
       <p>Playback was never in question. Naad decodes at <span data-fig="realtime">3.7×</span> real time on a 1 GHz core at one instruction per cycle, the most pessimistic machine anyone ships; on a laptop core, taken as 3.5 GHz at three instructions per cycle, that is <span data-fig="rt_laptop">39×</span>. Where we are genuinely behind is how many cycles that takes: a mature C decoder does the same work in a fraction of them, and on a device decoding all day that shows up as battery life, not as dropouts.</p>
       <span class="gap">Profiled to the instruction. CRC-16 is still <b><span data-fig="crcshare">24.0%</span></b> of decode time after the octet-wise table. <b>Next: the packed-word reader</b>, which addresses the per-bit gather the table cannot touch and is worth more than the CRC was.</span></div>
     <div class="fitem panel"><span class="tag open">Open · compression</span>
-      <h3>The encoder is Python, and its stream is not yet emitted</h3>
-      <p>Levinson-Durbin, apodization and the partition-order search are real and measured at parity with flac -8. None of it is native yet, and its size figure is an exact bit count rather than a file.</p>
-      <span class="gap"><b>The join, that a stream of exactly that size decodes back, is not closed.</b> Until it is, the encoder figure and the decoder figure are two claims, and the page keeps them apart.</span></div>
+      <h3>The encoder is Python, and its files trail its own count</h3>
+      <p>Levinson-Durbin, apodization and the partition-order search are real and measured at parity with flac -8, as an exact bit count rather than a file. A second Python program now writes real FLAC files, and on the one stereo file measured flac and ffmpeg decode its output back to the original bit for bit. It searches fewer choices than the count prices and lands at <span data-fig="emit_ratio">+1.44%</span> over flac -8 there. flac also warns on that file: its header misstates the minimum block size, a two-byte error with a known fix. None of this is native yet.</p>
+      <span class="gap"><b>The join, that a stream of exactly that size decodes back, is not closed.</b> The file writer checks its price against its own bits on every block, but no file it writes is yet as small as the count claims. Until one is, the encoder figure and the decoder figure are two claims, and the page keeps them apart.</span></div>
     <div class="fitem panel"><span class="tag build">Building · the archive</span>
       <h3>A file that carries its own decoder</h3>
       <p>Naad's decoder is the one the Darśana archive carries inside the file, beside the music, so a recording can be opened decades from now with nothing but the file and a small machine. The file walker that makes this possible exists and is measured above: it reads whole recordings, steps over oversized metadata, recovers after a damaged frame, and refuses what it cannot decode with a named status. What it still owes that archive, safety first: a bound on every single read, so a hostile file can only ever be refused, where today a safety floor does that job at a cost in speed; files whose header block is not the first block, which are legal and are refused today; and more than two channels. Seeking, tags, cover art and a player around it are not built.</p>
