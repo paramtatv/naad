@@ -246,7 +246,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Owner review of this branch.** Nothing is public until then.
+1. **Live since 2026-10-01; r36 as of 2026-10-02 14:50 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
@@ -282,14 +282,20 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    `real-frame`; the peer pushes sravan main and says so each time.
 2a. **The packed-word reader in the peer's stash carries the inverted Rice unary.** Fixed on
    `real-frame` (`पदरिचः`, one comparison); whoever lands the packed reader needs it.
-3. **Attestation of S1** (`decode_hash_agreement` at k = 3 on Naad's decoder). The thesis
-   lists it as step 2 of its own build order, Darśana has the machinery, and it turns the
-   page's one **planned** rung into a **measured** one.
-4. **The decoder on the page.** Build `nihshesha.t1` with the SQAM frame the thesis timed
-   baked in, run it on `yantra-wasm` in the browser (`sansos/tools/build-sassembly-web.sh`
-   emits a self-contained page; the machine takes an empty import object), stream samples
-   out over the console call, draw the real decoded waveform, and show the digest beside the
-   reference digest. User-supplied frames wait on the RAM-injection path (`wt-raminject`).
+3. **Attestation of S1**: FIRST STEP TAKEN (r35). One walker image on three hosts and two
+   instruction sets (x86-64 Darwin, x86-64 Linux, aarch64 Linux) gives one PCM digest equal
+   to ffmpeg's and one instruction count; that attests the RUNNER. The planned rung (one
+   digest on 3 instruction sets) stays planned: the third could be the wasm machine in the
+   browser (item 4) or the interpreter-free decode on another ISA. Hosts: `ssh ubuntu-local`,
+   `ssh jetson` (seed by git archive; no GitHub, no flac there).
+4. **The decoder on the page.** CONSULT SENT to sansos-e0 (2026-10-02 18:20Z), no build
+   yet: run the walker on `yantra-wasm` in the browser with the frame fed at run time
+   through the input channel (no baked literals: W-361 put the cost in literals), show the
+   decoded digest beside ffmpeg's and the step count beside the native one. Open questions
+   to e0: whether `sansos/tools/build-sassembly-web.sh` takes an arbitrary multi-module
+   program, whether the wasm machine exposes the input channel, and whether the trunk
+   `t1_image` binary emits again (W-354). If the input channel is absent, wait for it rather
+   than bake a frame.
 5. Self-host the two font families: **DONE ON A BRANCH, 2026-10-02 18:25Z, held for the
    owner** (`self-host-fonts` fb0085d, pushed, not merged; main is live). Five woff2 files,
    340 KB, under `fonts/` with their OFL texts; twelve inline `@font-face` rules; falsifier
