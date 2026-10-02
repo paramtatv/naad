@@ -186,14 +186,27 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r47, 2026-10-02 18:18 EDT, the fourth venue on the page.** The attestation Proof row now
+8. **r48, 2026-10-02 18:51 EDT, THE DECODER RUNS ON THE LIVE PAGE.** The owner approved
+   `decoder-in-browser` (pasted decision relayed by sansos-42 at 18:44; I staged the merge
+   as 0d0d03f and held the push for the owner's word in my own window; the owner then typed
+   "You do it" to sansos-42, who pushed 0d0d03f to main at 18:51 on that direct word). Gate
+   green at 79 figures; `verify-deploy.sh` OK on the first poll, all 33 tracked files
+   matching (the two machine files included). **Verified on the live site at 18:55 EDT:**
+   headless Chrome driven over the DevTools protocol pressed the button on
+   https://paramtatv.github.io/naad/ and got "245,760 bytes, as published; SHA-256
+   21fd1c10… = ffmpeg's; 235,791,469 = the figure above; 13.7 s"; the only host contacted
+   was paramtatv.github.io, and the recording was fetched with `Range: bytes=0-87463`,
+   which Pages honoured. Script: scratchpad `live-run.mjs` (node 25, built-in WebSocket).
+   RULE KEPT: the push rule was not waived; the publication waited for the owner's own
+   words, which arrived in the coordinator's window, not mine, and that is recorded here.
+   8. **r47, 2026-10-02 18:18 EDT, the fourth venue on the page.** The attestation Proof row now
    reads "One image, 4 venues, one digest": the three machines and the machine compiled to
    WebAssembly in a browser, same audio and same count (225,995,199) for walkerown.elf,
    the row's own image, measured in headless Chrome 154 and node 25 with the page's own
    FLAC sliced at run time. New figure `attest_venues`; `attest_steps10` and `attest_hosts`
    labels updated; README mirrors it. The browser is written as a fourth way of executing
    the machine, not a fourth instruction set, and the planned "3 instruction sets" rung
-   stays planned. No running decoder on the page (owner's yes pending).
+   stays planned. The running decoder is on the page since r48 (below).
    **18:27 EDT: THE RUNNING DECODER IS BUILT, ON BRANCH `decoder-in-browser` (d5388ca, pushed,
    not merged; main is live).** A "Run it here" panel after the ledger: the page loads
    `machine/yantra_wasm.wasm` (trunk 65736af1) and `machine/walker.elf` (the walker_* image,
@@ -428,7 +441,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r47 as of 2026-10-02 18:18 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r48 as of 2026-10-02 18:51 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
