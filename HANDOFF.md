@@ -186,7 +186,25 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **2026-10-02 15:54 EDT, no page change: THE PER-READ BOUND MOVED TO THIS LANE.** Relayed by the
+8. **2026-10-02 18:01 EDT, no page change: THE PER-READ BOUND IS BUILT AND HANDED TO sansos-4b
+   FOR REVIEW.** sravan branch `agent/per-read-bound`, tip 27fca37, eleven commits on
+   36c3b8f, local to the shared repository, nothing pushed. Results, all on the 34c9712a
+   toolchain on ubuntu-local, in `SCOPE-per-read-bound.md` on the branch: the 33-case test
+   0 on both engines (the old decoder is refused at the first read past the end); faulty/
+   11 of 11 identical to the baseline; subset/ 57 to their own STREAMINFO MD5 and 7 declined,
+   64 of 64 identical to the baseline, −28.1% steps; the whole Grieg recording 44,022,735,664
+   instructions to md5 8247b607…; Grieg per frame 25,201,023 → 21,083,358 (−16.3%, 3,076 →
+   2,574 per channel-sample), identical audio; four negative controls as predicted (the
+   bound itself costs +1.0%, the floor's removal gives the rest). THE PAGE FIGURES ARE NOT
+   RE-TAKEN FROM THE BRANCH: after sansos-4b's merge, re-take `walker_steps1` and
+   `walker_steps10` from main, run the gate, copy what it prints (18 derived figures move),
+   and drop every "re-take owed" note. Expected: 9,067,918 and 198,818,142 if the merge
+   carries the code unchanged.
+   **UNBLOCKED THE SAME HOUR: the browser input export is on the sansos trunk** (498f4573
+   "Land yantra_input"). §7.4 can start: build yantra-wasm from the trunk, size the .wasm,
+   slice the page's own FLAC at 2,906 and 87,464 octets, hold the run to md5 29fc76d8… and
+   the native step count.
+   ** Relayed by the
    coordinator session (sansos-42) as the owner's decision of about 15:56 EDT: sansos-39
    implements the O(1) overrun refusal in the frame reader on a dedicated branch;
    sansos-4b reviews and merges; the branch is cut from sravan `main` only AFTER sansos-4b
