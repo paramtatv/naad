@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-02 public r25 product-path">
+<meta name="naad-build" content="2026-10-02 public r26 models-named">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -570,7 +570,7 @@
       <div class="rung panel"><span class="tag measured">Measured</span><span class="n"><span data-fig="routines">25</span></span>
         <span class="l">public routines in two files, every one of them verified on both engines.</span></div>
       <div class="rung panel"><span class="tag projected">Projected</span><span class="n"><span data-fig="realtime">4.0×</span></span>
-        <span class="l">real time, from <span class="num" data-fig="walker_ipcs">2,866</span> instructions per channel-sample on the path the product runs, the whole-record decoder reading a real 24-bit file, at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships. On a phone's big core that is <span data-fig="rt_phone">19×</span>, under <span data-fig="core_phone">6%</span> of one core. Not yet timed on silicon.</span></div>
+        <span class="l">real time, from <span class="num" data-fig="walker_ipcs">2,866</span> instructions per channel-sample on the path the product runs, the whole-record decoder reading a real 24-bit file, at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships. On a phone's big core, taken as 2.4 GHz at two instructions per cycle, that is <span data-fig="rt_phone">19×</span>, under <span data-fig="core_phone">6%</span> of one core (5.3% before rounding). Not yet timed on silicon.</span></div>
       <div class="rung panel"><span class="tag planned">Planned</span><span class="n"><span data-fig="attest_k">3</span></span>
         <span class="l">instruction sets that must yield one digest of the decoded samples. The sister project Darśana has reached this for a transform. Naad has not yet.</span></div>
     </div>
@@ -635,7 +635,7 @@
   <div class="wrap"><div class="front">
     <div class="fitem panel"><span class="tag open">Open · battery</span>
       <h3>Cycles per hour of audio</h3>
-      <p>Playback was never in question. Naad decodes at <span data-fig="realtime">4.0×</span> real time on a 1 GHz core at one instruction per cycle, the most pessimistic machine anyone ships; on a laptop core that is <span data-fig="rt_laptop">42×</span>. Where we are genuinely behind is how many cycles that takes: a mature C decoder does the same work in a fraction of them, and on a device decoding all day that shows up as battery life, not as dropouts.</p>
+      <p>Playback was never in question. Naad decodes at <span data-fig="realtime">4.0×</span> real time on a 1 GHz core at one instruction per cycle, the most pessimistic machine anyone ships; on a laptop core, taken as 3.5 GHz at three instructions per cycle, that is <span data-fig="rt_laptop">42×</span>. Where we are genuinely behind is how many cycles that takes: a mature C decoder does the same work in a fraction of them, and on a device decoding all day that shows up as battery life, not as dropouts.</p>
       <span class="gap">Profiled to the instruction. CRC-16 is still <b><span data-fig="crcshare">24.0%</span></b> of decode time after the octet-wise table. <b>Next: the packed-word reader</b>, which addresses the per-bit gather the table cannot touch and is worth more than the CRC was.</span></div>
     <div class="fitem panel"><span class="tag open">Open · compression</span>
       <h3>The encoder is Python, and its stream is not yet emitted</h3>
