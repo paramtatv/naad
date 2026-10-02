@@ -66,9 +66,17 @@ MD5. It uses fixed predictors, one partition, no LPC, so its files are +15% to +
 `flac -8`; that is NOT a ratio figure and must not reach the page as one. The +0.1%/+0.2%
 cost-model figures price LPC and partition search; the join is tested only once the encoder
 makes those choices, with the model's prediction registered first. **The `.t1` encoder is
-still not built.** The decoder has also been run over the IETF subset corpus (64 files,
-`wt-tick/research/specs/media/flac-test-files/`); tally pending from sansos-4b, routed here
-with commit and command before any figure lands.
+still not built.** **IETF subset, 2026-10-02 09:25Z (r29):** 39 of 64 decode to STREAMINFO's
+MD5; none of the 25 others produced wrong audio: 12 metadata beyond the walker's fixed
+65,536-octet header window (10 × status 203, 2 with no halt line), 1 frame window derived
+from a STREAMINFO max framesize legally 0 (status 361), 7 declined by design for >2 channels
+(310, no output), 5 mono decoded sample-exact but mis-described by the two-channel output
+(figures `ietf_*`; table `~/darsan-logs/subset-conformance.tsv`, harness sravan
+`agent/encoder` `0fe29cd`, recounted). The two window limits were sansos-39's design in
+`pariksha_i.t1`; the fixes (header window from the metadata blocks, frame window bounded by
+blocksize × channels × depth when max framesize is 0, output at STREAMINFO's channels and
+depth) are walker changes owned by sansos-4b with the geometry fix, each a separate commit,
+and the whole corpus re-runs after them. Never word the 25 as "conformance failures".
 
 ## 4. The mechanisms
 

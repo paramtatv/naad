@@ -407,6 +407,48 @@
    "label": "octets of PCM emitted across the 70 SQAM recordings",
    "source": "sansos-4b's run, 2026-10-01 20:xx-23:50 EDT, of the host-fed walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3, one ELF, seventy runs with YANTRA_INPUT=<file>) over the EBU SQAM corpus (sravan corpus/sqam/01..70.flac, 16-bit, from SQAM_FLAC.zip); per-file table ~/darsan-logs/sqam-conformance.tsv (file, bps, ch, samples, status, octets, md5, streaminfo, verdict, sec), recounted by sansos-39 at 2026-10-02 04:22Z: 70 rows, 70 halt Some(0), 70 rows where the decoder's MD5 equals the STREAMINFO MD5 the encoder wrote, 0 mismatches; wall times contended (shared machine) and not published NOTE 2026-10-02 07:05Z: that tsv was then OVERWRITTEN by the IETF-subset run (the harness hard-coded the output path); the per-file md5/streaminfo digests are gone, the aggregate survives in ~/darsan-logs/sqam.log (72 lines: 70 per-file rows whose 'pass' verdict asserts BOTH halt Some(0) AND md5 == STREAMINFO, plus header and footer) and in sansos-39's recount of the intact tsv at 04:22Z (70 rows, 70 md5==streaminfo, 155,099,700 samples, 930,598,200 octets). No figure on the page quotes a per-file digest.",
    "command": "awk -F'\\t' 'NR>1{n++; if($7==$8)m++; s+=$4; o+=$6} END{print n,m,s,o}' ~/darsan-logs/sqam-conformance.tsv"
+  },
+  "ietf_files": {
+   "value": "64",
+   "status": "measured",
+   "label": "files in the IETF FLAC subset corpus, built to vary every encoder choice (block sizes, subframe types, partition orders, depths 8-24, channels 1-8, extreme metadata)",
+   "source": "sansos-4b's run of the same whole-record walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3) over the IETF subset corpus (sansos research/specs/media/flac-test-files/subset, 64 files, ietf-wg-cellar/flac-test-files pinned aa7b0c6c), harness sravan agent/encoder 0fe29cd tools/sqam-conformance.sh <corpus>; per-file table ~/darsan-logs/subset-conformance.tsv recounted by sansos-39 at 2026-10-02 09:27Z: 64 rows; 39 Some(0) with md5==STREAMINFO (all 2ch); 10 Some(203) + 2 no-status (metadata beyond the walker's fixed 65,536-octet header window); 1 Some(361) (STREAMINFO max framesize 0, frame window derived from it); 7 Some(310) 0 octets (3-8 channels, declined by design in nihshesha.t1); 5 mono Some(0) md5!= (decoded sample-exact per reference/walker_geometry.py, mis-described by the two-channel output). sravan THESIS §6",
+   "command": "tools/sqam-conformance.sh <subset-dir>; awk recount by channel count and status"
+  },
+  "ietf_pass": {
+   "value": "39",
+   "status": "measured",
+   "label": "of the 64 that decode natively to exactly STREAMINFO's MD5; all stereo",
+   "source": "sansos-4b's run of the same whole-record walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3) over the IETF subset corpus (sansos research/specs/media/flac-test-files/subset, 64 files, ietf-wg-cellar/flac-test-files pinned aa7b0c6c), harness sravan agent/encoder 0fe29cd tools/sqam-conformance.sh <corpus>; per-file table ~/darsan-logs/subset-conformance.tsv recounted by sansos-39 at 2026-10-02 09:27Z: 64 rows; 39 Some(0) with md5==STREAMINFO (all 2ch); 10 Some(203) + 2 no-status (metadata beyond the walker's fixed 65,536-octet header window); 1 Some(361) (STREAMINFO max framesize 0, frame window derived from it); 7 Some(310) 0 octets (3-8 channels, declined by design in nihshesha.t1); 5 mono Some(0) md5!= (decoded sample-exact per reference/walker_geometry.py, mis-described by the two-channel output). sravan THESIS §6",
+   "command": "tools/sqam-conformance.sh <subset-dir>; awk recount by channel count and status"
+  },
+  "ietf_meta": {
+   "value": "12",
+   "status": "measured",
+   "label": "refused before any audio because their metadata is longer than the walker's fixed 65,536-octet header window (10 with status 203, 2 without a halt line; e.g. PADDING of 16,777,305 octets, PICTUREs, 82,161,688 octets of metadata in one file)",
+   "source": "sansos-4b's run of the same whole-record walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3) over the IETF subset corpus (sansos research/specs/media/flac-test-files/subset, 64 files, ietf-wg-cellar/flac-test-files pinned aa7b0c6c), harness sravan agent/encoder 0fe29cd tools/sqam-conformance.sh <corpus>; per-file table ~/darsan-logs/subset-conformance.tsv recounted by sansos-39 at 2026-10-02 09:27Z: 64 rows; 39 Some(0) with md5==STREAMINFO (all 2ch); 10 Some(203) + 2 no-status (metadata beyond the walker's fixed 65,536-octet header window); 1 Some(361) (STREAMINFO max framesize 0, frame window derived from it); 7 Some(310) 0 octets (3-8 channels, declined by design in nihshesha.t1); 5 mono Some(0) md5!= (decoded sample-exact per reference/walker_geometry.py, mis-described by the two-channel output). sravan THESIS §6",
+   "command": "tools/sqam-conformance.sh <subset-dir>; awk recount by channel count and status"
+  },
+  "ietf_window0": {
+   "value": "1",
+   "status": "measured",
+   "label": "refused because STREAMINFO's maximum framesize is legally zero and the walker's frame window is derived from it (file 46)",
+   "source": "sansos-4b's run of the same whole-record walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3) over the IETF subset corpus (sansos research/specs/media/flac-test-files/subset, 64 files, ietf-wg-cellar/flac-test-files pinned aa7b0c6c), harness sravan agent/encoder 0fe29cd tools/sqam-conformance.sh <corpus>; per-file table ~/darsan-logs/subset-conformance.tsv recounted by sansos-39 at 2026-10-02 09:27Z: 64 rows; 39 Some(0) with md5==STREAMINFO (all 2ch); 10 Some(203) + 2 no-status (metadata beyond the walker's fixed 65,536-octet header window); 1 Some(361) (STREAMINFO max framesize 0, frame window derived from it); 7 Some(310) 0 octets (3-8 channels, declined by design in nihshesha.t1); 5 mono Some(0) md5!= (decoded sample-exact per reference/walker_geometry.py, mis-described by the two-channel output). sravan THESIS §6",
+   "command": "tools/sqam-conformance.sh <subset-dir>; awk recount by channel count and status"
+  },
+  "ietf_declined": {
+   "value": "7",
+   "status": "measured",
+   "label": "declined by design, status 310 and no output: files with 3, 4, 5, 6, 7, 8 and 8 channels; the decoder supports one or two",
+   "source": "sansos-4b's run of the same whole-record walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3) over the IETF subset corpus (sansos research/specs/media/flac-test-files/subset, 64 files, ietf-wg-cellar/flac-test-files pinned aa7b0c6c), harness sravan agent/encoder 0fe29cd tools/sqam-conformance.sh <corpus>; per-file table ~/darsan-logs/subset-conformance.tsv recounted by sansos-39 at 2026-10-02 09:27Z: 64 rows; 39 Some(0) with md5==STREAMINFO (all 2ch); 10 Some(203) + 2 no-status (metadata beyond the walker's fixed 65,536-octet header window); 1 Some(361) (STREAMINFO max framesize 0, frame window derived from it); 7 Some(310) 0 octets (3-8 channels, declined by design in nihshesha.t1); 5 mono Some(0) md5!= (decoded sample-exact per reference/walker_geometry.py, mis-described by the two-channel output). sravan THESIS §6",
+   "command": "tools/sqam-conformance.sh <subset-dir>; awk recount by channel count and status"
+  },
+  "ietf_mono": {
+   "value": "5",
+   "status": "measured",
+   "label": "mono files that decode sample-exact (every even output slot equals the truth, every odd slot is zero) but are reported in a hard-coded two-channel geometry, so the MD5 check fails",
+   "source": "sansos-4b's run of the same whole-record walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3) over the IETF subset corpus (sansos research/specs/media/flac-test-files/subset, 64 files, ietf-wg-cellar/flac-test-files pinned aa7b0c6c), harness sravan agent/encoder 0fe29cd tools/sqam-conformance.sh <corpus>; per-file table ~/darsan-logs/subset-conformance.tsv recounted by sansos-39 at 2026-10-02 09:27Z: 64 rows; 39 Some(0) with md5==STREAMINFO (all 2ch); 10 Some(203) + 2 no-status (metadata beyond the walker's fixed 65,536-octet header window); 1 Some(361) (STREAMINFO max framesize 0, frame window derived from it); 7 Some(310) 0 octets (3-8 channels, declined by design in nihshesha.t1); 5 mono Some(0) md5!= (decoded sample-exact per reference/walker_geometry.py, mis-described by the two-channel output). sravan THESIS §6",
+   "command": "tools/sqam-conformance.sh <subset-dir>; awk recount by channel count and status"
   }
  },
  "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."
