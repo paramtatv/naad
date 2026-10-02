@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Naad. Every note. Exactly as they played it.">
+  <title>Naad · Every note. Exactly as they played it.</title>
+  <!--
+    The share card for Naad, hand-authored. 1200 x 630, the size link previews use.
+    Same room as the page: a dark stage, one magenta lamp from the upper left, the
+    record on the right catching it, the line the page opens with on the left.
+    The record and the mark are the page's own art, referenced, not redrawn.
+    The raster next to this file (og-card.png) is this document photographed by a
+    browser, because link scrapers do not read SVG.
+  -->
+  <defs>
+    <style>
+      @font-face { font-family: 'Unbounded'; font-weight: 500 900; src: url(fonts/unbounded-latin.woff2) format('woff2'); }
+      @font-face { font-family: 'Noto Serif Devanagari'; font-weight: 400 600; src: url(fonts/notoserifdevanagari-devanagari.woff2) format('woff2'); }
+      .display { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 800; letter-spacing: -1.2px; }
+      .kicker  { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 17px; letter-spacing: 5px; fill: #FF3DF2; }
+      .sub     { font-family: system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif; font-size: 27px; fill: #CFC3E6; }
+      .wm      { font-family: 'Unbounded', system-ui, sans-serif; font-weight: 900; font-size: 26px; letter-spacing: 6px; fill: #FFFFFF; }
+      .dev     { font-family: 'Noto Serif Devanagari', Georgia, serif; font-weight: 600; font-size: 30px; fill: #C9A8FF; }
+      .from    { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; letter-spacing: 4px; fill: #8F7FB3; }
+    </style>
+    <linearGradient id="stage" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#150A26"/>
+      <stop offset=".55" stop-color="#090514"/>
+      <stop offset="1" stop-color="#05030B"/>
+    </linearGradient>
+    <radialGradient id="lamp" cx="12%" cy="0%" r="75%">
+      <stop offset="0" stop-color="#FF3DF2" stop-opacity=".30"/>
+      <stop offset=".45" stop-color="#8A3DFF" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#8A3DFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#FF3DF2" stop-opacity=".34"/>
+      <stop offset=".6" stop-color="#8A3DFF" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#8A3DFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E9DBFF"/>
+    </linearGradient>
+    <linearGradient id="hot" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FFD9FB"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-40%" width="140%" height="180%">
+      <feGaussianBlur stdDeviation="9" result="b"/>
+      <feColorMatrix in="b" type="matrix" values="1 0 0 0 1  0 0 0 0 0.24  0 0 1 0 0.95  0 0 0 0.9 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- the record art carries its own soft panel; fade it out so no rectangle shows on the stage -->
+    <radialGradient id="fade" gradientUnits="userSpaceOnUse" cx="945" cy="322" r="305">
+      <stop offset="0" stop-color="#fff"/><stop offset=".86" stop-color="#fff"/><stop offset="1" stop-color="#000"/>
+    </radialGradient>
+    <mask id="soft" maskUnits="userSpaceOnUse" x="640" y="17" width="610" height="610"><rect x="640" y="17" width="610" height="610" fill="url(#fade)"/></mask>
+    <clipPath id="frame"><rect width="1200" height="630"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="1200" height="630" fill="url(#stage)"/>
+    <rect width="1200" height="630" fill="url(#lamp)"/>
+
+    <!-- the record, the page's own art, set low and right so the lamp rakes across it -->
+    <circle cx="945" cy="322" r="310" fill="url(#halo)"/>
+    <image xlink:href="record.svg" href="record.svg" x="690" y="67" width="510" height="510" mask="url(#soft)"/>
+
+    <!-- masthead: the mark, the wordmark, the name in its own script -->
+    <image xlink:href="logo.svg" href="logo.svg" x="72" y="62" width="58" height="58"/>
+    <text class="wm" x="146" y="102">NAAD</text>
+    <text class="dev" x="296" y="103">नाद</text>
+
+    <text class="kicker" x="74" y="196">FOR PEOPLE WHO STILL PLAY WHOLE ALBUMS</text>
+
+    <!-- the line the page opens with -->
+    <text class="display" x="70" y="286" font-size="58" fill="url(#ink)">Every note.</text>
+    <text class="display" x="70" y="356" font-size="58" fill="url(#hot)" filter="url(#glow)">Exactly</text>
+    <text class="display" x="70" y="426" font-size="58" fill="url(#ink)">as they played it.</text>
+
+    <text class="sub" x="74" y="494">The master, every sample of it, yours for good.</text>
+
+    <text class="from" x="74" y="580">FROM PARAMTATVA</text>
+    <rect x="0" y="622" width="1200" height="8" fill="#FF3DF2" opacity=".85"/>
+  </g>
+</svg>
