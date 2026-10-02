@@ -244,7 +244,15 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
   costs +47.9% instructions on the same input (sansos-4b 090d8e0: the bit window grows
   2.6x per frame on 63 of 64 honest files); the right fix is an O(1) overrun refusal in the
   frame reader, approved, after which the product-path figures are re-taken, not scaled.
-  Every affected figure's source in figures.json carries this note.
+  Every affected figure's source in figures.json carries this note. The cited walkerown.elf
+  bytes (698ca641…) were later overwritten by the 1efe84e build (840563ce…, 97,560 octets);
+  the commit is the provenance. **S4 first measurement (12:00Z):** that 1efe84e image under
+  yantra-run built from 34c9712a on the Mac (x86-64 Darwin), ubuntu-local (x86-64 Linux)
+  and the owner's Jetson (aarch64 Linux, `ssh jetson`, seeded by git archive since it cannot
+  reach GitHub) gives identical octets, md5 (= ffmpeg) and instruction counts for 1 and 10
+  frames: one image, three hosts, two ISAs, one digest; this attests the RUNNER across
+  hosts, not the codec per ISA. Not yet on the page (THESIS §8d has it). The step-count
+  control (db1ed3c8 fit240 = 350,519,525) also reproduces on all three hosts.
 - The page was pinned to `sravan@85f90b2` (octet-wise CRC landed, 1,500 instructions per
   channel-sample, 7.6× at 1 GHz / IPC 1). The timing figures were re-taken on the fixed kernel (sravan real-frame f631d7d) and came
   back identical to the instruction. ALL native counts were taken on a 2026-09-27 toolchain
