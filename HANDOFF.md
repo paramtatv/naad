@@ -70,7 +70,14 @@ makes those choices, with the model's prediction registered first. **Cost model 
 stays +0.1% (exact +0.098%, 47,557,586 vs 47,511,114 octets, 64 files); SQAM under the
 corrected vectorised model reads −0.777% on 70 tracks (THESIS §6; not on the page); both
 registered predictions for the re-runs were wrong and are recorded as such. **The `.t1` encoder is
-still not built.** **IETF subset, 2026-10-02 09:25Z (r29):** 39 of 64 decode to STREAMINFO's
+still not built**, but as of 12:50Z its foundation exists: `kernel/lekha.t1` (sravan
+`agent/harness-depth` 52f0de2) adds the `.t1` write-side primitives (bit writer, zigzag, Rice
+encode, cost) verified read-after-write against निःशेष's readers inside one image (six field
+widths, 48 Rice cases, 2,877,325 instructions); ported from Darśana but NOT copied, because
+Darśana packs 64 bits per word and Śravaṇa holds one bit per word under the same name धारा.
+Also: the trunk's `t1_image` cannot emit an image since 08:16 EDT ("`पाठः` is not a type"
+inside the .t1 linker, reported to sansos-e0); every build in this lane uses the pinned
+`.build/tc-34c9712a/t1_image`, which is unaffected. **IETF subset, 2026-10-02 09:25Z (r29):** 39 of 64 decode to STREAMINFO's
 MD5; none of the 25 others produced wrong audio: 12 metadata beyond the walker's fixed
 65,536-octet header window (10 × status 203; 2 HALTED by the machine, BeyondRam, when a
 16,777,206-octet SEEKTABLE length advanced the header reader's bit cursor out of its array:
