@@ -208,7 +208,7 @@
   "real_steps": {
    "value": "8,602,692",
    "status": "measured",
-   "label": "native instructions to decode frame 0 of the recording and check both folds, including setup; current compiler tree (origin/main 34c9712a); the old tree gave 11,422,135, the difference being compiler codegen, commit pending",
+   "label": "native instructions to decode frame 0 of the recording and check both folds, including setup; current compiler tree (origin/main 34c9712a); the old tree gave 11,422,135, the difference being compiler codegen, attributed on 2026-10-02 19:05Z to one commit by a parent/child pair on the same source blob: the image built by e22a87a3 runs in 11,422,135 instructions and the image built by its child 3d905c37 (W-330, inlined array-growth path) in 8,602,692, both halting Some(0), under yantra-run md5 9cb07514d864 on ubuntu-local (images r-e22a87a3.elf md5 2e5df79eeb6e, r-3d905c37.elf md5 8ec770e59ef5, in ~/w361); the same commit is the whole of the 13.2x compile-cost regression (W-361)",
    "source": "sravan stream (pariksha_r.t1 blob 9e7db3b7) built with --compiler and --spec-root from sansos origin/main 34c9712a, host t1_image md5 1591d0e8, yantra-run md5 494573a4297f; predict -> 0, halt Some(0)",
    "command": "t1_image --spec-root <34c9712a>/spec --compiler <34c9712a>/crates/sadhana-t1/src ... --entry परीक्षार मुख्यम्; yantra-run"
   },
@@ -285,7 +285,7 @@
   "seq_steps": {
    "value": "200,463,153",
    "status": "measured",
-   "label": "native instructions to read the file's header, check STREAMINFO, then unpack and decode ten frames with the cursor carried, checking twenty folds and ten boundaries, including setup; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
+   "label": "native instructions to read the file's header, check STREAMINFO, then unpack and decode ten frames with the cursor carried, checking twenty folds and ten boundaries, including setup; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; no re-take: the ten-frame tests embed their frames as literals, and embedded-literal tests were retired on 2026-10-02 after W-361 (the 34c9712a tree compiles them at 13.2x the cost and refused two of them at link); timing moved to the host-fed walker (walker_steps1, walker_steps10)",
    "source": "sravan stream 1b00c3a (pariksha_s.t1: STREAMINFO read, boundaries found by the decoder, flac -a map and metaflac as witnesses), yantra-run steps line; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
    "command": "YANTRA_STEPS=4000000000 yantra-run s10.elf"
   },
@@ -299,14 +299,14 @@
   "resync_steps": {
    "value": "205,506,180",
    "status": "measured",
-   "label": "native instructions for the ten-frame walk with frame 4's CRC-16 deliberately damaged: the frame is refused, the decoder finds frame 5 by sync-code scan with a CRC-8-verified header, and the walk completes; measured on the 2026-09-27 toolchain build, re-take pending; old compiler tree (51598b3c); re-take on 34c9712a in progress",
+   "label": "native instructions for the ten-frame walk with frame 4's CRC-16 deliberately damaged: the frame is refused, the decoder finds frame 5 by sync-code scan with a CRC-8-verified header, and the walk completes; measured on the 2026-09-27 toolchain build, old compiler tree (51598b3c); no re-take: the ten-frame tests embed their frames as literals, and embedded-literal tests were retired on 2026-10-02 after W-361 (the 34c9712a tree compiles them at 13.2x the cost and refused two of them at link); timing moved to the host-fed walker (walker_steps1, walker_steps10)",
    "source": "sravan stream 0846ea6 (pariksha_s2.t1), predict -> 0, halt status Some(0); controls 17 (damage declared on the wrong frame) and 201 (landing witness moved); compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f)",
    "command": "python3 reference/genstream.py 10 --corrupt 4; t1_image ... --entry परीक्षाप्रवाह२ मुख्यम् ; yantra-run"
   },
   "pcm_octets": {
    "value": "245,760",
    "status": "measured",
-   "label": "octets of 24-bit stereo audio the native RV64 image wrote for the first ten frames of the Grieg recording, byte-identical to ffmpeg's decode of the same frames (cmp exit 0, md5 29fc76d8e0cc3ed935aa1f28498406d9); old compiler tree (51598b3c); re-take on 34c9712a in progress",
+   "label": "octets of 24-bit stereo audio the native RV64 image wrote for the first ten frames of the Grieg recording, byte-identical to ffmpeg's decode of the same frames (cmp exit 0, md5 29fc76d8e0cc3ed935aa1f28498406d9); old compiler tree (51598b3c); no re-take: the ten-frame tests embed their frames as literals, and embedded-literal tests were retired on 2026-10-02 after W-361 (the 34c9712a tree compiles them at 13.2x the cost and refused two of them at link); timing moved to the host-fed walker (walker_steps1, walker_steps10)",
    "source": "sravan stream 5230164 (pariksha_o.t1), yantra-run stdout captured; 204,682,388 instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f)",
    "command": "python3 reference/genstream.py 10 --emit; t1_image ... --entry परीक्षानिर्गम मुख्यम्; yantra-run o.elf > naad10.pcm; cmp naad10.pcm grieg10.pcm"
   },
