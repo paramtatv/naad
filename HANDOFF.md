@@ -186,7 +186,15 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r44, 2026-10-02 15:28 EDT, the no-third-party ruling is a gate check, and a dead source
+8. **2026-10-02 15:31 EDT, no page change (still r44): `tools/verify-deploy.sh` compares every
+   tracked file.** It had checked the page's stamp and byte count and `figures.json`'s
+   checksum, so a push that changed only `kernel/`, an image, a font or the audio was
+   never verified. Now, once the stamp agrees, all tracked files are fetched and compared
+   by checksum (files over 2 MB by the served length; `FULL=1` checksums those too). A
+   file not served is RED. Control: run before its own push, it went RED on exactly
+   `tools/verify-deploy.sh`. Note that Pages serves the whole tree raw, `HANDOFF.md` and
+   `tools/` included; nothing here is private.
+   **r44, 2026-10-02 15:28 EDT, the no-third-party ruling is a gate check, and a dead source
    is gone.** `tools/check-figures.py` check 7: any absolute or protocol-relative URL in
    `index.html` outside an `<a href>` (or a share tag on this site's own origin) is RED;
    so are `sendBeacon`, `XMLHttpRequest`, `WebSocket`, `EventSource`, `<iframe>`,
