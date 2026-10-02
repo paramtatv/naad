@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-02 public r47 fourth-venue">
+<meta name="naad-build" content="2026-10-02 public r48 run-it-here">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -381,6 +381,8 @@
   .stackline{margin-top:24px; padding:28px 30px 30px}
   .stackline h3{font-size:19px}
   .stackline p{margin-top:10px; color:var(--ink-2); font-size:16px; max-width:80ch}
+  #runit pre{margin-top:14px; padding:14px 16px; border-radius:12px; background:rgba(7,3,15,.6); border:1px solid var(--line); font-family:var(--f-mono); font-size:12.5px; line-height:1.6; color:var(--ink-2); white-space:pre-wrap; max-width:80ch}
+  #runit button[disabled]{opacity:.55; cursor:wait}
   .stackline p b{color:var(--ink)}
   .front{display:grid; gap:16px; margin-top:44px}
   @media (min-width:900px){ .front{grid-template-columns:1fr 1fr} }
@@ -755,6 +757,13 @@
       </ul>
     </div>
 
+    <div class="stackline panel" id="runit">
+      <h3>Run it here</h3>
+      <p>The same machine, compiled to WebAssembly, and the same decoder image the figures above were taken from, both loaded from this site and nowhere else. Press the button and your browser cuts the first <span data-fig="demo_slice">87,464</span> bytes off the recording at the top of this page, hands them to the decoder at run time, and decodes ten frames. What comes back is checked two ways: the audio's fingerprint against ffmpeg's decode of the same ten frames, and the number of instructions executed against the figure above, <span data-fig="walker_steps10">235,791,469</span>. If both hold, the ten frames play. It needs <span data-fig="demo_ram_mb">554</span> MB of memory, which the machine's compiler reserves whether or not the decoder uses it, so a laptop rather than a phone, and about ten seconds.</p>
+      <p><button class="btn tube" id="runit-go" type="button">Decode ten frames in this browser</button></p>
+      <pre id="runit-out" hidden></pre>
+    </div>
+
     <div class="stackline panel">
       <h3>Sassembly, in one paragraph</h3>
       <p>Naad is written in Sassembly, a systems language whose every keyword is Sanskrit, written in itself, compiling to
@@ -881,6 +890,67 @@
   cv.addEventListener('click',function(e){ var r=cv.getBoundingClientRect(), sec=(e.clientX-r.left)/r.width*D; if(sec>=START&&sec<=START+LEN){ var was=!A[cur].paused; A[cur].currentTime=sec-START; draw(); if(!was) play(); } });
   resize(); draw();
   var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ resize(); draw(); },140); });
+})();
+</script>
+<script>
+(function(){
+  // RUN IT HERE. Everything it loads is this site's own: the machine (machine/yantra_wasm.wasm, built from
+  // the sansos trunk), the decoder image (machine/walker.elf, the one the walker_* figures were taken from),
+  // and the first bytes of the recording the page already serves. Nothing leaves the browser; nothing is
+  // reported anywhere. The two expected values are the page's own published figures.
+  var go=document.getElementById('runit-go'), out=document.getElementById('runit-out');
+  if(!go||!window.WebAssembly||!window.crypto||!window.crypto.subtle){ if(go){ go.disabled=true; } return; }
+  var SLICE=87464, RAM=553753920, BUDGET=300000000, EXPECT_OCTETS=245760, EXPECT_STEPS=235791469,
+      EXPECT_SHA='21fd1c10bdda06c6e48feaa2fa6613d44fdaaa59556a5e475a323f5fdbf5a6e8';
+  function say(t){ out.hidden=false; out.textContent=t; }
+  function hex(b){ return Array.prototype.map.call(new Uint8Array(b),function(x){ return ('0'+x.toString(16)).slice(-2); }).join(''); }
+  function bytes(u,limit){
+    var opts=limit?{headers:{'Range':'bytes=0-'+(limit-1)}}:{};
+    return fetch(u,opts).then(function(r){ if(!r.ok) throw new Error(u+' answered '+r.status); return r.arrayBuffer(); })
+      .then(function(a){ var b=new Uint8Array(a); return (limit&&b.length>limit)?b.subarray(0,limit):b; });
+  }
+  function play(pcm){
+    try{
+      var n=Math.floor(pcm.length/6), ctx=new (window.AudioContext||window.webkitAudioContext)({sampleRate:48000});
+      var buf=ctx.createBuffer(2,n,48000), L=buf.getChannelData(0), R=buf.getChannelData(1);
+      for(var i=0;i<n;i++){ var o=i*6;
+        var l=pcm[o]|(pcm[o+1]<<8)|(pcm[o+2]<<16); if(l&0x800000) l-=0x1000000;
+        var r=pcm[o+3]|(pcm[o+4]<<8)|(pcm[o+5]<<16); if(r&0x800000) r-=0x1000000;
+        L[i]=l/8388608; R[i]=r/8388608; }
+      var s=ctx.createBufferSource(); s.buffer=buf; s.connect(ctx.destination); s.start();
+    }catch(e){}
+  }
+  go.addEventListener('click',function(){
+    go.disabled=true; say('loading the machine, the decoder and the first '+SLICE.toLocaleString()+' bytes of the recording…');
+    Promise.all([bytes('machine/yantra_wasm.wasm'),bytes('machine/walker.elf'),bytes('grieg-mountain-king.flac',SLICE)]).then(function(got){
+      var wasm=got[0], elf=got[1], flac=got[2];
+      if(flac.length!==SLICE) throw new Error('got '+flac.length+' bytes of the recording, not '+SLICE);
+      return WebAssembly.instantiate(wasm,{}).then(function(res){
+        var w=res.instance.exports;
+        var mem=function(){ return new Uint8Array(w.memory.buffer); };
+        var put=function(n,d){ var p=w[n](d.length); mem().set(d,p); };
+        put('yantra_alloc',elf); put('yantra_input_alloc',flac); put('yantra_input_name_alloc',new TextEncoder().encode('परीक्षानिवेश'));
+        say('decoding ten frames… about ten seconds');
+        return new Promise(function(r){ setTimeout(r,40); }).then(function(){
+          var t0=performance.now(); var code=w.yantra_run(RAM,BUDGET); var secs=((performance.now()-t0)/1000).toFixed(1);
+          var halt=new TextDecoder().decode(mem().slice(w.yantra_halt_ptr(),w.yantra_halt_ptr()+w.yantra_halt_len()));
+          var pcm=mem().slice(w.yantra_out_ptr(),w.yantra_out_ptr()+w.yantra_out_len());
+          var steps=w.yantra_steps_known()? (w.yantra_steps_hi()*4294967296+w.yantra_steps_lo()) : null;
+          return crypto.subtle.digest('SHA-256',pcm).then(function(d){
+            var sha=hex(d), ok=(code===0&&sha===EXPECT_SHA);
+            say(['machine: '+halt,
+                 'audio out: '+pcm.length.toLocaleString()+' bytes'+(pcm.length===EXPECT_OCTETS?', as published':', expected '+EXPECT_OCTETS.toLocaleString()),
+                 'fingerprint, SHA-256: '+sha.slice(0,16)+'… '+(sha===EXPECT_SHA?'= ffmpeg\'s decode of the same ten frames':'≠ ffmpeg\'s, which begins '+EXPECT_SHA.slice(0,16)),
+                 'instructions executed: '+(steps===null?'not reported by this machine':steps.toLocaleString()+(steps===EXPECT_STEPS?' = the figure above':' ≠ the figure above, '+EXPECT_STEPS.toLocaleString())),
+                 'wall time in this browser: '+secs+' s'+(ok?'\n\nplaying the ten frames.':'')].join('\n'));
+            if(ok) play(pcm);
+          });
+        });
+      });
+    }).catch(function(e){
+      say('could not run here: '+(e&&e.message?e.message:String(e))+'\nIt needs about '+Math.round(RAM/1e6)+' MB of memory and a current browser.');
+    }).then(function(){ go.disabled=false; });
+  });
 })();
 </script>
 </body>

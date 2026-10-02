@@ -540,6 +540,20 @@
    "label": "venues on which one and the same decoder image produced the same audio digest and the same executed-instruction count: the three machines of attest_hosts (x86-64 Darwin, x86-64 Linux, aarch64 Linux) and the machine compiled to WebAssembly running in a web browser. The browser is a fourth EXECUTION MODEL, not a fourth instruction set; attest_isas stays 2 and the planned rung stays planned. Needs 553,753,920 octets of RAM for the image's .bss span, so a laptop, not a phone",
    "source": "the three hosts: sravan THESIS §8d (main d27391f): the walker image walkerown.elf as built by 1efe84e (md5 840563ce2c354e2049a7567319922832, 97,560 octets) run by sansos-39 on 2026-10-02 12:00Z under yantra-run built from sansos 34c9712a…; the browser: sansos trunk 65736af1 (yantra_input landed 498f4573, yantra_steps 65736af1), crates/yantra-wasm built with `cargo build -p yantra-wasm --target wasm32-unknown-unknown --release` on ubuntu-local (105,813 octets, md5 d048c7aac3de67a4732ad7d9852b0174); run by sansos-39 on 2026-10-02 18:19 EDT in headless Chrome 154 and in node 25 on the Mac, harness wt-sravan-real/.build/web/{harness.html,run.mjs}: walkerown.elf (md5 840563ce2c354e2049a7567319922832) in yantra_alloc, the page's grieg-mountain-king.flac sliced at 2,906 and 87,464 octets (byte-for-byte prefixes) in yantra_input_alloc, name परीक्षानिवेश, yantra_run(553753920, budget); code 0 both; yantra_steps_known 1, counts 11,096,335 and 225,995,199; outputs 24,576 and 245,760 octets with SHA-256 2590c468c066… and 21fd1c10bdda…, equal to the native outputs (md5 b21af4a687b42e2f890c4ed4603844d0 and 29fc76d8e0cc3ed935aa1f28498406d9)",
    "command": "node run.mjs yantra_wasm.wasm walkerown.elf ten.flac 300000000 553753920  # steps 225995199, md5 29fc76d8e0cc3ed935aa1f28498406d9; and harness.html in headless Chrome"
+  },
+  "demo_slice": {
+   "value": "87,464",
+   "status": "measured",
+   "label": "bytes the page cuts off the front of grieg-mountain-king.flac for the in-browser decode: the file's header and its first ten frames, byte-for-byte the vectors/grieg-10frames.flac the walker_steps10 figure was taken on (checked with cmp on 2026-10-02)",
+   "source": "sravan vectors/grieg-10frames.flac, 87,464 octets, a prefix of the Commons file; the next frame begins at octet 87,464",
+   "command": "cmp -n 87464 vectors/grieg-10frames.flac grieg-mountain-king.flac"
+  },
+  "demo_ram_mb": {
+   "value": "554",
+   "status": "measured",
+   "label": "MB of linear memory the browser machine is given for the decode (553,753,920 octets, the native runner's default); load_elf refuses below 536,971,808 because the compiler reserves a 512 MiB heap (.bss) in every image; the walker's own high water on the whole recording is 6,561,000 octets (whole_ram_octets). A consult to the toolchain lane on sizing the heap per image is open",
+   "source": "sansos crates/yantra-wasm at 65736af1, yantra_run(ram, budget); the refusal text names the figure: 'segment at 0x80000000 needs 536971808 bytes'",
+   "command": "yantra_run(553753920, 300000000) in index.html's Run-it-here script"
   }
  },
  "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."
