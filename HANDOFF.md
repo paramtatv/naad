@@ -186,7 +186,24 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r46, 2026-10-02 15:50 EDT, the proof ledger on a phone.** Below 640 px each "what ships"
+8. **2026-10-02 15:54 EDT, no page change: THE PER-READ BOUND MOVED TO THIS LANE.** Relayed by the
+   coordinator session (sansos-42) as the owner's decision of about 15:56 EDT: sansos-39
+   implements the O(1) overrun refusal in the frame reader on a dedicated branch;
+   sansos-4b reviews and merges; the branch is cut from sravan `main` only AFTER sansos-4b
+   announces the `agent/harness-depth` merge (the walker lives there, 21 commits ahead).
+   STREAMINFO-not-first and multichannel stay with sansos-4b. Nothing built yet. Design
+   sent to sansos-4b for objection before any code: window back to declared max framesize
+   + 64 (VERBATIM bound only when the file declares 0); the limit is the bit array's own
+   length, checked once per fixed-width read and per step in the two unary loops, inside
+   the decoder, with no signature change; one new refusal code; on that code the walker
+   enlarges the window once to the VERBATIM bound and re-decodes the frame, so a file that
+   lies small still decodes and an honest file never pays. Acceptance: `faulty/` 11 of 11
+   with the same statuses and output digests, IETF 57 and 7 with the same MD5s, the Grieg
+   whole-file md5, a both-engine truncated-array test; controls: bound removed (fault
+   returns), retry removed (named refusal, no audio), floor restored (today's step count).
+   Product-path figures are re-taken after sansos-4b's merge, then: two step counts into
+   `figures.json`, run the gate, copy what it prints.
+   **r46, 2026-10-02 15:50 EDT, the proof ledger on a phone.** Below 640 px each "what ships"
    row put its status tag in a left column a third of the row wide and squeezed the words
    into a ribbon about 210 px across; rows ran to 1,100 px. The tag now sits above the
    words (CSS only). The page is 1,650 px shorter at 390 px; no overflow. Also the small
@@ -296,7 +313,7 @@ one was fooled before: a content grep matched a substring that survived between 
    running the parent and child images left on ubuntu-local by the W-361 pair
    (e22a87a3 11,422,135; 3d905c37 8,602,692), so the 24.7% gain is 3d905c37 alone (sravan
    THESIS §8d). Every label that still says "owed" (the eight walker and speed figures) is
-   a live debt: the per-read bound in sansos-4b's lane.
+   a live debt: the per-read bound (in this lane since 2026-10-02, see above).
    **r37, 2026-10-02 14:57 EDT, three stale statements corrected after viewing the rendered
    page** (headless Chrome at 1280 and 500 px; the r36 regions render cleanly, no overflow):
    (a) the ledger's "Attestation ... has not been run on Naad" contradicted the r35 row two
