@@ -106,8 +106,12 @@ largest buffer is 131,072 slots = 1.000 MiB beside धारा (the format's bo
 4 MiB and no corpus file approaches it; keep both apart); and a W-359 pre-fill costs
 **48.86 instructions per indexed write** (bare fill probes: 1 slot 167, 524,288 slots
 25,618,915), so sizing for the format's bound would cost 25.6 M instructions on every run.
-That per-write figure is a toolchain question handed to sansos-e0: the walker's bit window
-is one word per bit, written one at a time. Nothing on the page claims the output half is
+That per-write figure is Sassembly **W-338** (e0, 14:40Z): ~28 executed instructions per
+indexed write into a pre-sized arena, ~49 in a growing fill, the difference a per-write
+length-raise when index == length (ir.t1:1600-1605), not the growth routine; W-356's fix
+will not move it. The walker's bit window is one word per bit written one at a time, so its
+share is addressable by pre-sizing in the declaring frame; e0's prediction (49 -> ~28 when
+pre-sized) is registered and sansos-4b owns the probes to kill it. Nothing on the page claims the output half is
 ready. The `.t1` ENCODER
 has started (sravan `kernel/sanketaka.t1`: frame header, CONSTANT/VERBATIM subframes,
 verified against the Python oracle's packed bits and round-tripped through निःशेष; 957d4de,
