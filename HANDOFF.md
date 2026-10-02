@@ -60,7 +60,7 @@ Two figures the earlier page conflated are now kept apart on purpose: the **enco
 10 frames, 78 headers and 64 type codes (`.t1`, both engines). "Naad clears all 64" was
 the Rust decoder in `crates/nada`, which is a different program. **Encoder state as of
 2026-10-02 07:15Z:** the Python reference now EMITS complete FLAC files (sravan
-`agent/encoder` `dffabb4`, sansos-4b): `flac -d` and `ffmpeg` reproduce the input PCM
+`agent/encoder` `c2d21a2`, sansos-4b): `flac -d` and `ffmpeg` reproduce the input PCM
 bit-exactly on four subjects (mono, stereo, 3-channel) and `metaflac` confirms the written
 MD5. It uses fixed predictors, one partition, no LPC, so its files are +15% to +35% over
 `flac -8`; that is NOT a ratio figure and must not reach the page as one. The +0.1%/+0.2%
