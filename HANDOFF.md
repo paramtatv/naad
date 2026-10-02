@@ -225,10 +225,14 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## Known-open
 
-- **The speed tiles use the PRODUCT PATH since r25 (2026-10-02 03:50Z):** the whole-record
-  walker reading the real Grieg file, 2,866 instructions per channel-sample on the current
-  tree (slope of the one-frame and ten-frame runs, 23,480,301 per 4,096×2 frame; figures
-  `walker_*`), so realtime 4.0×, phone 19× / 6%, laptop 42×. The 1,500 figure (`ipcs`) is the
+- **The speed tiles use the PRODUCT PATH since r25 (2026-10-02 03:50Z), and the CURRENT
+  WALKER since r32 (12:10Z):** the whole-record walker reading the real Grieg file,
+  **3,076** instructions per channel-sample on walker 15a6588 (slope of the one-frame and
+  ten-frame runs, 25,201,023 per 4,096×2 frame; image `w15a6588.elf` md5 66feb91e…, a copy
+  under wt-sravan-real/.build/; figures `walker_*`), so realtime 3.7×, phone 18× / 6%,
+  laptop 39×. History: walker 68ca747 measured 2,866 (23,480,301 per frame). The
+  max-framesize floor costs +7.3% on this recording and +47.9% on IETF file 01: input-
+  dependent; re-take owed when a per-read bound replaces the floor. The 1,500 figure (`ipcs`) is the
   embedded synthetic test path and stays in the Decode-cost row labelled as such; its re-take
   on the current tree is IMPOSSIBLE: 34c9712a refused pariksha_t10 (10,346 lines) at link after
   268.7 G interpreted steps and 10h47m (load-dependent "no site … empty image", the signature
