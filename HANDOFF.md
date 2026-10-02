@@ -121,13 +121,15 @@ one was fooled before: a content grep matched a substring that survived between 
 8. **Naad and Śravaṇa are licensed products, not free ones.** Owner's ruling, 2026-10-01.
    No "royalty-free", "no fee", "open", "nobody owns it" or "no subscription" promise
    anywhere on the page. The listener-side promise is that files do not expire with an
-   account; the maker-side promise is that Naad is licensed to them. **OPEN CONFLICT,
-   owner's call before anything is public:** `sravan`'s LICENSE, README and THESIS say BSD
-   3-Clause, and `kernel/` on this page is a verbatim copy under that notice with a public
-   "read the decoder" link. A BSD notice grants royalty-free use. Decision taken at publish time,
-   2026-10-01: the vendored decoder and its links are OFF the public page until the owner settles
-   the licence; withholding is reversible, publishing source is not. `tools/check-figures.py`
-   re-takes lines and routines from `kernel/` only when it is present.
+   account; the maker-side promise is that Naad is licensed to them. **CONFLICT SETTLED
+   2026-10-01 21:05 EDT by the owner: "don't worry about license - change BSD3 to AGPL3."**
+   `sravan`'s LICENSE is now GNU AGPL v3 (commit `8907df2` on `stream`, canonical gnu.org
+   text, the same licence this repository carries). History: `sravan` said BSD 3-Clause, which
+   grants royalty-free use, so on 2026-10-01 the vendored `kernel/` copy and its "read the
+   decoder" link were taken OFF the public page pending this ruling. Under AGPL the decoder
+   source may return to the page; it has not yet, and `tools/check-figures.py` re-takes lines
+   and routines from `kernel/` only when it is present. The page wording "licensed to the
+   makers" stays: AGPL is the public licence, and commercial terms for gear are separate.
 
 ## 6. Names
 
