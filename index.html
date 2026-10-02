@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-02 public r45 readable-bands">
+<meta name="naad-build" content="2026-10-02 public r46 phone-ledger">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -367,13 +367,15 @@
   .row .d b{color:var(--ink)}
   .row .v{font-family:var(--f-display); font-weight:900; font-size:27px; color:#fff; line-height:1}
   @media (min-width:880px){ .row .v{text-align:right} }
-  .row .v small{display:block; font-family:var(--f-mono); font-size:10px; font-weight:500; letter-spacing:.12em; color:var(--ink-3); margin-top:8px}
+  .row .v small{display:block; font-family:var(--f-mono); font-size:10px; font-weight:500; letter-spacing:.12em; color:var(--ink-3); margin-top:8px; line-height:1.5}
   .ledger{margin-top:24px; overflow:hidden; padding:0}
   .ledger .hd{padding:15px 22px; border-bottom:1px solid var(--line)}
   .ledger .hd span{font-family:var(--f-mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3)}
   .ledger ul{margin:0; padding:0; list-style:none}
   .ledger li{display:grid; grid-template-columns:auto 1fr; gap:14px; padding:12px 22px; align-items:baseline; border-bottom:1px solid var(--line)}
   .ledger li:last-child{border-bottom:0}
+  /* On a phone the status tag takes a third of the row and squeezes the words into a ribbon; put the tag above them. */
+  @media (max-width:640px){ .ledger li{grid-template-columns:1fr; gap:8px; padding:16px 18px} .ledger li > .tag{justify-self:start} }
   .ledger li span:last-child{font-size:15px; color:var(--ink-2)}
   .ledger li span:last-child b{color:var(--ink)}
   .stackline{margin-top:24px; padding:28px 30px 30px}

@@ -186,7 +186,13 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r45, 2026-10-02 15:47 EDT, the three scene bands are readable at every width.** A
+8. **r46, 2026-10-02 15:50 EDT, the proof ledger on a phone.** Below 640 px each "what ships"
+   row put its status tag in a left column a third of the row wide and squeezed the words
+   into a ribbon about 210 px across; rows ran to 1,100 px. The tag now sits above the
+   words (CSS only). The page is 1,650 px shorter at 390 px; no overflow. Also the small
+   label under a sheet figure had line-height 1 and its two lines touched; now 1.5.
+   Desktop unchanged.
+   **r45, 2026-10-02 15:47 EDT, the three scene bands are readable at every width.** A
    phone-width pass (390 px, measured in an iframe because headless Chrome will not go
    below 500): no horizontal overflow, no text under 10 px, but in "Your room" and "Yours,
    for good" the words sat on top of the picture's subject (white text over the crate's
@@ -364,7 +370,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r45 as of 2026-10-02 15:47 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r46 as of 2026-10-02 15:50 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
