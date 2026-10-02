@@ -188,10 +188,21 @@ one was fooled before: a content grep matched a substring that survived between 
    `stream` commits merged; the LICENSE, README and THESIS footer agree. The vendored
    decoder may now return to this page under the same licence when the owner wants it;
    `tools/check-figures.py` re-takes lines and routines from `kernel/` when it is present.
-   History of the item follows. Also relayed by sansos-4b at 14:58Z, to be confirmed by the
-   owner before the page frames around it: **Darśana's D4 launches as an audio archive
-   container carrying ŚRAVAṆA's `.t1` decoder**, not Darśana's image decoder, which puts
-   `sravan/kernel` on D4's critical path.
+   History of the item follows. **D4 ruling (first-hand to sansos-4b, 2026-10-02, recorded
+   verbatim in Darśana THESIS a02638c):** Darśana's D4 launches as the `.smp` audio-only
+   archive container carrying ŚRAVAṆA's `.t1` audio decoder; "archives are decoded once
+   rather than played back in real time, so decoder execution speed is non-blocking at
+   launch"; isolation: zero ambient authority in the bounded arena, stream-only I/O over the
+   पत्रम् window with no syscalls or network, a deterministic `YANTRA_STEPS` cap. That puts
+   `sravan/kernel` on D4's critical path, ranked by SAFETY first: the per-read overrun bound
+   and the STREAMINFO-not-first gap decide whether an untrusted archive can be opened
+   without a fault; multichannel is coverage. **Page framing is held for the owner's word in
+   sansos-39's session** (nothing public unseen): proposed Frontier row text is "Naad's
+   decoder is the one the Darśana archive carries inside the file; what it still owes that
+   container is listed here, safety items first." Also for the owner, from sansos-4b: an
+   AGPL decoder shipped inside a payload file has copyleft reach over whoever redistributes
+   the payload; Darśana's thesis states it deliberately, and a page that frames D4 as a
+   deployment story should not be silent about it.
    **Naad and Śravaṇa are licensed products, not free ones.** Owner's ruling, 2026-10-01.
    No "royalty-free", "no fee", "open", "nobody owns it" or "no subscription" promise
    anywhere on the page. The listener-side promise is that files do not expire with an
