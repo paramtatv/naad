@@ -281,8 +281,12 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    owner** (`self-host-fonts` fb0085d, pushed, not merged; main is live). Five woff2 files,
    340 KB, under `fonts/` with their OFL texts; twelve inline `@font-face` rules; falsifier
    run in headless Chrome with fonts.googleapis.com and fonts.gstatic.com blocked (both
-   families render; a control without `fonts/` falls back visibly); gate green. Add an
-   `og:image` card for Naad (the one in `brand-assets/` is Paramtatva's): NEXT, same branch.
+   families render; a control without `fonts/` falls back visibly); gate green. The
+   `og:image` card for Naad is also on that branch (47fbf16): `og-card.svg` hand-authored at
+   1200×630 in the page's palette, referencing `record.svg` and `logo.svg`, and `og-card.png`,
+   its headless-Chrome render (scrapers do not read SVG; render at a virtual-time budget that
+   is a whole number of the record's 1.8 s turns so the label sits upright), with `og:image`
+   and `twitter:card` meta tags. Both wait for the owner's merge word.
    Decide on analytics or decide against them in writing.
    §7.3 note: attestation's first measurement exists (one image, three hosts, two ISAs, one
    digest; sravan THESIS §8d); the page's planned rung stays planned until a third ISA or
