@@ -409,7 +409,22 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    `run`; it is e0's lane (adjacent to W-350) and e0 will put it to the owner. Naad's need,
    as sent: one ~100 KB walker image, one injected FLAC file found by the same `SASINPUT`
    scan as native, PCM read back through `yantra_out_ptr/len`. Do not build until that
-   export is on the trunk; do not bake a frame. The pinned `.build/tc-34c9712a/t1_image`
+   export is on the trunk; do not bake a frame.
+   **UPDATE 15:37 EDT 2026-10-02: the export exists on a branch, owner-approved, not landed.**
+   sansos `agent/wasm-input` 1119c792: `yantra_input_alloc(len)` and
+   `yantra_input_name_alloc(len)` (the module name is required, as natively), `inject`
+   called before `run` exactly as `yantra-run` does, refusal is code 13 with the reason in
+   `yantra_halt_ptr`. Read here as the first caller, not built; it fits. Facts for whoever
+   builds the page side once it is on the trunk: (i) `budget` is u32, so one call runs at
+   most 4,294,967,295 steps, about 171 frames; the demo is ONE and TEN frames (the whole
+   recording is about 45.5 G steps and is not a browser job); (ii) `vectors/grieg-1frame.flac`
+   and `grieg-10frames.flac` are byte-for-byte prefixes of the page's own
+   `grieg-mountain-king.flac` (2,906 and 87,464 octets), so the page slices the file it
+   already serves and ships no new input; (iii) acceptance: PCM md5
+   29fc76d8e0cc3ed935aa1f28498406d9 (ten frames, = ffmpeg) AND the native step count to
+   the instruction, which would make wasm Naad's third instruction set; (iv) the `.wasm`
+   must be served from this repo (no third-party asset; the gate's check 7 will refuse
+   anything else), size not yet known, asked of e0. The pinned `.build/tc-34c9712a/t1_image`
    (md5 1591d0e8, mtime 2026-10-01 14:23 EDT, clean checkout) is NOT the stale binary.
 5. Self-host the two font families: **DONE ON A BRANCH, 2026-10-02 18:25Z, held for the
    owner** (`self-host-fonts` fb0085d, pushed, not merged; main is live). Five woff2 files,
