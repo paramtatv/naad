@@ -239,7 +239,12 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
   ten-frame re-takes were stopped before building. No test embeds
   data as literals from here; the host-fed walker is the timing subject. One
   toolchain tree for all Śravaṇa native figures: 19c3c8f3, whose compiler sources and spec
-  are byte-identical to 34c9712a (checked by `git diff --stat`).
+  are byte-identical to 34c9712a (checked by `git diff --stat`). **These figures are walker
+  68ca747's.** The later walker 15a6588 (declared max framesize as a floor, a safety fix)
+  costs +47.9% instructions on the same input (sansos-4b 090d8e0: the bit window grows
+  2.6x per frame on 63 of 64 honest files); the right fix is an O(1) overrun refusal in the
+  frame reader, approved, after which the product-path figures are re-taken, not scaled.
+  Every affected figure's source in figures.json carries this note.
 - The page was pinned to `sravan@85f90b2` (octet-wise CRC landed, 1,500 instructions per
   channel-sample, 7.6× at 1 GHz / IPC 1). The timing figures were re-taken on the fixed kernel (sravan real-frame f631d7d) and came
   back identical to the instruction. ALL native counts were taken on a 2026-09-27 toolchain
