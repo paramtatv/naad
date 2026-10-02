@@ -197,7 +197,12 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
   tree (slope of the one-frame and ten-frame runs, 23,480,301 per 4,096×2 frame; figures
   `walker_*`), so realtime 4.0×, phone 19× / 6%, laptop 42×. The 1,500 figure (`ipcs`) is the
   embedded synthetic test path and stays in the Decode-cost row labelled as such; its re-take
-  on the current tree (pariksha_t2/t10, 8.5 h compiling) lands beside it when done. One
+  on the current tree is IMPOSSIBLE: 34c9712a refused pariksha_t10 (10,346 lines) at link after
+  268.7 G interpreted steps and 10h47m (load-dependent "no site … empty image", the signature
+  the old tree showed only at 30,533 lines; W-330's per-site image growth lowered the ceiling,
+  see W-361). pariksha_t2 was refused identically (268,739,744,400 steps); the superseded
+  ten-frame re-takes were stopped before building. No test embeds
+  data as literals from here; the host-fed walker is the timing subject. One
   toolchain tree for all Śravaṇa native figures: 19c3c8f3, whose compiler sources and spec
   are byte-identical to 34c9712a (checked by `git diff --stat`).
 - The page was pinned to `sravan@85f90b2` (octet-wise CRC landed, 1,500 instructions per

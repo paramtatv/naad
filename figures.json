@@ -68,7 +68,7 @@
   "ipcs": {
    "value": "1,500",
    "status": "measured",
-   "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; EMBEDDED SYNTHETIC TEST PATH (pariksha_t2/t10, one LPC-8 frame as literals), old compiler tree (51598b3c); its re-take on the current tree was still compiling at 2026-10-02 03:47Z; the product path's figure is walker_ipcs",
+   "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; EMBEDDED SYNTHETIC TEST PATH (pariksha_t2/t10, one LPC-8 frame as literals), old compiler tree (51598b3c); its re-take on the current tree is IMPOSSIBLE: the 34c9712a compiler tree refused the 10,346-line file at link after 268,739,747,948 interpreted steps (load-dependent, empty image; sravan THESIS §6), so this figure stays the 51598b3c tree's; the current tree's timing figure is the product path, walker_ipcs",
    "source": "sravan real-frame f631d7d, re-taken on the fixed kernel: slope (16,585,091 − 4,299,531)/8 = 1,535,695 per frame of 1,024 channel-samples; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
    "command": "reference/gentiming.py, two-point slope"
   },
@@ -278,7 +278,7 @@
   "timing_retake": {
    "value": "1,535,695",
    "status": "measured",
-   "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; EMBEDDED SYNTHETIC TEST PATH (pariksha_t2/t10, one LPC-8 frame as literals), old compiler tree (51598b3c); its re-take on the current tree was still compiling at 2026-10-02 03:47Z; the product path's figure is walker_ipcs",
+   "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; EMBEDDED SYNTHETIC TEST PATH (pariksha_t2/t10, one LPC-8 frame as literals), old compiler tree (51598b3c); its re-take on the current tree is IMPOSSIBLE: the 34c9712a compiler tree refused the 10,346-line file at link after 268,739,747,948 interpreted steps (load-dependent, empty image; sravan THESIS §6), so this figure stays the 51598b3c tree's; the current tree's timing figure is the product path, walker_ipcs",
    "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
    "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
   },
