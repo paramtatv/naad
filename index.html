@@ -948,7 +948,8 @@
         });
       });
     }).catch(function(e){
-      say('could not run here: '+(e&&e.message?e.message:String(e))+'\nIt needs about '+Math.round(RAM/1e6)+' MB of memory and a current browser.');
+      var why=(e instanceof WebAssembly.RuntimeError)?'this browser would not give the machine its '+Math.round(RAM/1e6)+' MB of memory':(e&&e.message?e.message:String(e));
+      say('could not run here: '+why+'.\nIt needs about '+Math.round(RAM/1e6)+' MB of memory and a current browser; a laptop, not a phone.');
     }).then(function(){ go.disabled=false; });
   });
 })();
