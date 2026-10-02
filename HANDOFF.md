@@ -149,9 +149,16 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    refusal, and writes 24-bit PCM out. No data literal, so a corpus run is one small image
    run per file. Interpreted (`t1_image --input … --predict-sink`): the whole Commons
    recording, 1,806 frames, decodes sample-exact against the MD5 the encoder stored in the
-   file's own STREAMINFO (= ffmpeg's s24le). Native run (`YANTRA_INPUT=<file> yantra-run`)
-   is next; the page claims nothing from this until that lands. Must build on a tree with
-   the W-306 narrow-store fix (6365e334); 34c9712a has it.
+   file's own STREAMINFO (= ffmpeg's s24le). **Native run landed 2026-10-01 21:24 EDT**
+   (sansos-4b, sravan `68ca747` on `agent/4b-native-walker`, toolchain `19c3c8f3` for host,
+   compiler sources and spec): 44,378,214 octets, the same md5, RAM high water 6,561,000
+   octets. The page's player block now says "Naad has played this whole record" (figures
+   `whole_*`). Two cautions carried on the page: the figure exists only on a tree with the
+   W-359 workaround (an array grown in a callee loses its growth natively; `fe0056e` answers
+   101 and emits nothing), and no wall time or realtime factor is published from that run
+   because the machine was shared with the SQAM corpus run. Must build on a tree with the
+   W-306 narrow-store fix (6365e334); 34c9712a and 19c3c8f3 have it. The recording is
+   48 kHz, 7,396,369 samples per channel, 154.1 s; a peer's 167.7 s assumed 44.1 kHz.
 2b. **The sequence test, superseded for everything but its counts.** `sravan` branch `real-frame` now walks the
    first frames of the Commons file in order (`reference/genstream.py`, `pariksha_s.t1`,
    frames packed eight octets to a word; ten frames green on both engines with the cursor carried, so boundaries are

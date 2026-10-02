@@ -1,315 +1,357 @@
 {
-  "_about": "Every number on index.html is a data-fig span whose text must equal a value here. tools/check-figures.py refuses the page otherwise. status is one of measured | projected | planned. source names the repository, commit and file or section the value was read from; command is how to take it again.",
-  "figures_date": "2026-09-30 (sravan@85f90b2)",
-  "figures": {
-    "lines": {
-      "value": "1,290",
-      "status": "measured",
-      "label": "lines in the decoder, both files",
-      "source": "sravan@85f90b2 kernel/nihshesha.t1 (1,159) + kernel/mapana.t1 (131); vendored here under kernel/",
-      "command": "wc -l kernel/nihshesha.t1 kernel/mapana.t1"
-    },
-    "routines": {
-      "value": "25",
-      "status": "measured",
-      "label": "public routines, both files",
-      "source": "sravan@85f90b2: 21 in nihshesha.t1 + 4 in mapana.t1",
-      "command": "grep -c 'सार्वजनिक वृत्तिः' kernel/nihshesha.t1 kernel/mapana.t1"
-    },
-    "foreign": {
-      "value": "0",
-      "status": "measured",
-      "label": "lines of C, C++, Rust or assembly in the decode path",
-      "source": "sravan kernel/ contains only .t1 and README.md; the Python under reference/ is the encoder and the oracle, not the decode path",
-      "command": "find kernel -type f -not -name '*.t1' -not -name '*.md' | wc -l"
-    },
-    "frames": {
-      "value": "10",
-      "status": "measured",
-      "label": "complete FLAC frames graded, plus three that must be refused",
-      "source": "sravan THESIS.md §8c, 'The whole frame'",
-      "command": "see kernel/pariksha_f.t1 subjects"
-    },
-    "headers": {
-      "value": "78",
-      "status": "measured",
-      "label": "complete frame headers, all four code spaces enumerated",
-      "source": "sravan THESIS.md §8c, 'The frame header'",
-      "command": "see kernel/pariksha_h.t1 subjects"
-    },
-    "typecodes": {
-      "value": "64",
-      "status": "measured",
-      "label": "subframe type codes, 39 legal and 25 reserved, every one classified or refused",
-      "source": "sravan THESIS.md §8c, 'The subframe header'",
-      "command": "see kernel/pariksha_t*.t1 subjects"
-    },
-    "mutations": {
-      "value": "17",
-      "status": "measured",
-      "label": "kernel mutations, each caught by the subject built for it",
-      "source": "sravan THESIS.md §8c: 3 (dispatcher) + 9 (header, CRCs, stereo) + 5 (whole frame)",
-      "command": "count the kernel-mutation rows in THESIS.md §8c"
-    },
-    "crc8": {
-      "value": "0xF4",
-      "status": "measured",
-      "label": "CRC-8 over b\"123456789\", the published check value",
-      "source": "sravan THESIS.md §8c; catalogue value for poly 0x07",
-      "command": "python3 -c \"import crcmod\" or any published CRC catalogue"
-    },
-    "crc16": {
-      "value": "0xFEE8",
-      "status": "measured",
-      "label": "CRC-16/UMTS over b\"123456789\", the published check value",
-      "source": "sravan THESIS.md §8c; catalogue value for poly 0x8005 init 0",
-      "command": "any published CRC catalogue"
-    },
-    "ipcs": {
-      "value": "1,500",
-      "status": "measured",
-      "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
-      "source": "sravan real-frame f631d7d, re-taken on the fixed kernel: slope (16,585,091 − 4,299,531)/8 = 1,535,695 per frame of 1,024 channel-samples; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
-      "command": "reference/gentiming.py, two-point slope"
-    },
-    "realtime": {
-      "value": "7.6×",
-      "status": "measured",
-      "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
-      "source": "sravan real-frame f631d7d, realtime_factor = 1,535,695 × 44100/512 / 1e9 = 0.132; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
-      "command": "1 / (1500 × 44100 × 2 / 1e9)"
-    },
-    "crcshare": {
-      "value": "24.0%",
-      "status": "measured",
-      "label": "share of decode cost spent in CRC-16 after the octet-wise table; was 37.1% before it",
-      "source": "sravan@85f90b2; THESIS.md §6 S1, 367,838 of 1,535,695 per frame; the full-decoder total re-taken identical on the fixed kernel (f631d7d), CRC code untouched by the fix",
-      "command": "reference/gentiming.py against a kernel with CRC-16 removed"
-    },
-    "ratio": {
-      "value": "+0.1%",
-      "status": "measured",
-      "label": "coded size versus flac -8, the ENCODER, in Python, as an exact bit count and not an emitted stream",
-      "source": "sravan@9d1ceed; THESIS.md §6 S1 table, 52.8% vs 52.7%",
-      "command": "reference/bench_ietf.py"
-    },
-    "corpus": {
-      "value": "64 of 64",
-      "status": "measured",
-      "label": "IETF FLAC test files the encoder figure covers; nothing skipped",
-      "source": "sravan@9d1ceed; ietf-wg-cellar/flac-test-files",
-      "command": "reference/bench_ietf.py"
-    },
-    "toolchain": {
-      "value": "12",
-      "status": "measured",
-      "label": "MB, the whole Sassembly toolchain: 12,124,352 octets",
-      "source": "sansos vision.md rev 2026-09-28, metric shipped_bytes",
-      "command": "metric shipped_bytes in .loop/METRICS.tsv"
-    },
-    "fixpoint_date": {
-      "value": "2026-09-22",
-      "status": "measured",
-      "label": "the day the compiler compiled itself byte for byte",
-      "source": "sansos vision.md §5",
-      "command": "tools/fixpoint.sh, Stage 2 == Stage 1"
-    },
-    "attest_k": {
-      "value": "3",
-      "status": "planned",
-      "label": "instruction sets that must yield one digest of the decoded samples; Darśana reached this for a transform, Naad has not yet",
-      "source": "sravan THESIS.md §6 S4; Darsan README decode_hash_agreement = 1 at k = 3",
-      "command": "not yet taken for Naad"
-    },
-    "drift": {
-      "value": "0.0000%",
-      "status": "measured",
-      "label": "frame-to-frame drift in decode cost: the model predicted 12,097,471 instructions for a run and 12,097,471 were measured",
-      "source": "naad HANDOFF.md at 620b1b3, carried from sravan reference/gentiming.py",
-      "command": "reference/gentiming.py, predicted vs measured instruction count"
-    },
-    "engines": {
-      "value": "2",
-      "status": "measured",
-      "label": "independent engines that must agree on every result: an interpreter on the source, and the compiled RISC-V image",
-      "source": "sravan THESIS.md §8c, 'green on both engines'",
-      "command": "t1_image --predict-only (interpreter) and yantra-run (native) on the same test"
-    },
-    "rt_phone": {
-      "value": "36×",
-      "status": "projected",
-      "label": "real time on a phone big core, 2.4 GHz at 2 instructions per cycle, from the same 1,500 instructions per channel-sample",
-      "source": "projection from sravan@85f90b2 ipcs",
-      "command": "4.8e9 / (1500 × 44100 × 2)"
-    },
-    "core_phone": {
-      "value": "3%",
-      "status": "projected",
-      "label": "of one phone big core busy decoding stereo 44.1 kHz; 2.8% rounded up",
-      "source": "projection from sravan@85f90b2 ipcs at 2.4 GHz, IPC 2",
-      "command": "(1500 × 44100 × 2) / 4.8e9"
-    },
-    "rt_laptop": {
-      "value": "79×",
-      "status": "projected",
-      "label": "real time on a laptop core, 3.5 GHz at 3 instructions per cycle",
-      "source": "projection from sravan@85f90b2 ipcs",
-      "command": "10.5e9 / (1500 × 44100 × 2)"
-    },
-    "crc_gain": {
-      "value": "1.21×",
-      "status": "measured",
-      "label": "whole-decoder speedup from the octet-wise CRC, inside the 1.20–1.28× band registered before the build",
-      "source": "sravan@85f90b2 commit message and THESIS.md §6 S1",
-      "command": "1,857,669 / 1,535,695"
-    },
-    "dyn": {
-      "value": "sixteen",
-      "status": "measured",
-      "label": "times louder: RMS of 140-150 s against RMS of 0-10 s of the Grieg recording, 24.3 dB, which is 16.4x in amplitude",
-      "source": "tools/song-wave.py over the Commons original; opening -37.5 dBFS, ending -13.2 dBFS",
-      "command": "python3 tools/song-wave.py"
-    },
-    "song_fmt": {
-      "value": "24-bit / 48 kHz",
-      "status": "measured",
-      "label": "format of the source recording and of the shipped excerpt",
-      "source": "ffprobe on the Commons original, shipped unchanged as grieg-mountain-king.flac (md5 4655be52db91a64bac7b575f4124e9e4)",
-      "command": "ffprobe -show_entries stream=sample_rate,bits_per_raw_sample grieg-mountain-king-ending.flac"
-    },
-    "song_len": {
-      "value": "2:34",
-      "status": "measured",
-      "label": "length of the whole recording, 154.09 s",
-      "source": "ffprobe on the Commons original",
-      "command": "ffprobe -show_entries format=duration"
-    },
-    "s_norm": {
-      "value": "96",
-      "status": "measured",
-      "label": "kbps of the Normal-quality stream version, Ogg Vorbis, made from the same master",
-      "source": "ffprobe grieg-mountain-king-96k.ogg: vorbis, 48000 Hz, 96000 b/s",
-      "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-96k.ogg"
-    },
-    "s_high": {
-      "value": "160",
-      "status": "measured",
-      "label": "kbps of the High-quality stream version, Ogg Vorbis, made from the same master",
-      "source": "ffprobe grieg-mountain-king-160k.ogg: vorbis, 48000 Hz, 160000 b/s",
-      "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-160k.ogg"
-    },
-    "real_samples": {
-      "value": "40,960",
-      "status": "measured",
-      "label": "samples per channel of the Grieg recording, its first ten frames (0.853 s), decoded in sequence by Naad's decoder and returned identical to ffmpeg's decode, both channels, independent stereo and mid/side, on the interpreter and on the native RV64 image",
-      "source": "sravan stream 1b00c3a: pariksha_s.t1 (F = 10, from the file's first byte) predict -> 0 and halt status Some(0); controls 5 (fold), 8 (boundary), 101 (marker), 114 (STREAMINFO field)",
-      "command": "python3 reference/genstream.py 10; t1_image ... --entry परीक्षाप्रवाह मुख्यम् ; yantra-run"
-    },
-    "real_steps": {
-      "value": "8,602,692",
-      "status": "measured",
-      "label": "native instructions to decode frame 0 of the recording and check both folds, including setup; current compiler tree (origin/main 34c9712a); the old tree gave 11,422,135, the difference being compiler codegen, commit pending",
-      "source": "sravan stream (pariksha_r.t1 blob 9e7db3b7) built with --compiler and --spec-root from sansos origin/main 34c9712a, host t1_image md5 1591d0e8, yantra-run md5 494573a4297f; predict -> 0, halt Some(0)",
-      "command": "t1_image --spec-root <34c9712a>/spec --compiler <34c9712a>/crates/sadhana-t1/src ... --entry परीक्षार मुख्यम्; yantra-run"
-    },
-    "mkt_live": {
-      "value": "$23.2B",
-      "status": "measured",
-      "label": "Live Nation Entertainment revenue, full year 2024, the largest live-music company; 151 million fans attended its shows",
-      "source": "Live Nation Form 10-K for FY2024, sec.gov; Billboard 2025-02-20",
-      "command": "https://www.sec.gov/Archives/edgar/data/1335258/000133525825000028/lyv-20241231.htm"
-    },
-    "mkt_fans": {
-      "value": "151 million",
-      "status": "measured",
-      "label": "fans at Live Nation shows in 2024",
-      "source": "Live Nation full-year 2024 results",
-      "command": "https://www.billboard.com/pro/live-nation-earnings-full-year-2024-revenue-record-23-billion/"
-    },
-    "mkt_rec": {
-      "value": "$29.6B",
-      "status": "measured",
-      "label": "global recorded-music revenue, 2024, all formats",
-      "source": "IFPI Global Music Report 2025",
-      "command": "https://www.musicbusinessworldwide.com/global-recorded-music-revenues-hit-29-6bn-in-2024-up-4-8-yoy-users-of-paid-music-subscriptions-reach-752m/"
-    },
-    "mkt_stream": {
-      "value": "$20.4B",
-      "status": "measured",
-      "label": "global streaming revenue, 2024, 69% of recorded music; 752 million paid subscribers",
-      "source": "IFPI Global Music Report 2025",
-      "command": "https://www.billboard.com/pro/ifpi-global-report-2025-music-revenue-market-share-ai/"
-    },
-    "mkt_subs": {
-      "value": "752 million",
-      "status": "measured",
-      "label": "paid music-subscription users worldwide, end of 2024",
-      "source": "IFPI Global Music Report 2025",
-      "command": "https://www.musicbusinessworldwide.com/global-recorded-music-revenues-hit-29-6bn-in-2024-up-4-8-yoy-users-of-paid-music-subscriptions-reach-752m/"
-    },
-    "mkt_hw": {
-      "value": "454.6 million",
-      "status": "measured",
-      "label": "headphones of all types shipped worldwide in 2024",
-      "source": "Canalys, 2025-03-03",
-      "command": "https://tadviser.com/index.php/Article:Headphones_(Global_Market)"
-    },
-    "mkt_dolby": {
-      "value": "$1.18B",
-      "status": "measured",
-      "label": "Dolby Laboratories licensing revenue, fiscal 2024: what one licensed audio technology earns from the gear it sits inside",
-      "source": "Dolby Form 10-K FY2024, sec.gov: licensing revenue $1,181,794 thousand",
-      "command": "https://www.sec.gov/Archives/edgar/data/1308547/000162828024048519/dlb-20240927.htm"
-    },
-    "master_x": {
-      "value": "10×",
-      "status": "measured",
-      "label": "the master's bits against the 160 kbps stream, from the files on this page: 25,778,747 / 2,621,694 = 9.8",
-      "source": "grieg-mountain-king.flac and grieg-mountain-king-160k.ogg sizes",
-      "command": "ls -l grieg-mountain-king.flac grieg-mountain-king-160k.ogg"
-    },
-    "real_frames": {
-      "value": "ten",
-      "status": "measured",
-      "label": "consecutive frames of the Grieg file decoded natively in one run: 0 (independent stereo), 1 to 9 (mid/side)",
-      "source": "sravan@5e9c1a6",
-      "command": "python3 reference/genstream.py 10"
-    },
-    "timing_retake": {
-      "value": "1,535,695",
-      "status": "measured",
-      "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
-      "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
-      "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
-    },
-    "seq_steps": {
-      "value": "200,463,153",
-      "status": "measured",
-      "label": "native instructions to read the file's header, check STREAMINFO, then unpack and decode ten frames with the cursor carried, checking twenty folds and ten boundaries, including setup; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
-      "source": "sravan stream 1b00c3a (pariksha_s.t1: STREAMINFO read, boundaries found by the decoder, flac -a map and metaflac as witnesses), yantra-run steps line; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
-      "command": "YANTRA_STEPS=4000000000 yantra-run s10.elf"
-    },
-    "real_secs": {
-      "value": "0.853",
-      "status": "measured",
-      "label": "seconds of the recording those ten frames are: 40,960 / 48,000",
-      "source": "arithmetic on sravan@5e9c1a6",
-      "command": "40960 / 48000"
-    },
-    "resync_steps": {
-      "value": "205,506,180",
-      "status": "measured",
-      "label": "native instructions for the ten-frame walk with frame 4's CRC-16 deliberately damaged: the frame is refused, the decoder finds frame 5 by sync-code scan with a CRC-8-verified header, and the walk completes; measured on the 2026-09-27 toolchain build, re-take pending; old compiler tree (51598b3c); re-take on 34c9712a in progress",
-      "source": "sravan stream 0846ea6 (pariksha_s2.t1), predict -> 0, halt status Some(0); controls 17 (damage declared on the wrong frame) and 201 (landing witness moved); compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f)",
-      "command": "python3 reference/genstream.py 10 --corrupt 4; t1_image ... --entry परीक्षाप्रवाह२ मुख्यम् ; yantra-run"
-    },
-    "pcm_octets": {
-      "value": "245,760",
-      "status": "measured",
-      "label": "octets of 24-bit stereo audio the native RV64 image wrote for the first ten frames of the Grieg recording, byte-identical to ffmpeg's decode of the same frames (cmp exit 0, md5 29fc76d8e0cc3ed935aa1f28498406d9); old compiler tree (51598b3c); re-take on 34c9712a in progress",
-      "source": "sravan stream 5230164 (pariksha_o.t1), yantra-run stdout captured; 204,682,388 instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f)",
-      "command": "python3 reference/genstream.py 10 --emit; t1_image ... --entry परीक्षानिर्गम मुख्यम्; yantra-run o.elf > naad10.pcm; cmp naad10.pcm grieg10.pcm"
-    }
+ "_about": "Every number on index.html is a data-fig span whose text must equal a value here. tools/check-figures.py refuses the page otherwise. status is one of measured | projected | planned. source names the repository, commit and file or section the value was read from; command is how to take it again.",
+ "figures_date": "2026-10-02",
+ "figures": {
+  "lines": {
+   "value": "1,290",
+   "status": "measured",
+   "label": "lines in the decoder, both files",
+   "source": "sravan@85f90b2 kernel/nihshesha.t1 (1,159) + kernel/mapana.t1 (131); vendored here under kernel/",
+   "command": "wc -l kernel/nihshesha.t1 kernel/mapana.t1"
   },
-  "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."
+  "routines": {
+   "value": "25",
+   "status": "measured",
+   "label": "public routines, both files",
+   "source": "sravan@85f90b2: 21 in nihshesha.t1 + 4 in mapana.t1",
+   "command": "grep -c 'सार्वजनिक वृत्तिः' kernel/nihshesha.t1 kernel/mapana.t1"
+  },
+  "foreign": {
+   "value": "0",
+   "status": "measured",
+   "label": "lines of C, C++, Rust or assembly in the decode path",
+   "source": "sravan kernel/ contains only .t1 and README.md; the Python under reference/ is the encoder and the oracle, not the decode path",
+   "command": "find kernel -type f -not -name '*.t1' -not -name '*.md' | wc -l"
+  },
+  "frames": {
+   "value": "10",
+   "status": "measured",
+   "label": "complete FLAC frames graded, plus three that must be refused",
+   "source": "sravan THESIS.md §8c, 'The whole frame'",
+   "command": "see kernel/pariksha_f.t1 subjects"
+  },
+  "headers": {
+   "value": "78",
+   "status": "measured",
+   "label": "complete frame headers, all four code spaces enumerated",
+   "source": "sravan THESIS.md §8c, 'The frame header'",
+   "command": "see kernel/pariksha_h.t1 subjects"
+  },
+  "typecodes": {
+   "value": "64",
+   "status": "measured",
+   "label": "subframe type codes, 39 legal and 25 reserved, every one classified or refused",
+   "source": "sravan THESIS.md §8c, 'The subframe header'",
+   "command": "see kernel/pariksha_t*.t1 subjects"
+  },
+  "mutations": {
+   "value": "17",
+   "status": "measured",
+   "label": "kernel mutations, each caught by the subject built for it",
+   "source": "sravan THESIS.md §8c: 3 (dispatcher) + 9 (header, CRCs, stereo) + 5 (whole frame)",
+   "command": "count the kernel-mutation rows in THESIS.md §8c"
+  },
+  "crc8": {
+   "value": "0xF4",
+   "status": "measured",
+   "label": "CRC-8 over b\"123456789\", the published check value",
+   "source": "sravan THESIS.md §8c; catalogue value for poly 0x07",
+   "command": "python3 -c \"import crcmod\" or any published CRC catalogue"
+  },
+  "crc16": {
+   "value": "0xFEE8",
+   "status": "measured",
+   "label": "CRC-16/UMTS over b\"123456789\", the published check value",
+   "source": "sravan THESIS.md §8c; catalogue value for poly 0x8005 init 0",
+   "command": "any published CRC catalogue"
+  },
+  "ipcs": {
+   "value": "1,500",
+   "status": "measured",
+   "label": "instructions per channel-sample, native RV64, stereo mid/side LPC order 8 at the corpus ratio, octet-wise CRC; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
+   "source": "sravan real-frame f631d7d, re-taken on the fixed kernel: slope (16,585,091 − 4,299,531)/8 = 1,535,695 per frame of 1,024 channel-samples; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
+   "command": "reference/gentiming.py, two-point slope"
+  },
+  "realtime": {
+   "value": "7.6×",
+   "status": "measured",
+   "label": "real time, from 1,500 instructions per channel-sample at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships; not timed on silicon; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
+   "source": "sravan real-frame f631d7d, realtime_factor = 1,535,695 × 44100/512 / 1e9 = 0.132; identical to 85f90b2; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
+   "command": "1 / (1500 × 44100 × 2 / 1e9)"
+  },
+  "crcshare": {
+   "value": "24.0%",
+   "status": "measured",
+   "label": "share of decode cost spent in CRC-16 after the octet-wise table; was 37.1% before it",
+   "source": "sravan@85f90b2; THESIS.md §6 S1, 367,838 of 1,535,695 per frame; the full-decoder total re-taken identical on the fixed kernel (f631d7d), CRC code untouched by the fix",
+   "command": "reference/gentiming.py against a kernel with CRC-16 removed"
+  },
+  "ratio": {
+   "value": "+0.1%",
+   "status": "measured",
+   "label": "coded size versus flac -8, the ENCODER, in Python, as an exact bit count and not an emitted stream",
+   "source": "sravan@9d1ceed; THESIS.md §6 S1 table, 52.8% vs 52.7%",
+   "command": "reference/bench_ietf.py"
+  },
+  "corpus": {
+   "value": "64 of 64",
+   "status": "measured",
+   "label": "IETF FLAC test files the encoder figure covers; nothing skipped",
+   "source": "sravan@9d1ceed; ietf-wg-cellar/flac-test-files",
+   "command": "reference/bench_ietf.py"
+  },
+  "toolchain": {
+   "value": "12",
+   "status": "measured",
+   "label": "MB, the whole Sassembly toolchain: 12,124,352 octets",
+   "source": "sansos vision.md rev 2026-09-28, metric shipped_bytes",
+   "command": "metric shipped_bytes in .loop/METRICS.tsv"
+  },
+  "fixpoint_date": {
+   "value": "2026-09-22",
+   "status": "measured",
+   "label": "the day the compiler compiled itself byte for byte",
+   "source": "sansos vision.md §5",
+   "command": "tools/fixpoint.sh, Stage 2 == Stage 1"
+  },
+  "attest_k": {
+   "value": "3",
+   "status": "planned",
+   "label": "instruction sets that must yield one digest of the decoded samples; Darśana reached this for a transform, Naad has not yet",
+   "source": "sravan THESIS.md §6 S4; Darsan README decode_hash_agreement = 1 at k = 3",
+   "command": "not yet taken for Naad"
+  },
+  "drift": {
+   "value": "0.0000%",
+   "status": "measured",
+   "label": "frame-to-frame drift in decode cost: the model predicted 12,097,471 instructions for a run and 12,097,471 were measured",
+   "source": "naad HANDOFF.md at 620b1b3, carried from sravan reference/gentiming.py",
+   "command": "reference/gentiming.py, predicted vs measured instruction count"
+  },
+  "engines": {
+   "value": "2",
+   "status": "measured",
+   "label": "independent engines that must agree on every result: an interpreter on the source, and the compiled RISC-V image",
+   "source": "sravan THESIS.md §8c, 'green on both engines'",
+   "command": "t1_image --predict-only (interpreter) and yantra-run (native) on the same test"
+  },
+  "rt_phone": {
+   "value": "36×",
+   "status": "projected",
+   "label": "real time on a phone big core, 2.4 GHz at 2 instructions per cycle, from the same 1,500 instructions per channel-sample",
+   "source": "projection from sravan@85f90b2 ipcs",
+   "command": "4.8e9 / (1500 × 44100 × 2)"
+  },
+  "core_phone": {
+   "value": "3%",
+   "status": "projected",
+   "label": "of one phone big core busy decoding stereo 44.1 kHz; 2.8% rounded up",
+   "source": "projection from sravan@85f90b2 ipcs at 2.4 GHz, IPC 2",
+   "command": "(1500 × 44100 × 2) / 4.8e9"
+  },
+  "rt_laptop": {
+   "value": "79×",
+   "status": "projected",
+   "label": "real time on a laptop core, 3.5 GHz at 3 instructions per cycle",
+   "source": "projection from sravan@85f90b2 ipcs",
+   "command": "10.5e9 / (1500 × 44100 × 2)"
+  },
+  "crc_gain": {
+   "value": "1.21×",
+   "status": "measured",
+   "label": "whole-decoder speedup from the octet-wise CRC, inside the 1.20–1.28× band registered before the build",
+   "source": "sravan@85f90b2 commit message and THESIS.md §6 S1",
+   "command": "1,857,669 / 1,535,695"
+  },
+  "dyn": {
+   "value": "sixteen",
+   "status": "measured",
+   "label": "times louder: RMS of 140-150 s against RMS of 0-10 s of the Grieg recording, 24.3 dB, which is 16.4x in amplitude",
+   "source": "tools/song-wave.py over the Commons original; opening -37.5 dBFS, ending -13.2 dBFS",
+   "command": "python3 tools/song-wave.py"
+  },
+  "song_fmt": {
+   "value": "24-bit / 48 kHz",
+   "status": "measured",
+   "label": "format of the source recording and of the shipped excerpt",
+   "source": "ffprobe on the Commons original, shipped unchanged as grieg-mountain-king.flac (md5 4655be52db91a64bac7b575f4124e9e4)",
+   "command": "ffprobe -show_entries stream=sample_rate,bits_per_raw_sample grieg-mountain-king-ending.flac"
+  },
+  "song_len": {
+   "value": "2:34",
+   "status": "measured",
+   "label": "length of the whole recording, 154.09 s",
+   "source": "ffprobe on the Commons original",
+   "command": "ffprobe -show_entries format=duration"
+  },
+  "s_norm": {
+   "value": "96",
+   "status": "measured",
+   "label": "kbps of the Normal-quality stream version, Ogg Vorbis, made from the same master",
+   "source": "ffprobe grieg-mountain-king-96k.ogg: vorbis, 48000 Hz, 96000 b/s",
+   "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-96k.ogg"
+  },
+  "s_high": {
+   "value": "160",
+   "status": "measured",
+   "label": "kbps of the High-quality stream version, Ogg Vorbis, made from the same master",
+   "source": "ffprobe grieg-mountain-king-160k.ogg: vorbis, 48000 Hz, 160000 b/s",
+   "command": "ffprobe -show_entries stream=bit_rate grieg-mountain-king-160k.ogg"
+  },
+  "real_samples": {
+   "value": "40,960",
+   "status": "measured",
+   "label": "samples per channel of the Grieg recording, its first ten frames (0.853 s), decoded in sequence by Naad's decoder and returned identical to ffmpeg's decode, both channels, independent stereo and mid/side, on the interpreter and on the native RV64 image",
+   "source": "sravan stream 1b00c3a: pariksha_s.t1 (F = 10, from the file's first byte) predict -> 0 and halt status Some(0); controls 5 (fold), 8 (boundary), 101 (marker), 114 (STREAMINFO field)",
+   "command": "python3 reference/genstream.py 10; t1_image ... --entry परीक्षाप्रवाह मुख्यम् ; yantra-run"
+  },
+  "real_steps": {
+   "value": "8,602,692",
+   "status": "measured",
+   "label": "native instructions to decode frame 0 of the recording and check both folds, including setup; current compiler tree (origin/main 34c9712a); the old tree gave 11,422,135, the difference being compiler codegen, commit pending",
+   "source": "sravan stream (pariksha_r.t1 blob 9e7db3b7) built with --compiler and --spec-root from sansos origin/main 34c9712a, host t1_image md5 1591d0e8, yantra-run md5 494573a4297f; predict -> 0, halt Some(0)",
+   "command": "t1_image --spec-root <34c9712a>/spec --compiler <34c9712a>/crates/sadhana-t1/src ... --entry परीक्षार मुख्यम्; yantra-run"
+  },
+  "mkt_live": {
+   "value": "$23.2B",
+   "status": "measured",
+   "label": "Live Nation Entertainment revenue, full year 2024, the largest live-music company; 151 million fans attended its shows",
+   "source": "Live Nation Form 10-K for FY2024, sec.gov; Billboard 2025-02-20",
+   "command": "https://www.sec.gov/Archives/edgar/data/1335258/000133525825000028/lyv-20241231.htm"
+  },
+  "mkt_fans": {
+   "value": "151 million",
+   "status": "measured",
+   "label": "fans at Live Nation shows in 2024",
+   "source": "Live Nation full-year 2024 results",
+   "command": "https://www.billboard.com/pro/live-nation-earnings-full-year-2024-revenue-record-23-billion/"
+  },
+  "mkt_rec": {
+   "value": "$29.6B",
+   "status": "measured",
+   "label": "global recorded-music revenue, 2024, all formats",
+   "source": "IFPI Global Music Report 2025",
+   "command": "https://www.musicbusinessworldwide.com/global-recorded-music-revenues-hit-29-6bn-in-2024-up-4-8-yoy-users-of-paid-music-subscriptions-reach-752m/"
+  },
+  "mkt_stream": {
+   "value": "$20.4B",
+   "status": "measured",
+   "label": "global streaming revenue, 2024, 69% of recorded music; 752 million paid subscribers",
+   "source": "IFPI Global Music Report 2025",
+   "command": "https://www.billboard.com/pro/ifpi-global-report-2025-music-revenue-market-share-ai/"
+  },
+  "mkt_subs": {
+   "value": "752 million",
+   "status": "measured",
+   "label": "paid music-subscription users worldwide, end of 2024",
+   "source": "IFPI Global Music Report 2025",
+   "command": "https://www.musicbusinessworldwide.com/global-recorded-music-revenues-hit-29-6bn-in-2024-up-4-8-yoy-users-of-paid-music-subscriptions-reach-752m/"
+  },
+  "mkt_hw": {
+   "value": "454.6 million",
+   "status": "measured",
+   "label": "headphones of all types shipped worldwide in 2024",
+   "source": "Canalys, 2025-03-03",
+   "command": "https://tadviser.com/index.php/Article:Headphones_(Global_Market)"
+  },
+  "mkt_dolby": {
+   "value": "$1.18B",
+   "status": "measured",
+   "label": "Dolby Laboratories licensing revenue, fiscal 2024: what one licensed audio technology earns from the gear it sits inside",
+   "source": "Dolby Form 10-K FY2024, sec.gov: licensing revenue $1,181,794 thousand",
+   "command": "https://www.sec.gov/Archives/edgar/data/1308547/000162828024048519/dlb-20240927.htm"
+  },
+  "master_x": {
+   "value": "10×",
+   "status": "measured",
+   "label": "the master's bits against the 160 kbps stream, from the files on this page: 25,778,747 / 2,621,694 = 9.8",
+   "source": "grieg-mountain-king.flac and grieg-mountain-king-160k.ogg sizes",
+   "command": "ls -l grieg-mountain-king.flac grieg-mountain-king-160k.ogg"
+  },
+  "real_frames": {
+   "value": "ten",
+   "status": "measured",
+   "label": "consecutive frames of the Grieg file decoded natively in one run: 0 (independent stereo), 1 to 9 (mid/side)",
+   "source": "sravan@5e9c1a6",
+   "command": "python3 reference/genstream.py 10"
+  },
+  "timing_retake": {
+   "value": "1,535,695",
+   "status": "measured",
+   "label": "instructions per frame on the fixed kernel, two-point slope, identical to the instruction to the figure taken before the Rice fix; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
+   "source": "sravan real-frame f631d7d, pariksha_t2 4,299,531 and pariksha_t10 16,585,091 native instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
+   "command": "python3 reference/gentiming.py; build both; (steps10 − steps2) / 8"
+  },
+  "seq_steps": {
+   "value": "200,463,153",
+   "status": "measured",
+   "label": "native instructions to read the file's header, check STREAMINFO, then unpack and decode ten frames with the cursor carried, checking twenty folds and ten boundaries, including setup; old compiler tree (51598b3c); the current tree counts this program 24.7% lower; re-take on 34c9712a in progress",
+   "source": "sravan stream 1b00c3a (pariksha_s.t1: STREAMINFO read, boundaries found by the decoder, flac -a map and metaflac as witnesses), yantra-run steps line; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f); build commit not recoverable from the binary",
+   "command": "YANTRA_STEPS=4000000000 yantra-run s10.elf"
+  },
+  "real_secs": {
+   "value": "0.853",
+   "status": "measured",
+   "label": "seconds of the recording those ten frames are: 40,960 / 48,000",
+   "source": "arithmetic on sravan@5e9c1a6",
+   "command": "40960 / 48000"
+  },
+  "resync_steps": {
+   "value": "205,506,180",
+   "status": "measured",
+   "label": "native instructions for the ten-frame walk with frame 4's CRC-16 deliberately damaged: the frame is refused, the decoder finds frame 5 by sync-code scan with a CRC-8-verified header, and the walk completes; measured on the 2026-09-27 toolchain build, re-take pending; old compiler tree (51598b3c); re-take on 34c9712a in progress",
+   "source": "sravan stream 0846ea6 (pariksha_s2.t1), predict -> 0, halt status Some(0); controls 17 (damage declared on the wrong frame) and 201 (landing witness moved); compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f)",
+   "command": "python3 reference/genstream.py 10 --corrupt 4; t1_image ... --entry परीक्षाप्रवाह२ मुख्यम् ; yantra-run"
+  },
+  "pcm_octets": {
+   "value": "245,760",
+   "status": "measured",
+   "label": "octets of 24-bit stereo audio the native RV64 image wrote for the first ten frames of the Grieg recording, byte-identical to ffmpeg's decode of the same frames (cmp exit 0, md5 29fc76d8e0cc3ed935aa1f28498406d9); old compiler tree (51598b3c); re-take on 34c9712a in progress",
+   "source": "sravan stream 5230164 (pariksha_o.t1), yantra-run stdout captured; 204,682,388 instructions; compiler: sansos/target/release/t1_image (2026-09-27 22:32, md5 dedb2ee60abb) and yantra-run (2026-09-29 20:58, md5 494573a4297f)",
+   "command": "python3 reference/genstream.py 10 --emit; t1_image ... --entry परीक्षानिर्गम मुख्यम्; yantra-run o.elf > naad10.pcm; cmp naad10.pcm grieg10.pcm"
+  },
+  "whole_pcm_octets": {
+   "value": "44,378,214",
+   "status": "measured",
+   "label": "octets of 24-bit stereo PCM the native RV64 image wrote for the whole Grieg recording, byte-identical to the interpreter's decode and to the MD5 the encoder stored in STREAMINFO (8247b607e1fe753f4ccc8d503e613bfe); = ffmpeg -f s24le of the file",
+   "source": "sravan agent/4b-native-walker 68ca747 (kernel/pariksha_i.t1 with the W-359 workaround: धारा sized in मुख्यम् for both windows), run by sansos-4b 2026-10-01 21:03-21:24 EDT; host t1_image and yantra-run from sansos wt-tick 19c3c8f3, --compiler wt-tick/crates/sadhana-t1/src, --spec-root wt-tick/spec (19c3c8f3 contains 6365e334 and 34c9712a); halt Finisher { value: 21845, status: Some(0) }; md5 8247b607e1fe753f4ccc8d503e613bfe = interpreted run (sravan stream fe0056e) = STREAMINFO MD5 in the file",
+   "command": "t1_image --spec-root … --compiler … --load ashtaka.t1 --load kernel/mapana.t1 --load kernel/nihshesha.t1 --load kernel/pariksha_i.t1 --entry परीक्षानिवेश मुख्यम् --input vectors/grieg-1frame.flac --input-name परीक्षानिवेश -o i.elf …; YANTRA_INPUT=grieg-mountain-king.flac YANTRA_INPUT_NAME=परीक्षानिवेश yantra-run i.elf > commons.pcm; md5 commons.pcm"
+  },
+  "whole_pcm_octets_proof": {
+   "value": "44,378,214",
+   "status": "measured",
+   "label": "same figure as whole_pcm_octets, cited in the Proof section",
+   "source": "sravan agent/4b-native-walker 68ca747 (kernel/pariksha_i.t1 with the W-359 workaround: धारा sized in मुख्यम् for both windows), run by sansos-4b 2026-10-01 21:03-21:24 EDT; host t1_image and yantra-run from sansos wt-tick 19c3c8f3, --compiler wt-tick/crates/sadhana-t1/src, --spec-root wt-tick/spec (19c3c8f3 contains 6365e334 and 34c9712a); halt Finisher { value: 21845, status: Some(0) }; md5 8247b607e1fe753f4ccc8d503e613bfe = interpreted run (sravan stream fe0056e) = STREAMINFO MD5 in the file",
+   "command": "t1_image --spec-root … --compiler … --load ashtaka.t1 --load kernel/mapana.t1 --load kernel/nihshesha.t1 --load kernel/pariksha_i.t1 --entry परीक्षानिवेश मुख्यम् --input vectors/grieg-1frame.flac --input-name परीक्षानिवेश -o i.elf …; YANTRA_INPUT=grieg-mountain-king.flac YANTRA_INPUT_NAME=परीक्षानिवेश yantra-run i.elf > commons.pcm; md5 commons.pcm"
+  },
+  "whole_flac_octets": {
+   "value": "25,778,747",
+   "status": "measured",
+   "label": "octets of the FLAC file grieg-mountain-king.flac on this page, the input to the native whole-file run",
+   "source": "wc -c grieg-mountain-king.flac; the run's own 'input: 25778747 octets' line",
+   "command": "wc -c grieg-mountain-king.flac"
+  },
+  "whole_secs": {
+   "value": "154",
+   "status": "measured",
+   "label": "seconds of the recording: STREAMINFO total_samples 7,396,369 at 48,000 Hz = 154.09 s (ffprobe duration 154.091021); the whole piece",
+   "source": "vectors/grieg-header.json streaminfo (sravan stream), ffprobe",
+   "command": "python3 -c 'print(7396369/48000)'"
+  },
+  "whole_ram_mb": {
+   "value": "6.6",
+   "status": "measured",
+   "label": "MB of RAM high water for the native whole-file decode: 6,561,000 octets of the 553,753,920 available; the walker holds one maximum-frame window plus margin, never the file or the output",
+   "source": "sravan agent/4b-native-walker 68ca747 (kernel/pariksha_i.t1 with the W-359 workaround: धारा sized in मुख्यम् for both windows), run by sansos-4b 2026-10-01 21:03-21:24 EDT; host t1_image and yantra-run from sansos wt-tick 19c3c8f3, --compiler wt-tick/crates/sadhana-t1/src, --spec-root wt-tick/spec (19c3c8f3 contains 6365e334 and 34c9712a); halt Finisher { value: 21845, status: Some(0) }; md5 8247b607e1fe753f4ccc8d503e613bfe = interpreted run (sravan stream fe0056e) = STREAMINFO MD5 in the file",
+   "command": "yantra-run's ram high-water line on the whole-file run"
+  },
+  "whole_ram_octets": {
+   "value": "6,561,000",
+   "status": "measured",
+   "label": "octets of RAM high water for the native whole-file decode (same measurement as whole_ram_mb)",
+   "source": "sravan agent/4b-native-walker 68ca747 (kernel/pariksha_i.t1 with the W-359 workaround: धारा sized in मुख्यम् for both windows), run by sansos-4b 2026-10-01 21:03-21:24 EDT; host t1_image and yantra-run from sansos wt-tick 19c3c8f3, --compiler wt-tick/crates/sadhana-t1/src, --spec-root wt-tick/spec (19c3c8f3 contains 6365e334 and 34c9712a); halt Finisher { value: 21845, status: Some(0) }; md5 8247b607e1fe753f4ccc8d503e613bfe = interpreted run (sravan stream fe0056e) = STREAMINFO MD5 in the file",
+   "command": "yantra-run's ram high-water line on the whole-file run"
+  }
+ },
+ "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."
 }
