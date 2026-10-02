@@ -186,7 +186,17 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **CLOSED 2026-10-02 14:50Z: AGPL-3.0-only, everywhere.** The owner confirmed it directly
+8. **r36, 2026-10-02 14:45 EDT, on the owner's two YES answers:** (a) the decoder source is
+   back on the page: `kernel/nihshesha.t1` and `kernel/mapana.t1` copied verbatim from sravan
+   main `d27391f` (1,547 lines, 32 public routines, re-taken by the gate), with
+   `kernel/PROVENANCE.md` and the three links restored; (b) the page frames the container:
+   the Frontier item "A file that carries its own decoder" states that Naad's decoder is the
+   one the Darśana archive carries, lists what it still owes safety first (per-read bound,
+   header block not first, more than two channels; seeking, tags, cover art and a player not
+   built) and states the copyleft consequence in one sentence; one fan sentence in "Yours
+   for good" says the archive carries its own player inside the file. The stale "stream
+   layer not built" text is gone from both places it stood.
+   **CLOSED 2026-10-02 14:50Z: AGPL-3.0-only, everywhere.** The owner confirmed it directly
    to sansos-4b (and e0 for the sansos trunk), and sravan main is `d27391f` with all 27
    `stream` commits merged; the LICENSE, README and THESIS footer agree. The vendored
    decoder may now return to this page under the same licence when the owner wants it;

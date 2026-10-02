@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-02 public r35 three-machines">
+<meta name="naad-build" content="2026-10-02 public r36 decoder-returns">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -595,15 +595,15 @@
     </div>
   </div>
   <div class="wrap"><div class="keep">
-    <div class="panel"><span class="n"><span data-fig="lines">1,290</span><small>LINES</small></span>
+    <div class="panel"><span class="n"><span data-fig="lines">1,547</span><small>LINES</small></span>
       <h3>Built for the edge, not the data centre</h3>
-      <p>Small enough to run inside the gear itself: earbuds, a DAC, a car head unit, a chip with no operating system and no room for a runtime. Fewer lines means fewer moving parts between the file and your ears, and nothing in the chain you cannot read.</p></div>
+      <p>Small enough to run inside the gear itself: earbuds, a DAC, a car head unit, a chip with no operating system and no room for a runtime. Fewer lines means fewer moving parts between the file and your ears, and nothing in the chain you cannot read. <a href="kernel/nihshesha.t1">Read it yourself.</a></p></div>
     <div class="panel"><span class="n"><span data-fig="toolchain">12</span><small>MB</small></span>
       <h3>Light on power, heavy on headroom</h3>
       <p>The whole toolchain is smaller than one album, and the decoder it builds asks under <span data-fig="core_phone">6%</span> of a phone's core to play the master, <span data-fig="realtime">3.7×</span> faster than real time on the slowest chip we would plan for. Less work per note means more battery for the music, on anything from a laptop to the chip in your headphones.</p></div>
     <div class="panel"><span class="n"><span data-fig="song_fmt">24-bit / 48 kHz</span></span>
       <h3>The master, not a copy of it</h3>
-      <p>Naad is licensed to the makers of players and gear. What you keep is the recording itself, every sample, on your own drive, and it does not expire with anyone's account.</p></div>
+      <p>Naad is licensed to the makers of players and gear. What you keep is the recording itself, every sample, on your own drive, and it does not expire with anyone's account. The archive it is being built for carries its own player inside the file, so a recording still opens when today's apps are gone.</p></div>
   </div></div>
 </section>
 
@@ -685,16 +685,16 @@
     <span class="kicker">Proof, not adjectives</span>
     <h2>Every number on this page was measured, and says where.</h2>
     <p class="lead">Each figure carries a metric, a commit and a command in <a href="figures.json">figures.json</a>, and a
-      check refuses this page whenever the two disagree. The decoder the figures describe is pinned to a named commit of
-      the Śravaṇa repository. Where a figure rests on an
+      check refuses this page whenever the two disagree. The decoder the figures describe is shipped here under
+      <a href="kernel/nihshesha.t1">kernel/</a>, at the commit named in <a href="kernel/PROVENANCE.md">its provenance note</a>, under the GNU AGPL v3. Where a figure rests on an
       assumption, it is tagged projected. Where the work is not done, it is tagged planned.</p>
   </div>
   <div class="wrap">
     <div class="ladder">
       <div class="rung panel"><span class="tag measured">Measured</span><span class="n"><span data-fig="engines">2</span></span>
         <span class="l">independent engines, an interpreter on the source and the compiled RISC-V image, that must agree on every result. Bit-exact on both for every layer of a FLAC frame.</span></div>
-      <div class="rung panel"><span class="tag measured">Measured</span><span class="n"><span data-fig="routines">25</span></span>
-        <span class="l">public routines in two files, every one of them verified on both engines.</span></div>
+      <div class="rung panel"><span class="tag measured">Measured</span><span class="n"><span data-fig="routines">32</span></span>
+        <span class="l">public routines in two files. The frame decoder, the header reader and the resync among them are verified on both engines against real recordings.</span></div>
       <div class="rung panel"><span class="tag projected">Projected</span><span class="n"><span data-fig="realtime">3.7×</span></span>
         <span class="l">real time, from <span class="num" data-fig="walker_ipcs">3,076</span> instructions per channel-sample on the path the product runs, the whole-record decoder reading a real 24-bit file, at 1 GHz and one instruction per cycle, the most pessimistic machine anyone ships. On a phone's big core, taken as 2.4 GHz at two instructions per cycle, that is <span data-fig="rt_phone">18×</span>, under <span data-fig="core_phone">6%</span> of one core (5.3% before rounding). Not yet timed on silicon.</span></div>
       <div class="rung panel"><span class="tag planned">Planned</span><span class="n"><span data-fig="attest_k">3</span></span>
@@ -735,7 +735,7 @@
         <li><span class="tag measured">Green</span><span><b>Frame decoder</b>: header with all four code spaces, all four subframe bodies, partitioned Rice with escapes, every stereo pairing, both CRCs. One or two channels.</span></li>
         <li><span class="tag measured">Green</span><span><b>Timing re-taken after the fix</b>: <span data-fig="timing_retake">1,535,695</span> instructions per frame on the corrected decoder, identical to the instruction to the figure before it, as predicted before the run.</span></li>
         <li><span class="tag measured">Green</span><span><b>Sassembly</b>: the compiler compiled itself byte for byte on <span data-fig="fixpoint_date">2026-09-22</span> and has on every change since.</span></li>
-        <li><span class="tag planned">Not built</span><span><b>The stream</b>: walking a file of frames, seeking, metadata, cover art, recovery after a damaged frame. This is what stands between the decoder and a player.</span></li>
+        <li><span class="tag planned">Not built</span><span><b>The player</b>: seeking to a timestamp, tags and cover art, and a playback surface. The file walker that reads whole recordings exists and is measured above; a player around it does not.</span></li>
         <li><span class="tag planned">Not built</span><span><b>More than two channels</b>: surround parses its header and is refused rather than guessed at.</span></li>
         <li><span class="tag planned">Not built</span><span><b>Attestation</b>: one digest on three instruction sets. The machinery exists in Darśana; it has not been run on Naad.</span></li>
       </ul>
@@ -771,10 +771,10 @@
       <h3>The encoder is Python, and its stream is not yet emitted</h3>
       <p>Levinson-Durbin, apodization and the partition-order search are real and measured at parity with flac -8. None of it is native yet, and its size figure is an exact bit count rather than a file.</p>
       <span class="gap"><b>The join, that a stream of exactly that size decodes back, is not closed.</b> Until it is, the encoder figure and the decoder figure are two claims, and the page keeps them apart.</span></div>
-    <div class="fitem panel"><span class="tag build">Not built · format</span>
-      <h3>Container, seeking, metadata</h3>
-      <p>The frame decoder is complete. Walking a file of frames, seeking to a timestamp, reading tags and cover art, and recovering from a damaged frame are the layer above it, and nothing implements that layer yet.</p>
-      <span class="gap">Frame layer <b>complete</b>. Stream layer <b>not built</b>. Until it is, Naad is a verified codec core and not a player.</span></div>
+    <div class="fitem panel"><span class="tag build">Building · the archive</span>
+      <h3>A file that carries its own decoder</h3>
+      <p>Naad's decoder is the one the Darśana archive carries inside the file, beside the music, so a recording can be opened decades from now with nothing but the file and a small machine. The file walker that makes this possible exists and is measured above: it reads whole recordings, steps over oversized metadata, recovers after a damaged frame, and refuses what it cannot decode with a named status. What it still owes that archive, safety first: a bound on every single read, so a hostile file can only ever be refused, where today a safety floor does that job at a cost in speed; files whose header block is not the first block, which are legal and are refused today; and more than two channels. Seeking, tags, cover art and a player around it are not built.</p>
+      <span class="gap">The decoder is under the GNU AGPL v3, and that travels with it: <b>anyone who redistributes an archive with the decoder inside is redistributing the decoder</b>, and owes its recipients the decoder's source under the same licence.</span></div>
     <div class="fitem panel"><span class="tag build">Not built · channels</span>
       <h3>Beyond two channels</h3>
       <p>Mono and every stereo pairing are done and verified. Surround and ambisonic material parses its header today and is then refused rather than guessed at.</p>
@@ -797,8 +797,9 @@
   </div>
   <p class="labline"><a href="https://paramtatva.org/">Paramtatva</a><span>Frontier Computing Lab</span></p>
   <p><b>Naad</b> is the format. <b>Śravaṇa</b> is the bigger project it belongs to. Both are built on Sassembly. Every figure on this page
-  carries a metric, a commit and a command in <a href="figures.json">figures.json</a>. Where work is unfinished, the page says so.</p>
-  <p>Figures as of 2026-09-30, from the Śravaṇa repository at 85f90b2. Say hello: <a href="mailto:naad@paramtatva.org">naad@paramtatva.org</a></p>
+  carries a metric, a commit and a command in <a href="figures.json">figures.json</a>, and the decoder the figures describe is
+  shipped here under <a href="kernel/nihshesha.t1">kernel/</a>. Where work is unfinished, the page says so.</p>
+  <p>Figures as of 2026-10-02; decoder source from the Śravaṇa repository at d27391f, GNU AGPL v3. Say hello: <a href="mailto:naad@paramtatva.org">naad@paramtatva.org</a></p>
 </div></footer>
 
 <script>
