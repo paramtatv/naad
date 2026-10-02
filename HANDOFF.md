@@ -286,7 +286,15 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    1200×630 in the page's palette, referencing `record.svg` and `logo.svg`, and `og-card.png`,
    its headless-Chrome render (scrapers do not read SVG; render at a virtual-time budget that
    is a whole number of the record's 1.8 s turns so the label sits upright), with `og:image`
-   and `twitter:card` meta tags. Both wait for the owner's merge word.
+   and `twitter:card` meta tags. **MERGED to main as r34 on the owner's decision of
+   2026-10-02 14:30 EDT** (merge commit 6ed6ee3).
+   **ANALYTICS: NO, in writing (owner's decision, same message):** "No analytics scripts,
+   tracking pixels, telemetry beacons, or external third-party assets shall ever be included
+   on the site or inside any container/binary artifact." Enforced state at r34: the page
+   loads nothing from another origin; the only external URLs in `index.html` are hyperlinks
+   (Commons, paramtatva.org, and the five market-figure sources). Any future change that
+   adds a `src=` or stylesheet `href=` to another origin breaks this ruling; check with
+   `grep -o '\(src\|href\)="https\?://[^"]*"' index.html` before every push.
    Decide on analytics or decide against them in writing.
    §7.3 note: attestation's first measurement exists (one image, three hosts, two ISAs, one
    digest; sravan THESIS §8d); the page's planned rung stays planned until a third ISA or
