@@ -159,6 +159,10 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    because the machine was shared with the SQAM corpus run. Must build on a tree with the
    W-306 narrow-store fix (6365e334); 34c9712a and 19c3c8f3 have it. The recording is
    48 kHz, 7,396,369 samples per channel, 154.1 s; a peer's 167.7 s assumed 44.1 kHz.
+   **Corpus conformance landed 2026-10-01 23:50 EDT (r27):** sansos-4b ran the same build over
+   all 70 EBU SQAM files; 70/70 match the STREAMINFO MD5 (figures `sqam_*`, table at
+   `~/darsan-logs/sqam-conformance.tsv`, recounted). S1's completion condition is met for the
+   decoder. Fan sentence above the divider: "the broadcasters' reference library".
 2b. **The sequence test, superseded for everything but its counts.** `sravan` branch `real-frame` now walks the
    first frames of the Commons file in order (`reference/genstream.py`, `pariksha_s.t1`,
    frames packed eight octets to a word; ten frames green on both engines with the cursor carried, so boundaries are

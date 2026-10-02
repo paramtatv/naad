@@ -379,6 +379,34 @@
    "label": "instructions per channel-sample on the product path (23,480,301 / 8,192); 1.9x the embedded synthetic test path's 1,500",
    "source": "product path: sravan kernel/pariksha_i.t1 (host-fed walker) as built by sansos-4b from agent/4b-native-walker 68ca747 on toolchain 19c3c8f3 (walkerown.elf md5 698ca64119a178f90bd3455e2578eb47; .t1 compiler sources and spec byte-identical to 34c9712a by git diff), run 2026-10-02 03:42-03:47Z by sansos-39 under yantra-run md5 494573a4297f (prints executed instructions; step-ceiling bisection agreed to the instruction on the 1-frame point): grieg-1frame.flac 10,698,984; grieg-10frames.flac 222,021,689; slope (222,021,689 - 10,698,984) / 9 = 23,480,301 per 4,096x2 frame = 2,866 per channel-sample; real 24-bit music at this recording's own ratio, mid/side, including the walker's window unpack and console emission. THESIS §6 'THE PRODUCT PATH'",
    "command": "YANTRA_INPUT=vectors/grieg-{1frame,10frames}.flac YANTRA_INPUT_NAME=परीक्षानिवेश YANTRA_STEPS=4000000000 yantra-run walkerown.elf 2>&1 >/dev/null | grep ^steps; (s10 - s1) / 9 / 8192"
+  },
+  "sqam_files": {
+   "value": "70",
+   "status": "measured",
+   "label": "recordings in the EBU SQAM reference corpus decoded by Naad's decoder, one build, seventy runs",
+   "source": "sansos-4b's run, 2026-10-01 20:xx-23:50 EDT, of the host-fed walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3, one ELF, seventy runs with YANTRA_INPUT=<file>) over the EBU SQAM corpus (sravan corpus/sqam/01..70.flac, 16-bit, from SQAM_FLAC.zip); per-file table ~/darsan-logs/sqam-conformance.tsv (file, bps, ch, samples, status, octets, md5, streaminfo, verdict, sec), recounted by sansos-39 at 2026-10-02 04:22Z: 70 rows, 70 halt Some(0), 70 rows where the decoder's MD5 equals the STREAMINFO MD5 the encoder wrote, 0 mismatches; wall times contended (shared machine) and not published",
+   "command": "awk -F'\\t' 'NR>1{n++; if($7==$8)m++; s+=$4; o+=$6} END{print n,m,s,o}' ~/darsan-logs/sqam-conformance.tsv"
+  },
+  "sqam_match": {
+   "value": "70",
+   "status": "measured",
+   "label": "of those 70 recordings whose decoded audio has exactly the MD5 the original encoder sealed into the file's STREAMINFO; checksums computed by someone else's software, never by us; 0 mismatches",
+   "source": "sansos-4b's run, 2026-10-01 20:xx-23:50 EDT, of the host-fed walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3, one ELF, seventy runs with YANTRA_INPUT=<file>) over the EBU SQAM corpus (sravan corpus/sqam/01..70.flac, 16-bit, from SQAM_FLAC.zip); per-file table ~/darsan-logs/sqam-conformance.tsv (file, bps, ch, samples, status, octets, md5, streaminfo, verdict, sec), recounted by sansos-39 at 2026-10-02 04:22Z: 70 rows, 70 halt Some(0), 70 rows where the decoder's MD5 equals the STREAMINFO MD5 the encoder wrote, 0 mismatches; wall times contended (shared machine) and not published",
+   "command": "awk -F'\\t' 'NR>1{n++; if($7==$8)m++; s+=$4; o+=$6} END{print n,m,s,o}' ~/darsan-logs/sqam-conformance.tsv"
+  },
+  "sqam_samples": {
+   "value": "155,099,700",
+   "status": "measured",
+   "label": "samples decoded across the 70 SQAM recordings (sum of STREAMINFO total_samples)",
+   "source": "sansos-4b's run, 2026-10-01 20:xx-23:50 EDT, of the host-fed walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3, one ELF, seventy runs with YANTRA_INPUT=<file>) over the EBU SQAM corpus (sravan corpus/sqam/01..70.flac, 16-bit, from SQAM_FLAC.zip); per-file table ~/darsan-logs/sqam-conformance.tsv (file, bps, ch, samples, status, octets, md5, streaminfo, verdict, sec), recounted by sansos-39 at 2026-10-02 04:22Z: 70 rows, 70 halt Some(0), 70 rows where the decoder's MD5 equals the STREAMINFO MD5 the encoder wrote, 0 mismatches; wall times contended (shared machine) and not published",
+   "command": "awk -F'\\t' 'NR>1{n++; if($7==$8)m++; s+=$4; o+=$6} END{print n,m,s,o}' ~/darsan-logs/sqam-conformance.tsv"
+  },
+  "sqam_octets": {
+   "value": "930,598,200",
+   "status": "measured",
+   "label": "octets of PCM emitted across the 70 SQAM recordings",
+   "source": "sansos-4b's run, 2026-10-01 20:xx-23:50 EDT, of the host-fed walker (sravan agent/4b-native-walker 68ca747, toolchain 19c3c8f3, one ELF, seventy runs with YANTRA_INPUT=<file>) over the EBU SQAM corpus (sravan corpus/sqam/01..70.flac, 16-bit, from SQAM_FLAC.zip); per-file table ~/darsan-logs/sqam-conformance.tsv (file, bps, ch, samples, status, octets, md5, streaminfo, verdict, sec), recounted by sansos-39 at 2026-10-02 04:22Z: 70 rows, 70 halt Some(0), 70 rows where the decoder's MD5 equals the STREAMINFO MD5 the encoder wrote, 0 mismatches; wall times contended (shared machine) and not published",
+   "command": "awk -F'\\t' 'NR>1{n++; if($7==$8)m++; s+=$4; o+=$6} END{print n,m,s,o}' ~/darsan-logs/sqam-conformance.tsv"
   }
  },
  "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."
