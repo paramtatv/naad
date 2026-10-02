@@ -487,8 +487,15 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    node 25 with md5 b21af4a6… and 29fc76d8…. Say it as "four venues, same OUTPUT" (x86-64
    Mac, x86-64 Linux, aarch64, and the browser machine, a fourth execution model, not a
    fourth ISA), never "same execution": the wasm exposes no instruction count, so the
-   step-count half of the attestation has no browser reading until e0 adds a `yantra_steps`
-   export (asked 18:15 EDT). Two costs for the page: `load_elf` needs RAM ≥ 536,971,808
+   step-count half of the attestation had no browser reading until e0 added
+   `yantra_steps_known/lo/hi` (trunk 65736af1, 18:14 EDT; consult `known` before the halves).
+   **18:15 EDT, MEASURED: THE COUNT MATCHES NATIVE TO THE INSTRUCTION.** Rebuilt at 65736af1
+   (105,813 octets, md5 d048c7aa…), same image, same slices: one frame 8,982,263, ten frames
+   235,791,469, in headless Chrome 154 and in node 25, output hashes equal to the native
+   PCM. So for this image: FOUR VENUES, SAME OUTPUT AND SAME EXECUTED COUNT. This can go on
+   the page as a Proof row under the standing rule (a figure with provenance): the
+   `attest_*` figures gain a fourth venue; the Planned rung "3 instruction sets" stays
+   planned, because the browser machine is an execution model and not an ISA. Two costs for the page: `load_elf` needs RAM ≥ 536,971,808
    octets (the compiler's .bss span), so the browser allocates 540 MB of linear memory,
    fine on a laptop and not on a phone; and the ten-frame run took about 12 s of CPU under
    node. Harness: `wt-sravan-real/.build/web/{harness.html,run.mjs}`. NOT ON THE PAGE:
