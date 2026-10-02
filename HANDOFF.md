@@ -194,6 +194,21 @@ one was fooled before: a content grep matched a substring that survived between 
    labels updated; README mirrors it. The browser is written as a fourth way of executing
    the machine, not a fourth instruction set, and the planned "3 instruction sets" rung
    stays planned. No running decoder on the page (owner's yes pending).
+   **18:27 EDT: THE RUNNING DECODER IS BUILT, ON BRANCH `decoder-in-browser` (d5388ca, pushed,
+   not merged; main is live).** A "Run it here" panel after the ledger: the page loads
+   `machine/yantra_wasm.wasm` (trunk 65736af1) and `machine/walker.elf` (the walker_* image,
+   66feb91e) from this site, cuts the first 87,464 bytes off the page's own FLAC, decodes
+   ten frames in the visitor's browser, and holds the result to two published figures: the
+   SHA-256 of ffmpeg's decode of those frames and `walker_steps10`; if both hold it plays
+   the ten frames. New figures `demo_slice`, `demo_ram_mb`; `machine/PROVENANCE.md`. The
+   coordinator's falsifier passed: served locally with every other host unresolvable
+   (`--host-resolver-rules="MAP * ~NOTFOUND, EXCLUDE 127.0.0.1"`), headless Chrome pressed
+   the button and got "245,760 bytes, as published; SHA-256 21fd1c10… = ffmpeg's;
+   235,791,469 = the figure above"; the server log shows only this site's files fetched.
+   Gate green at 79 figures on the branch. Costs stated on the page: 554 MB of memory
+   (laptop, not phone), about ten seconds. TO SHIP: the owner's yes, then merge the branch
+   to main (it is new framing: a running program on the page). After the Śravaṇa merge the
+   image and the two expected values change together with walker_steps1/10.
    8. **2026-10-02 18:01 EDT, no page change: THE PER-READ BOUND IS BUILT AND HANDED TO sansos-4b
    FOR REVIEW.** sravan branch `agent/per-read-bound`, tip 27fca37, eleven commits on
    36c3b8f, local to the shared repository, nothing pushed. Results, all on the 34c9712a
