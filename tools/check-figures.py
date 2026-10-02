@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Refuse index.html when any figure on it disagrees with figures.json.
 
-Four checks, each of which can go red on its own:
+Six checks, each of which can go red on its own:
   1. every <span data-fig="ID">TEXT</span> in index.html has an entry in
      figures.json and TEXT equals that entry's value, character for character;
   2. every figure in figures.json appears on the page at least once, so a
@@ -14,6 +14,11 @@ Four checks, each of which can go red on its own:
      the stream files' own headers, and the speed chain from
      the two measured step counts. A figure in this set is never typed by hand;
      change its inputs and copy what this script prints.
+  5. every figure README.md mirrors, marked <!--fig:ID-->VALUE<!--/fig-->, equals
+     figures.json, so the repository's front page cannot fall behind the site.
+  6. nothing above the engineering divider uses the words the handoff reserves
+     for the engineering sections: decoder, codec, integer, instruction,
+     bit-exact, frame.
 
 Exit status is the number of failures. Prints nothing on green except OK.
 """
@@ -114,8 +119,35 @@ if flac_path.exists():
             elif figs[fid]["value"] != want:
                 fails.append(f"{fid}: derived {want!r}, figures.json says {figs[fid]['value']!r}")
 
+# 5. README.md is public and mirrors some figures. Each mirrored value is wrapped in
+# <!--fig:ID-->VALUE<!--/fig--> (invisible when rendered) and must equal figures.json.
+readme = root / "README.md"
+mirrored = 0
+if readme.exists():
+    for m in re.finditer(r"<!--fig:([a-z0-9_]+)-->(.*?)<!--/fig-->", readme.read_text(encoding="utf-8")):
+        fid, text = m.group(1), m.group(2)
+        mirrored += 1
+        if fid not in figs:
+            fails.append(f"README.md mirrors {fid!r} which figures.json does not define")
+        elif text != figs[fid]["value"]:
+            fails.append(f"README.md: {fid} says {text!r}, figures.json says {figs[fid]['value']!r}")
+    if not mirrored:
+        fails.append("README.md mirrors no figures; its numbers would be unchecked")
+
+# 6. The fan sections, everything above the first ENGINEERING comment, talk like a
+# listener (HANDOFF section 1). These words belong below the divider.
+cut = html.find("ENGINEERING")
+if cut < 0:
+    fails.append("no ENGINEERING divider comment in index.html; the fan-voice check has nothing to cut at")
+else:
+    above = html[html.find("<body"):html.rfind("<!--", 0, cut)]
+    above = re.sub(r"<(style|script|svg)\b.*?</\1>", " ", above, flags=re.S)
+    above = re.sub(r"<[^>]+>", " ", above)
+    for m in re.finditer(r"(?i)\b(decod\w*|codec\w*|integer\w*|instruction\w*|bit-exact|frames?)\b", above):
+        fails.append(f"fan section uses {m.group(0)!r}: ...{' '.join(above[max(0, m.start() - 40):m.end() + 20].split())}...")
+
 for f in fails:
     print("RED", f, file=sys.stderr)
 if not fails:
-    print(f"OK {len(seen)} figures on the page agree with figures.json; {len(derived)} re-derived from the recording and the step counts; " + (f"kernel/ re-taken: {lines:,} lines, {routines} routines" if lines is not None else "kernel/ not vendored (withheld pending licence), lines and routines carried from figures.json"))
+    print(f"OK {len(seen)} figures on the page agree with figures.json; {len(derived)} re-derived from the recording and the step counts; {mirrored} mirrored in README.md; " + (f"kernel/ re-taken: {lines:,} lines, {routines} routines" if lines is not None else "kernel/ not vendored (withheld pending licence), lines and routines carried from figures.json"))
 sys.exit(len(fails))

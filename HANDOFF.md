@@ -186,7 +186,25 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r42, 2026-10-02 15:21 EDT, the emitter's header defect is fixed and the page says so.**
+8. **r43, 2026-10-02 15:24 EDT, the README and the fan words.** (a) `README.md` (the repo is
+   PUBLIC) was three days stale and false in places: 1,290 lines, 25 routines, 1,500
+   instructions, 7.6× real time, "nothing walks a file of frames", "not yet attested".
+   Rewritten from `figures.json`; each mirrored value is wrapped in
+   `<!--fig:ID-->VALUE<!--/fig-->` and the gate's fifth check refuses the README when one
+   disagrees (22 mirrored; control: the old 7.6× goes RED). (b) §1's word rule (no decoder,
+   codec, integer, instruction, bit-exact or frame above the divider) had drifted in six
+   places added on 2026-09-30 to 10-02. Replaced: "Decoded by Naad" -> "Played by Naad";
+   "went through the Sanskrit decoder one frame after another" -> "went through Naad from
+   the first note to the last"; "Checksums nobody here computed" -> "Fingerprints nobody
+   here made"; "The whole toolchain ... and the decoder it builds asks" -> "Everything it
+   takes to build Naad ... and Naad itself asks"; "from a decoder small enough" -> "from
+   something small enough"; "A format whose decode is provably exact, and whose decoder can
+   be read in full" -> "A format that gives back exactly what went in, with the proof, and
+   that can be read in full". Left as they are: "runtime" in the gear-maker tiles and
+   "toolchain" in the Paramtatva blurb (not on §1's list; the owner's call). A scan for
+   §1's words above the divider now returns nothing, and the scan is the gate's sixth check (control: the r42 page
+   goes RED on seven uses).
+   **r42, 2026-10-02 15:21 EDT, the emitter's header defect is fixed and the page says so.**
    sansos-4b fixed `emit.py` in `agent/encoder` 953b03d (minimum block size excludes the
    last block; the acceptance check had passed `--totally-silent` and now refuses on any
    warning). Re-taken here at 953b03d with the prediction registered first: 555,283 octets,
@@ -313,7 +331,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r42 as of 2026-10-02 15:21 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r43 as of 2026-10-02 15:24 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
