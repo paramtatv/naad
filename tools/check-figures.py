@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Refuse index.html when any figure on it disagrees with figures.json.
 
-Six checks, each of which can go red on its own:
+Seven checks, each of which can go red on its own:
   1. every <span data-fig="ID">TEXT</span> in index.html has an entry in
      figures.json and TEXT equals that entry's value, character for character;
   2. every figure in figures.json appears on the page at least once, so a
@@ -19,6 +19,9 @@ Six checks, each of which can go red on its own:
   6. nothing above the engineering divider uses the words the handoff reserves
      for the engineering sections: decoder, codec, integer, instruction,
      bit-exact, frame.
+  7. the page and its images load nothing from another origin (hyperlinks are
+     allowed, loads are not), use no beacon, socket, frame or import, and every
+     local file or anchor they reference exists.
 
 Exit status is the number of failures. Prints nothing on green except OK.
 """
@@ -146,8 +149,52 @@ else:
     for m in re.finditer(r"(?i)\b(decod\w*|codec\w*|integer\w*|instruction\w*|bit-exact|frames?)\b", above):
         fails.append(f"fan section uses {m.group(0)!r}: ...{' '.join(above[max(0, m.start() - 40):m.end() + 20].split())}...")
 
+# 7. Nothing is loaded from another origin, and nothing local is referenced that is not
+# shipped. Owner's ruling, 2026-10-02: "No analytics scripts, tracking pixels, telemetry
+# beacons, or external third-party assets shall ever be included on the site." A hyperlink
+# the reader chooses to follow is not a load; everything else that names another host is.
+OWN = "https://paramtatv.github.io/naad/"
+ABSOLUTE = r"""(?:https?:)?//[A-Za-z0-9.-]+\.[A-Za-z]{2,}[^\s"'<>)]*"""
+ids = set(re.findall(r'\bid="([^"]+)"', html))
+hyperlinks = 0
+def local(ref, where):
+    path = ref.split("#")[0].split("?")[0]
+    if path and not (root / path).exists():
+        fails.append(f"{where} references {ref!r}, which is not shipped beside the page")
+for m in re.finditer(r'<a\b[^>]*\bhref="([^"]*)"', html):
+    ref = m.group(1)
+    if re.match(r"https?://", ref):
+        hyperlinks += 1
+    elif ref.startswith("#"):
+        if ref[1:] and ref[1:] not in ids:
+            fails.append(f"link to {ref!r}, but no element on the page has that id")
+    elif not ref.startswith("mailto:"):
+        local(ref, "a link")
+rest = re.sub(r"<a\b[^>]*>", " ", html)
+for m in re.finditer(r'<meta\b[^>]*\b(?:property|name)="(?:og:url|og:image|twitter:image)"[^>]*\bcontent="([^"]*)"[^>]*>', rest):
+    if not m.group(1).startswith(OWN):
+        fails.append(f"share tag points off this site: {m.group(1)!r}")
+    else:
+        local(m.group(1)[len(OWN):], "a share tag")
+rest = re.sub(r'<meta\b[^>]*\b(?:property|name)="(?:og:url|og:image|twitter:image)"[^>]*>', " ", rest)
+rest = re.sub(r'\bxmlns(?::\w+)?="http://www\.w3\.org/[^"]*"', " ", rest)
+for m in re.finditer(ABSOLUTE, rest):
+    fails.append(f"the page names another host outside a hyperlink: {m.group(0)[:80]!r}")
+for m in re.finditer(r'\b(?:src|poster|href)="([^"]+)"', rest):
+    if not m.group(1).startswith(("#", "data:")) and not re.match(ABSOLUTE, m.group(1)):
+        local(m.group(1), "the page")
+for m in re.finditer(r"url\(\s*['\"]?([^'\")]+)", rest):
+    if not m.group(1).startswith(("#", "data:")) and not re.match(ABSOLUTE, m.group(1)):
+        local(m.group(1), "a stylesheet rule")
+for m in re.finditer(r'sendBeacon|XMLHttpRequest|WebSocket|EventSource|<iframe|<object|<embed|http-equiv="refresh"|@import|gtag\(|googletagmanager|google-analytics', html):
+    fails.append(f"the page uses {m.group(0)!r}, which this site does not allow")
+for svg in sorted(root.glob("*.svg")):
+    body = re.sub(r'\bxmlns(?::\w+)?="http://www\.w3\.org/[^"]*"', " ", svg.read_text(encoding="utf-8"))
+    for m in re.finditer(ABSOLUTE + r"|<script", body):
+        fails.append(f"{svg.name} names another host or carries a script: {m.group(0)[:80]!r}")
+
 for f in fails:
     print("RED", f, file=sys.stderr)
 if not fails:
-    print(f"OK {len(seen)} figures on the page agree with figures.json; {len(derived)} re-derived from the recording and the step counts; {mirrored} mirrored in README.md; " + (f"kernel/ re-taken: {lines:,} lines, {routines} routines" if lines is not None else "kernel/ not vendored (withheld pending licence), lines and routines carried from figures.json"))
+    print(f"OK {len(seen)} figures on the page agree with figures.json; {len(derived)} re-derived from the recording and the step counts; {mirrored} mirrored in README.md; no off-site load, {hyperlinks} hyperlinks; " + (f"kernel/ re-taken: {lines:,} lines, {routines} routines" if lines is not None else "kernel/ not vendored (withheld pending licence), lines and routines carried from figures.json"))
 sys.exit(len(fails))

@@ -186,7 +186,20 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r43, 2026-10-02 15:24 EDT, the README and the fan words.** (a) `README.md` (the repo is
+8. **r44, 2026-10-02 15:28 EDT, the no-third-party ruling is a gate check, and a dead source
+   is gone.** `tools/check-figures.py` check 7: any absolute or protocol-relative URL in
+   `index.html` outside an `<a href>` (or a share tag on this site's own origin) is RED;
+   so are `sendBeacon`, `XMLHttpRequest`, `WebSocket`, `EventSource`, `<iframe>`,
+   `<object>`, `<embed>`, meta refresh, `@import` and the common analytics names; so is any
+   absolute URL or `<script>` in a shipped `.svg`; and every local `src`, `href`, `url()`
+   and `#anchor` must exist. Controls, each RED: a Google Fonts stylesheet, a
+   protocol-relative pixel, a beacon to this origin, a link to a missing anchor, a font file
+   not shipped. The hand-run `grep` before each push is no longer the mechanism. **First
+   run found a real defect:** the master's `<audio>` had carried a fallback
+   `<source src="grieg-mountain-king.wav">` since 2026-09-30 for a file never shipped (live
+   404, confirmed with curl). Removed; every current browser plays FLAC, and on one that
+   cannot the master tab was already silent.
+   **r43, 2026-10-02 15:24 EDT, the README and the fan words.** (a) `README.md` (the repo is
    PUBLIC) was three days stale and false in places: 1,290 lines, 25 routines, 1,500
    instructions, 7.6× real time, "nothing walks a file of frames", "not yet attested".
    Rewritten from `figures.json`; each mirrored value is wrapped in
@@ -331,7 +344,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r43 as of 2026-10-02 15:24 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r44 as of 2026-10-02 15:28 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
@@ -407,7 +420,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    loads nothing from another origin; the only external URLs in `index.html` are hyperlinks
    (Commons, paramtatva.org, and the five market-figure sources). Any future change that
    adds a `src=` or stylesheet `href=` to another origin breaks this ruling; check with
-   `grep -o '\(src\|href\)="https\?://[^"]*"' index.html` before every push.
+   `grep -o '\(src\|href\)="https\?://[^"]*"' index.html` before every push. SUPERSEDED r44: the gate's check 7 enforces this.
    Decide on analytics or decide against them in writing.
    §7.3 note: attestation's first measurement exists (one image, three hosts, two ISAs, one
    digest; sravan THESIS §8d); the page's planned rung stays planned until a third ISA or
