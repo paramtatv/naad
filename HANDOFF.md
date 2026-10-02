@@ -111,7 +111,10 @@ indexed write into a pre-sized arena, ~49 in a growing fill, the difference a pe
 length-raise when index == length (ir.t1:1600-1605), not the growth routine; W-356's fix
 will not move it. The walker's bit window is one word per bit written one at a time, so its
 share is addressable by pre-sizing in the declaring frame; e0's prediction (49 -> ~28 when
-pre-sized) is registered and sansos-4b owns the probes to kill it. Nothing on the page claims the output half is
+pre-sized) is registered and sansos-4b owns the probes to kill it. **Measured 14:50Z:** the
+pre-sized probe reads 36.00 per iteration (28 per write + 8 loop), confirming e0's
+mechanism, and the walker ALREADY takes that path (धारा sized by one last-index write, every
+slot written before any read), so no saving is available in the walker from this. Nothing on the page claims the output half is
 ready. The `.t1` ENCODER
 has started (sravan `kernel/sanketaka.t1`: frame header, CONSTANT/VERBATIM subframes,
 verified against the Python oracle's packed bits and round-tripped through निःशेष; 957d4de,
@@ -180,7 +183,13 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **Naad and Śravaṇa are licensed products, not free ones.** Owner's ruling, 2026-10-01.
+8. **CLOSED 2026-10-02 14:50Z: AGPL-3.0-only, everywhere.** The owner confirmed it directly
+   to sansos-4b (and e0 for the sansos trunk), and sravan main is `d27391f` with all 27
+   `stream` commits merged; the LICENSE, README and THESIS footer agree. The vendored
+   decoder may now return to this page under the same licence when the owner wants it;
+   `tools/check-figures.py` re-takes lines and routines from `kernel/` when it is present.
+   History of the item follows.
+   **Naad and Śravaṇa are licensed products, not free ones.** Owner's ruling, 2026-10-01.
    No "royalty-free", "no fee", "open", "nobody owns it" or "no subscription" promise
    anywhere on the page. The listener-side promise is that files do not expire with an
    account; the maker-side promise is that Naad is licensed to them. **CONFLICT SETTLED
