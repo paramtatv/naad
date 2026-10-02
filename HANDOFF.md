@@ -186,7 +186,15 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **2026-10-02 18:01 EDT, no page change: THE PER-READ BOUND IS BUILT AND HANDED TO sansos-4b
+8. **r47, 2026-10-02 18:18 EDT, the fourth venue on the page.** The attestation Proof row now
+   reads "One image, 4 venues, one digest": the three machines and the machine compiled to
+   WebAssembly in a browser, same audio and same count (225,995,199) for walkerown.elf,
+   the row's own image, measured in headless Chrome 154 and node 25 with the page's own
+   FLAC sliced at run time. New figure `attest_venues`; `attest_steps10` and `attest_hosts`
+   labels updated; README mirrors it. The browser is written as a fourth way of executing
+   the machine, not a fourth instruction set, and the planned "3 instruction sets" rung
+   stays planned. No running decoder on the page (owner's yes pending).
+   8. **2026-10-02 18:01 EDT, no page change: THE PER-READ BOUND IS BUILT AND HANDED TO sansos-4b
    FOR REVIEW.** sravan branch `agent/per-read-bound`, tip 27fca37, eleven commits on
    36c3b8f, local to the shared repository, nothing pushed. Results, all on the 34c9712a
    toolchain on ubuntu-local, in `SCOPE-per-read-bound.md` on the branch: the 33-case test
@@ -405,7 +413,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r46 as of 2026-10-02 15:50 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r47 as of 2026-10-02 18:18 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
