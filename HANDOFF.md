@@ -277,8 +277,16 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    emits a self-contained page; the machine takes an empty import object), stream samples
    out over the console call, draw the real decoded waveform, and show the digest beside the
    reference digest. User-supplied frames wait on the RAM-injection path (`wt-raminject`).
-5. Self-host the two font families. Add an `og:image` card for Naad (the one in
-   `brand-assets/` is Paramtatva's). Decide on analytics or decide against them in writing.
+5. Self-host the two font families: **DONE ON A BRANCH, 2026-10-02 18:25Z, held for the
+   owner** (`self-host-fonts` fb0085d, pushed, not merged; main is live). Five woff2 files,
+   340 KB, under `fonts/` with their OFL texts; twelve inline `@font-face` rules; falsifier
+   run in headless Chrome with fonts.googleapis.com and fonts.gstatic.com blocked (both
+   families render; a control without `fonts/` falls back visibly); gate green. Add an
+   `og:image` card for Naad (the one in `brand-assets/` is Paramtatva's): NEXT, same branch.
+   Decide on analytics or decide against them in writing.
+   §7.3 note: attestation's first measurement exists (one image, three hosts, two ISAs, one
+   digest; sravan THESIS §8d); the page's planned rung stays planned until a third ISA or
+   the wasm machine agrees. §7.4: consult sent to sansos-e0 before any build.
 6. Generate `figures.json` from `sravan` metrics rather than by hand, once `sravan` keeps a
    metrics file.
 
