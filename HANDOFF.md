@@ -186,7 +186,7 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r38, 2026-10-02 15:10 EDT, the re-take notes made true.** The "Real frames, in sequence"
+8. **r38, 2026-10-02 15:00 EDT, the re-take notes made true.** The "Real frames, in sequence"
    row said its ten-frame count "is being re-taken", and three figure labels (`seq_steps`,
    `resync_steps`, `pcm_octets`) said "re-take on 34c9712a in progress"; those re-takes were
    stopped on 2026-10-02 when embedded-literal tests were retired (W-361). The page and the
@@ -195,7 +195,7 @@ one was fooled before: a content grep matched a substring that survived between 
    (e22a87a3 11,422,135; 3d905c37 8,602,692), so the 24.7% gain is 3d905c37 alone (sravan
    THESIS §8d). Every label that still says "owed" (the eight walker and speed figures) is
    a live debt: the per-read bound in sansos-4b's lane.
-   **r37, 2026-10-02 15:00 EDT, three stale statements corrected after viewing the rendered
+   **r37, 2026-10-02 14:57 EDT, three stale statements corrected after viewing the rendered
    page** (headless Chrome at 1280 and 500 px; the r36 regions render cleanly, no overflow):
    (a) the ledger's "Attestation ... has not been run on Naad" contradicted the r35 row two
    lines above it; it now says two instruction sets are done and the third is owed. (b) and
@@ -268,7 +268,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r38 as of 2026-10-02 15:10 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r38 as of 2026-10-02 15:00 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
