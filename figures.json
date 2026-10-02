@@ -89,9 +89,9 @@
   "ratio": {
    "value": "+0.1%",
    "status": "measured",
-   "label": "coded size versus flac -8, the ENCODER, in Python, as an exact bit count and not an emitted stream",
-   "source": "sravan@9d1ceed; THESIS.md §6 S1 table, 52.8% vs 52.7%",
-   "command": "reference/bench_ietf.py"
+   "label": "coded size versus flac -8, the ENCODER's cost model, in Python, an exact bit count and not an emitted stream; exact +0.098% (47,557,586 model octets vs 47,511,114 flac -8 octets over all 64 files) under the model corrected on 2026-10-02 for the 13 bits per FIXED/LPC subframe it had omitted (subframe header, residual coding method, partition order; found by sansos-4b's reference/join_check.py against the emitted stream); the uncorrected exact value was never taken, the correction's size is the join check's 0.050% estimate on three files",
+   "source": "sravan stream 67c8c01 (reference/fast.py corrected; reference/bench_ietf.py prints the exact ratio), run 2026-10-02 10:39-11:03Z on the IETF subset at research/specs/media/flac-test-files/subset (sansos trunk), 64 graded, 0 skipped; log wt-sravan-real/.build/bench-fixed.log",
+   "command": "python3 reference/bench_ietf.py  # exact: sravana 47,557,586 octets  flac-8 47,511,114 octets  ratio_vs_flac = +0.098%"
   },
   "corpus": {
    "value": "64 of 64",

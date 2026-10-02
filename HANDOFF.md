@@ -65,7 +65,11 @@ bit-exactly on four subjects (mono, stereo, 3-channel) and `metaflac` confirms t
 MD5. It uses fixed predictors, one partition, no LPC, so its files are +15% to +35% over
 `flac -8`; that is NOT a ratio figure and must not reach the page as one. The +0.1%/+0.2%
 cost-model figures price LPC and partition search; the join is tested only once the encoder
-makes those choices, with the model's prediction registered first. **The `.t1` encoder is
+makes those choices, with the model's prediction registered first. **Cost model corrected
+2026-10-02** (13 bits per FIXED/LPC subframe it omitted, sravan 67c8c01): the page's `ratio`
+stays +0.1% (exact +0.098%, 47,557,586 vs 47,511,114 octets, 64 files); SQAM under the
+corrected vectorised model reads −0.777% on 70 tracks (THESIS §6; not on the page); both
+registered predictions for the re-runs were wrong and are recorded as such. **The `.t1` encoder is
 still not built.** **IETF subset, 2026-10-02 09:25Z (r29):** 39 of 64 decode to STREAMINFO's
 MD5; none of the 25 others produced wrong audio: 12 metadata beyond the walker's fixed
 65,536-octet header window (10 × status 203; 2 HALTED by the machine, BeyondRam, when a
