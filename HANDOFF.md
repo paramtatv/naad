@@ -188,7 +188,10 @@ one was fooled before: a content grep matched a substring that survived between 
    `stream` commits merged; the LICENSE, README and THESIS footer agree. The vendored
    decoder may now return to this page under the same licence when the owner wants it;
    `tools/check-figures.py` re-takes lines and routines from `kernel/` when it is present.
-   History of the item follows.
+   History of the item follows. Also relayed by sansos-4b at 14:58Z, to be confirmed by the
+   owner before the page frames around it: **Darśana's D4 launches as an audio archive
+   container carrying ŚRAVAṆA's `.t1` decoder**, not Darśana's image decoder, which puts
+   `sravan/kernel` on D4's critical path.
    **Naad and Śravaṇa are licensed products, not free ones.** Owner's ruling, 2026-10-01.
    No "royalty-free", "no fee", "open", "nobody owns it" or "no subscription" promise
    anywhere on the page. The listener-side promise is that files do not expire with an
