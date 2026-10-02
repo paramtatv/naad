@@ -100,9 +100,15 @@ leads with 57/7 and keeps the first run's 39/25 breakdown as history (figure
 (>2) is scoped in sravan `SCOPE-multichannel.md` (e4f6d48): four changes in dependency
 order (flat channel array in खण्डपाठः, moving 19 call sites; an offset for the verbatim
 reader; the >2 path is SIMPLER than stereo since decorrelation is stereo-only; the walker's
-two unrolled emission blocks become a loop, they are NOT a loop today); two costs unmeasured
-(8-channel sample slots vs the 20 MiB default RAM; W-359 forcing the declaring frame to
-size them on every run). Nothing on the page claims the output half is ready. The `.t1` ENCODER
+two unrolled emission blocks become a loop, they are NOT a loop today); both costs now
+MEASURED (3fa6b51): file 44 (192 kHz, 8 ch, 24-bit) has blocksize 16,384, so the corpus's
+largest buffer is 131,072 slots = 1.000 MiB beside धारा (the format's bound, 65,536 × 8, is
+4 MiB and no corpus file approaches it; keep both apart); and a W-359 pre-fill costs
+**48.86 instructions per indexed write** (bare fill probes: 1 slot 167, 524,288 slots
+25,618,915), so sizing for the format's bound would cost 25.6 M instructions on every run.
+That per-write figure is a toolchain question handed to sansos-e0: the walker's bit window
+is one word per bit, written one at a time. Nothing on the page claims the output half is
+ready. The `.t1` ENCODER
 has started (sravan `kernel/sanketaka.t1`: frame header, CONSTANT/VERBATIM subframes,
 verified against the Python oracle's packed bits and round-tripped through निःशेष; 957d4de,
 30d937e, 29413bd); still not an encoder. W-359 new shape: a callee-filled table stays all
