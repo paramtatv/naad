@@ -200,7 +200,9 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
   on the current tree is IMPOSSIBLE: 34c9712a refused pariksha_t10 (10,346 lines) at link after
   268.7 G interpreted steps and 10h47m (load-dependent "no site … empty image", the signature
   the old tree showed only at 30,533 lines; W-330's per-site image growth lowered the ceiling,
-  see W-361). pariksha_t2 was refused identically (268,739,744,400 steps); the superseded
+  see W-361, CLOSED 06:38Z: 3d905c37 alone is 13.194x of the 13.194x on pariksha_r, parent
+  3,729,504,906 vs child 49,208,073,454 on ubuntu-local; linear -> n^1.9 in literals; remedy
+  is Sassembly W-356). pariksha_t2 was refused identically (268,739,744,400 steps); the superseded
   ten-frame re-takes were stopped before building. No test embeds
   data as literals from here; the host-fed walker is the timing subject. One
   toolchain tree for all Śravaṇa native figures: 19c3c8f3, whose compiler sources and spec
