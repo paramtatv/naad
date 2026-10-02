@@ -58,7 +58,17 @@ Every figure on the page carries one of three tags, and the tag is part of the f
 Two figures the earlier page conflated are now kept apart on purpose: the **encoder's**
 +0.1% on 64 of 64 IETF files (Python, an exact bit count, join open) and the **decoder's**
 10 frames, 78 headers and 64 type codes (`.t1`, both engines). "Naad clears all 64" was
-the Rust decoder in `crates/nada`, which is a different program.
+the Rust decoder in `crates/nada`, which is a different program. **Encoder state as of
+2026-10-02 07:15Z:** the Python reference now EMITS complete FLAC files (sravan
+`agent/encoder` `dffabb4`, sansos-4b): `flac -d` and `ffmpeg` reproduce the input PCM
+bit-exactly on four subjects (mono, stereo, 3-channel) and `metaflac` confirms the written
+MD5. It uses fixed predictors, one partition, no LPC, so its files are +15% to +35% over
+`flac -8`; that is NOT a ratio figure and must not reach the page as one. The +0.1%/+0.2%
+cost-model figures price LPC and partition search; the join is tested only once the encoder
+makes those choices, with the model's prediction registered first. **The `.t1` encoder is
+still not built.** The decoder has also been run over the IETF subset corpus (64 files,
+`wt-tick/research/specs/media/flac-test-files/`); tally pending from sansos-4b, routed here
+with commit and command before any figure lands.
 
 ## 4. The mechanisms
 
