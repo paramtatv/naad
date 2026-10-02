@@ -186,7 +186,14 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r48, 2026-10-02 18:51 EDT, THE DECODER RUNS ON THE LIVE PAGE.** The owner approved
+8. **r49, 2026-10-02 19:05 EDT:** the attestation row links to the Run-it-here panel ("You can
+   take the browser reading yourself, below"). Landing shape for Śravaṇa, from sansos-42:
+   sansos-4b merged `agent/per-read-bound` (5f25186) into `agent/harness-depth` as 249e608,
+   one --no-ff merge recording the review; ONE push of sravan main (42 ahead of d27391f)
+   after their 35-image gate is green; the coordinator pushes and announces the sha; my
+   re-take (`wt-sravan-real/.build/retake-walker.sh`) runs off main after it. Do not rebase
+   or re-cut anything meanwhile.
+   **r48, 2026-10-02 18:51 EDT, THE DECODER RUNS ON THE LIVE PAGE.** The owner approved
    `decoder-in-browser` (pasted decision relayed by sansos-42 at 18:44; I staged the merge
    as 0d0d03f and held the push for the owner's word in my own window; the owner then typed
    "You do it" to sansos-42, who pushed 0d0d03f to main at 18:51 on that direct word). Gate
@@ -441,7 +448,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r48 as of 2026-10-02 18:51 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r49 as of 2026-10-02 19:05 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
