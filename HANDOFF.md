@@ -84,6 +84,14 @@ from a STREAMINFO max framesize legally 0 (status 361), 7 declined by design for
 blocksize × channels × depth when max framesize is 0, output at STREAMINFO's channels and
 depth) are walker changes owned by sansos-4b with the geometry fix, each a separate commit,
 and the whole corpus re-runs after them. Never word the 25 as "conformance failures".
+**All four fixes landed by 11:30Z** (geometry 1efe84e, max-framesize bound abb02e1, bounded
+header reader + octet chain walk 41bc838 with 204/205 refusals, floor-and-presence fixes
+15a6588); the subset re-run under the fully fixed walker is in progress (prediction 3
+registered: 57 pass, 7 declined by design) and will REPLACE the r29/r30 breakdown, citing its
+walker commit. **faulty/ corpus (r31):** 11/11 named statuses, 8 decode, 3 refuse (figures
+`faulty_*`, table `~/darsan-logs/faulty-refusal.tsv`); acceptance is "the machine never halts
+abnormally", not the checksum. Open on our side: metadata before STREAMINFO (file 07) and
+refusal 204 untested.
 
 ## 4. The mechanisms
 
