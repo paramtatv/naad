@@ -677,31 +677,37 @@ laptop core. To re-take: `wt-sravan-real/.build/retake-walker.sh`, put the two c
 - `figures.json` is still hand-maintained except for the 21 figures the gate derives; the
   rest waits on a metrics file in sravan.
 
-**What this lane is doing besides the page (2026-10-03 09:00 EDT).** The page is at r52
-and nothing is pending on it. On an owner ruling relayed by the coordinator ("idle lanes
-take small Sassembly rows", reviewed and landed by sansos-e0), this lane works rows in the
-sansos repository, each on its own feature branch and worktree, falsifier first, gated
-remotely in its own directory, pushed and never merged by this lane.
-- Landed: W-349, W-348 and its follow-up, T-103 and its wording fix, and W-342 (trunk
-  d8aeaf00): a source the compiler's parser refuses is now a named failure with a non-zero
-  exit, where a build with no entry used to exit zero with an image of the startup alone.
-- Done as a measurement: D-004. One compiler image, 1,445,786 octets with one digest,
-  from the interpreted compiler, from that image running natively on x86-64, and from
-  that one running natively on aarch64. The two architectures executed the same number
-  of instructions. Not measured: a first stage on the aarch64 host.
-- In review, W-333, branch `agent/w333-logical-shift-for-unsigned-names` at d9e6b4f1: a
-  right shift whose left operand is a name declared unsigned is logical on both engines.
-  Four corpus instructions change and no value the corpus computes does. Its gate is
-  clean, its own fixpoint holds, and the check that only those four instructions differ
-  matches on every tree it was run on. One fixpoint is still running, on the exact
-  sources that will land. sansos-e0 lands it.
-- Next, W-368, claimed by this lane for after W-333 lands: a fifteenth test form so the
-  three remaining instruction readers are fed a logical shift.
-- W-367 was filed by sansos-e0 from a finding made here: the assembler's fit check answers
-  differently per engine for a negative value. Not this lane's to repair.
-None of this changes a figure on the page. The working state of each run is in the
-session memory files `d-004-triple-build-run-2026-10-03` and
-`w-333-logical-shift-assignment-2026-10-03`.
+**What this lane did besides the page (2026-10-03, state at 10:50 EDT).** The page is at
+r52 and nothing is pending on it. On an owner ruling relayed by the coordinator ("idle
+lanes take small Sassembly rows", reviewed and landed by sansos-e0), this lane worked
+rows in the sansos repository. All of them are on its trunk now:
+- W-349, W-348 and its follow-up, T-103 and its wording fix.
+- W-342 (trunk d8aeaf00): a source the compiler's parser refuses is a named failure with
+  a non-zero exit, where a build with no entry used to exit zero.
+- W-333 (trunk 0224d8b6): a right shift whose left operand is a name declared unsigned is
+  logical on both engines. Four corpus instructions changed and no value the corpus
+  computes did.
+- W-368 (trunk 5bc584cb): each of the three remaining instruction readers is fed a
+  logical shift through its own read path.
+- D-004, a measurement: one compiler image, 1,445,786 octets with one digest, from the
+  interpreted compiler, from that image running natively on x86-64, and from that one
+  running natively on aarch64, with the same instruction count on both architectures.
+W-367 was filed by sansos-e0 from a finding made here and is not this lane's.
+
+**DO NOT MOVE THE DECODER'S COMPILER PIN WITHOUT READING THIS.** The page's decoder image
+(`machine/walker.elf`) is built with the toolchain tree 34c9712a, which predates W-333.
+The Śravaṇa kernel declares every integer unsigned and keeps signed values in those
+names, and it has 24 direct right shifts over such names (the mid/side reconstruction
+among them). A compiler at or after sansos trunk 0224d8b6 lowers every one of them as a
+logical shift. Measured 2026-10-03 with the decoder from sravan main 3a55ea7 built both
+ways: the two images differ, and one frame, ten frames and the 11-file faulty corpus give
+identical audio and identical instruction counts. The 64-file corpus was still running
+when this was written; its result is in the session memory file
+`w-333-changes-direct-shift-sites-downstream`. Until that corpus is clean, and each
+direct site over a signed value is either routed through the kernel's arithmetic helper
+or re-declared signed, the pin stays. Moving it also changes the walker image's bytes, so
+its checksum in `figures.json`, `machine/PROVENANCE.md` and the expected values in the
+"Run it here" script would all have to be re-taken together, even if no count moves.
 
 **How speed is framed.** As a floor: the 1 GHz, one-instruction-per-cycle model is named
 as the most pessimistic machine anyone ships, the phone and laptop projections sit beside
