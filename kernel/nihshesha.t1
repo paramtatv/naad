@@ -29,6 +29,22 @@
 सार्वजनिक वृत्तिः रिचपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ कः ॱॱ न६४ ददाति न६४ आदि
     चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
 
+    ॰ THE BOUND, 2026-10-02. No read may pass the end of धारा, and the end is
+    ॰ the array's own length: no new parameter, so no caller changes. This
+    ॰ routine RETURNS THE VALUE IT READ and so has no status to give. On a read
+    ॰ that would pass the end it touches nothing, leaves the cursor at
+    ॰ length + १ and answers ०. That cursor is STICKY: every later read sees
+    ॰ cursor + n > length at once and does the same, and the routines that do
+    ॰ answer a status test `cursor > length` and refuse with १६. So ० from here
+    ॰ is not a residual until the caller has looked at the cursor.
+    ॰ The unary run is checked BEFORE EACH READ because nothing else bounds it:
+    ॰ a run of zeros has no length until it ends.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    यदि स्थानम् बृहत्समम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् ० ।
+    इति
+
     ॰ the unary quotient
     चरः भागः ॱॱ न६४ भवति ० ।
     ॰ RFC 9639 §9.2.7: the quotient is q ZERO bits, then a ONE. Until
@@ -38,8 +54,17 @@
     यावत् धारा अङ्कः स्थानम् अन्तः समम् ० आदि
         भागः भवति भागः योगः १ ।
         स्थानम् भवति स्थानम् योगः १ ।
+        यदि स्थानम् बृहत्समम् अवधिः आदि
+            सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+            प्रत्यागमनम् ० ।
+        इति
     इति
     स्थानम् भवति स्थानम् योगः १ ।      ॰ the terminating ONE
+    चरः रिचान्तः ॱॱ न६४ भवति स्थानम् योगः कः ।
+    यदि रिचान्तः अधिकम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् ० ।
+    इति
 
     ॰ the k low bits, most significant first
     चरः शेषम् ॱॱ न६४ भवति ० ।
@@ -194,6 +219,15 @@
 ॰ must be propagated rather than the top bit of the word.
 सार्वजनिक वृत्तिः यथावत्पाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ नमूनाः ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ गणना ॱॱ न६४ ऽ गहनता ॱॱ न६४ ददाति न६४ आदि
     चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    ॰ the bound (see रिचपाठः): गणना x गहनता bits, checked once, and nothing is
+    ॰ written to नमूनाः when they do not all fit
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    चरः वाचनान्तः ॱॱ न६४ भवति गणना गुणनम् गहनता ।
+    वाचनान्तः भवति वाचनान्तः योगः स्थानम् ।
+    यदि वाचनान्तः अधिकम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् ० ।
+    इति
     चरः शीर्षस्थानम् ॱॱ न६४ भवति गहनता वियोगः १ ।
     चरः इ ॱॱ न६४ भवति ० ।
 
@@ -290,11 +324,21 @@
 
     चरः लेखनी ॱॱ न६४ भवति क्रमः ।     ॰ where residuals start: after warm-up
     चरः व ॱॱ न६४ भवति ० ।
+    ॰ the bound (see रिचपाठः). This routine reads the parameter and the escape
+    ॰ depth itself, so those two reads are checked here; on an overrun it
+    ॰ answers the count so far with the cursor saturated, and उपखण्डपाठः tests
+    ॰ the cursor BEFORE the count, so the cause is named १६ and not ५.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
 
     यावत् व न्यूनम् विभागाः आदि
         ॰ this partition's Rice parameter, प्राचलविस्तारः bits
         चरः प्राचलः ॱॱ न६४ भवति ० ।
         चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+        चरः प्राचलान्तः ॱॱ न६४ भवति स्थानम् योगः प्राचलविस्तारः ।
+        यदि प्राचलान्तः अधिकम् अवधिः आदि
+            सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+            प्रत्यागमनम् लेखनी ।
+        इति
         चरः ब ॱॱ न६४ भवति ० ।
         यावत् ब न्यूनम् प्राचलविस्तारः आदि
             प्राचलः भवति प्राचलः वामसृ १ ।
@@ -314,6 +358,11 @@
             ॰ ESCAPED: गहनता raw bits each, गहनता read from the next five
             चरः गहनता ॱॱ न६४ भवति ० ।
             चरः स्थानद्वि ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+            चरः गहनान्तः ॱॱ न६४ भवति स्थानद्वि योगः ५ ।
+            यदि गहनान्तः अधिकम् अवधिः आदि
+                सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+                प्रत्यागमनम् लेखनी ।
+            इति
             चरः ग ॱॱ न६४ भवति ० ।
             यावत् ग न्यूनम् ५ आदि
                 गहनता भवति गहनता वामसृ १ ।
@@ -344,6 +393,13 @@
                 लेखनी भवति लेखनी योगः १ ।
                 च भवति च योगः १ ।
             इति
+        इति
+
+        ॰ a partition that ran off the end: stop here, the rest would only be
+        ॰ zeros written from a saturated cursor
+        चरः सी१ ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+        यदि सी१ अधिकम् अवधिः आदि
+            प्रत्यागमनम् लेखनी ।
         इति
 
         व भवति व योगः १ ।
@@ -378,9 +434,20 @@
 ॰ stand, so it binds as a name and then reads as a SPACE. The refusal is
 ॰ `Str([32]) is not something that can be assigned to`, which names neither
 ॰ the name nor the line.)
-॰ ANSWERS ० on success, १ if the padding bit is set, २ on a reserved code.
+॰ ANSWERS ० on success, १ if the padding bit is set, २ on a reserved code,
+॰ १६ if a read would have passed the end of धारा.
 सार्वजनिक वृत्तिः उपखण्डशीर्षपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ लक्षणम् ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
     चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+
+    ॰ the bound (see रिचपाठः). Eight bits are always read here: the padding
+    ॰ bit, six of type, the wasted-bits flag. This routine DOES answer a status,
+    ॰ so an overrun is १६, tested before any other refusal.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    चरः स्थिरान्तः ॱॱ न६४ भवति स्थानम् योगः ८ ।
+    यदि स्थिरान्तः अधिकम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् १६ ।
+    इति
 
     ॰ the mandatory zero padding bit. A set bit here means the stream is not
     ॰ where the caller thinks it is, and every later field would be garbage.
@@ -438,9 +505,18 @@
     यदि धारा अङ्कः स्थानम् अन्तः समम् १ आदि
         स्थानम् भवति स्थानम् योगः १ ।
         व्ययितम् भवति १ ।
+        ॰ a unary run again: checked before each read
+        यदि स्थानम् बृहत्समम् अवधिः आदि
+            सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+            प्रत्यागमनम् १६ ।
+        इति
         यावत् धारा अङ्कः स्थानम् अन्तः समम् ० आदि
             व्ययितम् भवति व्ययितम् योगः १ ।
             स्थानम् भवति स्थानम् योगः १ ।
+            यदि स्थानम् बृहत्समम् अवधिः आदि
+                सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+                प्रत्यागमनम् १६ ।
+            इति
         इति
         स्थानम् भवति स्थानम् योगः १ ।
     इति
@@ -464,6 +540,13 @@
 ॰ order ८..१५. So the two readers are separate on purpose.
 सार्वजनिक वृत्तिः अचिह्नितपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ गणना ॱॱ न६४ ददाति न६४ आदि
     चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    ॰ the bound (see रिचपाठः): one check for the whole field
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    चरः वाचनान्तः ॱॱ न६४ भवति स्थानम् योगः गणना ।
+    यदि वाचनान्तः अधिकम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् ० ।
+    इति
     चरः मूल्यम् ॱॱ न६४ भवति ० ।
     चरः इ ॱॱ न६४ भवति ० ।
     यावत् इ न्यूनम् गणना आदि
@@ -497,7 +580,8 @@
 ॰
 ॰ ANSWERS ० on success, १/२ from the header, ३ on an invalid LPC precision
 ॰ (०b११११), ४ on a reserved residual coding method, ५ if the residual did not
-॰ fill the block.
+॰ fill the block, १६ if a read would have passed the end of धारा (tested before
+॰ ३, ४ and ५, which a saturated ० could otherwise be taken for).
 सार्वजनिक वृत्तिः उपखण्डपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ नमूनाः ॱॱ अङ्कः अन्तः न६४ ऽ अवशेषाः ॱॱ अङ्कः अन्तः न६४ ऽ गुणकाः ॱॱ अङ्कः अन्तः न६४ ऽ लक्षणम् ॱॱ अङ्कः अन्तः न६४ ऽ खण्डमापः ॱॱ न६४ ऽ गहनता ॱॱ न६४ ददाति न६४ आदि
     चरः शीर्षफलम् ॱॱ न६४ भवति उपखण्डशीर्षपाठः आरभ्य धारा ऽ सूचकम् ऽ लक्षणम् समाप्तम् ।
     यदि शीर्षफलम् असमम् ० आदि
@@ -507,10 +591,20 @@
     चरः क्रमः ॱॱ न६४ भवति लक्षणम् अङ्कः १ अन्तः ।
     चरः व्ययितम् ॱॱ न६४ भवति लक्षणम् अङ्कः २ अन्तः ।
     चरः प्रभावी ॱॱ न६४ भवति गहनता वियोगः व्ययितम् ।
+    ॰ THE BOUND AT A STATUS LEVEL, 2026-10-02. The readers below answer ० and
+    ॰ leave the cursor past the end when a read would overrun (see रिचपाठः).
+    ॰ This routine is where that becomes a refusal: it tests the cursor after
+    ॰ each group of reads and answers १६, and it tests BEFORE the refusals a
+    ॰ saturated ० could be mistaken for (३, ४, ५), so one cause has one name.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
 
     ॰ CONSTANT — one sample, repeated across the block
     यदि प्रकारः समम् ० आदि
         चरः उ१ ॱॱ न६४ भवति यथावत्पाठः आरभ्य धारा ऽ सूचकम् ऽ नमूनाः ऽ ० ऽ १ ऽ प्रभावी समाप्तम् ।
+        चरः सी१ ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+        यदि सी१ अधिकम् अवधिः आदि
+            प्रत्यागमनम् १६ ।
+        इति
         चरः अचलम् ॱॱ न६४ भवति नमूनाः अङ्कः ० अन्तः ।
         चरः उ२ ॱॱ न६४ भवति अचलपूरणम् आरभ्य नमूनाः ऽ खण्डमापः ऽ अचलम् समाप्तम् ।
     इति
@@ -518,6 +612,10 @@
     ॰ VERBATIM — every sample stored
     यदि प्रकारः समम् १ आदि
         चरः उ३ ॱॱ न६४ भवति यथावत्पाठः आरभ्य धारा ऽ सूचकम् ऽ नमूनाः ऽ ० ऽ खण्डमापः ऽ प्रभावी समाप्तम् ।
+        चरः सी२ ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+        यदि सी२ अधिकम् अवधिः आदि
+            प्रत्यागमनम् १६ ।
+        इति
     इति
 
     ॰ FIXED and LPC — warm-up, then a predictor, then a residual
@@ -548,8 +646,18 @@
             विस्तारः भवति ५ ।
         इति
         चरः क्रमविभागः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ४ समाप्तम् ।
+        ॰ the warm-up, the LPC fields, the method and the partition order have
+        ॰ all been read: one test covers them
+        चरः सी३ ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+        यदि सी३ अधिकम् अवधिः आदि
+            प्रत्यागमनम् १६ ।
+        इति
 
         चरः लिखितम् ॱॱ न६४ भवति विभागपाठः आरभ्य धारा ऽ सूचकम् ऽ अवशेषाः ऽ खण्डमापः ऽ क्रमः ऽ क्रमविभागः ऽ विस्तारः समाप्तम् ।
+        चरः सी४ ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+        यदि सी४ अधिकम् अवधिः आदि
+            प्रत्यागमनम् १६ ।
+        इति
         यदि लिखितम् असमम् खण्डमापः आदि
             प्रत्यागमनम् ५ ।
         इति
@@ -612,6 +720,15 @@
 ॰ bit ६३ would sign-extend on the next दक्षिणसृ and the remainder would be
 ॰ wrong in a way no small test shows.
 सार्वजनिक वृत्तिः क्रमाष्टकम् आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ अष्टकगणना ॱॱ न६४ ददाति न६४ आदि
+    ॰ the bound (see रिचपाठः): a range that passes the end of धारा reads nothing.
+    ॰ The callers are themselves bounded, so this cannot fire from खण्डपाठः; it
+    ॰ is here so that no public routine can be made to read past the array.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    चरः क्रमान्तः ॱॱ न६४ भवति अष्टकगणना गुणनम् ८ ।
+    क्रमान्तः भवति क्रमान्तः योगः आरम्भः ।
+    यदि क्रमान्तः अधिकम् अवधिः आदि
+        प्रत्यागमनम् ० ।
+    इति
     चरः शेषम् ॱॱ न६४ भवति ० ।
     चरः स्थानम् ॱॱ न६४ भवति आरम्भः ।
     चरः इ ॱॱ न६४ भवति ० ।
@@ -725,9 +842,22 @@
 ॰
 ॰ ANSWERS ० on success, १ bad sync, २ reserved bit set, ३ reserved blocksize
 ॰ code, ४ invalid rate code, ५ reserved channel code, ६ reserved depth code,
-॰ ७ a bad coded number, ८ CRC-८ mismatch.
+॰ ७ a bad coded number, ८ CRC-८ mismatch, १६ a read would have passed the end
+॰ of धारा.
 सार्वजनिक वृत्तिः खण्डशीर्षपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ लक्षणम् ॱॱ अङ्कः अन्तः न६४ ऽ अष्टसारणी ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
     चरः आरम्भः ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+
+    ॰ THE BOUND, 2026-10-02 (see रिचपाठः). The first ३२ bits are fixed: sync,
+    ॰ strategy, three codes, depth, the reserved bit. Checked here, once,
+    ॰ because a saturated read answers ० and a ० sync would be refused as "bad
+    ॰ sync" (१), a ० blocksize code as "reserved" (३): the wrong name for an
+    ॰ overrun. १६ comes first.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    चरः स्थिरान्तः ॱॱ न६४ भवति आरम्भः योगः ३२ ।
+    यदि स्थिरान्तः अधिकम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् १६ ।
+    इति
 
     चरः संकेतः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १५ समाप्तम् ।
     यदि संकेतः असमम् ३२७६४ आदि
@@ -748,6 +878,12 @@
     चरः सङ्ख्याफलम् ॱॱ अङ्कः अन्तः न६४ भवति ० ।
     सङ्ख्याफलम् अङ्कः ० अन्तः भवति ० ।
     चरः सङ्ख्यास्थितिः ॱॱ न६४ भवति उत्फपाठः आरभ्य धारा ऽ सूचकम् ऽ सङ्ख्याफलम् समाप्तम् ।
+    ॰ a continuation octet that ran off the end reads as ० and would be "a bad
+    ॰ coded number" (७); the overrun is named first
+    चरः सी१ ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    यदि सी१ अधिकम् अवधिः आदि
+        प्रत्यागमनम् १६ ।
+    इति
     यदि सङ्ख्यास्थितिः असमम् ० आदि
         प्रत्यागमनम् ७ ।
     इति
@@ -834,6 +970,13 @@
 
     ॰ ── the CRC-८, over exactly what has been read ───────────────────
     चरः अन्तः२ ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    ॰ the escaped fields have been read and the CRC octet is next: one test for
+    ॰ both, before the CRC walk, which indexes from the cursor
+    चरः क्रमान्तः ॱॱ न६४ भवति अन्तः२ योगः ८ ।
+    यदि क्रमान्तः अधिकम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् १६ ।
+    इति
     चरः विस्तारः ॱॱ न६४ भवति अन्तः२ वियोगः आरम्भः ।
     चरः अष्टकगणना ॱॱ न६४ भवति विस्तारः विभाजनम् ८ ।
     चरः अपेक्षितम् ॱॱ न६४ भवति अष्टकसारण्या आरभ्य धारा ऽ आरम्भः ऽ अष्टकगणना ऽ अष्टसारणी समाप्तम् ।
@@ -860,6 +1003,15 @@
 ॰ the CRC-८ above with a १६-bit register, and it covers a WHOLE FRAME — header
 ॰ and every subframe — rather than just a header.
 सार्वजनिक वृत्तिः क्रमषोडशकम् आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ अष्टकगणना ॱॱ न६४ ददाति न६४ आदि
+    ॰ the bound (see रिचपाठः): a range that passes the end of धारा reads nothing.
+    ॰ The callers are themselves bounded, so this cannot fire from खण्डपाठः; it
+    ॰ is here so that no public routine can be made to read past the array.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    चरः क्रमान्तः ॱॱ न६४ भवति अष्टकगणना गुणनम् ८ ।
+    क्रमान्तः भवति क्रमान्तः योगः आरम्भः ।
+    यदि क्रमान्तः अधिकम् अवधिः आदि
+        प्रत्यागमनम् ० ।
+    इति
     चरः शेषम् ॱॱ न६४ भवति ० ।
     चरः स्थानम् ॱॱ न६४ भवति आरम्भः ।
     चरः इ ॱॱ न६४ भवति ० ।
@@ -976,7 +1128,9 @@
 ॰
 ॰ ANSWERS ० on success; १–८ straight from the frame header; १० more than two
 ॰ channels; २०+n from a failing subframe (n its own code, +४० for the second
-॰ channel); १३ non-zero padding; १४ CRC-१६ mismatch; १५ an unknown pairing.
+॰ channel); १३ non-zero padding; १४ CRC-१६ mismatch; १५ an unknown pairing;
+॰ १६ a read would have passed the end of धारा, from ANY depth and never as
+॰ २० + १६ or ६० + १६. The caller may hold a longer window and try again.
 सार्वजनिक वृत्तिः खण्डपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ वामः ॱॱ अङ्कः अन्तः न६४ ऽ दक्षिणः ॱॱ अङ्कः अन्तः न६४ ऽ अवशेषाः ॱॱ अङ्कः अन्तः न६४ ऽ गुणकाः ॱॱ अङ्कः अन्तः न६४ ऽ लक्षणम् ॱॱ अङ्कः अन्तः न६४ ऽ उपलक्षणम् ॱॱ अङ्कः अन्तः न६४ ऽ अष्टसारणी ॱॱ अङ्कः अन्तः न६४ ऽ षोडशसारणी ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
     चरः आरम्भः ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
 
@@ -1009,12 +1163,19 @@
 
     चरः अ ॱॱ न६४ भवति उपखण्डपाठः आरभ्य धारा ऽ सूचकम् ऽ वामः ऽ अवशेषाः ऽ गुणकाः ऽ उपलक्षणम् ऽ खण्डमापः ऽ वामगहनता समाप्तम् ।
     यदि अ असमम् ० आदि
+        ॰ AN OVERRUN IS १६ AT EVERY DEPTH, never २० + १६: one cause, one name
+        यदि अ समम् १६ आदि
+            प्रत्यागमनम् १६ ।
+        इति
         प्रत्यागमनम् २० योगः अ ।
     इति
 
     यदि वाहिनः समम् २ आदि
         चरः ब ॱॱ न६४ भवति उपखण्डपाठः आरभ्य धारा ऽ सूचकम् ऽ दक्षिणः ऽ अवशेषाः ऽ गुणकाः ऽ उपलक्षणम् ऽ खण्डमापः ऽ दक्षिणगहनता समाप्तम् ।
         यदि ब असमम् ० आदि
+            यदि ब समम् १६ आदि
+                प्रत्यागमनम् १६ ।
+            इति
             प्रत्यागमनम् ६० योगः ब ।
         इति
     इति
@@ -1030,6 +1191,22 @@
     ॰ cost a build; the grammar's order, loosest first, is
     ॰ विकल्प, विषम, युक्, shift, add, mul.
     चरः दूरम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः वियोगः आरम्भः ।
+    ॰ THE BOUND, 2026-10-02 (see रिचपाठः): the padding to the octet boundary and
+    ॰ the १६-bit CRC must both be inside धारा. Tested ONCE, HERE, because both
+    ॰ things below it fail badly on a saturated cursor: the padding loop would
+    ॰ never reach a boundary, and the CRC walk indexes from the cursor.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    चरः शेषांशः ॱॱ न६४ भवति दूरम् शेषः ८ ।
+    चरः रिक्तिः ॱॱ न६४ भवति ० ।
+    यदि शेषांशः असमम् ० आदि
+        रिक्तिः भवति ८ वियोगः शेषांशः ।
+    इति
+    चरः खण्डान्तः ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः योगः रिक्तिः ।
+    खण्डान्तः भवति खण्डान्तः योगः १६ ।
+    यदि खण्डान्तः अधिकम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् १६ ।
+    इति
     यावत् दूरम् शेषः ८ असमम् ० आदि
         चरः पूरकम् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १ समाप्तम् ।
         यदि पूरकम् असमम् ० आदि
@@ -1118,6 +1295,15 @@
 
 ॰ CRC-८ over a bit stream, one table lookup per octet.
 सार्वजनिक वृत्तिः अष्टकसारण्या आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ अष्टकगणना ॱॱ न६४ ऽ सारणी ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
+    ॰ the bound (see रिचपाठः): a range that passes the end of धारा reads nothing.
+    ॰ The callers are themselves bounded, so this cannot fire from खण्डपाठः; it
+    ॰ is here so that no public routine can be made to read past the array.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    चरः क्रमान्तः ॱॱ न६४ भवति अष्टकगणना गुणनम् ८ ।
+    क्रमान्तः भवति क्रमान्तः योगः आरम्भः ।
+    यदि क्रमान्तः अधिकम् अवधिः आदि
+        प्रत्यागमनम् ० ।
+    इति
     चरः शेषम् ॱॱ न६४ भवति ० ।
     चरः स्थानम् ॱॱ न६४ भवति आरम्भः ।
     चरः इ ॱॱ न६४ भवति ० ।
@@ -1139,6 +1325,15 @@
 
 ॰ CRC-१६ over a bit stream, one table lookup per octet.
 सार्वजनिक वृत्तिः षोडशकसारण्या आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ अष्टकगणना ॱॱ न६४ ऽ सारणी ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
+    ॰ the bound (see रिचपाठः): a range that passes the end of धारा reads nothing.
+    ॰ The callers are themselves bounded, so this cannot fire from खण्डपाठः; it
+    ॰ is here so that no public routine can be made to read past the array.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    चरः क्रमान्तः ॱॱ न६४ भवति अष्टकगणना गुणनम् ८ ।
+    क्रमान्तः भवति क्रमान्तः योगः आरम्भः ।
+    यदि क्रमान्तः अधिकम् अवधिः आदि
+        प्रत्यागमनम् ० ।
+    इति
     चरः शेषम् ॱॱ न६४ भवति ० ।
     चरः स्थानम् ॱॱ न६४ भवति आरम्भः ।
     चरः इ ॱॱ न६४ भवति ० ।
@@ -1190,6 +1385,15 @@
 ॰ सूचकम् अङ्कः ० अन्तः is a BIT position, not a word index.
 सार्वजनिक वृत्तिः पदपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ गणना ॱॱ न६४ ददाति न६४ आदि
     चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    ॰ THE BOUND, 2026-10-02 (see रिचपाठः), in BITS: the array holds ६४ per word.
+    ॰ Same contract: nothing read, the cursor left at limit + १, ० answered.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    अवधिः भवति अवधिः गुणनम् ६४ ।
+    चरः वाचनान्तः ॱॱ न६४ भवति स्थानम् योगः गणना ।
+    यदि वाचनान्तः अधिकम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् ० ।
+    इति
     चरः पदाङ्कः ॱॱ न६४ भवति स्थानम् विभाजनम् ६४ ।
     चरः स्थानांशः ॱॱ न६४ भवति स्थानम् शेषः ६४ ।
     चरः शेषस्थानम् ॱॱ न६४ भवति ६४ वियोगः स्थानांशः ।
@@ -1207,13 +1411,22 @@
         चरः ऊर्ध्वम् ॱॱ न६४ भवति धारा अङ्कः पदाङ्कः अन्तः ।
         ऊर्ध्वम् भवति ऊर्ध्वम् युक् ऊर्ध्वाच्छादनम् ।
 
+        ॰ A FIELD THAT ENDS EXACTLY ON THE WORD BOUNDARY comes here too (the test
+        ॰ above is >=), with अधोगणना ०. Until 2026-10-02 it then read the NEXT
+        ॰ word and shifted it by ६४ − ० = ६४, the shift the margin above says
+        ॰ cannot be reached; the result was right only because the mask was ०.
+        ॰ At the array's last word that read is one word past the end. So the
+        ॰ next word is touched only when the field really continues into it.
         चरः अग्रिमः ॱॱ न६४ भवति पदाङ्कः योगः १ ।
-        चरः अधःसृतिः ॱॱ न६४ भवति ६४ वियोगः अधोगणना ।
-        चरः अधःम् ॱॱ न६४ भवति धारा अङ्कः अग्रिमः अन्तः ।
-        अधःम् भवति अधःम् दक्षिणसृ अधःसृतिः ।
-        चरः अधोआच्छादनम् ॱॱ न६४ भवति १ वामसृ अधोगणना ।
-        अधोआच्छादनम् भवति अधोआच्छादनम् वियोगः १ ।
-        अधःम् भवति अधःम् युक् अधोआच्छादनम् ।
+        चरः अधःम् ॱॱ न६४ भवति ० ।
+        यदि अधोगणना अधिकम् ० आदि
+            चरः अधःसृतिः ॱॱ न६४ भवति ६४ वियोगः अधोगणना ।
+            अधःम् भवति धारा अङ्कः अग्रिमः अन्तः ।
+            अधःम् भवति अधःम् दक्षिणसृ अधःसृतिः ।
+            चरः अधोआच्छादनम् ॱॱ न६४ भवति १ वामसृ अधोगणना ।
+            अधोआच्छादनम् भवति अधोआच्छादनम् वियोगः १ ।
+            अधःम् भवति अधःम् युक् अधोआच्छादनम् ।
+        इति
 
         मूल्यम् भवति ऊर्ध्वम् वामसृ अधोगणना ।
         मूल्यम् भवति मूल्यम् विकल्प अधःम् ।
@@ -1234,6 +1447,14 @@
 ॰ because a unary run has no length until it ends.
 सार्वजनिक वृत्तिः पदबिन्दुः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ददाति न६४ आदि
     चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    ॰ the bound, in bits. PAST THE END THIS ANSWERS १, NOT ०: its caller scans a
+    ॰ unary run for a ONE, and a ० here would be a run that never ends.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    अवधिः भवति अवधिः गुणनम् ६४ ।
+    यदि स्थानम् बृहत्समम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् १ ।
+    इति
     चरः पदाङ्कः ॱॱ न६४ भवति स्थानम् विभाजनम् ६४ ।
     चरः सृतिः ॱॱ न६४ भवति ६३ वियोगः स्थानम् शेषः ६४ ।
     चरः व ॱॱ न६४ भवति धारा अङ्कः पदाङ्कः अन्तः ।
@@ -1263,6 +1484,17 @@
 ॰ read instead of गहनता of them. At १६ bits that is ~४५८ instructions becoming
 ॰ ~४६ per sample, which is where the frame's VERBATIM cost goes.
 सार्वजनिक वृत्तिः पदयथावत् आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ नमूनाः ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ गणना ॱॱ न६४ ऽ गहनता ॱॱ न६४ ददाति न६४ आदि
+    ॰ the bound, in bits: all गणना x गहनता or nothing, so नमूनाः is never
+    ॰ filled with zeros from a saturated cursor
+    चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
+    अवधिः भवति अवधिः गुणनम् ६४ ।
+    चरः वाचनान्तः ॱॱ न६४ भवति गणना गुणनम् गहनता ।
+    वाचनान्तः भवति वाचनान्तः योगः स्थानम् ।
+    यदि वाचनान्तः अधिकम् अवधिः आदि
+        सूचकम् अङ्कः ० अन्तः भवति अवधिः योगः १ ।
+        प्रत्यागमनम् ० ।
+    इति
     चरः शीर्षस्थानम् ॱॱ न६४ भवति गहनता वियोगः १ ।
     चरः एकम् ॱॱ न६४ भवति १ वामसृ गहनता ।
     चरः इ ॱॱ न६४ भवति ० ।
@@ -1335,10 +1567,47 @@
     इति
     चरः दृष्टम् ॱॱ न६४ भवति ० ।
     चरः अन्तिमम् ॱॱ न६४ भवति ० ।
+    ॰ THE BOUND IS THE ARRAY'S OWN LENGTH, and every advance below is checked
+    ॰ against it BEFORE it happens. `दैर्घ्यम्` is a २४-bit field the INPUT
+    ॰ controls, and until 2026-10-02 nothing bounded the skip it drives.
+    ॰
+    ॰ WHAT THAT COST: the IETF subset's files 48 and 55 carry a type-३ SEEKTABLE
+    ॰ of १६,७७७,२०६ octets, which advanced the cursor to bit १३४,२१७,६४८ against
+    ॰ a ५२४,२८८-slot window. Both halted `BeyondRam` at the IDENTICAL pc, addr
+    ॰ and step count on inputs of १७ MB and ८७ MB — an OUT-OF-BOUNDS READ driven
+    ॰ by a length field, the oldest class there is. Only the machine's own bounds
+    ॰ check kept it from being silent.
+    ॰
+    ॰ THE SKIP ITSELF NEVER TOUCHES धारा — it is arithmetic on the cursor — so
+    ॰ the dereference is the NEXT block's header read at an already-corrupt
+    ॰ cursor. The header check alone would therefore prevent the fault; the body
+    ॰ check is what makes the refusal name the block that caused it, instead of
+    ॰ the innocent one after it.
+    ॰
+    ॰ NO NEW PARAMETER: the bound a caller would pass is the array it already
+    ॰ passes, so taking it from `ॱ दैर्घ्य` leaves every call site and every
+    ॰ generated test unchanged — and their windows hold the whole chain, so the
+    ॰ check cannot fire there. A caller wanting a SMALLER bound sizes a smaller
+    ॰ array, which is what the walker does when it locates the audio itself.
+    चरः अवधिः ॱॱ न६४ भवति धारा ॱ दैर्घ्य ।
     यावत् अन्तिमम् समम् ० आदि
+        चरः स्थानम् ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
+        चरः शीर्षान्तः ॱॱ न६४ भवति स्थानम् योगः ३२ ।
+        यदि शीर्षान्तः अधिकम् अवधिः आदि
+            सूचकम् अङ्कः ० अन्तः भवति स्थानम् ।
+            प्रत्यागमनम् ४ ।
+        इति
         अन्तिमम् भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १ समाप्तम् ।
         चरः भेदः ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ ७ समाप्तम् ।
         चरः दैर्घ्यम् ॱॱ न६४ भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ २४ समाप्तम् ।
+        ॰ the body skip, checked before it is taken; the cursor is restored so a
+        ॰ refusal leaves it where the offending block's header began
+        चरः देहः ॱॱ न६४ भवति दैर्घ्यम् गुणनम् ८ ।
+        चरः देहान्तः ॱॱ न६४ भवति शीर्षान्तः योगः देहः ।
+        यदि देहान्तः अधिकम् अवधिः आदि
+            सूचकम् अङ्कः ० अन्तः भवति स्थानम् ।
+            प्रत्यागमनम् ४ ।
+        इति
         यदि भेदः समम् ० आदि
             विवरणम् अङ्कः ० अन्तः भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १६ समाप्तम् ।
             विवरणम् अङ्कः १ अन्तः भवति अचिह्नितपाठः आरभ्य धारा ऽ सूचकम् ऽ १६ समाप्तम् ।

@@ -187,7 +187,21 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r50, 2026-10-02 20:29 EDT, three rulings landed (sansos-42 under the owner's delegation,
+8. **r51, 2026-10-02 23:06 EDT, THE PER-READ BOUND IS ON THE PAGE.** sravan main is 249e608
+   (sansos-42 pushed at 23:03 EDT, 42 commits ahead of d27391f, containing
+   agent/per-read-bound 5f25186). Re-taken from main with `.build/retake-walker.sh` on the
+   34c9712a toolchain: image md5 aab6bf1b… (byte-identical to the branch image and to
+   sansos-4b's reproduction), `walker_steps1` 9,067,918, `walker_steps10` 198,818,142, same
+   audio digests. The gate re-derived the rest: per frame 21,083,358, 2,574 per
+   channel-sample, real time 4.0× (CD rate 4.4×), phone 19×, about 5% of a core (5.1%),
+   laptop 42×. `kernel/` re-vendored from 249e608 (1,816 lines, 32 routines);
+   `machine/walker.elf` replaced (107,544 octets) and the Run-it-here expected count set
+   to 198,818,142 (the SHA is unchanged, the audio is); falsifier re-run with every other
+   host blocked: "198,818,142 = the figure above", digest = ffmpeg's. Every "re-take owed"
+   label is now "RE-TAKEN … on 249e608"; the product-path row and the Frontier card say the
+   floor is gone and what the bound cost (+1.0%). The 554 MB statement stays until the heap
+   guard lands. Known-open below updated.
+   **r50, 2026-10-02 8. **r50, 2026-10-02 20:29 EDT, three rulings landed (sansos-42 under the owner's delegation,
    "Own it. Drive it").** (1) Name: "Paramtatva" is the name on the page; "paramtatv" only
    where it is literally the handle; no page change needed. (2) The booth headline "Six
    hours. Not one skip." was a promise with no provenance; now "Every second. Not one
@@ -397,7 +411,7 @@ one was fooled before: a content grep matched a substring that survived between 
    running the parent and child images left on ubuntu-local by the W-361 pair
    (e22a87a3 11,422,135; 3d905c37 8,602,692), so the 24.7% gain is 3d905c37 alone (sravan
    THESIS §8d). Every label that still says "owed" (the eight walker and speed figures) is
-   a live debt: the per-read bound (in this lane since 2026-10-02, see above).
+   PAID at r51: the per-read bound landed on sravan main 249e608 and the figures are re-taken.
    **r37, 2026-10-02 14:57 EDT, three stale statements corrected after viewing the rendered
    page** (headless Chrome at 1280 and 500 px; the r36 regions render cleanly, no overflow):
    (a) the ledger's "Attestation ... has not been run on Naad" contradicted the r35 row two
@@ -471,7 +485,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r50 as of 2026-10-02 20:29 EDT.** **From 23:05 EDT 2026-10-02 the owner
+1. **Live since 2026-10-01; r51 as of 2026-10-02 23:06 EDT.** **From 23:05 EDT 2026-10-02 the owner
    delegated every page and lane question to the coordinator session (sansos-42: "own
    everything ... Drive it", typed to them).** Questions this lane would have held for the
    owner's eye go to sansos-42, who decides; publishing still goes through the gate and
