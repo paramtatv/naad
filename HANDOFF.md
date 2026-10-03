@@ -700,12 +700,14 @@ The Śravaṇa kernel declares every integer unsigned and keeps signed values in
 names, and it has 24 direct right shifts over such names (the mid/side reconstruction
 among them). A compiler at or after sansos trunk 0224d8b6 lowers every one of them as a
 logical shift. Measured 2026-10-03 with the decoder from sravan main 3a55ea7 built both
-ways: the two images differ, and one frame, ten frames and the 11-file faulty corpus give
-identical audio and identical instruction counts. The 64-file corpus was still running
-when this was written; its result is in the session memory file
-`w-333-changes-direct-shift-sites-downstream`. Until that corpus is clean, and each
-direct site over a signed value is either routed through the kernel's arithmetic helper
-or re-declared signed, the pin stays. Moving it also changes the walker image's bytes, so
+ways: the two images differ, and one frame, ten frames, the 11-file faulty corpus and the
+64-file subset corpus give identical halts, identical output digests and identical
+instruction counts, 57 of the 64 verified against their own STREAMINFO MD5 (tables in
+sravan worktree `.build/w333/`). So no wrong answer is known. What is still owed before
+the pin moves is a reading of each direct site over a signed value, which is either
+routed through the kernel's arithmetic helper or re-declared signed: a shift that now
+fills with zeros is correct only where nothing downstream reads the filled bits, and a
+corpus shows that for its own files, not in general. Moving it also changes the walker image's bytes, so
 its checksum in `figures.json`, `machine/PROVENANCE.md` and the expected values in the
 "Run it here" script would all have to be re-taken together, even if no count moves.
 
