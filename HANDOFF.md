@@ -52,8 +52,8 @@ Every figure on the page carries one of three tags, and the tag is part of the f
 
 | tag | means | examples |
 |---|---|---|
-| **measured** | taken from a named repository at a named commit with a named command | 1,290 lines · 17 kernel mutations · +0.1% vs flac -8 |
-| **projected** | computed from a measurement under a stated assumption | 6× real time, from 1,814 instructions/channel-sample at 1 GHz and 1 IPC; not timed on silicon |
+| **measured** | taken from a named repository at a named commit with a named command | 1,816 lines · 17 kernel mutations · +0.1% vs flac -8 |
+| **projected** | computed from a measurement under a stated assumption | 4.0× real time, from 2,574 instructions/channel-sample at 1 GHz and 1 IPC; not timed on silicon |
 | **planned** | a completion condition, written before the work | one digest on 3 instruction sets |
 
 Two figures the earlier page conflated are now kept apart on purpose: the **encoder's**
@@ -639,6 +639,51 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    metrics file.
 
 ## Known-open
+
+State at r52, 2026-10-03 02:35 EDT. Everything in this list is true now; the notes it
+replaced are under "Superseded" below and must not be cited.
+
+**What the page's speed figures are.** The walker built from sravan main 249e608 (per-read
+bound, window = declared frame size) on the 34c9712a toolchain, image md5 aab6bf1b…: one
+frame 9,067,918, ten frames 198,818,142 (`walker_steps1`, `walker_steps10`). The gate
+derives the rest from those two and the recording's STREAMINFO: 21,083,358 per frame,
+2,574 per channel-sample, 4.0× real time for the page's 48 kHz recording at 1 GHz and one
+instruction per cycle (4.4× at CD rate), 19× and about 5% on a phone core, 42× on a
+laptop core. To re-take: `wt-sravan-real/.build/retake-walker.sh`, put the two counts in
+`figures.json`, run the gate, copy what it prints. Never type a derived figure.
+
+**Open, in other lanes.**
+- Files whose STREAMINFO is not the first metadata block are refused (legal FLAC; sansos-4b).
+- More than two channels is declined by design (scoped in sravan `SCOPE-multichannel.md`,
+  not built; sansos-4b).
+- Two array-size guards in the decoder, a frame blocksize above the arrays' size and the
+  residual cursor past the residual array (sansos-4b, on top of main 249e608).
+- Refusal 204 in the walker has never been made to fire.
+- The compile-cost regression (W-361 = W-356): literal-embedded tests cost n^1.86 and ten
+  of sravan's test images are skipped in its gate for it; the `ipcs` 1,500 figure (embedded
+  test path, tree 51598b3c) cannot be re-taken until it is fixed. Acceptance figures for
+  the fix: `pariksha_t10` compiles again and `pariksha_r` stays at 8,602,692.
+- Natively, under the declared-heap span, a heap that reaches the input slab is still only
+  warned about on stderr (sansos-e0's row); the browser path is guarded since f985af41.
+
+**Open, in this lane.**
+- The 32 MiB browser demo has not been tried on a real phone.
+- The attestation's planned rung (one digest on three instruction sets) still lacks its
+  third instruction set; the browser machine is a fourth execution model, not an ISA.
+- The player (seeking, tags, cover art, a playback surface) is not built.
+- The encoder: the Python cost model reads +0.1% on the IETF set; the Python emitter writes
+  real files at +1.44% on one file (sravan `agent/encoder` 953b03d, unmerged); the join
+  between them is open; a `.t1` encoder is not built.
+- `figures.json` is still hand-maintained except for the 21 figures the gate derives; the
+  rest waits on a metrics file in sravan.
+
+**How speed is framed.** As a floor: the 1 GHz, one-instruction-per-cycle model is named
+as the most pessimistic machine anyone ships, the phone and laptop projections sit beside
+it tagged projected, and the frontier item is cycles per hour of audio (battery), never
+"can it keep up".
+
+### Superseded (history; do not cite; true when written, not now)
+
 
 - **The speed tiles use the PRODUCT PATH since r25 (2026-10-02 03:50Z), and the CURRENT
   WALKER since r32 (12:10Z):** the whole-record walker reading the real Grieg file,
