@@ -243,6 +243,18 @@ one was fooled before: a content grep matched a substring that survived between 
    the correct ten frames, never eight with exit 0; 32 MiB and the full budget unchanged;
    yantra-run's advisory guard and the new guard agree on the boundary. Harness:
    `wt-sravan-real/.build/web/ram-sweep.sh`. Until it lands the page keeps 554 MB.
+   **23:22 EDT: THE GUARD IS WRITTEN AND PASSES** (962c6905 on the same branch: stores stop
+   at the budget, loads do not; `yantra_run` now loads FileBacked). Built as it stands
+   (wasm md5 17c31b13…): the four clean budgets unchanged (code 0, 235,791,469, md5
+   29fc76d8…), so the walker never writes into its slab; the boundary pair 2,557,896 and
+   2,557,897 both halt BeyondRam naming the budget (the old status 301 was the corruption
+   itself, one octet earlier); true store high water for ten frames 2,618,824 octets
+   (2,618,823 halts, 2,618,824 runs). TO DO WHEN IT LANDS ON THE TRUNK: rebuild
+   `machine/yantra_wasm.wasm` from the trunk commit, set `RAM` in the Run-it-here script to
+   33,554,432, change `demo_ram_mb` to 34 (33,554,432 octets, with provenance naming the
+   high water and the guard), drop "a laptop rather than a phone" and the compiler-reserves
+   clause from the panel text, re-run the blocked-hosts falsifier, push, verify, and try
+   the live page from a phone-sized memory if one is to hand.
    RULE KEPT: the push rule was not waived; the publication waited for the owner's own
    words, which arrived in the coordinator's window, not mine, and that is recorded here.
    8. **r47, 2026-10-02 18:18 EDT, the fourth venue on the page.** The attestation Proof row now
