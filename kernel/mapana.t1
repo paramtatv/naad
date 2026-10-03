@@ -19,13 +19,23 @@
 ॰ recurrence is integer multiply-accumulate with an arithmetic shift, and the
 ॰ result is bit-identical everywhere.
 ॰
-॰ SIGNEDNESS. न६४ is unsigned and there is no signed type. Two's complement
+॰ SIGNEDNESS. This file keeps signed values in न६४ names. Two's complement
 ॰ makes योगः and वियोगः already correct for signed operands, and गुणनम् is
-॰ correct in its low word. दक्षिणसृ was MEASURED to be an ARITHMETIC shift in
-॰ this compiler (2026-09-29, Darśana kernel/ganita.t1) despite न६४ being
-॰ unsigned — so it sign-extends, which is what this file needs. The mask in
-॰ दक्षिणसृचिह्नित makes it correct under EITHER lowering, so nothing here
-॰ depends on a behaviour nothing documents.
+॰ correct in its low word. THE RIGHT SHIFT IS THE ONE OPERATOR THAT DEPENDS ON
+॰ THE COMPILER. Before sansos trunk 0224d8b6 (row W-333) दक्षिणसृ is an
+॰ arithmetic shift whatever its operand; from that commit it is LOGICAL when
+॰ its left operand is a name declared unsigned, a न६४ name included, and
+॰ arithmetic otherwise. दक्षिणसृचिह्नित below is correct under EITHER
+॰ lowering, because it ORs the sign fill back in itself. So a signed value in
+॰ a न६४ name is shifted through it, or held in an अ६४ name, and is shifted
+॰ bare only where the next line masks the filled bits away (the fold below).
+॰ Until 2026-10-03 this margin read: "न६४ is unsigned and there is no signed
+॰ type. [...] दक्षिणसृ was MEASURED to be an ARITHMETIC shift in this compiler
+॰ (2026-09-29, Darśana kernel/ganita.t1) despite न६४ being unsigned — so it
+॰ sign-extends, which is what this file needs. The mask in दक्षिणसृचिह्नित
+॰ makes it correct under EITHER lowering, so nothing here depends on a
+॰ behaviour nothing documents." अ६४ exists; the measurement was of a compiler
+॰ before W-333; the last sentence was true of this file and stays true.
 
 ॰ The fixed-point shift. २० bits of fraction on a coefficient whose magnitude
 ॰ never exceeds २ leaves २१ bits of integer headroom in the product, and the

@@ -3,17 +3,17 @@
  "figures_date": "2026-10-02",
  "figures": {
   "lines": {
-   "value": "1,816",
+   "value": "1,854",
    "status": "measured",
-   "label": "lines in the decoder kernel, both files (nihshesha.t1 1,416 + mapana.t1 131), as vendored under kernel/",
-   "source": "sravan main 249e608, copied verbatim to kernel/ (kernel/PROVENANCE.md); re-taken by tools/check-figures.py on every run; was 1,290 at 85f90b2",
+   "label": "lines in the decoder kernel, both files (nihshesha.t1 1,713 + mapana.t1 141), as vendored under kernel/",
+   "source": "sravan main 667f10d, copied verbatim to kernel/ (kernel/PROVENANCE.md); re-taken by tools/check-figures.py on every run; was 1,816 at 249e608 (the mid/side fix added two words of code and 38 lines of margin), 1,290 at 85f90b2",
    "command": "wc -l kernel/nihshesha.t1 kernel/mapana.t1"
   },
   "routines": {
    "value": "32",
    "status": "measured",
    "label": "public routines in the decoder kernel, both files (28 + 4), as vendored under kernel/; the frame decoder, header reader and resync are verified on both engines against real recordings; the packed-word reader's five routines are present and are not the path the walker runs",
-   "source": "sravan main 249e608, kernel/; re-taken by tools/check-figures.py on every run; was 25 at 85f90b2",
+   "source": "sravan main 667f10d, kernel/; re-taken by tools/check-figures.py on every run; unchanged from 249e608; was 25 at 85f90b2",
    "command": "grep -c 'सार्वजनिक वृत्तिः' kernel/nihshesha.t1 kernel/mapana.t1"
   },
   "foreign": {

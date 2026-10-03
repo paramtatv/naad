@@ -715,10 +715,15 @@
 ॰ steps. There is no flush, because the octet enters by XOR rather than being
 ॰ shifted in — the two formulations agree and only one of them is this short.
 ॰
-॰ The register is masked to eight bits at every step. That is not tidiness:
-॰ दक्षिणसृ on न६४ is an ARITHMETIC shift, so a register allowed to grow past
-॰ bit ६३ would sign-extend on the next दक्षिणसृ and the remainder would be
-॰ wrong in a way no small test shows.
+॰ The register is masked to eight bits at every step, so it never has a bit
+॰ above bit ७ set and its दक्षिणसृ reads the same under either lowering:
+॰ arithmetic before sansos trunk 0224d8b6 (row W-333), logical from it,
+॰ because शेषम् is a न६४ name. Until 2026-10-03 this margin read: "That is not
+॰ tidiness: दक्षिणसृ on न६४ is an ARITHMETIC shift, so a register allowed to
+॰ grow past bit ६३ would sign-extend on the next दक्षिणसृ and the remainder
+॰ would be wrong in a way no small test shows." That hazard belongs to the
+॰ older compiler only; the mask is kept because the pinned compiler is that
+॰ one, and because the value returned must be eight bits wide either way.
 सार्वजनिक वृत्तिः क्रमाष्टकम् आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ आरम्भः ॱॱ न६४ ऽ अष्टकगणना ॱॱ न६४ ददाति न६४ आदि
     ॰ the bound (see रिचपाठः): a range that passes the end of धारा reads nothing.
     ॰ The callers are themselves bounded, so this cannot fire from खण्डपाठः; it
@@ -1060,10 +1065,26 @@
 ॰ the side channel's low bit. That is what `(mid << १) विकल्प (side युक् १)`
 ॰ is doing, and without it every odd-sum sample is off by one.
 ॰
-॰ AND THE HALVING MUST FLOOR, NOT TRUNCATE TOWARD ZERO. दक्षिणसृ on न६४ is an
-॰ ARITHMETIC shift, which floors — and here that is exactly what is wanted,
-॰ the one place in this decoder where the arithmetic shift is the correct
-॰ operation rather than a hazard to work around.
+॰ AND THE HALVING MUST BE AN ARITHMETIC SHIFT. The two values halved are
+॰ exactly २·left and २·right, negative whenever the sample is, so the shift
+॰ has to carry the sign: the one place in this decoder where the arithmetic
+॰ shift is the correct operation. THAT IS WHY योगफलम् AND अन्तरम् ARE DECLARED
+॰ अ६४ WHEN NOTHING ELSE HERE IS. From sansos trunk 0224d8b6 (row W-333)
+॰ दक्षिणसृ is LOGICAL when its left operand is a name declared unsigned, and
+॰ a न६४ name is one. Declared न६४, these two stored sample + २^६३ for every
+॰ negative sample: the low ६३ bits right, the sign bit clear. A consumer that
+॰ reads the low bits cannot see that (the whole-file walker's PCM writer: ७५
+॰ real files decoded to identical audio under both compilers); one that reads
+॰ the whole word can (मेलनम्, a signed comparison). Measured 2026-10-03, both
+॰ engines agreeing: kernel/pariksha_yugma.t1 answers १० on the न६४ spelling
+॰ under a compiler with W-333 and ० with these two declarations. Before W-333
+॰ every right shift is arithmetic and the declaration changes nothing: under
+॰ the pinned compiler the walker's image is byte-identical with and without.
+॰ Until 2026-10-03 this margin read: "AND THE HALVING MUST FLOOR, NOT
+॰ TRUNCATE TOWARD ZERO. दक्षिणसृ on न६४ is an ARITHMETIC shift, which floors —
+॰ and here that is exactly what is wanted, the one place in this decoder
+॰ where the arithmetic shift is the correct operation rather than a hazard
+॰ to work around."
 ॰
 ॰ Rewrites वामः and दक्षिणः in place. ANSWERS ० on success, १ on an unknown
 ॰ pairing.
@@ -1092,8 +1113,8 @@
             चरः मध्यम् ॱॱ न६४ भवति अ वामसृ १ ।
             चरः अल्पांशः ॱॱ न६४ भवति ब युक् १ ।
             मध्यम् भवति मध्यम् विकल्प अल्पांशः ।
-            चरः योगफलम् ॱॱ न६४ भवति मध्यम् योगः ब ।
-            चरः अन्तरम् ॱॱ न६४ भवति मध्यम् वियोगः ब ।
+            चरः योगफलम् ॱॱ अ६४ भवति मध्यम् योगः ब ।
+            चरः अन्तरम् ॱॱ अ६४ भवति मध्यम् वियोगः ब ।
             वामः अङ्कः इ अन्तः भवति योगफलम् दक्षिणसृ १ ।
             दक्षिणः अङ्कः इ अन्तः भवति अन्तरम् दक्षिणसृ १ ।
         इति
@@ -1377,10 +1398,17 @@
 ॰   word crossing needs स्थानांशः > ६४ − गणना >= ३२, so the high part is at
 ॰   most ३१ bits and every shift amount stays in ०..६३.
 ॰
-॰   दक्षिणसृ ON न६४ IS ARITHMETIC, so a word with its top bit set smears ones
-॰   downward. Harmless here ONLY because every read is masked to गणना bits
-॰   afterwards — the mask is not tidiness, it is what makes the arithmetic
-॰   shift safe.
+॰   A RIGHT SHIFT OF A WORD WITH ITS TOP BIT SET DEPENDS ON THE COMPILER.
+॰   Before sansos trunk 0224d8b6 (row W-333) दक्षिणसृ is arithmetic and smears
+॰   ones downward; from it the shift is logical here, the operand being a
+॰   न६४ name, and fills with zeros. Every read is masked to गणना bits
+॰   afterwards, so both give the same field. Under the older compiler the
+॰   mask is what makes the shift safe; under the newer it is redundant; it
+॰   stays, because the pinned compiler is the older one. Until 2026-10-03
+॰   this read: "दक्षिणसृ ON न६४ IS ARITHMETIC, so a word with its top bit set
+॰   smears ones downward. Harmless here ONLY because every read is masked to
+॰   गणना bits afterwards — the mask is not tidiness, it is what makes the
+॰   arithmetic shift safe."
 ॰
 ॰ सूचकम् अङ्कः ० अन्तः is a BIT position, not a word index.
 सार्वजनिक वृत्तिः पदपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ गणना ॱॱ न६४ ददाति न६४ आदि

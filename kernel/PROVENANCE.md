@@ -1,14 +1,18 @@
 # Where these files come from
 
-Copied verbatim from `paramtatv/sravan` at commit `249e608` (2026-10-02, "Merge agent/per-read-bound
-(5f25186): the O(1) per-read bound"):
+Copied verbatim from `paramtatv/sravan` at commit `667f10d` (2026-10-03, "mid/side: halve
+through signed names, so the shift is arithmetic under a compiler with W-333"). The previous copy
+was `249e608` (2026-10-02, the per-read bound); the one change between them declares the two
+mid/side temporaries signed and rewrites five margins about the right shift. Built by the
+toolchain the page is pinned to, the two copies give the SAME decoder image, byte for byte
+(see `machine/PROVENANCE.md`):
 
 | file | lines | public routines |
 |---|---|---|
-| `nihshesha.t1` | 1,685 | 28 |
-| `mapana.t1` | 131 | 4 |
+| `nihshesha.t1` | 1,713 | 28 |
+| `mapana.t1` | 141 | 4 |
 
-That is the 1,816 lines and 32 routines the page quotes. `tools/check-figures.py`
+That is the 1,854 lines and 32 routines the page quotes. `tools/check-figures.py`
 re-takes both from these files on every run.
 
 `sravan` is a private repository. These copies exist so that "read the decoder" is a link
@@ -17,7 +21,7 @@ commit and re-take every figure in `figures.json` that names a commit, together,
 change.
 
 **Licence: GNU Affero General Public License, version 3 only**, the same text as this
-repository's `LICENSE` and the source repository's as of `249e608`. History: an earlier copy
+repository's `LICENSE` and the source repository's as of `667f10d`. History: an earlier copy
 (from `85f90b2`, BSD 3-Clause at the time) was published here and withdrawn on 2026-10-01
 while the licence was being settled; the owner ruled AGPL-3.0-only across all repositories on
 2026-10-02 and approved restoring this copy the same day.

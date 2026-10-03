@@ -2,7 +2,7 @@
 
 **From Paramtatva, a frontier computing lab.**
 
-A lossless audio decoder you can read to the bottom: integer arithmetic only, <!--fig:lines-->1,816<!--/fig--> lines
+A lossless audio decoder you can read to the bottom: integer arithmetic only, <!--fig:lines-->1,854<!--/fig--> lines
 of Sanskrit, compiled to 64-bit RISC-V, with no foreign code beneath it. One stream decodes
 to one file on every machine, forever, and you can check.
 
@@ -19,7 +19,7 @@ check keeps in step.
 
 | | |
 |---|---|
-| Decoder | **<!--fig:lines-->1,816<!--/fig--> lines, <!--fig:routines-->32<!--/fig--> public routines**, two files, <!--fig:foreign-->0<!--/fig--> foreign lines in the decode path |
+| Decoder | **<!--fig:lines-->1,854<!--/fig--> lines, <!--fig:routines-->32<!--/fig--> public routines**, two files, <!--fig:foreign-->0<!--/fig--> foreign lines in the decode path |
 | A whole recording | the Grieg file on the page, decoded end to end on the native image to **<!--fig:whole_pcm_octets-->44,378,214<!--/fig--> bytes** of PCM whose MD5 equals the one in the file's own header |
 | Conformance | EBU SQAM: **<!--fig:sqam_match-->70<!--/fig--> of <!--fig:sqam_files-->70<!--/fig-->** files decode to the MD5 their own encoder stored. IETF subset: **<!--fig:ietf_pass-->57<!--/fig--> of <!--fig:ietf_files-->64<!--/fig-->**, the other <!--fig:ietf_declined-->7<!--/fig--> have more than two channels and are declined by design. IETF faulty set: **<!--fig:faulty_clean-->11<!--/fig--> of <!--fig:faulty_files-->11<!--/fig-->** end in a named status. No file produced wrong audio |
 | Verification | all <!--fig:typecodes-->64<!--/fig--> subframe type codes and all four header code spaces enumerated; <!--fig:frames-->10<!--/fig--> whole frames graded; <!--fig:mutations-->17<!--/fig--> kernel mutations each caught |
