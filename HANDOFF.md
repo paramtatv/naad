@@ -653,6 +653,21 @@ the md5 column. The SQAM 70 and IETF 57 figures were scored by a harness that do
 the MD5 (their sources say so) and stand until the re-run says otherwise. Fix on sravan
 branch agent/array-guards, under review.
 
+**ITEM 1, CORPUS CONFORMANCE ON THE CURRENT WALKER (2026-10-03).** Walker aab6bf1b… (sravan main
+667f10d under 34c9712a, the page's machine/walker.elf), harness ~/compl-39/corpus.py on
+ubuntu-local (copies in the sravan worktree `.build/completion/`), each file's output md5 compared
+with its own STREAMINFO MD5 and with ffmpeg's. IETF subset: 57 of 64 from the MD5 column, every
+status-0 file equal to its own STREAMINFO MD5, none status 0 with a wrong MD5; the other 7 (files
+38-44, 3 to 8 channels) declined by design with 310. ffmpeg agrees on 54 of the 57; the other
+three (22, 12-bit; 37 and 62, 20-bit) are "no-format" rows, a gap in the harness, which asks
+ffmpeg only for 8/16/24/32-bit output, and NOT agreement. Faulty set: see the paragraph above.
+SQAM 70: running at 19:58 UTC.
+
+**WALL TIME (item 2), DONE and on the page at r55-r58.** 969.3 s median of three for the 154.1 s
+recording on one Jetson core under the emulator: 6.3x slower than real time; figures jetson_*;
+the gate derives the factor. Above the divider the speed is now stated as a model (r56-r58, the
+coordinator's ruling under the owner's delegation, 15:32 and 15:37 EDT).
+
 **THE COMPLETION SCOPE FOR THIS ROUND (owner, by pasted words to the coordinator, 2026-10-03
 about 14:30 EDT).** Śravaṇa is complete for this round when the lossless decoder meets the
 THESIS §6 S1 condition on the current main, through the walker the page ships, with speed as
