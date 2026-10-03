@@ -471,7 +471,12 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r50 as of 2026-10-02 20:29 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r50 as of 2026-10-02 20:29 EDT.** **From 23:05 EDT 2026-10-02 the owner
+   delegated every page and lane question to the coordinator session (sansos-42: "own
+   everything ... Drive it", typed to them).** Questions this lane would have held for the
+   owner's eye go to sansos-42, who decides; publishing still goes through the gate and
+   verify-deploy; where this lane's rule holds a push for the owner's own words, sansos-42
+   pushes (as for r48) and this lane verifies and reports the r-number. The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
