@@ -116,6 +116,14 @@ if flac_path.exists():
         derived["rt_laptop"] = f"{round(MACHINES['rt_laptop'] / per_second)}×"
         derived["core_phone"] = f"{round(100 * per_second / MACHINES['rt_phone'])}%"
         derived["core_phone_exact"] = f"{100 * per_second / MACHINES['rt_phone']:.1f}%"
+        # THE MEASURED CLOCK, beside the modelled one (2026-10-03). jetson_wall is the median of
+        # three wall-clock decodes of this whole recording on one Jetson core, the decoder
+        # running inside the instruction emulator the page ships; jetson_steps is the count
+        # those runs executed. From them and this file's own length: how many times longer
+        # than the music the decode took, and the emulator's rate in millions per second.
+        wall = float(figs["jetson_wall"]["value"])
+        derived["jetson_rtf"] = f"{wall / (total / rate):.1f}×"
+        derived["jetson_mips"] = f"{round(integer('jetson_steps') / wall / 1e6)}"
         for fid, want in derived.items():
             if fid not in figs:
                 fails.append(f"{fid}: derived as {want!r} but figures.json does not define it")
