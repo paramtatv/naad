@@ -214,6 +214,19 @@ one was fooled before: a content grep matched a substring that survived between 
    21fd1c10… = ffmpeg's; 235,791,469 = the figure above; 13.7 s"; the only host contacted
    was paramtatv.github.io, and the recording was fetched with `Range: bytes=0-87463`,
    which Pages honoured. Script: scratchpad `live-run.mjs` (node 25, built-in WebSocket).
+   **MEMORY BUDGET, 22:06 EDT:** sansos `agent/w363-ram-budget` (5479652c) adds
+   `Span::FileBacked` to the loader; as committed the browser caller still asks for the
+   declared 512 MiB. My acceptance on a scratch build (one-line caller change, NOT kept):
+   ten frames decode to the published digest and count at 32 MiB and at 4 MiB (the 6.56 MB
+   high water is the whole recording's); but at the boundary, budget 2,557,897 answers
+   EXIT 0 WITH EIGHT FRAMES (md5 1cf7990b…) and 2,557,896 answers status 301, because the
+   heap's bump cursor grows into the input slab placed above the budget. e0 agreed, rules
+   it a hole the change opens, and will bound stores on the budget inside yantra (so the
+   case halts BeyondRam) BEFORE the wasm caller opts in; not written tonight by design. The
+   falsifier adopted as the row's acceptance: 2,557,896/2,557,897 give a named refusal or
+   the correct ten frames, never eight with exit 0; 32 MiB and the full budget unchanged;
+   yantra-run's advisory guard and the new guard agree on the boundary. Harness:
+   `wt-sravan-real/.build/web/ram-sweep.sh`. Until it lands the page keeps 554 MB.
    RULE KEPT: the push rule was not waived; the publication waited for the owner's own
    words, which arrived in the coordinator's window, not mine, and that is recorded here.
    8. **r47, 2026-10-02 18:18 EDT, the fourth venue on the page.** The attestation Proof row now
