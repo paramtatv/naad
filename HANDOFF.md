@@ -677,26 +677,26 @@ laptop core. To re-take: `wt-sravan-real/.build/retake-walker.sh`, put the two c
 - `figures.json` is still hand-maintained except for the 21 figures the gate derives; the
   rest waits on a metrics file in sravan.
 
-**What this lane is doing besides the page (2026-10-03 07:00 EDT).** The page is at r52
+**What this lane is doing besides the page (2026-10-03 09:00 EDT).** The page is at r52
 and nothing is pending on it. On an owner ruling relayed by the coordinator ("idle lanes
 take small Sassembly rows", reviewed and landed by sansos-e0), this lane works rows in the
 sansos repository, each on its own feature branch and worktree, falsifier first, gated
 remotely in its own directory, pushed and never merged by this lane.
-- Landed: W-349 (a brace or bracket in a source gets a hint that a template was not
-  substituted), W-348 and its follow-up (a statement that begins with the else keyword is
-  refused with a message that says so), T-103 and its wording fix.
-- W-342, branch `agent/w342-parse-refusal-is-a-failure`, merged with main as 01525acb: a
-  source the compiler's parser refuses is now a named failure with a non-zero exit, where
-  a build with no entry used to exit zero with an image of the startup alone. Waiting on
-  its fixpoint's second stage and the merge gate; sansos-e0 lands it.
-- W-333, branch `agent/w333-logical-shift-for-unsigned-names`, commit 095741d4: a right
-  shift whose left operand is a name declared unsigned is logical on both engines. Four
-  corpus instructions change and no value the corpus computes does. Waiting on the
-  identity re-run and the fixpoint on the committed tree; sansos-e0 lands it. W-368 (a
-  fifteenth test form for the remaining decoders) follows it, claimed by this lane.
-- D-004, a measurement: the two-stage fixpoint holds on trunk 6b5cd09f (both images
-  1,445,786 octets, one digest). The third stage is running on ubuntu-local and on the
-  Jetson; sansos-e0 ruled that only the Jetson run is the row's acceptance.
+- Landed: W-349, W-348 and its follow-up, T-103 and its wording fix, and W-342 (trunk
+  d8aeaf00): a source the compiler's parser refuses is now a named failure with a non-zero
+  exit, where a build with no entry used to exit zero with an image of the startup alone.
+- Done as a measurement: D-004. One compiler image, 1,445,786 octets with one digest,
+  from the interpreted compiler, from that image running natively on x86-64, and from
+  that one running natively on aarch64. The two architectures executed the same number
+  of instructions. Not measured: a first stage on the aarch64 host.
+- In review, W-333, branch `agent/w333-logical-shift-for-unsigned-names` at d9e6b4f1: a
+  right shift whose left operand is a name declared unsigned is logical on both engines.
+  Four corpus instructions change and no value the corpus computes does. Its gate is
+  clean, its own fixpoint holds, and the check that only those four instructions differ
+  matches on every tree it was run on. One fixpoint is still running, on the exact
+  sources that will land. sansos-e0 lands it.
+- Next, W-368, claimed by this lane for after W-333 lands: a fifteenth test form so the
+  three remaining instruction readers are fed a logical shift.
 - W-367 was filed by sansos-e0 from a finding made here: the assembler's fit check answers
   differently per engine for a negative value. Not this lane's to repair.
 None of this changes a figure on the page. The working state of each run is in the
