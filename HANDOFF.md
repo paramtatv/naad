@@ -724,16 +724,33 @@ one with it (15f2d8f2), on BOTH engines, interpreter and native. So the input th
 exposes it is any mid/side frame with a negative sample, read through the fold and not
 through the PCM writer; the kernel's own stereo test `kernel/pariksha_c.t1` is that input
 (its expected folds are taken over signed words, 64 samples per channel, negative ones
-among them; its own run under both compilers was still building when this was written,
-predicted status 204 with W-333 and 0 without).
+among them; see the fix paragraph below for its result).
 The 75-file sweep has this hole because the walker is the only consumer it exercises.
 
-*The fix, not yet made (the kernel is the Śravaṇa lane's; nothing here was built).*
-Either declare the two temporaries `योगफलम्` and `अन्तरम्` as `अ६४`, which makes the
-shift arithmetic by the rule itself and should cost no instruction, if the typechecker
-accepts the mixed declaration; or route both through `मापनॱदक्षिणसृचिह्नित`, which is
-correct under either lowering but adds a call per sample and so moves the page's step
-counts. Then run `pariksha_c` and the corpora under the new compiler.
+*The fix, made but not merged.* On the coordinator's ruling it is on a LOCAL branch in
+the sravan worktree, `agent/midside-signed-shift`, commit 667f10d on 3a55ea7, not pushed,
+waiting for the Śravaṇa lane (sansos-4b) to review and merge. It declares the two
+temporaries `योगफलम्` and `अन्तरम्` as `अ६४`, which makes the shift arithmetic by the rule
+itself. Measured on ubuntu-local under three compilers, 34c9712a (the pin), 01525acb and
+15f2d8f2 (with W-333), both engines agreeing everywhere:
+
+- Under the pin the fixed kernel builds the page's walker BYTE FOR BYTE (aab6bf1b…,
+  107,544 octets, same counts, same audio), so merging it owes the page nothing.
+- Under the compiler with W-333 the fixed and unfixed walkers differ in exactly two
+  instruction words, logical shift to arithmetic shift; counts and audio are equal.
+- A new guard, `kernel/pariksha_yugma.t1` (generator `reference/genyugma.py`), reads the
+  channels back as whole words, through a signed comparison and through the fold. On the
+  unfixed kernel under W-333 it answers 10, and its three checks alone answer 10, 70 and
+  130; it answers 0 in every other cell.
+- `kernel/pariksha_c.t1` unfixed: the interpreter answers 0 without W-333 and 204 with
+  it, as predicted. Its native runs take over half an hour per compiler and were still
+  building at 12:20 EDT on 2026-10-03; results go to the session memory file
+  `w-333-changes-direct-shift-sites-downstream`.
+- The five stale margins listed below are refounded in the same commit, so the line
+  numbers in this section are those of 3a55ea7 and shift on the branch.
+
+Evidence: sravan worktree `.build/w333/midside/`. When the branch is merged and the pin
+later moves, run the kernel's own tests under the new compiler, not only the corpora.
 
 *The classification, by reading, sravan main 3a55ea7.* Population by rule: every
 non-comment line with the bare operator ` दक्षिणसृ ` in the kernel modules and the page
