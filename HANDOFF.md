@@ -643,6 +643,16 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 State at r52, 2026-10-03 02:35 EDT. Everything in this list is true now; the notes it
 replaced are under "Superseded" below and must not be cited.
 
+**TWO FAULTY FILES DECODE TO WRONG AUDIO WITH STATUS 0 (found 2026-10-03, corrected on the page
+at r54).** "01 - wrong max blocksize" and "08 - blocksize 65536" end with status 0 and audio that
+matches neither their STREAMINFO MD5 nor ffmpeg's: their frames are larger than the maximum
+the file declares, and were decoded into arrays sized from it. The page had said all eight
+faulty decodes "decode to audio" because tools/faulty-refusal.sh checks only that the machine
+does not halt abnormally. Status 0 from this walker does NOT mean the MD5 was checked; read
+the md5 column. The SQAM 70 and IETF 57 figures were scored by a harness that does compare
+the MD5 (their sources say so) and stand until the re-run says otherwise. Fix on sravan
+branch agent/array-guards, under review.
+
 **THE COMPLETION SCOPE FOR THIS ROUND (owner, by pasted words to the coordinator, 2026-10-03
 about 14:30 EDT).** Śravaṇa is complete for this round when the lossless decoder meets the
 THESIS §6 S1 condition on the current main, through the walker the page ships, with speed as
