@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Naad Lossless Audio</title>
-<meta name="naad-build" content="2026-10-02 public r51 bound-landed">
+<meta name="naad-build" content="2026-10-02 public r52 thirty-two">
 <meta name="description" content="Every note, exactly as they played it. Naad keeps the master, every sample of it, in a format that is yours for good. From Paramtatva.">
 <meta property="og:title" content="Naad Lossless Audio">
 <meta property="og:description" content="Every note, exactly as they played it. The master, every sample of it, yours for good.">
@@ -760,7 +760,7 @@
 
     <div class="stackline panel" id="runit">
       <h3>Run it here</h3>
-      <p>The same machine, compiled to WebAssembly, and the same decoder image the figures above were taken from, both loaded from this site and nowhere else. Press the button and your browser cuts the first <span data-fig="demo_slice">87,464</span> bytes off the recording at the top of this page, hands them to the decoder at run time, and decodes ten frames. What comes back is checked two ways: the audio's fingerprint against ffmpeg's decode of the same ten frames, and the number of instructions executed against the figure above, <span data-fig="walker_steps10">198,818,142</span>. If both hold, the ten frames play. It needs <span data-fig="demo_ram_mb">554</span> MB of memory, which the machine's compiler reserves whether or not the decoder uses it, so a laptop rather than a phone, and about ten seconds.</p>
+      <p>The same machine, compiled to WebAssembly, and the same decoder image the figures above were taken from, both loaded from this site and nowhere else. Press the button and your browser cuts the first <span data-fig="demo_slice">87,464</span> bytes off the recording at the top of this page, hands them to the decoder at run time, and decodes ten frames. What comes back is checked two ways: the audio's fingerprint against ffmpeg's decode of the same ten frames, and the number of instructions executed against the figure above, <span data-fig="walker_steps10">198,818,142</span>. If both hold, the ten frames play. It asks the browser for <span data-fig="demo_ram_mb">32</span> MB of memory and takes about ten seconds.</p>
       <p><button class="btn tube" id="runit-go" type="button">Decode ten frames in this browser</button></p>
       <pre id="runit-out" hidden></pre>
     </div>
@@ -901,7 +901,7 @@
   // reported anywhere. The two expected values are the page's own published figures.
   var go=document.getElementById('runit-go'), out=document.getElementById('runit-out');
   if(!go||!window.WebAssembly||!window.crypto||!window.crypto.subtle){ if(go){ go.disabled=true; } return; }
-  var SLICE=87464, RAM=553753920, BUDGET=300000000, EXPECT_OCTETS=245760, EXPECT_STEPS=198818142,
+  var SLICE=87464, RAM=33554432, BUDGET=300000000, EXPECT_OCTETS=245760, EXPECT_STEPS=198818142,
       EXPECT_SHA='21fd1c10bdda06c6e48feaa2fa6613d44fdaaa59556a5e475a323f5fdbf5a6e8';
   function say(t){ out.hidden=false; out.textContent=t; }
   function hex(b){ return Array.prototype.map.call(new Uint8Array(b),function(x){ return ('0'+x.toString(16)).slice(-2); }).join(''); }
@@ -949,8 +949,8 @@
         });
       });
     }).catch(function(e){
-      var why=(e instanceof WebAssembly.RuntimeError)?'this browser would not give the machine its '+Math.round(RAM/1e6)+' MB of memory':(e&&e.message?e.message:String(e));
-      say('could not run here: '+why+'.\nIt needs about '+Math.round(RAM/1e6)+' MB of memory and a current browser; a laptop, not a phone.');
+      var why=(e instanceof WebAssembly.RuntimeError)?'this browser would not give the machine its '+Math.round(RAM/1048576)+' MB of memory':(e&&e.message?e.message:String(e));
+      say('could not run here: '+why+'.\nIt needs about '+Math.round(RAM/1048576)+' MB of memory and a current browser.');
     }).then(function(){ go.disabled=false; });
   });
 })();

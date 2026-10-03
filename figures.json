@@ -549,11 +549,11 @@
    "command": "cmp -n 87464 vectors/grieg-10frames.flac grieg-mountain-king.flac"
   },
   "demo_ram_mb": {
-   "value": "554",
+   "value": "32",
    "status": "measured",
-   "label": "MB of linear memory the browser machine is given for the decode (553,753,920 octets, the native runner's default); load_elf refuses below 536,971,808 because the compiler reserves a 512 MiB heap (.bss) in every image; the walker's own high water on the whole recording is 6,561,000 octets (whole_ram_octets). A consult to the toolchain lane on sizing the heap per image is open",
-   "source": "sansos crates/yantra-wasm at 65736af1, yantra_run(ram, budget); the refusal text names the figure: 'segment at 0x80000000 needs 536971808 bytes'",
-   "command": "yantra_run(553753920, 300000000) in index.html's Run-it-here script"
+   "label": "MiB of linear memory the page asks the browser machine for (33,554,432 octets). Since sansos trunk f985af41 (W-363 size half, agent/w363-ram-budget 65aff619) the loader's RAM floor is the image's file-backed extent, not the compiler's declared 512 MiB heap, and stores are bounded on the budget so a program that outgrows it halts BeyondRam rather than writing into its own input. Measured on the page's walker (aab6bf1b) for the ten-frame decode: the store high water is 1,939,176 octets (1,939,175 halts BeyondRam, 1,939,176 runs clean with the published count and digest), so 32 MiB is 17x the need. History: until r52 the page asked for 553,753,920 octets because load_elf refused below 536,971,808; a boundary pair taken on the earlier guard-less branch found silent wrong audio with exit 0 between budgets 2,557,897 and 2,618,823 (walker 66feb91e), which the guard closed",
+   "source": "sansos trunk f985af41, crates/yantra-wasm built with `cargo build -p yantra-wasm --target wasm32-unknown-unknown --release` on ubuntu-local (106,007 octets, md5 3131f4507b1ac65b4854603089594158), run by sansos-39 on 2026-10-02 23:50 EDT under node 25 with wt-sravan-real/.build/web/run.mjs; the boundary by bisection on the ram argument",
+   "command": "node run.mjs yantra_wasm.wasm walker.elf ten.flac 300000000 33554432  # code 0, steps 198818142, md5 29fc76d8...; 1939175 -> BeyondRam"
   }
  },
  "compiler": "A native count has three provenance parts: the .t1 compiler tree (--compiler), its spec (--spec-root) and the host binaries. Figures marked 'old tree' were taken with the compiler tree at sansos 51598b3c, host t1_image md5 dedb2ee60abb (2026-09-27), yantra-run md5 494573a4297f. Figures marked 'current tree' use the compiler tree and spec at origin/main 34c9712a, host t1_image md5 1591d0e8 built from 34c9712a, same runner. The current tree emits 24.7% fewer instructions on this program; which commit in 51598b3c..34c9712a is responsible is being bracketed by the toolchain owner (W-347)."

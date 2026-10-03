@@ -187,7 +187,16 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r51, 2026-10-02 23:06 EDT, THE PER-READ BOUND IS ON THE PAGE.** sravan main is 249e608
+8. **r52, 2026-10-02 23:53 EDT, THE DEMO ASKS FOR 32 MiB, NOT 554 MB.** The memory-budget
+   guard landed on the sansos trunk (f985af41). `machine/yantra_wasm.wasm` rebuilt from it
+   (106,007 octets, md5 3131f450…); the Run-it-here script passes 33,554,432 to
+   `yantra_run`; the panel no longer says "a laptop rather than a phone" or that the
+   compiler reserves the memory; `demo_ram_mb` is 32 with the measured store high water
+   of the page's walker for ten frames, 1,939,176 octets (1,939,175 halts BeyondRam), in
+   its provenance. Falsifier with every other host blocked: digest = ffmpeg's,
+   198,818,142 = the figure, plays. A phone has not been tried; a phone-sized memory is now
+   enough in principle and the page no longer claims otherwise.
+   **r51, 2026-10-02 8. **r51, 2026-10-02 23:06 EDT, THE PER-READ BOUND IS ON THE PAGE.** sravan main is 249e608
    (sansos-42 pushed at 23:03 EDT, 42 commits ahead of d27391f, containing
    agent/per-read-bound 5f25186). Re-taken from main with `.build/retake-walker.sh` on the
    34c9712a toolchain: image md5 aab6bf1b… (byte-identical to the branch image; sansos-4b's
@@ -499,7 +508,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r51 as of 2026-10-02 23:06 EDT.** **From 23:05 EDT 2026-10-02 the owner
+1. **Live since 2026-10-01; r52 as of 2026-10-02 23:53 EDT.** **From 23:05 EDT 2026-10-02 the owner
    delegated every page and lane question to the coordinator session (sansos-42: "own
    everything ... Drive it", typed to them).** Questions this lane would have held for the
    owner's eye go to sansos-42, who decides; publishing still goes through the gate and
