@@ -742,10 +742,9 @@ itself. Measured on ubuntu-local under three compilers, 34c9712a (the pin), 0152
   channels back as whole words, through a signed comparison and through the fold. On the
   unfixed kernel under W-333 it answers 10, and its three checks alone answer 10, 70 and
   130; it answers 0 in every other cell.
-- `kernel/pariksha_c.t1` unfixed: the interpreter answers 0 without W-333 and 204 with
-  it, as predicted. Its native runs take over half an hour per compiler and were still
-  building at 12:20 EDT on 2026-10-03; results go to the session memory file
-  `w-333-changes-direct-shift-sites-downstream`.
+- `kernel/pariksha_c.t1`, the kernel's own stereo test, on both engines: unfixed it
+  answers 0 without W-333 and 204 with it, as predicted; fixed it answers 0 under all
+  three compilers. Under the pin its image is the same before and after the fix.
 - The five stale margins listed below are refounded in the same commit, so the line
   numbers in this section are those of 3a55ea7 and shift on the branch.
 
