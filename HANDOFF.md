@@ -729,7 +729,7 @@ The 75-file sweep has this hole because the walker is the only consumer it exerc
 
 *The fix, made but not merged.* On the coordinator's ruling it is on a LOCAL branch in
 the sravan worktree, `agent/midside-signed-shift`, commit 667f10d on 3a55ea7, not pushed,
-waiting for the Śravaṇa lane (sansos-4b) to review and merge. It declares the two
+APPROVED by the Śravaṇa lane (sansos-4b, 2026-10-03 ~13:10 EDT) and NOT merged: their push to sravan main was refused by their session's permission check, so the merge, a fast-forward of 3a55ea7, waits for the owner. No other session pushes it on their behalf. It declares the two
 temporaries `योगफलम्` and `अन्तरम्` as `अ६४`, which makes the shift arithmetic by the rule
 itself. Measured on ubuntu-local under three compilers, 34c9712a (the pin), 01525acb and
 15f2d8f2 (with W-333), both engines agreeing everywhere:
