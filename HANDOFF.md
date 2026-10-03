@@ -677,6 +677,21 @@ laptop core. To re-take: `wt-sravan-real/.build/retake-walker.sh`, put the two c
 - `figures.json` is still hand-maintained except for the 21 figures the gate derives; the
   rest waits on a metrics file in sravan.
 
+**What this lane is doing besides the page (2026-10-03 05:00 EDT).** The page is at r52
+and nothing is pending on it. On an owner ruling relayed by the coordinator ("idle lanes
+take small Sassembly rows", reviewed and landed by sansos-e0), this lane took three rows in
+the sansos repository, each on its own feature branch and worktree, falsifier first, gated
+remotely in its own directory, pushed and never merged by this lane: W-349 (a brace or
+bracket in a source gets a hint that a template was not substituted; landed), W-348 (a
+statement that begins with the else keyword is refused with a message that says so;
+landed, with a follow-up at 05e62550 gated clean and waiting for review), and T-103 (the
+benchmark note says what its script measures; landed). It is now running D-004, the
+triple-build fixpoint, as a measurement: trunk 6b5cd09f in `~/d004-39` on ubuntu-local,
+`tools/fixpoint.sh` unmodified, then a third stage by hand. sansos-e0 ruled that the third
+stage on the same host is only a determinism check and that the row's acceptance is the
+third stage on the Jetson; the result goes to sansos-e0, who edits the ledger. None of
+this changes a figure on the page.
+
 **How speed is framed.** As a floor: the 1 GHz, one-instruction-per-cycle model is named
 as the most pessimistic machine anyone ships, the phone and laptop projections sit beside
 it tagged projected, and the frontier item is cycles per hour of audio (battery), never
