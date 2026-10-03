@@ -190,8 +190,10 @@ one was fooled before: a content grep matched a substring that survived between 
 8. **r51, 2026-10-02 23:06 EDT, THE PER-READ BOUND IS ON THE PAGE.** sravan main is 249e608
    (sansos-42 pushed at 23:03 EDT, 42 commits ahead of d27391f, containing
    agent/per-read-bound 5f25186). Re-taken from main with `.build/retake-walker.sh` on the
-   34c9712a toolchain: image md5 aab6bf1b… (byte-identical to the branch image and to
-   sansos-4b's reproduction), `walker_steps1` 9,067,918, `walker_steps10` 198,818,142, same
+   34c9712a toolchain: image md5 aab6bf1b… (byte-identical to the branch image; sansos-4b's
+   reproduction on the b2c0ade4 pin is a different image, aede117e…, with the identical counts
+   and audio: I overstated this as byte-identical in a message and sansos-4b caught it, 23:15
+   EDT), `walker_steps1` 9,067,918, `walker_steps10` 198,818,142, same
    audio digests. The gate re-derived the rest: per frame 21,083,358, 2,574 per
    channel-sample, real time 4.0× (CD rate 4.4×), phone 19×, about 5% of a core (5.1%),
    laptop 42×. `kernel/` re-vendored from 249e608 (1,816 lines, 32 routines);
