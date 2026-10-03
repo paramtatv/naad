@@ -18,7 +18,7 @@ Seven checks, each of which can go red on its own:
      figures.json, so the repository's front page cannot fall behind the site.
   6. nothing above the engineering divider uses the words the handoff reserves
      for the engineering sections: decoder, codec, integer, instruction,
-     bit-exact, frame.
+     bit-exact, frame, runtime, toolchain.
   7. the page and its images load nothing from another origin (hyperlinks are
      allowed, loads are not), use no beacon, socket, frame or import, and every
      local file or anchor they reference exists.
@@ -146,7 +146,7 @@ else:
     above = html[html.find("<body"):html.rfind("<!--", 0, cut)]
     above = re.sub(r"<(style|script|svg)\b.*?</\1>", " ", above, flags=re.S)
     above = re.sub(r"<[^>]+>", " ", above)
-    for m in re.finditer(r"(?i)\b(decod\w*|codec\w*|integer\w*|instruction\w*|bit-exact|frames?)\b", above):
+    for m in re.finditer(r"(?i)\b(decod\w*|codec\w*|integer\w*|instruction\w*|bit-exact|frames?|runtime|toolchain)\b", above):
         fails.append(f"fan section uses {m.group(0)!r}: ...{' '.join(above[max(0, m.start() - 40):m.end() + 20].split())}...")
 
 # 7. Nothing is loaded from another origin, and nothing local is referenced that is not

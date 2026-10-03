@@ -15,7 +15,8 @@ format that is yours for good.
 **The page is written for music fans and talks like one.** Owner's ruling, 2026-09-30:
 listeners, DJs, venues and the people who make gear are the audience; the engineering is
 confined to the two sections below the divider, and nothing above the divider uses the
-words decoder, codec, integer, instruction, bit-exact or frame. The owner rejected two
+words decoder, codec, integer, instruction, bit-exact, frame, runtime or toolchain (the list is a
+floor, not a ceiling; ruling of 2026-10-02 20:30 EDT; the gate's check 6 enforces it). The owner rejected two
 earlier drafts for being technical, and the lesson is that "honest" and "technical" are
 different properties: the fan sections make promises only about what the decode does,
 and the engineering sections say what is not built, so the page stays true without
@@ -24,7 +25,7 @@ sounding like a lab report.
 ## 2. Audiences, and the order they appear
 
 1. Listeners: the record, not the rumour of it. The ride cymbal that keeps ringing.
-2. DJs and venues: six hours, not one skip.
+2. DJs and venues: every second, not one skip.
 3. Your room: turn it up, it is all there.
 4. Makers of gear: small enough for earbuds, serious enough for the studio.
 5. Yours for good: your collection, actually yours.
@@ -186,7 +187,16 @@ one was fooled before: a content grep matched a substring that survived between 
 5. **Sassembly is a language and toolchain that compiles to RV64IMA.** It is not an
    instruction set architecture, and the earlier page said it was.
 6. Say **projected** wherever a figure rests on an assumed clock or IPC.
-8. **r49, 2026-10-02 19:05 EDT:** the attestation row links to the Run-it-here panel ("You can
+8. **r50, 2026-10-02 20:29 EDT, three rulings landed (sansos-42 under the owner's delegation,
+   "Own it. Drive it").** (1) Name: "Paramtatva" is the name on the page; "paramtatv" only
+   where it is literally the handle; no page change needed. (2) The booth headline "Six
+   hours. Not one skip." was a promise with no provenance; now "Every second. Not one
+   skip." and the paragraph says what was done: the record above from first second to
+   last, all 154 of them (`whole_secs`), and all 70 recordings of the broadcasters'
+   library (`sqam_files`), without a skip. (3) "runtime" and "toolchain" above the divider
+   replaced with plain words in four places; both added to §1's list and to the gate's
+   check 6.
+   **r49, 2026-10-02 19:05 EDT:**8. **r49, 2026-10-02 19:05 EDT:** the attestation row links to the Run-it-here panel ("You can
    take the browser reading yourself, below"). Landing shape for Śravaṇa, from sansos-42:
    sansos-4b merged `agent/per-read-bound` (5f25186) into `agent/harness-depth` as 249e608,
    one --no-ff merge recording the review; ONE push of sravan main (42 ahead of d27391f)
@@ -448,7 +458,7 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 
 ## 7. What is next, in order
 
-1. **Live since 2026-10-01; r49 as of 2026-10-02 19:05 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
+1. **Live since 2026-10-01; r50 as of 2026-10-02 20:29 EDT.** The owner reviews by reply: figures and Proof rows go up under the standing push rule (gate green, deploy verified, no third-party asset); new framing, new art and anything irreversible wait for a yes, which the owner has been giving as pasted decision text answering numbered questions. Ask narrow yes/no questions.
 2. **The stream layer exists, fed by the host.** `sravan` `kernel/pariksha_i.t1` (branch
    `stream`) declares the input-channel globals (six public `निवेश…` globals, found by
    sansos-4b in `crates/yantra/tests/t1_user_input_interface.rs`), reads the header from a
