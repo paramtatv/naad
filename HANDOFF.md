@@ -697,19 +697,71 @@ W-367 was filed by sansos-e0 from a finding made here and is not this lane's.
 **DO NOT MOVE THE DECODER'S COMPILER PIN WITHOUT READING THIS.** The page's decoder image
 (`machine/walker.elf`) is built with the toolchain tree 34c9712a, which predates W-333.
 The Śravaṇa kernel declares every integer unsigned and keeps signed values in those
-names, and it has 24 direct right shifts over such names (the mid/side reconstruction
-among them). A compiler at or after sansos trunk 0224d8b6 lowers every one of them as a
-logical shift. Measured 2026-10-03 with the decoder from sravan main 3a55ea7 built both
-ways: the two images differ, and one frame, ten frames, the 11-file faulty corpus and the
-64-file subset corpus give identical halts, identical output digests and identical
-instruction counts, 57 of the 64 verified against their own STREAMINFO MD5 (tables in
-sravan worktree `.build/w333/`). So no wrong answer is known. What is still owed before
-the pin moves is a reading of each direct site over a signed value, which is either
-routed through the kernel's arithmetic helper or re-declared signed: a shift that now
-fills with zeros is correct only where nothing downstream reads the filled bits, and a
-corpus shows that for its own files, not in general. Moving it also changes the walker image's bytes, so
-its checksum in `figures.json`, `machine/PROVENANCE.md` and the expected values in the
-"Run it here" script would all have to be re-taken together, even if no count moves.
+names. A compiler at or after sansos trunk 0224d8b6 lowers a right shift of any such name
+as a LOGICAL shift, parameters and locals alike. **Two sites are wrong under that
+compiler and must be fixed in the same change that moves the pin:** the mid/side
+reconstruction, `nihshesha.t1:1097` and `:1098`. Everything else may stay as written.
+
+*What the corpus showed, and why it could not show this.* Measured 2026-10-03 with the
+decoder from sravan main 3a55ea7 built both ways: the two images differ, and one frame,
+ten frames, the 11-file faulty corpus and the 64-file subset corpus give identical halts,
+output digests and instruction counts, 57 of the 64 verified against their own STREAMINFO
+MD5 (tables in the sravan worktree, `.build/w333/`). Stereo files from the reference
+encoder use mid/side routinely, so the two sites very probably ran with negative operands
+in that sweep; that is an inference and was not measured. The audio is right either way
+because the walker's octet writer reads only bits 0 to 31 of each
+sample (`pariksha_i.t1:349-350`, `:361-362`), and the defect is in bit 63 alone.
+
+*The defect.* The value shifted at those two lines is exactly twice the left sample and
+twice the right sample. For a negative sample a logical shift by one returns the sample
+plus 2^63: the low 63 bits are right and the sign bit is clear. Anything that reads the
+whole word sees a huge positive number: the fold `मेलनम्` (it folds both halves of every
+word, on purpose), a signed comparison, the encoder's range check on a round trip.
+Measured, with the prediction stated before the run: a ten-line probe
+(`.build/w333/probe_ms.t1` in the sravan worktree; mid −3, side 1, so left −2, right −3)
+answers 0 under the compiler without W-333 (01525acb) and 2 ("left is not −2") under the
+one with it (15f2d8f2), on BOTH engines, interpreter and native. So the input that
+exposes it is any mid/side frame with a negative sample, read through the fold and not
+through the PCM writer; the kernel's own stereo test `kernel/pariksha_c.t1` is that input
+(its expected folds are taken over signed words, 64 samples per channel, negative ones
+among them; its own run under both compilers was still building when this was written,
+predicted status 204 with W-333 and 0 without).
+The 75-file sweep has this hole because the walker is the only consumer it exercises.
+
+*The fix, not yet made (the kernel is the Śravaṇa lane's; nothing here was built).*
+Either declare the two temporaries `योगफलम्` and `अन्तरम्` as `अ६४`, which makes the
+shift arithmetic by the rule itself and should cost no instruction, if the typechecker
+accepts the mixed declaration; or route both through `मापनॱदक्षिणसृचिह्नित`, which is
+correct under either lowering but adds a call per sample and so moves the page's step
+counts. Then run `pariksha_c` and the corpora under the new compiler.
+
+*The classification, by reading, sravan main 3a55ea7.* Population by rule: every
+non-comment line with the bare operator ` दक्षिणसृ ` in the kernel modules and the page
+walker. That is 29 sites, not the 24 written here earlier (nihshesha.t1 19, mapana.t1 3,
+lekha.t1 3, pariksha_i.t1 4; the earlier figure left out the walker and the two shifts
+inside the arithmetic helper, and miscounted nihshesha by one). The left operand is a
+name declared `न६४` at every one of them.
+
+| Verdict | Count | Sites |
+|---|---|---|
+| Cannot have bit 63 set: leave | 17 | nihshesha `:85` `:1542` (Rice code before un-zigzag; quotient bounded by stream length), `:245` `:1504` (field of at most 32 bits), `:321` (block size), `:479` `:487` (6-bit code), `:747` `:1032` `:1257` `:1281` `:1349` (CRC registers masked to 8 or 16 bits every step), `:784` (the constant 128); lekha `:80` `:98` (zigzag output of a range-checked residual); pariksha_i `:53` `:183` (an input octet) |
+| Can have bit 63 set, masked: leave | 10 | nihshesha `:111` (a sample; `युक्` 2^32−1 at `:112` keeps source bits 32 to 63, the same either way), `:1425` `:1438` `:1461` (a packed stream word; masks at `:1428`, `:1439`, `:1462`); mapana `:42` `:43` (inside the arithmetic helper: it ORs the sign fill back in at its return, and takes bit 63 with `युक् १`), `:119` (mask at `:120`); lekha `:48` (a signed sample; `युक् १` at `:49`); pariksha_i `:349` `:361` (a signed sample; `युक् २५५` at `:350`, `:362`, shift at most 24) |
+| Can be negative and it matters: fix | 2 | nihshesha `:1097` `:1098` (mid/side; the result is stored whole into the channel arrays) |
+
+Notes on the table. At the 17 unsigned sites a logical shift is the correct operation,
+and at `:85` and `:1542` it is the better one: a Rice code with bit 63 set would have
+been mis-halved by the old arithmetic shift. `pariksha_i.t1:183` has no mask; its only
+consumer is a test against zero (`:176`), which reads the same under either lowering,
+and would still do so if input octets were ever read sign-extended (`:53` is masked at `:54`).
+The 14 direct sites in the kernel's test files (`pariksha_o`, `_s`, `_s2`, `_r`, `_r1`,
+`_r2`, `_pr`) are each followed by `युक् १` or `युक् २५५` and are all masked. Five margins
+state a premise that goes when the pin moves and need refounding in the same change:
+`mapana.t1:22-28` ("there is no signed type", "measured to be an arithmetic shift"),
+`nihshesha.t1:718-721`, `:1063-1066`, `:1380-1383`, and `sanketaka.t1:172-177`.
+
+Moving the pin also changes the walker image's bytes, so its checksum in `figures.json`,
+`machine/PROVENANCE.md` and the expected values in the "Run it here" script would all
+have to be re-taken together, even if no count moves.
 
 **How speed is framed.** As a floor: the 1 GHz, one-instruction-per-cycle model is named
 as the most pessimistic machine anyone ships, the phone and laptop projections sit beside
