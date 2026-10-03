@@ -643,6 +643,25 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
 State at r52, 2026-10-03 02:35 EDT. Everything in this list is true now; the notes it
 replaced are under "Superseded" below and must not be cited.
 
+**THE COMPLETION SCOPE FOR THIS ROUND (owner, by pasted words to the coordinator, 2026-10-03
+about 14:30 EDT).** Śravaṇa is complete for this round when the lossless decoder meets the
+THESIS §6 S1 condition on the current main, through the walker the page ships, with speed as
+native wall time, and attestation stays at two native ISAs. The owner's words: "Keep stating
+two physical architectures (x86-64 and AArch64) honestly" (no emulated ISA to raise the
+count); "Defer phone testing out of scope for this milestone"; the `.t1` encoder is follow-on
+work, "Retain the page's explicit 'model' attribution for the compression figures". This
+lane owes three items:
+1. corpus conformance re-taken on sravan main 667f10d with the page's walker under the pin
+   (SQAM 70, IETF 64, faulty 11), after ubuntu-local's Sassembly runs finish;
+2. `realtime_factor` as wall time on a quiet host, three repeats, host and load printed,
+   after item 1;
+3. after each kernel fix lands (STREAMINFO not first, the two array-size guards, refusal
+   204, all the kernel lane's): the walker rebuilt under the pin, its figures, PROVENANCE,
+   the Run-it-here values and the vendored kernel, in one change.
+Deferred: the phone, the player, multichannel, the `.t1` encoder, the remaining
+hand-maintained figures. If the kernel lane has not started its three by 2026-10-04 noon,
+this lane takes them on branches for its review.
+
 **What the page's speed figures are.** The walker built from sravan main 249e608 (per-read
 bound, window = declared frame size) on the 34c9712a toolchain, image md5 aab6bf1b…: one
 frame 9,067,918, ten frames 198,818,142 (`walker_steps1`, `walker_steps10`). The gate
