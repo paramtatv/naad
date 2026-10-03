@@ -668,6 +668,20 @@ recording on one Jetson core under the emulator: 6.3x slower than real time; fig
 the gate derives the factor. Above the divider the speed is now stated as a model (r56-r58, the
 coordinator's ruling under the owner's delegation, 15:32 and 15:37 EDT).
 
+**OWNER ANSWERS, 2026-10-03 ~16:19 EDT (typed selections relayed by the coordinator).**
+- The audio container's home is Darśana's archive. The 2026-10-02 ruling is normative, as the
+  page already says; no separate native container in sravan.
+- The embedded-decoder cap stays 90,112 octets for audio too ("Keep 90,112; re-measure"). The
+  current 104,208-octet decoder is re-measured after a sravan pin passes W-356, before any size
+  work is planned.
+- W-355 is ruled "Length 0": a fresh non-octet array has length 0, with no nil slot at index 0.
+  It arrives with a later pin. The walker sizes every array by writing its last index in the
+  declaring frame and bounds reads by `ॱ दैर्घ्य`, so the census for that pin must cover the
+  walker and the kernel's own tests, not only the corpora.
+- Every pin move re-takes all published instruction counts, image sizes and the 6.3x figure in
+  the same r-number, with before and after stated (owner: "individual projects will re-baseline
+  published figures when moving compiler pins").
+
 **THE COMPLETION SCOPE FOR THIS ROUND (owner, by pasted words to the coordinator, 2026-10-03
 about 14:30 EDT).** Śravaṇa is complete for this round when the lossless decoder meets the
 THESIS §6 S1 condition on the current main, through the walker the page ships, with speed as
