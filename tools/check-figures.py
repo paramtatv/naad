@@ -116,6 +116,10 @@ if flac_path.exists():
         derived["rt_laptop"] = f"{round(MACHINES['rt_laptop'] / per_second)}×"
         derived["core_phone"] = f"{round(100 * per_second / MACHINES['rt_phone'])}%"
         derived["core_phone_exact"] = f"{100 * per_second / MACHINES['rt_phone']:.1f}%"
+        # THE EMBEDDED TEST'S SLOPE (2026-10-04, P7): two measured counts, two derived figures.
+        slope = (integer("t10_steps") - integer("t2_steps")) / 8
+        derived["timing_retake"] = f"{round(slope):,}"
+        derived["ipcs"] = f"{round(slope / 1024):,}"
         # THE MEASURED CLOCK, beside the modelled one (2026-10-03). jetson_wall is the median of
         # three wall-clock decodes of this whole recording on one Jetson core, the decoder
         # running inside the instruction emulator the page ships; jetson_steps is the count

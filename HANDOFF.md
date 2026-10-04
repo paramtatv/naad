@@ -682,6 +682,21 @@ coordinator's ruling under the owner's delegation, 15:32 and 15:37 EDT).
   the same r-number, with before and after stated (owner: "individual projects will re-baseline
   published figures when moving compiler pins").
 
+**P7 DONE AT r59 (2026-10-04): the page re-taken on sravan main eff3245 under pin sansos 3309cb42 (W-356).**
+- Walker 6c95b378, 103,696 octets (was aab6bf1b, 107,544), built by sravan's own tools/build-walker.sh
+  recipe (the compiler supplies ashtaka). Loading ashtaka explicitly as well gives a DIFFERENT image
+  (34297af5, 106,920 octets) with the same counts and audio: always use the repo's recipe.
+- Counts: one frame 9,067,918 → 9,405,788; ten frames 198,818,142 → 202,190,979 (+1.70%); per channel-
+  sample 2,574 → 2,615; the 1 GHz model still 4.0×. Jetson wall time 969.3 → 993.6 s median (993.62,
+  1,015.03, 993.21), 6.3× → 6.4× slower than real time, on the SAME emulator binary (5d4c0341), so the
+  change is the walker's. "Run it here" expects 202,190,979; its audio fingerprint is unchanged.
+- Faulty set: 9 decode (all 9 to their own MD5), 2 refused, 0 wrong (was 8/3 with 2 wrong).
+- Test-image counts re-taken under 3309cb42: real 9,311,975; seq 155,080,024; resync 160,273,953;
+  t2 4,040,013 and t10 15,387,757 (t10 could not be built under 34c9712a), slope 1,418,468 and
+  ipcs 1,385, both now derived by the gate.
+- NOT re-taken, provenance kept: crcshare and crc_gain (need the profiler), whole_ram (no RAM
+  reading in this toolchain), the attestation rows (tied to their own older image).
+
 **THE COMPLETION SCOPE FOR THIS ROUND (owner, by pasted words to the coordinator, 2026-10-03
 about 14:30 EDT).** Śravaṇa is complete for this round when the lossless decoder meets the
 THESIS §6 S1 condition on the current main, through the walker the page ships, with speed as

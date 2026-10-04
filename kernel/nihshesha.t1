@@ -351,6 +351,19 @@
         ॰ how many residuals this partition carries — the FIRST one is short
         चरः सङ्ख्या ॱॱ न६४ भवति विभागमापः ।
         यदि व समम् ० आदि
+            ॰ A FIRST PARTITION SHORTER THAN THE ORDER. Its count underflows; the
+            ॰ loop below compares SIGNED and so writes nothing (sansos-4b's probe
+            ॰ e51078b), but the LATER partitions still write their full size from
+            ॰ क्रमः on, ending up to ३१ slots past the block: past the residual
+            ॰ array when it is sized to the block. Until 2026-10-03 the count
+            ॰ check (५) caught it only AFTER those writes. Now nothing is written
+            ॰ and the answer is the array's length + १, which no honest count can
+            ॰ be; उपखण्डपाठः names it ६.
+            यदि विभागमापः न्यूनम् क्रमः आदि
+                चरः अतिसीमा ॱॱ न६४ भवति अवशेषाः ॱ दैर्घ्य ।
+                अतिसीमा भवति अतिसीमा योगः १ ।
+                प्रत्यागमनम् अतिसीमा ।
+            इति
             सङ्ख्या भवति सङ्ख्या वियोगः क्रमः ।
         इति
 
@@ -580,7 +593,9 @@
 ॰
 ॰ ANSWERS ० on success, १/२ from the header, ३ on an invalid LPC precision
 ॰ (०b११११), ४ on a reserved residual coding method, ५ if the residual did not
-॰ fill the block, १६ if a read would have passed the end of धारा (tested before
+॰ fill the block, ६ if the warm-up or the partitions would write past the end
+॰ of the block (an order above the block size, or a first partition shorter
+॰ than the order), १६ if a read would have passed the end of धारा (tested before
 ॰ ३, ४ and ५, which a saturated ० could otherwise be taken for).
 सार्वजनिक वृत्तिः उपखण्डपाठः आदाय धारा ॱॱ अङ्कः अन्तः न६४ ऽ सूचकम् ॱॱ अङ्कः अन्तः न६४ ऽ नमूनाः ॱॱ अङ्कः अन्तः न६४ ऽ अवशेषाः ॱॱ अङ्कः अन्तः न६४ ऽ गुणकाः ॱॱ अङ्कः अन्तः न६४ ऽ लक्षणम् ॱॱ अङ्कः अन्तः न६४ ऽ खण्डमापः ॱॱ न६४ ऽ गहनता ॱॱ न६४ ददाति न६४ आदि
     चरः शीर्षफलम् ॱॱ न६४ भवति उपखण्डशीर्षपाठः आरभ्य धारा ऽ सूचकम् ऽ लक्षणम् समाप्तम् ।
@@ -620,6 +635,13 @@
 
     ॰ FIXED and LPC — warm-up, then a predictor, then a residual
     यदि प्रकारः अधिकम् १ आदि
+        ॰ ६: THE WARM-UP IS LONGER THAN THE BLOCK. An order-३२ LPC subframe in
+        ॰ a १६-sample block would write ३२ warm-up samples into an array the
+        ॰ caller sized for १६. RFC 9639 §9.2.6 does not allow it; refuse it
+        ॰ before the first write.
+        यदि क्रमः अधिकम् खण्डमापः आदि
+            प्रत्यागमनम् ६ ।
+        इति
         चरः उ४ ॱॱ न६४ भवति यथावत्पाठः आरभ्य धारा ऽ सूचकम् ऽ नमूनाः ऽ ० ऽ क्रमः ऽ प्रभावी समाप्तम् ।
         चरः सृतिः ॱॱ न६४ भवति ० ।
 
@@ -657,6 +679,9 @@
         चरः सी४ ॱॱ न६४ भवति सूचकम् अङ्कः ० अन्तः ।
         यदि सी४ अधिकम् अवधिः आदि
             प्रत्यागमनम् १६ ।
+        इति
+        यदि लिखितम् अधिकम् खण्डमापः आदि
+            प्रत्यागमनम् ६ ।         ॰ the partitions would have run past the residual array
         इति
         यदि लिखितम् असमम् खण्डमापः आदि
             प्रत्यागमनम् ५ ।
@@ -1148,7 +1173,8 @@
 ॰ and an unimplemented path must answer, not guess.
 ॰
 ॰ ANSWERS ० on success; १–८ straight from the frame header; १० more than two
-॰ channels; २०+n from a failing subframe (n its own code, +४० for the second
+॰ channels; ११ a frame block size larger than वामः, दक्षिणः or अवशेषाः (the
+॰ caller may grow them to लक्षणम् १ and try again); २०+n from a failing subframe (n its own code, +४० for the second
 ॰ channel); १३ non-zero padding; १४ CRC-१६ mismatch; १५ an unknown pairing;
 ॰ १६ a read would have passed the end of धारा, from ANY depth and never as
 ॰ २० + १६ or ६० + १६. The caller may hold a longer window and try again.
@@ -1167,6 +1193,33 @@
 
     यदि वाहिनः अधिकम् २ आदि
         प्रत्यागमनम् १० ।
+    इति
+
+    ॰ ११: THE FRAME IS LONGER THAN THE ARRAYS IT WOULD BE DECODED INTO. The
+    ॰ caller sizes वामः, दक्षिणः and अवशेषाः, normally from STREAMINFO's maximum
+    ॰ block size, and a frame header can declare more: the IETF faulty set's
+    ॰ "01 - wrong max blocksize" declares ४,०९६ and carries १६,३८४-sample
+    ॰ frames, and "08 - blocksize 65536" declares a maximum that does not fit
+    ॰ its १६-bit field and reads back as ०. Until 2026-10-03 the subframes were
+    ॰ then written past the arrays' ends. Natively a callee's write past an
+    ॰ array it was handed is LOST (W-359), so both files decoded to status ०
+    ॰ with audio that matched neither their STREAMINFO MD5 nor ffmpeg: wrong
+    ॰ samples, said to be right. Refused here, before any sample is written,
+    ॰ with लक्षणम् already holding the frame's block size, so a caller that can
+    ॰ grow its arrays (the walker does) grows them and decodes the frame again.
+    चरः वामसीमा ॱॱ न६४ भवति वामः ॱ दैर्घ्य ।
+    यदि खण्डमापः अधिकम् वामसीमा आदि
+        प्रत्यागमनम् ११ ।
+    इति
+    चरः अवशेषसीमा ॱॱ न६४ भवति अवशेषाः ॱ दैर्घ्य ।
+    यदि खण्डमापः अधिकम् अवशेषसीमा आदि
+        प्रत्यागमनम् ११ ।
+    इति
+    यदि वाहिनः समम् २ आदि
+        चरः दक्षिणसीमा ॱॱ न६४ भवति दक्षिणः ॱ दैर्घ्य ।
+        यदि खण्डमापः अधिकम् दक्षिणसीमा आदि
+            प्रत्यागमनम् ११ ।
+        इति
     इति
 
     ॰ the extra bit goes to whichever channel holds the difference
