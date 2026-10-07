@@ -68,8 +68,7 @@ MD5. It uses fixed predictors, one partition, no LPC, so its files are +15% to +
 cost-model figures price LPC and partition search; the join is tested only once the encoder
 makes those choices, with the model's prediction registered first. **Cost model corrected
 2026-10-02** (13 bits per FIXED/LPC subframe it omitted, sravan 67c8c01): the page's `ratio`
-stays +0.1% (exact +0.098%, 47,557,586 vs 47,511,114 octets, 64 files); SQAM under the
-corrected vectorised model reads −0.777% on 70 tracks (THESIS §6; not on the page); both
+stays +0.1% (exact +0.098%, 47,557,586 vs 47,511,114 octets, 64 files); the R&D-licensed set's figure is withheld (owner 2026-10-07); both
 registered predictions for the re-runs were wrong and are recorded as such. **The `.t1` encoder is
 still not built**, but as of 12:50Z its foundation exists: `kernel/lekha.t1` (sravan
 `agent/harness-depth` 52f0de2) adds the `.t1` write-side primitives (bit writer, zigzag, Rice
@@ -217,8 +216,7 @@ one was fooled before: a content grep matched a substring that survived between 
    where it is literally the handle; no page change needed. (2) The booth headline "Six
    hours. Not one skip." was a promise with no provenance; now "Every second. Not one
    skip." and the paragraph says what was done: the record above from first second to
-   last, all 154 of them (`whole_secs`), and all 70 recordings of the broadcasters'
-   library (`sqam_files`), without a skip. (3) "runtime" and "toolchain" above the divider
+   last, all 154 of them (`whole_secs`), without a skip (the R&D-licensed set's clause was removed 2026-10-07). (3) "runtime" and "toolchain" above the divider
    replaced with plain words in four places; both added to §1's list and to the gate's
    check 6.
    **r49, 2026-10-02 19:05 EDT:**8. **r49, 2026-10-02 19:05 EDT:** the attestation row links to the Run-it-here panel ("You can
@@ -528,13 +526,13 @@ monorepo and Darśana's planned D6 `नाद`, which are two more spellings of 
    `whole_*`). Two cautions carried on the page: the figure exists only on a tree with the
    W-359 workaround (an array grown in a callee loses its growth natively; `fe0056e` answers
    101 and emits nothing), and no wall time or realtime factor is published from that run
-   because the machine was shared with the SQAM corpus run. Must build on a tree with the
+   because the machine was shared with a corpus run. Must build on a tree with the
    W-306 narrow-store fix (6365e334); 34c9712a and 19c3c8f3 have it. The recording is
    48 kHz, 7,396,369 samples per channel, 154.1 s; a peer's 167.7 s assumed 44.1 kHz.
    **Corpus conformance landed 2026-10-01 23:50 EDT (r27):** sansos-4b ran the same build over
-   all 70 EBU SQAM files; 70/70 match the STREAMINFO MD5 (figures `sqam_*`, table at
-   `~/darsan-logs/sqam-conformance.tsv`, recounted). S1's completion condition is met for the
-   decoder. Fan sentence above the divider: "the broadcasters' reference library".
+   an R&D-licensed corpus; its figures are withheld from public pages (owner 2026-10-07) and are
+   re-measured on the open-licence corpus. S1's completion condition is met for the
+   decoder. (Its fan sentence was removed 2026-10-07.)
 2b. **The sequence test, superseded for everything but its counts.** `sravan` branch `real-frame` now walks the
    first frames of the Commons file in order (`reference/genstream.py`, `pariksha_s.t1`,
    frames packed eight octets to a word; ten frames green on both engines with the cursor carried, so boundaries are
@@ -649,7 +647,7 @@ matches neither their STREAMINFO MD5 nor ffmpeg's: their frames are larger than 
 the file declares, and were decoded into arrays sized from it. The page had said all eight
 faulty decodes "decode to audio" because tools/faulty-refusal.sh checks only that the machine
 does not halt abnormally. Status 0 from this walker does NOT mean the MD5 was checked; read
-the md5 column. The SQAM 70 and IETF 57 figures were scored by a harness that does compare
+the md5 column. The IETF 57 figures were scored by a harness that does compare
 the MD5 (their sources say so) and stand until the re-run says otherwise. Fix on sravan
 branch agent/array-guards, under review.
 
@@ -661,7 +659,6 @@ status-0 file equal to its own STREAMINFO MD5, none status 0 with a wrong MD5; t
 38-44, 3 to 8 channels) declined by design with 310. ffmpeg agrees on 54 of the 57; the other
 three (22, 12-bit; 37 and 62, 20-bit) are "no-format" rows, a gap in the harness, which asks
 ffmpeg only for 8/16/24/32-bit output, and NOT agreement. Faulty set: see the paragraph above.
-SQAM 70: running at 19:58 UTC.
 
 **WALL TIME (item 2), DONE and on the page at r55-r58.** 969.3 s median of three for the 154.1 s
 recording on one Jetson core under the emulator: 6.3x slower than real time; figures jetson_*;
@@ -706,7 +703,7 @@ count); "Defer phone testing out of scope for this milestone"; the `.t1` encoder
 work, "Retain the page's explicit 'model' attribution for the compression figures". This
 lane owes three items:
 1. corpus conformance re-taken on sravan main 667f10d with the page's walker under the pin
-   (SQAM 70, IETF 64, faulty 11), after ubuntu-local's Sassembly runs finish;
+   (IETF 64, faulty 11, and the open-licence corpus), after ubuntu-local's Sassembly runs finish;
 2. `realtime_factor` as wall time on a quiet host, three repeats, host and load printed,
    after item 1;
 3. after each kernel fix lands (STREAMINFO not first, the two array-size guards, refusal
