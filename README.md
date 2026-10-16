@@ -46,6 +46,7 @@ the decoder source in `kernel/`.
 ## Working on the page
 
     python3 tools/check-figures.py     # before every commit
+    sh tools/check-kernel-signed.sh    # before every commit (resync bound compares signed)
     sh tools/verify-deploy.sh          # after a deploy to main
 
 See [`HANDOFF.md`](HANDOFF.md) for the positioning, the claim ladder and the constraints.
